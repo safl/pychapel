@@ -1,0 +1,5 @@
+chapel/ccode
+*.pyc
+*.so
+*.o
+*.a
