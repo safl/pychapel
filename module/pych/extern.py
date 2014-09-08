@@ -8,6 +8,7 @@ class Extern(object):
     """
 
     def __init__(self, f, name, doc, sig):
+
         self.f      = f
         self.name   = name
         self.doc    = doc
@@ -23,6 +24,7 @@ class FromC(object):
     """Encapsulates a call to an external function."""
 
     def __init__(self, f):
+
         self._extern = Extern(
             f       = f,
             name    = f.__name__,
@@ -31,12 +33,9 @@ class FromC(object):
         )
 
     def __call__(self, *args):
-        print "Calling..."
-        
+       
         self._extern.sig = [type(arg) for arg in args]
-        print self._extern
-        self._extern.f(*args)
-        print "Called..."
+        pych.runtime.instance.execute(self._extern)
 
 class FromChapel(FromC):
     pass
