@@ -1,4 +1,5 @@
 chapel/ccode
+*.swp
 *.pyc
 *.so
 *.o
