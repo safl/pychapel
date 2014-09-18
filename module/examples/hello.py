@@ -1,11 +1,19 @@
+import logging
+
 import pych
 from pych.extern import FromC
 
-@FromC
-def hello_c():
-    pass
+@FromC(clib="hello_c.so", cname="hello_c")
+def hello_cworld():
+    return None
+
+#@FromC()
+#def add(x, y):
+#    """
+#    return x+y;
+#    """
+#    return int
 
 if __name__ == "__main__":
-
-    pych.runtime.instance.object_cache.preload()
-    hello_c()
+    logging.basicConfig(level=logging.DEBUG)
+    print hello_cworld()

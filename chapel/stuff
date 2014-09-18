@@ -1,0 +1,10 @@
+Brags:
+
+ * Construct a .so file from Chapel Code, call a Chapel function from Python.
+
+Next week:
+
+ * Type-conversion of primitive types.
+ * Pass by reference
+ * Dynamic compilation
+
