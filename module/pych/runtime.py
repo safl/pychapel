@@ -11,11 +11,7 @@ config = {
     "search_paths":     ["/home/safl/pychapel/module/libraries"],
 }
 
-typemap = {
-    int:        ctypes.c_int,
-    long:       ctypes.c_long,
-    float:      ctypes.c_double,
-}
+
 
 class Runtime(object):
 
@@ -25,31 +21,33 @@ class Runtime(object):
 
         logging.basicConfig(level=log_level)
 
-    def execute(self, extern):
-        logging.debug("Executing %s | %s" % (extern.cname, extern))
+    def dispatch(self, extern):
+        """Tries to obtain executable code for the given extern."""
+        
+        try:    # Grabbing it from existing loaded symbols
+            return self.object_cache._functions[extern.cname]
+        except Exception as E:
+            logging.debug("No handle for: [P: %s -> C: %s]" % (extern.pname, extern.cname))
 
-        #
-        # First check if the function-handle is avaiable
-        fp = None
-        try:
-            fp = self.object_cache._functions[extern.cname]
-        except AttributeError as e:
-            pass
-        except KeyError as e:
-            pass
-
-        #
-        # Check if library-handle is available
-        try:
-            fp = self.object_cache.load(extern.clib, extern.cname) if not fp else fp
+        try:    # Loading it from associated library aka dlload()...
+            return self.object_cache.load(extern.clib, extern.cname)
         except Exception as e:
-            logging.debug("Failed grabbing library: %s" % extern.clib)
+            logging.debug("No library-handle for: [%s]" % extern.clib)
+
+        try:    # Opening library from disk and loading aka dlopen(), dlload()
+            lh = self.object_cache.find(extern.clib)
+            if lh:
+                return self.object_cache.load(extern.cname)
+        except Exception as e:
+            logging.debug("No libraries in in search-path for [%s]" % extern.clib)
 
         #
-        # Check if library is available on disk
+        # At this point we know that no library exist for the given extern,
+        # so it must either be faulty or an not-yet compiled "inline"
+        #
 
         #
-        # Check if "inline-source" is available
+        # Check if "inline-source" / function-body is available
         if not fp and extern.doc:
             pass                # TODO: Compile and load "inline-source"
 
@@ -57,16 +55,24 @@ class Runtime(object):
         # Check if a "source-file" is available
         if not fp:
             pass
+        
+        logging.debug("Dispatch did not find anything!")
+        return None                                     # At last we give up
 
-        fp.argtypes = [typemap[type(arg)] for arg in extern.args]
-        res = fp(*extern.args)
-        if not extern.rtype:    # Mangle return-void
-            res = None
+    def execute(self, extern):
+        logging.debug("Executing %s | %s" % (extern.cname, extern))
 
-        return res
+        fp = self.dispatch(extern)
+        if not fp:
+            raise Exception("Bahhh cannot materialize extern.")
+
 
         #
-        # At last we give up
+        # Call the function
+        res = fp(*extern.args)
+
+        logging.debug("Type: %s" % type(res))
+        return res
 
 instance = Runtime(logging.DEBUG)    # Singleton instance of the runtime
 instance.object_cache.preload()

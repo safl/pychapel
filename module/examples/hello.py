@@ -16,7 +16,7 @@ def hello_cworld():
 # C-function "hello_c".
 #
 @FromC(clib="libexamples.so", cname="add_ints")
-def add_ints(x, y):
+def add_ints(x=int, y=int):
     return int
 
 #
@@ -24,7 +24,7 @@ def add_ints(x, y):
 # C-function "hello_c".
 #
 @FromC(clib="libexamples.so", cname="add_doubles")
-def add_doubles(x, y):
+def add_doubles(x=float, y=float):
     return float
 
 #@FromC()
@@ -39,4 +39,5 @@ if __name__ == "__main__":
     print hello_cworld()
 
     print add_ints(1, 2)
-    print add_floats(1.0, 2.0)
+    print add_doubles(1.0, 2.0)
+    print add_doubles(1.0, 2.0)
