@@ -1,4 +1,5 @@
 import logging
+import ctypes
 
 from pych.object_cache import ObjectCache
 from pych.compiler import Compiler
@@ -8,6 +9,12 @@ config = {
     "ccode_path":       "/home/safl/pychapel/module/ccode",
     "chapelcode_path":  "/home/safl/pychapel/module/chapelcode",
     "search_paths":     ["/home/safl/pychapel/module/libraries"],
+}
+
+typemap = {
+    int:        ctypes.c_int,
+    long:       ctypes.c_long,
+    float:      ctypes.c_double,
 }
 
 class Runtime(object):
@@ -44,15 +51,23 @@ class Runtime(object):
         #
         # Check if "inline-source" is available
         if not fp and extern.doc:
-            pass    # TODO: compile and load "inline-source"
+            pass                # TODO: Compile and load "inline-source"
 
         #
         # Check if a "source-file" is available
         if not fp:
             pass
-        fp(*extern.args)
+
+        fp.argtypes = [typemap[type(arg)] for arg in extern.args]
+        res = fp(*extern.args)
+        if not extern.rtype:    # Mangle return-void
+            res = None
+
+        return res
+
         #
         # At last we give up
 
 instance = Runtime(logging.DEBUG)    # Singleton instance of the runtime
 instance.object_cache.preload()
+

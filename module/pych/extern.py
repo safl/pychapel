@@ -1,15 +1,11 @@
 import logging
 import inspect
 import pprint
+import ctypes
 
 import pych.runtime
 
-py2c = {
-    int:    'i',
-    long:   'I',
-    float:  'd',
-    str:    's'
-}
+
 
 class Extern(object):
     """
@@ -78,6 +74,8 @@ class FromC(object):
             self._extern.args   = args
             self._extern.sig    = [type(arg) for arg in args]
             self._extern.rtype  = self._extern.f(*args)
+
+            # Add the argument conversion
         
             return pych.runtime.instance.execute(self._extern)
 
