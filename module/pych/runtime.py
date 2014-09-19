@@ -1,5 +1,6 @@
 import logging
 import ctypes
+import pprint
 
 from pych.object_cache import ObjectCache
 from pych.compiler import Compiler
@@ -21,9 +22,18 @@ class Runtime(object):
 
         logging.basicConfig(level=log_level)
 
+        self.hints = []
+
+    def hint(self, extern):
+        """
+        Hint the runtime that we might be interested in this extern,
+        some time in the future.
+        """
+        self.hints.append(extern)
+
     def dispatch(self, extern):
         """Tries to obtain executable code for the given extern."""
-        
+
         try:    # Grabbing it from existing loaded symbols
             return self.object_cache._functions[extern.cname]
         except Exception as E:
@@ -55,7 +65,7 @@ class Runtime(object):
         # Check if a "source-file" is available
         if not fp:
             pass
-        
+
         logging.debug("Dispatch did not find anything!")
         return None                                     # At last we give up
 

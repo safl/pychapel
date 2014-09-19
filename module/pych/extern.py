@@ -7,9 +7,12 @@ import pych.runtime
 
 typemap = {
     None:       None,
+    bool:       ctypes.c_bool,
     int:        ctypes.c_int,
     long:       ctypes.c_long,
-    float:      ctypes.c_double
+    float:      ctypes.c_double,
+    str:        ctypes.c_char_p,
+    unicode:    ctypes.c_wchar_p
 }
 
 class Extern(object):
@@ -95,28 +98,13 @@ class FromC(object):
         self._extern.rtype  = self._extern.pfunc()
 
         #
-        # Obtain the external object.
-        fp = pych.runtime.instance.dispatch(self._extern)
-        if not fp:
-            raise Exception("Cannot materialize function!")
-
+        # Hint the runtime that we might want to call this extern in
+        # future.
+        # This could be used as a means of compiling the
+        # function ahead of time. Or compile all hinted functions
+        # in one go.
         #
-        #   Consider:
-        #
-        #   We might be able to compile everything into one module
-        #   by catching all the declarations and not compiling until
-        #   the first call. We do not need the function handle until
-        #   that point anyway since we extract 
-        #
-
-        #
-        # Register argument conversion functions on cfunc
-        fp.argtypes = [typemap[atype] for atype in self._extern.atypes]
-        fp.restype  = typemap[self._extern.rtype]
-
-        #
-        # Register the cfunc handle on Extern
-        self._extern.cfunc = fp
+        pych.runtime.instance.hint(self._extern)
 
         def wrapped_f(*args):
             # This is invoked on each function-call
@@ -130,6 +118,21 @@ class FromC(object):
                 at_text = pprint.pformat(self._extern.atypes)
                 raise TypeError("Unsupported arg-types; %s. Expected: %s" %
                                 (ct_text, at_text))
+            #
+            # Obtain the external object.
+            if not self._extern.cfunc:
+                fp = pych.runtime.instance.dispatch(self._extern)
+                if not fp:
+                    raise Exception("Cannot materialize function!")
+                #
+                # Register argument conversion functions on cfunc
+                fp.argtypes = [typemap[atype] for atype in self._extern.atypes]
+                fp.restype  = typemap[self._extern.rtype]
+
+                #
+                # Register the cfunc handle on Extern
+                self._extern.cfunc = fp
+
             #
             # Call
             return self._extern.cfunc(*args)
