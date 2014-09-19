@@ -30,7 +30,7 @@ class ObjectCache(object):
         """
         for sp in self._search_paths:
             library_abspath = "%s/%s" % (sp, library_fn)
-            if os.path.exists():
+            if os.path.exists(library_abspath):
                 return self.open(library_abspath)
 
         return None

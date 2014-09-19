@@ -20,13 +20,15 @@ class Extern(object):
     Encapsulates a mapping between a Python function and an external function.
     """
 
-    def __init__(self, pfunc=None, pname=None, doc=None, atypes=[], rtype=None,
+    def __init__(self, pfunc=None, pname=None, doc=None,
+                 atypes=[], anames=[], rtype=None,
                  cfunc=None, cname=None, clib=None, cfile=None):
 
         self.pfunc  = pfunc     # Python function handle
         self.pname  = pname     # Python function name
         self.doc    = doc       # Python doc-string (used for inline source-code)
         self.atypes = atypes    # Python types of function arguments
+        self.anames = anames    # Python names of function arguments
         self.rtype  = rtype     # Python type for the return value
 
         self.cfunc  = cfunc     # ctypes function handle
@@ -51,6 +53,7 @@ class FromC(object):
             pname   = None,
             doc     = None,
             atypes  = [],
+            anames  = [],
             rtype   = None,
 
             cfunc   = None,
@@ -77,6 +80,10 @@ class FromC(object):
         self._extern.atypes = list(arg_spec.defaults) if arg_spec.defaults else []
 
         #
+        # Extract the argument names
+        self._extern.anames = arg_spec.args
+
+        #
         # Validate the function declaration
         if len(self._extern.atypes) != len(arg_spec.args):
             # Check that we have sufficient amount of type-declarations
@@ -99,7 +106,7 @@ class FromC(object):
 
         #
         # Hint the runtime that we might want to call this extern in
-        # future.
+        # the future.
         # This could be used as a means of compiling the
         # function ahead of time. Or compile all hinted functions
         # in one go.
@@ -121,9 +128,10 @@ class FromC(object):
             #
             # Obtain the external object.
             if not self._extern.cfunc:
-                fp = pych.runtime.instance.dispatch(self._extern)
+                fp = pych.runtime.instance.materialize(self._extern)
+
                 if not fp:
-                    raise Exception("Cannot materialize function!")
+                    raise Exception("Failed materializing function!")
                 #
                 # Register argument conversion functions on cfunc
                 fp.argtypes = [typemap[atype] for atype in self._extern.atypes]
