@@ -1,6 +1,3 @@
-import logging
-
-import pych
 from pych.extern import FromC
 
 #
@@ -35,7 +32,6 @@ def add_doubles(x=float, y=float):
 #    return int
 
 if __name__ == "__main__":
-    logging.basicConfig(level=logging.DEBUG)
     print hello_cworld()
     #print add_ints(1, 2)
     #print add_doubles(1.0, 2.0)
