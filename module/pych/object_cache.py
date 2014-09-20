@@ -20,7 +20,7 @@ class ObjectCache(object):
         self._libraries = {}                # library.so => cdll-library-handle
 
     def open(self, library_abspath):
-        """Open a library, returns and stores a handle to it."""
+        """Open a library, return and store a handle to it."""
 
         library_fn = os.path.basename(library_abspath)
         if library_fn not in self._libraries:
@@ -28,23 +28,26 @@ class ObjectCache(object):
 
         return self._libraries[library_fn]
 
-    def load(self, library_fn, function_name):
-        """Load a function from library, returns and stores a handle to it."""
-
-        handle = operator.attrgetter(function_name)(self._libraries[library_fn])
-
-        self._functions[function_name] = handle
- 
-        return self._functions[function_name]
-
-    def preload(self):
+    def open_ahead(self):
         """Open handles to all libraries in search-path."""
 
         for search_path in self._search_paths:
             for library_abspath in glob.glob("%s/*.so" % search_path):
                 self.open(library_abspath)
 
-        logging.debug("Preloaded: %s", pprint.pformat(self._libraries))
+        logging.debug(
+            "Opened these libraries: %s",
+            pprint.pformat(self._libraries)
+        )
+
+    def load(self, library_fn, function_name):
+        """Load a function from library, return and store a handle to it."""
+
+        handle = operator.attrgetter(function_name)(self._libraries[library_fn])
+
+        self._functions[function_name] = handle
+ 
+        return self._functions[function_name]
 
     def find(self, library_fn):
         """
@@ -53,11 +56,15 @@ class ObjectCache(object):
         """
         for sp in self._search_paths:
             library_abspath = "%s/%s" % (sp, library_fn)
-            logging.debug("Looking for %s", library_abspath)
+            logging.debug(
+                "Is clib(%s) here: '%s'?",
+                library_fn,
+                library_abspath
+            )
             if os.path.exists(library_abspath):
                 return self.open(library_abspath)
 
-        logging.debug("Could not find %s", library_fn)
+        logging.debug("clib(%s) is nowhere to be found.", library_fn)
         return None
 
     def evoke(self, extern):

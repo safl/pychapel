@@ -70,5 +70,5 @@ class Runtime(object):
         return cfunc
 
 instance = Runtime(logging.DEBUG)    # Singleton instance of the runtime
-#instance.object_cache.preload()
+instance.object_cache.open_ahead()
 
