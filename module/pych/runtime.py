@@ -1,6 +1,7 @@
 import logging
 import ctypes
 import pprint
+import os
 
 from pych.object_cache import ObjectCache
 from pych.specializer import Specializer
@@ -8,7 +9,7 @@ from pych.compiler import Compiler
 
 config = {
     "compiler_cmd":     "gcc",
-    "ccode_path":       "/home/safl/pychapel/module/ccode/templates",
+    "ccode_path":       "/home/safl/pychapel/module/ccode/src",
     "chapelcode_path":  "/home/safl/pychapel/module/chapelcode",
     "search_paths":     ["/home/safl/pychapel/module/libraries"],
 }
@@ -16,13 +17,16 @@ config = {
 class Runtime(object):
 
     def __init__(self, log_level=logging.ERROR):
+        self.hints = []
+
         self.compiler       = Compiler(config["compiler_cmd"])
         self.object_cache   = ObjectCache(config["search_paths"])
         self.specializer    = Specializer(config["ccode_path"])
 
-        logging.basicConfig(level=log_level)
-
-        self.hints = []
+        logging.basicConfig(
+            level=log_level,
+            format="%(levelname)s:%(module)s:%(funcName)s: %(message)s"
+        )
 
     def hint(self, extern):
         """
@@ -34,54 +38,37 @@ class Runtime(object):
     def materialize(self, extern):
         """
         Materializes an extern.
-        That means doing all it can to obtain it... compile it it
-        it is an inline or source-defition, load it if defined as
-        a library-wrapper.
+
+        That means doing all it can to obtain it... compile it if it is 
+        an inline or from source-code, load it if defined as
+        a library-wrapper, all the bells and whistles...
+
+        @contract   Assume that the caller has checked that the Extern
+                    is currently materialized aka verified that
+                    Extern.cfunc == None.
+                    Nothing bad will happen except for unnessecary work.
         """
-        #
-        # Construct source-code using specializer, we assume that
-        # if a doc-string is supplied then thats "inline" source-code
-        if extern.doc:
-            extern.cname = extern.pname
-            extern.clib  = "inline.so"
 
-            source   = self.specializer.specialize(extern)
-            out, err = self.compiler.compile(
-                source, 
-                "%s/%s" % (self.object_cache._output_path, extern.clib)
-            )
+        cfunc = self.object_cache.evoke(extern) # Evoke the cfunc
 
-        #
-        # Send sourcecode to compiler for compilation
+        if not cfunc:                           # Create an evokeable object
+            source = None
+            if extern.doc:
+                source = self.specializer.specialize(extern)
 
-        try:    # Grabbing it from existing loaded symbols
-            return self.object_cache._functions[extern.cname]
-        except Exception as e:
-            logging.debug(e)
-            logging.debug("No handle for: [P: %s -> C: %s]" % (extern.pname, extern.cname))
+            if extern.cfile:
+                source  = self.specializer.load(extern.cfile)
 
-        try:    # Loading it from associated library aka dlload()...
-            return self.object_cache.load(extern.clib, extern.cname)
-        except Exception as e:
-            logging.debug(e)
-            logging.debug("No library-handle for: [%s]" % extern.clib)
+            if source:
+                out, err = self.compiler.compile(
+                    source, 
+                    "%s/%s" % (self.object_cache._output_path, extern.clib)
+                )
+            
+            cfunc = self.object_cache.evoke(extern) # Attempt evocation again
 
-        try:    # Opening library from disk and loading aka dlopen(), dlload()
-            lh = self.object_cache.find(extern.clib)
-            if lh:
-                return self.object_cache.load(extern.clib, extern.cname)
-        except Exception as e:
-            logging.debug(e)
-            logging.debug("No libraries in in search-path for [%s]" % extern.clib)
-
-        #
-        # At this point we know that no library exist for the given extern,
-        # so it must either be faulty or an not-yet compiled "inline/template".
-        # So the caller should attempt to materialize it.
-
-        logging.debug("Dispatch did not find anything!")
-        return None                                     # At last we give up
+        return cfunc
 
 instance = Runtime(logging.DEBUG)    # Singleton instance of the runtime
-instance.object_cache.preload()
+#instance.object_cache.preload()
 

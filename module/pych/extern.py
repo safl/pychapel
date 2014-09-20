@@ -2,6 +2,7 @@ import logging
 import inspect
 import pprint
 import ctypes
+import os
 
 import pych.runtime
 
@@ -105,7 +106,22 @@ class FromC(object):
         self._extern.rtype  = self._extern.pfunc()
 
         #
-        # Hint the runtime that we might want to call this extern in
+        # Extract attributes for inline and cfile Externs
+        if self._extern.doc:
+            self._extern.cname = self._extern.pname
+            self._extern.clib  = "inline.so"
+
+        if self._extern.cfile:
+            # Parsing the source might be convenient here..
+            if not self._extern.cname:
+                self._extern.cname = self._extern.pname
+
+            self._extern.clib = "lib%s.so" % os.path.splitext(os.path.basename(
+                self._extern.cfile
+            ))[0]
+
+        #
+        # Hint the runtime that we might want to call this Extern in
         # the future.
         # This could be used as a means of compiling the
         # function ahead of time. Or compile all hinted functions

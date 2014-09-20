@@ -7,7 +7,7 @@ from pych.extern import FromC
 # Mapping the Python function "hello_cworld" to the
 # C-function "hello_c".
 #
-@FromC(clib="libexamples.so", cname="hello_world")
+@FromC(clib="libexamples.so", cname="hello_worlds")
 def hello_cworld():
     return None
 
@@ -37,7 +37,7 @@ def add_doubles(x=float, y=float):
 if __name__ == "__main__":
     logging.basicConfig(level=logging.DEBUG)
     print hello_cworld()
-    print add_ints(1, 2)
-    print add_doubles(1.0, 2.0)
-    print add_doubles(1.0, 2.0)
-    print add_doubles(1.0, 2.0)
+    #print add_ints(1, 2)
+    #print add_doubles(1.0, 2.0)
+    #print add_doubles(1.0, 2.0)
+    #print add_doubles(1.0, 2.0)
