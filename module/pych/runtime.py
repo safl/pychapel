@@ -28,6 +28,8 @@ class Runtime(object):
             format="%(levelname)s:%(module)s:%(funcName)s: %(message)s"
         )
 
+        self.object_cache.open_ahead()
+
     def hint(self, extern):
         """
         Hint the runtime that we might be interested in this extern
@@ -39,12 +41,16 @@ class Runtime(object):
         """
         Materializes an extern.
 
-        That means doing all it can to obtain it... compile it if it is 
-        an inline or from source-code, load it if defined as
-        a library-wrapper, all the bells and whistles...
+        That means doing all it can to obtain cfunc/function-handle:
+
+        Compile it using an inline-template
+        Compile it from a straightforward sourcefile
+        Compile it using a specialization template
+        "Just" load it if defined as a library-wrapper
+        Possibly other stunts..
 
         @contract   Assume that the caller has checked that the Extern
-                    is currently materialized aka verified that
+                    is not yet materialized aka verified that
                     Extern.cfunc == None.
                     Nothing bad will happen except for unnessecary work.
         """
@@ -70,5 +76,4 @@ class Runtime(object):
         return cfunc
 
 instance = Runtime(logging.DEBUG)    # Singleton instance of the runtime
-instance.object_cache.open_ahead()
 

@@ -7,7 +7,7 @@ from pych.extern import FromC
 # Mapping the Python function "hello_cworld" to the
 # C-function "hello_c".
 #
-@FromC(clib="libexamples.so", cname="hello_worlds")
+@FromC(clib="libexamples.so", cname="hello_world")
 def hello_cworld():
     return None
 

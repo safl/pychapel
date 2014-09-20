@@ -36,8 +36,8 @@ class ObjectCache(object):
                 self.open(library_abspath)
 
         logging.debug(
-            "Opened these libraries: %s",
-            pprint.pformat(self._libraries)
+            "Opened the following libraries 'ahead of time': %s",
+            [clib for clib in self._libraries]
         )
 
     def load(self, library_fn, function_name):
