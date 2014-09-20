@@ -67,16 +67,16 @@ class FromC(object):
     def _validate_decl(self):
         """Validate the function declaration."""
 
-        if len(self._extern.atypes) != len(arg_spec.args):
+        if len(self._extern.atypes) != len(self._extern.anames):
             # Check that we have sufficient amount of type-declarations
             raise TypeError("Missing type declaration on arguments.")
         else:
             # Check that declared types are supported
-            for i, arg in enumerate(arg_spec.args):
-                arg_type = list(arg_spec.defaults)[i]
+            for i, arg in enumerate(self._extern.anames):
+                arg_type = self._extern.atypes[i]
                 if arg_type not in typemap:
                     msg = "Unsupported type: %s for argument %s" % (
-                        arg_type, arg_spec.args[i]
+                        arg_type, arg
                     )
                     raise TypeError(msg)
 
