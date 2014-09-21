@@ -1,7 +1,7 @@
+docs/build
 chapel/ccode
 *.swp
 *.pyc
 *.so
 *.o
 *.a
-doc/build
