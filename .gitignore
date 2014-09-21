@@ -4,3 +4,4 @@ chapel/ccode
 *.so
 *.o
 *.a
+doc/build
