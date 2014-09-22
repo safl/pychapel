@@ -1,1 +1,7 @@
-
+{
+    "ccode_path": "/home/safl/pychapel/module/ccode/src",
+    "search_paths": ["/home/safl/pychapel/module/libraries"],
+    "compiler_cmd": "gcc", 
+    "chapelcode_path": "/home/safl/pychapel/module/chapelcode",
+    "log_level": "DEBUG"
+}

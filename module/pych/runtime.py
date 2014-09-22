@@ -1,30 +1,29 @@
 import logging
 import ctypes
 import pprint
+import json
 import os
 
 from pych.object_cache import ObjectCache
 from pych.specializer import Specializer
 from pych.compiler import Compiler
 
-config = {
-    "compiler_cmd":     "gcc",
-    "ccode_path":       "/home/safl/pychapel/module/ccode/src",
-    "chapelcode_path":  "/home/safl/pychapel/module/chapelcode",
-    "search_paths":     ["/home/safl/pychapel/module/libraries"],
-}
-
 class Runtime(object):
 
-    def __init__(self, log_level=logging.ERROR):
+    def __init__(self, config_fn=None):
         self.hints = []
+
+        if not config_fn:
+            config_fn = "pych.json"
+
+        config = json.load(open(config_fn))
 
         self.compiler       = Compiler(config["compiler_cmd"])
         self.object_cache   = ObjectCache(config["search_paths"])
         self.specializer    = Specializer(config["ccode_path"])
 
         logging.basicConfig(
-            level=log_level,
+            level=config["log_level"],
             format="%(levelname)s:%(module)s:%(funcName)s: %(message)s"
         )
 
@@ -75,5 +74,5 @@ class Runtime(object):
 
         return cfunc
 
-instance = Runtime(logging.DEBUG)    # Singleton instance of the runtime
+instance = Runtime()    # Singleton instance of the runtime
 
