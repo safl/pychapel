@@ -23,7 +23,8 @@ class Extern(object):
 
     def __init__(self, pfunc=None, pname=None, doc=None,
                  atypes=[], anames=[], rtype=None,
-                 cfunc=None, cname=None, clib=None, cfile=None):
+                 efunc=None, ename=None, elib=None,
+                 sfile=None, slang=None):
 
         self.pfunc  = pfunc     # Python function handle
         self.pname  = pname     # Python function name
@@ -32,10 +33,11 @@ class Extern(object):
         self.anames = anames    # Python names of function arguments
         self.rtype  = rtype     # Python type for the return value
 
-        self.cfunc  = cfunc     # ctypes function handle
-        self.cname  = cname     # c function name
-        self.cfile  = cfile     # c file with sourcecode
-        self.clib   = clib      # c library filename
+        self.efunc  = efunc     # ctypes function handle
+        self.ename  = ename     # External function name
+        self.elib   = elib      # Library filename
+        self.sfile  = sfile     # File with sourcecode
+        self.slang  = slang     # Language of the 
 
     def __repr__(self):
         return pprint.pformat(vars(self))
@@ -46,7 +48,7 @@ class Extern(object):
 class FromC(object):
     """Encapsulates a call to an external function."""
 
-    def __init__(self, cname=None, clib=None, cfile=None):
+    def __init__(self, ename=None, elib=None, sfile=None):
 
         # This is done only once; when the function is decorated
         self._extern = Extern(
@@ -57,10 +59,11 @@ class FromC(object):
             anames  = [],
             rtype   = None,
 
-            cfunc   = None,
-            cname   = cname,
-            clib    = clib,
-            cfile   = cfile
+            efunc   = None,
+            ename   = ename,
+            elib    = elib,
+            sfile   = sfile,
+            slang   = "c"
         )
         logging.debug("__init__decorate__")
 
@@ -111,19 +114,19 @@ class FromC(object):
         # 
         # Extract attributes for "inline" function
         if self._extern.doc:
-            self._extern.cname = self._extern.pname
-            self._extern.clib  = "inline.so"
+            self._extern.ename = self._extern.pname
+            self._extern.elib  = "inline.so"
 
         #
-        # Extract attributes for "cfile" function
-        if self._extern.cfile:
+        # Extract attributes for "sfile" function
+        if self._extern.sfile:
             # TODO: Consider parsing the source-file and expanding validation
             #       of the type-declaration using the parsed information.
-            if not self._extern.cname:
-                self._extern.cname = self._extern.pname
+            if not self._extern.ename:
+                self._extern.ename = self._extern.pname
 
-            self._extern.clib = "lib%s.so" % os.path.splitext(os.path.basename(
-                self._extern.cfile
+            self._extern.elib = "lib%s.so" % os.path.splitext(os.path.basename(
+                self._extern.sfile
             ))[0]
 
         #
@@ -143,23 +146,23 @@ class FromC(object):
 
             #
             # Obtain the external object.
-            if not self._extern.cfunc:
-                cfunc = pych.runtime.instance.materialize(self._extern)
+            if not self._extern.efunc:
+                efunc = pych.runtime.instance.materialize(self._extern)
 
-                if not cfunc:
+                if not efunc:
                     raise Exception("Failed materializing function!")
                 #
-                # Register argument conversion functions on cfunc
-                cfunc.argtypes = [typemap[atype] for atype in self._extern.atypes]
-                cfunc.restype  = typemap[self._extern.rtype]
+                # Register argument conversion functions on efunc
+                efunc.argtypes = [typemap[atype] for atype in self._extern.atypes]
+                efunc.restype  = typemap[self._extern.rtype]
 
                 #
-                # Register the cfunc handle on Extern
-                self._extern.cfunc = cfunc
+                # Register the efunc handle on Extern
+                self._extern.efunc = efunc
 
             #
             # Call
-            return self._extern.cfunc(*args)
+            return self._extern.efunc(*args)
 
         return wrapped_f
 

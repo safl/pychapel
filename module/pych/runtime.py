@@ -43,7 +43,7 @@ class Runtime(object):
         """
         Materializes an extern.
 
-        That means doing all it can to obtain cfunc/function-handle:
+        That means doing all it can to obtain efunc/function-handle:
 
         Compile it using an inline-template
         Compile it from a straightforward sourcefile
@@ -53,29 +53,29 @@ class Runtime(object):
 
         @contract   Assume that the caller has checked that the Extern
                     is not yet materialized aka verified that
-                    Extern.cfunc == None.
+                    Extern.efunc == None.
                     Nothing bad will happen except for unnessecary work.
         """
 
-        cfunc = self.object_cache.evoke(extern) # Evoke the cfunc
+        efunc = self.object_cache.evoke(extern) # Evoke the efunc
 
-        if not cfunc:                           # Create an evokeable object
+        if not efunc:                           # Create an evokeable object
             source = None
             if extern.doc:
                 source = self.specializer.specialize(extern)
 
-            if extern.cfile:
-                source  = self.specializer.load(extern.cfile)
+            if extern.sfile:
+                source  = self.specializer.load(extern.sfile)
 
             if source:
                 out, err = self.compilers["c"].compile(
                     source, 
-                    "%s/%s" % (self.object_cache._output_path, extern.clib)
+                    "%s/%s" % (self.object_cache._output_path, extern.elib)
                 )
             
-            cfunc = self.object_cache.evoke(extern) # Attempt evocation again
+            efunc = self.object_cache.evoke(extern) # Attempt evocation again
 
-        return cfunc
+        return efunc
 
 instance = Runtime()    # Singleton instance of the runtime
 

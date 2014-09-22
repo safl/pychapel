@@ -56,7 +56,7 @@ class Specializer(object):
             func_text = {
                 "rtype":   type2csource[extern.rtype],
                 "args":    ", ".join(args),
-                "cname":   extern.cname,
+                "ename":   extern.ename,
                 "fbody":   extern.doc
             }
             return tmpl % func_text

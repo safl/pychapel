@@ -37,7 +37,7 @@ class ObjectCache(object):
 
         logging.debug(
             "Opened the following libraries 'ahead of time': %s",
-            [clib for clib in self._libraries]
+            [elib for elib in self._libraries]
         )
 
     def load(self, library_fn, function_name):
@@ -57,57 +57,57 @@ class ObjectCache(object):
         for sp in self._search_paths:
             library_abspath = "%s/%s" % (sp, library_fn)
             logging.debug(
-                "Is clib(%s) here: '%s'?",
+                "Is elib(%s) here: '%s'?",
                 library_fn,
                 library_abspath
             )
             if os.path.exists(library_abspath):
                 return self.open(library_abspath)
 
-        logging.debug("clib(%s) is nowhere to be found.", library_fn)
+        logging.debug("elib(%s) is nowhere to be found.", library_fn)
         return None
 
     def evoke(self, extern):
         """
-        Evoke the cfunc related the given Extern channeling all the power
+        Evoke the efunc related the given Extern channeling all the power
         of the mighty ObjectCache.
         """
 
         try:    # Grabbing it from existing loaded symbols
-            return self._functions[extern.cname]
+            return self._functions[extern.ename]
         except KeyError as exc:
             logging.debug(
                 "No function-handle for: [P: %s -> C: %s]",
                 extern.pname,
-                extern.cname
+                extern.ename
             )
 
         try:    # Loading it from associated library aka dlload()...
-            return self.load(extern.clib, extern.cname)
+            return self.load(extern.elib, extern.ename)
         except KeyError as exc:
-            logging.debug("No library-handle for: [%s]", extern.clib)
+            logging.debug("No library-handle for: [%s]", extern.elib)
         except AttributeError as exc:
             logging.error(
-                "Library(%s) found but cname(%s) is not in it.",
-                extern.clib,
-                extern.cname
+                "Library(%s) found but ename(%s) is not in it.",
+                extern.elib,
+                extern.ename
             )
 
         try:    # Opening library from disk and loading aka dlopen(), dlload()
-            logging.debug("Trying to 'find' library(%s) on disk.", extern.clib)
-            lh = self.find(extern.clib)
+            logging.debug("Trying to 'find' library(%s) on disk.", extern.elib)
+            lh = self.find(extern.elib)
             if lh:
                 logging.debug(
                     "Library(%s) found, trying to load(%s)",
-                    extern.clib,
-                    extern.cname
+                    extern.elib,
+                    extern.ename
                 )
-                return self.load(extern.clib, extern.cname)
+                return self.load(extern.elib, extern.ename)
         except AttributeError as exc:
             logging.error(
-                "Library(%s) found but cname(%s) is not in it.",
-                extern.clib,
-                extern.cname
+                "Library(%s) found but ename(%s) is not in it.",
+                extern.elib,
+                extern.ename
             )
 
         logging.debug(

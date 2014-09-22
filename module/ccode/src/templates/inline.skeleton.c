@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-%(rtype)s %(cname)s(%(args)s) {
+%(rtype)s %(ename)s(%(args)s) {
     %(fbody)s
 }
 
