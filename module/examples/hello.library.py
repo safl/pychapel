@@ -4,7 +4,7 @@ from pych.extern import FromC
 # Mapping the Python function "hello_cworld" to the
 # C-function "hello_c".
 #
-@FromC(clib="libexamples.so", ename="hello_world")
+@FromC(elib="libexamples.so", ename="hello_world")
 def hello_cworld():
     return None
 
@@ -12,7 +12,7 @@ def hello_cworld():
 # Mapping the Python function "" to the
 # C-function "hello_c".
 #
-@FromC(clib="libexamples.so", ename="add_ints")
+@FromC(elib="libexamples.so", ename="add_ints")
 def add_ints(x=int, y=int):
     return int
 
@@ -20,7 +20,7 @@ def add_ints(x=int, y=int):
 # Mapping the Python function "" to the
 # C-function "hello_c".
 #
-@FromC(clib="libexamples.so", ename="add_doubles")
+@FromC(elib="libexamples.so", ename="add_doubles")
 def add_doubles(x=float, y=float):
     return float
 

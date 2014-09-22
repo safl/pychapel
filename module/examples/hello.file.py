@@ -1,6 +1,6 @@
 from pych.extern import FromC
 
-@FromC(cfile="examples.c")
+@FromC(sfile="examples.c")
 def add_doubles(x=float, y=float):
     return float
 
