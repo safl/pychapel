@@ -45,10 +45,10 @@ class Extern(object):
 #
 # Decorate a Python-function with these to construct a mapping to an Extern.
 #
-class FromC(object):
+class FromExtern(object):
     """Encapsulates a call to an external function."""
 
-    def __init__(self, ename=None, elib=None, sfile=None):
+    def __init__(self, ename=None, elib=None, sfile=None, slang=None):
 
         # This is done only once; when the function is decorated
         self._extern = Extern(
@@ -62,8 +62,9 @@ class FromC(object):
             efunc   = None,
             ename   = ename,
             elib    = elib,
+
             sfile   = sfile,
-            slang   = "c"
+            slang   = slang
         )
         logging.debug("__init__decorate__")
 
@@ -166,6 +167,25 @@ class FromC(object):
 
         return wrapped_f
 
-class FromChapel(FromC):
-    pass
+class FromC(FromExtern):
+
+    def __init__(self, ename=None, elib=None, sfile=None):
+        super(FromC, self).__init__(
+            ename = ename,
+            elib = elib,
+
+            sfile = sfile,
+            slang = "C"
+        )
+
+class FromChapel(FromExtern):
+
+    def __init__(self, ename=None, elib=None, sfile=None):
+        super(FromChapel, self).__init__(
+            ename = ename,
+            elib = elib,
+
+            sfile = sfile,
+            slang = "Chapel"
+        )
 
