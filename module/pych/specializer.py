@@ -34,11 +34,7 @@ class Specializer(object):
 
         return self.sources[filename]
 
-    def specialize(self, extern):
-        """Constructs source-code based on the extern."""
-
-        logging.debug(" target-extern: %s", extern)
-
+    def _specialize_c(self, extern):
         #
         # Check if "inline-source" / function-body is available,
         # the inline skeletons are basically just a hardcoded
@@ -59,6 +55,23 @@ class Specializer(object):
                 "ename":   extern.ename,
                 "fbody":   extern.doc
             }
-            return tmpl % func_text
+            extern.source = tmpl % func_text
 
-        return None
+    def _specialize_chapel(self, extern):
+        pass
+
+    def specialize(self, extern):
+        """Constructs source-code based on the extern."""
+
+        logging.debug(" target-extern: %s", extern)
+        if extern.slang.lower() not in ["c", "chapel"]:
+            raise Exception("Unsupported source language(%s)" % extern.slang)
+
+        if not extern.doc:
+            raise Exception("No inline-source available,"
+                            "specify it in doc-string.")
+
+        if extern.slang.lower() == "c":
+            self._specialize_c(extern)
+        elif extern.slang.lower() == "chapel":
+            self._specialice_chapel(extern)

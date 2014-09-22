@@ -1,15 +1,15 @@
 {
     "search_paths": ["/home/safl/pychapel/module/libraries"],
     "compilers": {
-        "c":       {
+        "C":       {
             "commands":  [
                 "gcc -lm -O3 -march=native -fopenmp -fPIC -std=c99 -x c -shared - -o %(lib_out)s"
             ]
         },
-        "chpl":    {
+        "Chapel":    {
             "commands": [
-                "chpl --fast --library --static -o %(tmp_out)s",
-                "g++ -shared -lpthread -o %(lib_out)s -Wl,--whole-archive %(tmp_out)s %(dep_path)s/libchpl.a %(dep_path)s/main.o -Wl,--no-whole-archive"
+                "chpl --fast --library --static -o /tmp/%(tmp_out)s %(sfile)",
+                "g++ -shared -lpthread -o %(lib_out)s -Wl,--whole-archive /tmp/%(tmp_out)s %(dep_path)s/libchpl.a %(dep_path)s/main.o -Wl,--no-whole-archive"
             ],
             "dep_path": "/home/safl/pychapel/modules/libraries/dependencies"
         }

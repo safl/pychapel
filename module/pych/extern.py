@@ -25,19 +25,20 @@ class Extern(object):
     def __init__(self, ename=None, lib=None, sfile=None, slang=None):
 
         # This is done only once; when the function is decorated
-        self.pfunc   = None     # Python function handle
-        self.pname   = None     # Python function name
-        self.doc     = None     # Python doc-string (used for inline source-code)
-        self.atypes  = []       # Python types of function arguments
-        self.anames  = []       # Python names of function arguments
-        self.rtype   = None     # Python type for the return value
+        self.pfunc = None   # Python function handle
+        self.pname = None   # Python function name
+        self.doc = None     # Python doc-string (used for inline source-code)
+        self.atypes = []    # Python types of function arguments
+        self.anames = []    # Python names of function arguments
+        self.rtype = None   # Python type for the return value
 
-        self.efunc   = None     # ctypes function handle
-        self.ename   = ename    # External function name
-        self.lib    = lib     # Library filename
+        self.efunc = None   # ctypes function handle
+        self.ename = ename  # External function name
+        self.lib = lib      # Library filename
 
-        self.sfile   = sfile    # File with sourcecode
-        self.slang   = slang    # Language of the sourcefile or inline
+        self.sfile = sfile  # File with sourcecode
+        self.slang = slang  # Language of the sourcefile or inline
+        self.source = None  # Sourcecode in textual representation
 
         logging.debug("__init__decorate__")
 

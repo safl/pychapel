@@ -11,24 +11,25 @@ from pych.compiler import Compiler
 class Runtime(object):
 
     def __init__(self, config_fn=None):
-        self.hints = []
-
-        if not config_fn:
+        if not config_fn:                       # Load configuration
             config_fn = "pych.json"
 
-        config = json.load(open(config_fn))
+        config = json.load(open(config_fn))     
 
-        self.compilers = {}
-        for compiler in config["compilers"]:
-            self.compilers[compiler] = Compiler(config["compilers"][compiler])
-        
-        self.object_cache   = ObjectCache(config["search_paths"])
-        self.specializer    = Specializer(config["ccode_path"])
-
-        logging.basicConfig(
+        logging.basicConfig(                    # Setup logging
             level=config["log_level"],
             format="%(levelname)s:%(module)s:%(funcName)s: %(message)s"
         )
+
+        self.hints = []
+
+        self.compilers = {}                     # Initialize compilers
+        for compiler in config["compilers"]:
+            logging.debug("Initializing %s compiler.", compiler)
+            self.compilers[compiler.lower()] = Compiler(config["compilers"][compiler])
+        
+        self.object_cache   = ObjectCache(config["search_paths"])
+        self.specializer    = Specializer(config["ccode_path"])
 
         self.object_cache.open_ahead()
 
@@ -48,7 +49,7 @@ class Runtime(object):
         Compile it using an inline-template
         Compile it from a straightforward sourcefile
         Compile it using a specialization template
-        "Just" load it if defined as a library-wrapper
+        Or "Just" load it if defined as a library-wrapper
         Possibly other stunts..
 
         @contract   Assume that the caller has checked that the Extern
@@ -62,14 +63,14 @@ class Runtime(object):
         if not efunc:                           # Create an evokeable object
             source = None
             if extern.doc:
-                source = self.specializer.specialize(extern)
+                self.specializer.specialize(extern)
 
             if extern.sfile:
-                source  = self.specializer.load(extern.sfile)
+                extern.source = self.specializer.load(extern.sfile)
 
-            if source:
+            if extern.source:
                 out, err = self.compilers[extern.slang.lower()].compile(
-                    source, 
+                    extern, 
                     "%s/%s" % (self.object_cache._output_path, extern.lib)
                 )
             
