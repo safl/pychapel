@@ -233,7 +233,7 @@ static void _backupArrays(BaseDom this8, int64_t _ln, c_string _fn) {
   while (T) {
     ret3 = (tmp)->data;
     _virtual_method_tmp_ = ((object)(ret3))->chpl__cid;
-    ((void(*)(BaseArr, int64_t, c_string))chpl_vmtable[((INT64(8) * _virtual_method_tmp_) + INT64(6))])(ret3, _ln, _fn);
+    ((void(*)(BaseArr, int64_t, c_string))chpl_vmtable[((INT64(8) * _virtual_method_tmp_) + INT64(4))])(ret3, _ln, _fn);
     ret4 = (tmp)->next;
     tmp = ret4;
     call_tmp3 = ((object)(ret4));
@@ -267,7 +267,7 @@ static void _removeArrayBackups(BaseDom this8, int64_t _ln, c_string _fn) {
   while (T) {
     ret3 = (tmp)->data;
     _virtual_method_tmp_ = ((object)(ret3))->chpl__cid;
-    ((void(*)(BaseArr, int64_t, c_string))chpl_vmtable[((INT64(8) * _virtual_method_tmp_) + INT64(1))])(ret3, _ln, _fn);
+    ((void(*)(BaseArr, int64_t, c_string))chpl_vmtable[((INT64(8) * _virtual_method_tmp_) + INT64(2))])(ret3, _ln, _fn);
     ret4 = (tmp)->next;
     tmp = ret4;
     call_tmp3 = ((object)(ret4));
@@ -301,7 +301,7 @@ static void _preserveArrayElements(BaseDom this8, int64_t oldslot, int64_t newsl
   while (T) {
     ret3 = (tmp)->data;
     _virtual_method_tmp_ = ((object)(ret3))->chpl__cid;
-    ((void(*)(BaseArr, int64_t, int64_t, int64_t, c_string))chpl_vmtable[((INT64(8) * _virtual_method_tmp_) + INT64(3))])(ret3, oldslot, newslot, _ln, _fn);
+    ((void(*)(BaseArr, int64_t, int64_t, int64_t, c_string))chpl_vmtable[((INT64(8) * _virtual_method_tmp_) + INT64(1))])(ret3, oldslot, newslot, _ln, _fn);
     ret4 = (tmp)->next;
     tmp = ret4;
     call_tmp3 = ((object)(ret4));
@@ -487,7 +487,7 @@ static int64_t destroyArr(BaseArr this8, int64_t _ln, c_string _fn) {
   call_tmp13 = (call_tmp5 == INT64(0));
   if (call_tmp13) {
     _virtual_method_tmp_3 = ((object)(this8))->chpl__cid;
-    call_tmp14 = ((BaseDom(*)(BaseArr, int64_t, c_string))chpl_vmtable[((INT64(8) * _virtual_method_tmp_3) + INT64(4))])(this8, _ln, _fn);
+    call_tmp14 = ((BaseDom(*)(BaseArr, int64_t, c_string))chpl_vmtable[((INT64(8) * _virtual_method_tmp_3) + INT64(5))])(this8, _ln, _fn);
     dom = call_tmp14;
     call_tmp15 = &((dom)->_arrsLock);
     default_argorder2 = local_memory_order_seq_cst;

@@ -94,7 +94,7 @@ static int64_t id(locale this8, int64_t _ln, c_string _fn) {
   int64_t call_tmp;
   int32_t _virtual_method_tmp_;
   _virtual_method_tmp_ = ((object)(this8))->chpl__cid;
-  call_tmp = ((int64_t(*)(locale, int64_t, c_string))chpl_vmtable[((INT64(8) * _virtual_method_tmp_) + INT64(2))])(this8, _ln, _fn);
+  call_tmp = ((int64_t(*)(locale, int64_t, c_string))chpl_vmtable[((INT64(8) * _virtual_method_tmp_) + INT64(1))])(this8, _ln, _fn);
   return call_tmp;
 }
 

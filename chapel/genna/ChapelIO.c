@@ -320,7 +320,7 @@ static void write7(_ref_c_string this8, chpl_string _e0_args, chpl_taskID_t _e1_
   chpl_opaque call_tmp5;
   coerce_tmp = *(this8);
   call_tmp = sizeof(chpl_StringWriter_object);
-  cast_tmp = chpl_here_alloc(call_tmp, INT16(38), _ln, _fn);
+  cast_tmp = chpl_here_alloc(call_tmp, INT16(31), _ln, _fn);
   this9 = ((StringWriter)(cast_tmp));
   ((object)(this9))->chpl__cid = chpl__cid_StringWriter;
   (this9)->s = "";
@@ -358,7 +358,7 @@ static void write8(_ref_c_string this8, chpl_string _e0_args, int64_t _e1_args, 
   chpl_opaque call_tmp5;
   coerce_tmp = *(this8);
   call_tmp = sizeof(chpl_StringWriter_object);
-  cast_tmp = chpl_here_alloc(call_tmp, INT16(38), _ln, _fn);
+  cast_tmp = chpl_here_alloc(call_tmp, INT16(31), _ln, _fn);
   this9 = ((StringWriter)(cast_tmp));
   ((object)(this9))->chpl__cid = chpl__cid_StringWriter;
   (this9)->s = "";
@@ -396,7 +396,7 @@ static void write6(_ref_c_string this8, chpl_string _e0_args, chpl_taskID_t _e1_
   chpl_opaque call_tmp5;
   coerce_tmp = *(this8);
   call_tmp = sizeof(chpl_StringWriter_object);
-  cast_tmp = chpl_here_alloc(call_tmp, INT16(38), _ln, _fn);
+  cast_tmp = chpl_here_alloc(call_tmp, INT16(31), _ln, _fn);
   this9 = ((StringWriter)(cast_tmp));
   ((object)(this9))->chpl__cid = chpl__cid_StringWriter;
   (this9)->s = "";

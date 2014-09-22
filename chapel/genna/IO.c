@@ -1334,24 +1334,7 @@ static void writer2(_ref_file this8, int64_t start, int64_t end, int32_t hints, 
 }
 
 /* IO.chpl:1446 */
-static syserr _write_text_internal(qio_channel_ptr_t _channel_internal, _real64 x, int64_t _ln, c_string _fn) {
-  syserr ret;
-  syserr call_tmp;
-  int32_t call_tmp2;
-  uint64_t call_tmp3;
-  _ref__real64 _ref_tmp_ = NULL;
-  call_tmp2 = ((int32_t)(false));
-  call_tmp3 = ((uint64_t)(INT64(8)));
-  _ref_tmp_ = &x;
-  call_tmp = qio_channel_print_float(call_tmp2, _channel_internal, _ref_tmp_, call_tmp3);
-  ret = call_tmp;
-  goto _end__write_text_internal;
-  _end__write_text_internal:;
-  return ret;
-}
-
-/* IO.chpl:1446 */
-static syserr _write_text_internal2(qio_channel_ptr_t _channel_internal, chpl_string x, int64_t _ln, c_string _fn) {
+static syserr _write_text_internal(qio_channel_ptr_t _channel_internal, chpl_string x, int64_t _ln, c_string _fn) {
   syserr ret;
   c_string call_tmp;
   c_string call_tmp2;
@@ -1370,7 +1353,7 @@ static syserr _write_text_internal2(qio_channel_ptr_t _channel_internal, chpl_st
 }
 
 /* IO.chpl:1446 */
-static syserr _write_text_internal3(qio_channel_ptr_t _channel_internal, c_string x, int64_t _ln, c_string _fn) {
+static syserr _write_text_internal2(qio_channel_ptr_t _channel_internal, c_string x, int64_t _ln, c_string _fn) {
   syserr ret;
   int64_t call_tmp;
   syserr call_tmp2;
@@ -1385,7 +1368,7 @@ static syserr _write_text_internal3(qio_channel_ptr_t _channel_internal, c_strin
 }
 
 /* IO.chpl:1446 */
-static syserr _write_text_internal4(qio_channel_ptr_t _channel_internal, uint32_t x, int64_t _ln, c_string _fn) {
+static syserr _write_text_internal3(qio_channel_ptr_t _channel_internal, uint32_t x, int64_t _ln, c_string _fn) {
   syserr ret;
   syserr call_tmp;
   int32_t call_tmp2;
@@ -1404,7 +1387,7 @@ static syserr _write_text_internal4(qio_channel_ptr_t _channel_internal, uint32_
 }
 
 /* IO.chpl:1446 */
-static syserr _write_text_internal5(qio_channel_ptr_t _channel_internal, taskState x, int64_t _ln, c_string _fn) {
+static syserr _write_text_internal4(qio_channel_ptr_t _channel_internal, taskState x, int64_t _ln, c_string _fn) {
   syserr ret;
   c_string call_tmp;
   int64_t call_tmp2;
@@ -1421,177 +1404,7 @@ static syserr _write_text_internal5(qio_channel_ptr_t _channel_internal, taskSta
 }
 
 /* IO.chpl:1685 */
-static chpl_string _args_to_proto(_real64 _e0_args, ioNewline* const _e1_args, chpl_string preArg, int64_t _ln, c_string _fn) {
-  chpl_string ret;
-  c_string err_args;
-  c_string name;
-  chpl_string coerce_tmp;
-  _ref_c_string _ref_tmp_ = NULL;
-  c_string call_tmp;
-  c_string call_tmp2;
-  c_string call_tmp3;
-  chpl_string call_tmp4;
-  int64_t call_tmp5;
-  chpl_bool call_tmp6;
-  c_string call_tmp7;
-  c_string call_tmp8;
-  chpl_string call_tmp9;
-  int64_t call_tmp10;
-  chpl_bool call_tmp11;
-  c_string call_tmp12;
-  c_string call_tmp13;
-  chpl_string call_tmp14;
-  int64_t call_tmp15;
-  chpl_bool call_tmp16;
-  _ref_c_string _ref_tmp_2 = NULL;
-  c_string call_tmp17;
-  c_string call_tmp18;
-  chpl_string call_tmp19;
-  int64_t call_tmp20;
-  chpl_bool call_tmp21;
-  c_string call_tmp22;
-  chpl_string call_tmp23;
-  _ref_c_string _ref_tmp_3 = NULL;
-  c_string call_tmp24;
-  c_string call_tmp25;
-  chpl_string call_tmp26;
-  int64_t call_tmp27;
-  chpl_bool call_tmp28;
-  c_string call_tmp29;
-  c_string name2;
-  chpl_string coerce_tmp2;
-  _ref_c_string _ref_tmp_4 = NULL;
-  c_string call_tmp30;
-  c_string call_tmp31;
-  c_string call_tmp32;
-  chpl_string call_tmp33;
-  int64_t call_tmp34;
-  chpl_bool call_tmp35;
-  c_string call_tmp36;
-  c_string call_tmp37;
-  chpl_string call_tmp38;
-  int64_t call_tmp39;
-  chpl_bool call_tmp40;
-  c_string call_tmp41;
-  c_string call_tmp42;
-  chpl_string call_tmp43;
-  int64_t call_tmp44;
-  chpl_bool call_tmp45;
-  _ref_c_string _ref_tmp_5 = NULL;
-  c_string call_tmp46;
-  c_string call_tmp47;
-  chpl_string call_tmp48;
-  int64_t call_tmp49;
-  chpl_bool call_tmp50;
-  c_string call_tmp51;
-  chpl_string call_tmp52;
-  int64_t call_tmp53;
-  chpl_bool call_tmp54;
-  err_args = "";
-  name = "";
-  coerce_tmp = *(_arg_to_proto_names + INT64(0));
-  _ref_tmp_ = &name;
-  c_string_from_string(&call_tmp, &coerce_tmp, _ln, _fn);
-  *(_ref_tmp_) = call_tmp;
-  c_string_from_string(&call_tmp2, &preArg, _ln, _fn);
-  call_tmp3 = string_concat(call_tmp2, name, _ln, _fn);
-  string_from_c_string(&call_tmp4, call_tmp3, INT64(0), INT64(0), _ln, _fn);
-  call_tmp5 = string_length(call_tmp3);
-  call_tmp6 = (call_tmp5 > INT64(0));
-  if (call_tmp6) {
-    chpl_rt_free_c_string(call_tmp3, _ln, _fn);
-  }
-  c_string_from_string(&call_tmp7, &call_tmp4, _ln, _fn);
-  call_tmp8 = string_concat(call_tmp7, ":", _ln, _fn);
-  string_from_c_string(&call_tmp9, call_tmp8, INT64(0), INT64(0), _ln, _fn);
-  call_tmp10 = string_length(call_tmp8);
-  call_tmp11 = (call_tmp10 > INT64(0));
-  if (call_tmp11) {
-    chpl_rt_free_c_string(call_tmp8, _ln, _fn);
-  }
-  c_string_from_string(&call_tmp12, &call_tmp9, _ln, _fn);
-  call_tmp13 = string_concat(call_tmp12, "real(64)", _ln, _fn);
-  string_from_c_string(&call_tmp14, call_tmp13, INT64(0), INT64(0), _ln, _fn);
-  call_tmp15 = string_length(call_tmp13);
-  call_tmp16 = (call_tmp15 > INT64(0));
-  if (call_tmp16) {
-    chpl_rt_free_c_string(call_tmp13, _ln, _fn);
-  }
-  _ref_tmp_2 = &err_args;
-  c_string_from_string(&call_tmp17, &call_tmp14, _ln, _fn);
-  call_tmp18 = string_concat(err_args, call_tmp17, _ln, _fn);
-  string_from_c_string(&call_tmp19, call_tmp18, INT64(0), INT64(0), _ln, _fn);
-  call_tmp20 = string_length(call_tmp18);
-  call_tmp21 = (call_tmp20 > INT64(0));
-  if (call_tmp21) {
-    chpl_rt_free_c_string(call_tmp18, _ln, _fn);
-  }
-  c_string_from_string(&call_tmp22, &call_tmp19, _ln, _fn);
-  *(_ref_tmp_2) = call_tmp22;
-  string_from_c_string(&call_tmp23, ", ", INT64(0), INT64(0), _ln, _fn);
-  _ref_tmp_3 = &err_args;
-  c_string_from_string(&call_tmp24, &call_tmp23, _ln, _fn);
-  call_tmp25 = string_concat(err_args, call_tmp24, _ln, _fn);
-  string_from_c_string(&call_tmp26, call_tmp25, INT64(0), INT64(0), _ln, _fn);
-  call_tmp27 = string_length(call_tmp25);
-  call_tmp28 = (call_tmp27 > INT64(0));
-  if (call_tmp28) {
-    chpl_rt_free_c_string(call_tmp25, _ln, _fn);
-  }
-  c_string_from_string(&call_tmp29, &call_tmp26, _ln, _fn);
-  *(_ref_tmp_3) = call_tmp29;
-  name2 = "";
-  coerce_tmp2 = *(_arg_to_proto_names + INT64(1));
-  _ref_tmp_4 = &name2;
-  c_string_from_string(&call_tmp30, &coerce_tmp2, _ln, _fn);
-  *(_ref_tmp_4) = call_tmp30;
-  c_string_from_string(&call_tmp31, &preArg, _ln, _fn);
-  call_tmp32 = string_concat(call_tmp31, name2, _ln, _fn);
-  string_from_c_string(&call_tmp33, call_tmp32, INT64(0), INT64(0), _ln, _fn);
-  call_tmp34 = string_length(call_tmp32);
-  call_tmp35 = (call_tmp34 > INT64(0));
-  if (call_tmp35) {
-    chpl_rt_free_c_string(call_tmp32, _ln, _fn);
-  }
-  c_string_from_string(&call_tmp36, &call_tmp33, _ln, _fn);
-  call_tmp37 = string_concat(call_tmp36, ":", _ln, _fn);
-  string_from_c_string(&call_tmp38, call_tmp37, INT64(0), INT64(0), _ln, _fn);
-  call_tmp39 = string_length(call_tmp37);
-  call_tmp40 = (call_tmp39 > INT64(0));
-  if (call_tmp40) {
-    chpl_rt_free_c_string(call_tmp37, _ln, _fn);
-  }
-  c_string_from_string(&call_tmp41, &call_tmp38, _ln, _fn);
-  call_tmp42 = string_concat(call_tmp41, "ioNewline", _ln, _fn);
-  string_from_c_string(&call_tmp43, call_tmp42, INT64(0), INT64(0), _ln, _fn);
-  call_tmp44 = string_length(call_tmp42);
-  call_tmp45 = (call_tmp44 > INT64(0));
-  if (call_tmp45) {
-    chpl_rt_free_c_string(call_tmp42, _ln, _fn);
-  }
-  _ref_tmp_5 = &err_args;
-  c_string_from_string(&call_tmp46, &call_tmp43, _ln, _fn);
-  call_tmp47 = string_concat(err_args, call_tmp46, _ln, _fn);
-  string_from_c_string(&call_tmp48, call_tmp47, INT64(0), INT64(0), _ln, _fn);
-  call_tmp49 = string_length(call_tmp47);
-  call_tmp50 = (call_tmp49 > INT64(0));
-  if (call_tmp50) {
-    chpl_rt_free_c_string(call_tmp47, _ln, _fn);
-  }
-  c_string_from_string(&call_tmp51, &call_tmp48, _ln, _fn);
-  *(_ref_tmp_5) = call_tmp51;
-  string_from_c_string(&call_tmp52, err_args, INT64(0), INT64(0), _ln, _fn);
-  call_tmp53 = string_length(err_args);
-  call_tmp54 = (call_tmp53 > INT64(0));
-  if (call_tmp54) {
-    chpl_rt_free_c_string(err_args, _ln, _fn);
-  }
-  ret = call_tmp52;
-  return ret;
-}
-
-/* IO.chpl:1685 */
-static chpl_string _args_to_proto2(chpl_string _e0_args, c_string _e1_args, chpl_string _e2_args, uint32_t _e3_args, chpl_string _e4_args, taskState _e5_args, ioNewline* const _e6_args, chpl_string preArg, int64_t _ln, c_string _fn) {
+static chpl_string _args_to_proto(chpl_string _e0_args, c_string _e1_args, chpl_string _e2_args, uint32_t _e3_args, chpl_string _e4_args, taskState _e5_args, ioNewline* const _e6_args, chpl_string preArg, int64_t _ln, c_string _fn) {
   chpl_string ret;
   c_string err_args;
   c_string name;
@@ -2182,233 +1995,7 @@ static chpl_string _args_to_proto2(chpl_string _e0_args, c_string _e1_args, chpl
 }
 
 /* IO.chpl:2059 */
-static chpl_bool writeln(_ref_channel_T_dynamic_T this8, _real64 _e0_args, int64_t _ln, c_string _fn) {
-  ioNewline this9;
-  ioNewline wrap_call_tmp;
-  _real64 args_x1;
-  ioNewline args_x2;
-  chpl_bool ret;
-  syserr e;
-  syserr type_tmp;
-  _ref_syserr _ref_tmp_ = NULL;
-  syserr call_tmp;
-  _ref_syserr _ref_tmp_2 = NULL;
-  syserr _formal_tmp_error;
-  _ref_syserr _ref_tmp_3 = NULL;
-  syserr call_tmp2;
-  syserr err;
-  syserr type_tmp2;
-  _ref_syserr _ref_tmp_4 = NULL;
-  syserr call_tmp3;
-  _ref_syserr _ref_tmp_5 = NULL;
-  syserr _formal_tmp_error2;
-  _ref_syserr _ref_tmp_6 = NULL;
-  syserr call_tmp4;
-  qio_channel_ptr_t ret2;
-  syserr call_tmp5;
-  int32_t call_tmp6;
-  chpl_bool call_tmp7;
-  chpl_string call_tmp8;
-  int32_t call_tmp9;
-  chpl_bool call_tmp10;
-  qio_channel_ptr_t ret3;
-  _real64 coerce_tmp;
-  syserr e2;
-  syserr type_tmp3;
-  _ref_syserr _ref_tmp_7 = NULL;
-  syserr call_tmp11;
-  uint8_t call_tmp12;
-  uint8_t call_tmp13;
-  chpl_bool call_tmp14;
-  int16_t call_tmp15;
-  int16_t call_tmp16;
-  chpl_bool call_tmp17;
-  syserr ret4;
-  syserr call_tmp18;
-  int32_t call_tmp19;
-  int32_t call_tmp20;
-  uint64_t call_tmp21;
-  _ref__real64 _ref_tmp_8 = NULL;
-  int16_t call_tmp22;
-  int16_t call_tmp23;
-  chpl_bool call_tmp24;
-  syserr ret5;
-  syserr call_tmp25;
-  int32_t call_tmp26;
-  int32_t call_tmp27;
-  uint64_t call_tmp28;
-  _ref__real64 _ref_tmp_9 = NULL;
-  syserr ret6;
-  syserr call_tmp29;
-  int32_t call_tmp30;
-  int32_t call_tmp31;
-  uint64_t call_tmp32;
-  _ref__real64 _ref_tmp_10 = NULL;
-  syserr call_tmp33;
-  int32_t call_tmp34;
-  chpl_bool call_tmp35;
-  qio_channel_ptr_t ret7;
-  syserr ret8;
-  syserr type_tmp4;
-  _ref_syserr _ref_tmp_11 = NULL;
-  syserr call_tmp36;
-  syserr call_tmp37;
-  int32_t call_tmp38;
-  qio_channel_ptr_t ret9;
-  int32_t call_tmp39;
-  chpl_bool call_tmp40;
-  chpl_string call_tmp41;
-  chpl_string call_tmp42;
-  c_string call_tmp43;
-  c_string call_tmp44;
-  chpl_string call_tmp45;
-  int64_t call_tmp46;
-  chpl_bool call_tmp47;
-  c_string call_tmp48;
-  c_string call_tmp49;
-  chpl_string call_tmp50;
-  int64_t call_tmp51;
-  chpl_bool call_tmp52;
-  (&this9)->skipWhitespaceOnly = false;
-  (&this9)->skipWhitespaceOnly = false;
-  wrap_call_tmp = _construct_ioNewline(false, &this9, _ln, _fn);
-  args_x1 = _e0_args;
-  args_x2 = wrap_call_tmp;
-  _ref_tmp_ = &type_tmp;
-  call_tmp = qio_int_to_err(INT32(0));
-  *(_ref_tmp_) = call_tmp;
-  e = type_tmp;
-  _ref_tmp_2 = &e;
-  _ref_tmp_3 = &_formal_tmp_error;
-  call_tmp2 = qio_int_to_err(INT32(0));
-  *(_ref_tmp_3) = call_tmp2;
-  _ref_tmp_4 = &type_tmp2;
-  call_tmp3 = qio_int_to_err(INT32(0));
-  *(_ref_tmp_4) = call_tmp3;
-  err = type_tmp2;
-  _ref_tmp_5 = &err;
-  _ref_tmp_6 = &_formal_tmp_error2;
-  call_tmp4 = qio_int_to_err(INT32(0));
-  *(_ref_tmp_6) = call_tmp4;
-  ret2 = (this8)->_channel_internal;
-  call_tmp5 = qio_channel_lock(ret2);
-  _formal_tmp_error2 = call_tmp5;
-  *(_ref_tmp_5) = call_tmp5;
-  call_tmp6 = qio_err_iserr(err);
-  call_tmp7 = (call_tmp6 != INT32(0));
-  if (call_tmp7) {
-    string_from_c_string(&call_tmp8, "in lock", INT64(0), INT64(0), _ln, _fn);
-    _ch_ioerror(this8, err, call_tmp8, _ln, _fn);
-  }
-  call_tmp9 = qio_err_iserr(_formal_tmp_error);
-  call_tmp10 = (call_tmp9 == INT32(0));
-  if (call_tmp10) {
-    ret3 = (this8)->_channel_internal;
-    coerce_tmp = _e0_args;
-    _ref_tmp_7 = &type_tmp3;
-    call_tmp11 = qio_int_to_err(INT32(0));
-    *(_ref_tmp_7) = call_tmp11;
-    call_tmp12 = qio_channel_binary(ret3);
-    call_tmp13 = qio_channel_byteorder(ret3);
-    call_tmp14 = (call_tmp12 != UINT8(0));
-    if (call_tmp14) {
-      call_tmp15 = ((int16_t)(call_tmp13));
-      call_tmp16 = ((int16_t)(iokind_big));
-      call_tmp17 = (call_tmp15 == call_tmp16);
-      if (call_tmp17) {
-        call_tmp19 = ((int32_t)(false));
-        call_tmp20 = ((int32_t)(iokind_big));
-        call_tmp21 = ((uint64_t)(INT64(8)));
-        _ref_tmp_8 = &coerce_tmp;
-        call_tmp18 = qio_channel_write_float(call_tmp19, call_tmp20, ret3, _ref_tmp_8, call_tmp21);
-        ret4 = call_tmp18;
-        goto _end__write_binary_internal;
-        _end__write_binary_internal:;
-        e2 = ret4;
-      } else {
-        call_tmp22 = ((int16_t)(call_tmp13));
-        call_tmp23 = ((int16_t)(iokind_little));
-        call_tmp24 = (call_tmp22 == call_tmp23);
-        if (call_tmp24) {
-          call_tmp26 = ((int32_t)(false));
-          call_tmp27 = ((int32_t)(iokind_little));
-          call_tmp28 = ((uint64_t)(INT64(8)));
-          _ref_tmp_9 = &coerce_tmp;
-          call_tmp25 = qio_channel_write_float(call_tmp26, call_tmp27, ret3, _ref_tmp_9, call_tmp28);
-          ret5 = call_tmp25;
-          goto _end__write_binary_internal2;
-          _end__write_binary_internal2:;
-          e2 = ret5;
-        } else {
-          call_tmp30 = ((int32_t)(false));
-          call_tmp31 = ((int32_t)(iokind_native));
-          call_tmp32 = ((uint64_t)(INT64(8)));
-          _ref_tmp_10 = &coerce_tmp;
-          call_tmp29 = qio_channel_write_float(call_tmp30, call_tmp31, ret3, _ref_tmp_10, call_tmp32);
-          ret6 = call_tmp29;
-          goto _end__write_binary_internal3;
-          _end__write_binary_internal3:;
-          e2 = ret6;
-        }
-      }
-    } else {
-      call_tmp33 = _write_text_internal(ret3, _e0_args, _ln, _fn);
-      e2 = call_tmp33;
-    }
-    _formal_tmp_error = e2;
-  }
-  call_tmp34 = qio_err_iserr(_formal_tmp_error);
-  call_tmp35 = (call_tmp34 == INT32(0));
-  if (call_tmp35) {
-    ret7 = (this8)->_channel_internal;
-    _ref_tmp_11 = &type_tmp4;
-    call_tmp36 = qio_int_to_err(INT32(0));
-    *(_ref_tmp_11) = call_tmp36;
-    call_tmp38 = ((int32_t)(false));
-    call_tmp37 = qio_channel_write_newline(call_tmp38, ret7);
-    ret8 = call_tmp37;
-    goto _end__write_one_internal;
-    _end__write_one_internal:;
-    _formal_tmp_error = ret8;
-  }
-  ret9 = (this8)->_channel_internal;
-  qio_channel_unlock(ret9);
-  qio_err_iserr(_formal_tmp_error);
-  *(_ref_tmp_2) = _formal_tmp_error;
-  call_tmp39 = qio_err_iserr(e);
-  call_tmp40 = (call_tmp39 == INT32(0));
-  if (call_tmp40) {
-    ret = true;
-    goto _end_write;
-  } else {
-    string_from_c_string(&call_tmp42, "", INT64(0), INT64(0), _ln, _fn);
-    call_tmp41 = _args_to_proto(args_x1, &args_x2, call_tmp42, _ln, _fn);
-    c_string_from_string(&call_tmp43, &call_tmp41, _ln, _fn);
-    call_tmp44 = string_concat("in channel.write(", call_tmp43, _ln, _fn);
-    string_from_c_string(&call_tmp45, call_tmp44, INT64(0), INT64(0), _ln, _fn);
-    call_tmp46 = string_length(call_tmp44);
-    call_tmp47 = (call_tmp46 > INT64(0));
-    if (call_tmp47) {
-      chpl_rt_free_c_string(call_tmp44, _ln, _fn);
-    }
-    c_string_from_string(&call_tmp48, &call_tmp45, _ln, _fn);
-    call_tmp49 = string_concat(call_tmp48, ")", _ln, _fn);
-    string_from_c_string(&call_tmp50, call_tmp49, INT64(0), INT64(0), _ln, _fn);
-    call_tmp51 = string_length(call_tmp49);
-    call_tmp52 = (call_tmp51 > INT64(0));
-    if (call_tmp52) {
-      chpl_rt_free_c_string(call_tmp49, _ln, _fn);
-    }
-    _ch_ioerror(this8, e, call_tmp50, _ln, _fn);
-    ret = false;
-    goto _end_write;
-  }
-  _end_write:;
-  return ret;
-}
-
-/* IO.chpl:2059 */
-static chpl_bool writeln2(_ref_channel_T_dynamic_T this8, chpl_string _e0_args, c_string _e1_args, chpl_string _e2_args, uint32_t _e3_args, chpl_string _e4_args, taskState _e5_args, int64_t _ln, c_string _fn) {
+static chpl_bool writeln(_ref_channel_T_dynamic_T this8, chpl_string _e0_args, c_string _e1_args, chpl_string _e2_args, uint32_t _e3_args, chpl_string _e4_args, taskState _e5_args, int64_t _ln, c_string _fn) {
   ioNewline this9;
   ioNewline wrap_call_tmp;
   chpl_string args_x1;
@@ -2808,7 +2395,7 @@ static chpl_bool writeln2(_ref_channel_T_dynamic_T this8, chpl_string _e0_args, 
         }
       }
     } else {
-      call_tmp42 = _write_text_internal2(ret3, _e0_args, _ln, _fn);
+      call_tmp42 = _write_text_internal(ret3, _e0_args, _ln, _fn);
       e2 = call_tmp42;
     }
     _formal_tmp_error = e2;
@@ -2864,7 +2451,7 @@ static chpl_bool writeln2(_ref_channel_T_dynamic_T this8, chpl_string _e0_args, 
         }
       }
     } else {
-      call_tmp70 = _write_text_internal3(ret7, args_x22, _ln, _fn);
+      call_tmp70 = _write_text_internal2(ret7, args_x22, _ln, _fn);
       e3 = call_tmp70;
     }
     _formal_tmp_error = e3;
@@ -2926,7 +2513,7 @@ static chpl_bool writeln2(_ref_channel_T_dynamic_T this8, chpl_string _e0_args, 
         }
       }
     } else {
-      call_tmp104 = _write_text_internal2(ret11, args_x32, _ln, _fn);
+      call_tmp104 = _write_text_internal(ret11, args_x32, _ln, _fn);
       e4 = call_tmp104;
     }
     _formal_tmp_error = e4;
@@ -2986,7 +2573,7 @@ static chpl_bool writeln2(_ref_channel_T_dynamic_T this8, chpl_string _e0_args, 
         }
       }
     } else {
-      call_tmp132 = _write_text_internal4(ret15, args_x42, _ln, _fn);
+      call_tmp132 = _write_text_internal3(ret15, args_x42, _ln, _fn);
       e5 = call_tmp132;
     }
     _formal_tmp_error = e5;
@@ -3048,7 +2635,7 @@ static chpl_bool writeln2(_ref_channel_T_dynamic_T this8, chpl_string _e0_args, 
         }
       }
     } else {
-      call_tmp166 = _write_text_internal2(ret19, args_x52, _ln, _fn);
+      call_tmp166 = _write_text_internal(ret19, args_x52, _ln, _fn);
       e6 = call_tmp166;
     }
     _formal_tmp_error = e6;
@@ -3113,7 +2700,7 @@ static chpl_bool writeln2(_ref_channel_T_dynamic_T this8, chpl_string _e0_args, 
         }
       }
     } else {
-      call_tmp197 = _write_text_internal5(ret23, args_x62, _ln, _fn);
+      call_tmp197 = _write_text_internal4(ret23, args_x62, _ln, _fn);
       e7 = call_tmp197;
     }
     _formal_tmp_error = e7;
@@ -3143,7 +2730,7 @@ static chpl_bool writeln2(_ref_channel_T_dynamic_T this8, chpl_string _e0_args, 
     goto _end_write;
   } else {
     string_from_c_string(&call_tmp206, "", INT64(0), INT64(0), _ln, _fn);
-    call_tmp205 = _args_to_proto2(args_x1, args_x2, args_x3, args_x4, args_x5, args_x6, &args_x7, call_tmp206, _ln, _fn);
+    call_tmp205 = _args_to_proto(args_x1, args_x2, args_x3, args_x4, args_x5, args_x6, &args_x7, call_tmp206, _ln, _fn);
     c_string_from_string(&call_tmp207, &call_tmp205, _ln, _fn);
     call_tmp208 = string_concat("in channel.write(", call_tmp207, _ln, _fn);
     string_from_c_string(&call_tmp209, call_tmp208, INT64(0), INT64(0), _ln, _fn);
@@ -3166,15 +2753,5 @@ static chpl_bool writeln2(_ref_channel_T_dynamic_T this8, chpl_string _e0_args, 
   }
   _end_write:;
   return ret;
-}
-
-/* IO.chpl:2193 */
-static void writeln3(_real64 _e0_args, int64_t _ln, c_string _fn) {
-  channel_T_dynamic_T local_stdout;
-  _ref_channel_T_dynamic_T _ref_tmp_ = NULL;
-  local_stdout = stdout2;
-  _ref_tmp_ = &local_stdout;
-  writeln(_ref_tmp_, _e0_args, _ln, _fn);
-  return;
 }
 

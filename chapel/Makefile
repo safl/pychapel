@@ -1,5 +1,5 @@
-#CHPL = chpl --savec genna --fast --library --static
-CHPL = chpl --savec ccode --fast
+CHPL = chpl --savec genna --fast --library --static
+#CHPL = chpl --savec ccode --fast
 TARGETS = \
 	chapel
 

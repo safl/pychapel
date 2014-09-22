@@ -18,7 +18,10 @@ class Runtime(object):
 
         config = json.load(open(config_fn))
 
-        self.compiler       = Compiler(config["compiler_cmd"])
+        self.compilers = {}
+        for compiler in config["compilers"]:
+            self.compilers[compiler] = Compiler(config["compilers"][compiler])
+        
         self.object_cache   = ObjectCache(config["search_paths"])
         self.specializer    = Specializer(config["ccode_path"])
 
@@ -65,7 +68,7 @@ class Runtime(object):
                 source  = self.specializer.load(extern.cfile)
 
             if source:
-                out, err = self.compiler.compile(
+                out, err = self.compilers["c"].compile(
                     source, 
                     "%s/%s" % (self.object_cache._output_path, extern.clib)
                 )

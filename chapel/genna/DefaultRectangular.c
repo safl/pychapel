@@ -380,7 +380,7 @@ static DefaultRectangularDom_2_int64_t_F DefaultRectangularDom2(DefaultDist dist
   DefaultRectangularDom_2_int64_t_F wrap_call_tmp7 = NULL;
   _ref_DefaultDist call_tmp5 = NULL;
   call_tmp = sizeof(chpl_DefaultRectangularDom_2_int64_t_F_object);
-  cast_tmp = chpl_here_alloc(call_tmp, INT16(28), _ln, _fn);
+  cast_tmp = chpl_here_alloc(call_tmp, INT16(33), _ln, _fn);
   this9 = ((DefaultRectangularDom_2_int64_t_F)(cast_tmp));
   ((object)(this9))->chpl__cid = chpl__cid_DefaultRectangularDom_2_int64_t_F;
   (this9)->dist = nil;
@@ -857,7 +857,7 @@ static DefaultRectangularArr__real64_2_int64_t_F dsiBuildArray6(DefaultRectangul
   _ddata__real64 call_tmp4 = NULL;
   DefaultRectangularArr__real64_2_int64_t_F wrap_call_tmp3 = NULL;
   call_tmp = sizeof(chpl_DefaultRectangularArr__real64_2_int64_t_F_object);
-  cast_tmp = chpl_here_alloc(call_tmp, INT16(30), _ln, _fn);
+  cast_tmp = chpl_here_alloc(call_tmp, INT16(35), _ln, _fn);
   this9 = ((DefaultRectangularArr__real64_2_int64_t_F)(cast_tmp));
   ((object)(this9))->chpl__cid = chpl__cid_DefaultRectangularArr__real64_2_int64_t_F;
   (this9)->dom = nil;
@@ -937,7 +937,7 @@ static DefaultRectangularDom_1_int64_t_F dsiBuildRectangularDom(DefaultRectangul
   end = ret3;
   for (i = ret2; ((i <= end)); i += INT64(1)) {
     _this_tmp_ = &((dom)->ranges);
-    call_tmp2 = this6(_this_tmp_, i, _ln, _fn);
+    call_tmp2 = this5(_this_tmp_, i, _ln, _fn);
     ret_to_arg_ref_tmp_2 = &T;
     _ref_tmp_ = ranges;
     this7(_ref_tmp_, i, ret_to_arg_ref_tmp_2, _ln, _fn);
@@ -1522,7 +1522,7 @@ static void advance(_ic_these_DefaultRectangularArr__real64_2_int64_t_F this8, i
   _tmp_F5_offset_x1 = *(*(_tmp_F5_offset_) + INT64(0));
   _tmp_F5_offset_x2 = *(*(_tmp_F5_offset_) + INT64(1));
   call_tmp = sizeof(chpl__ic_these_DefaultRectangularDom_2_int64_t_F_object);
-  cast_tmp = chpl_here_alloc(call_tmp, INT16(32), _ln, _fn);
+  cast_tmp = chpl_here_alloc(call_tmp, INT16(37), _ln, _fn);
   _ic_ = ((_ic_these_DefaultRectangularDom_2_int64_t_F)(cast_tmp));
   ((object)(_ic_))->chpl__cid = chpl__cid__ic_these_DefaultRectangularDom_2_int64_t_F;
   (_ic_)->more = INT64(1);
@@ -1625,7 +1625,7 @@ static void advance(_ic_these_DefaultRectangularArr__real64_2_int64_t_F this8, i
   _tmp_x13 = *(*(_tmp_4) + INT64(0));
   _tmp_x23 = *(*(_tmp_4) + INT64(1));
   call_tmp18 = sizeof(chpl__ic_these_help_DefaultRectangularDom_2_int64_t_F_object);
-  cast_tmp2 = chpl_here_alloc(call_tmp18, INT16(31), _ln, _fn);
+  cast_tmp2 = chpl_here_alloc(call_tmp18, INT16(36), _ln, _fn);
   _ic_2 = ((_ic_these_help_DefaultRectangularDom_2_int64_t_F)(cast_tmp2));
   ((object)(_ic_2))->chpl__cid = chpl__cid__ic_these_help_DefaultRectangularDom_2_int64_t_F;
   (_ic_2)->more = INT64(1);

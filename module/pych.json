@@ -1,7 +1,20 @@
 {
-    "ccode_path": "/home/safl/pychapel/module/ccode/src",
     "search_paths": ["/home/safl/pychapel/module/libraries"],
-    "compiler_cmd": "gcc", 
-    "chapelcode_path": "/home/safl/pychapel/module/chapelcode",
+    "compilers": {
+        "c":       {
+            "commands":  [
+                "gcc -lm -O3 -march=native -fopenmp -fPIC -std=c99 -x c -shared - -o %(lib_out)s"
+            ]
+        },
+        "chpl":    {
+            "commands": [
+                "chpl --fast --library --static -o %(tmp_out)s",
+                "g++ -shared -lpthread -o %(lib_out)s -Wl,--whole-archive %(tmp_out)s %(dep_path)s/libchpl.a %(dep_path)s/main.o -Wl,--no-whole-archive"
+            ],
+            "dep_path": "/home/safl/pychapel/modules/libraries/dependencies"
+        }
+    },
+    "chapelcode_path":  "/home/safl/pychapel/module/chapelcode",
+    "ccode_path":       "/home/safl/pychapel/module/ccode/src",
     "log_level": "DEBUG"
 }

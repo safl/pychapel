@@ -55,6 +55,7 @@ const chpl__class_id chpl__cid_listNode_BaseArr = 45;
 const chpl__class_id chpl__cid_listNode_BaseDom = 46;
 const chpl__class_id chpl__cid__class_localscoforall_fn6 = 47;
 const chpl__class_id chpl__cid__class_localscoforall_fn7 = 48;
+const chpl__class_id chpl__cid__class_localscoforall_fn8 = 49;
 /*** Class Prototypes ***/
 
 typedef struct chpl__class_localscoforall_fn_s* _class_localscoforall_fn;
@@ -100,6 +101,7 @@ typedef struct chpl_listNode_BaseArr_s* listNode_BaseArr;
 typedef struct chpl_listNode_BaseDom_s* listNode_BaseDom;
 typedef struct chpl__class_localscoforall_fn6_s* _class_localscoforall_fn6;
 typedef struct chpl__class_localscoforall_fn7_s* _class_localscoforall_fn7;
+typedef struct chpl__class_localscoforall_fn8_s* _class_localscoforall_fn8;
 /*** Enumerated Types ***/
 
 typedef enum {iterKind_leader = UINT32(1), iterKind_follower = UINT32(2)} iterKind;
@@ -387,6 +389,17 @@ typedef uint8_t *_ref_uint8_t;
 /*** Classes ***/
 
 typedef struct chpl__class_localscoforall_fn_s {
+  _tuple_1_star_range_int64_t_bounded_F _0_locBlock;
+  int64_t _1_parDim;
+  int64_t _2_numChunks;
+  int64_t _3_chunk;
+  chpl___EndCount _4_rvfDerefTmp;
+  _tuple_2_star__array_DefaultRectangularArr_chpl_TableEntry_chpl_taskID_t_1_int64_t_F_DefaultRectangularArr_chpl_TableEntry_chpl_taskID_t_1_int64_t_F _5_rvfDerefTmp;
+  int64_t _ln;
+  c_string _fn;
+} chpl__class_localscoforall_fn_object;
+
+typedef struct chpl__class_localscoforall_fn2_s {
   _tuple_2_star_range_int64_t_bounded_F _0_locBlock;
   int64_t _1_parDim;
   int64_t _2_numChunks;
@@ -394,17 +407,6 @@ typedef struct chpl__class_localscoforall_fn_s {
   chpl___EndCount _4_rvfDerefTmp;
   DefaultRectangularArr__real64_2_int64_t_F _5_rvfDerefTmp;
   _real64 _6_b;
-  int64_t _ln;
-  c_string _fn;
-} chpl__class_localscoforall_fn_object;
-
-typedef struct chpl__class_localscoforall_fn2_s {
-  _tuple_1_star_range_int64_t_bounded_F _0_locBlock;
-  int64_t _1_parDim;
-  int64_t _2_numChunks;
-  int64_t _3_chunk;
-  chpl___EndCount _4_rvfDerefTmp;
-  _tuple_2_star__array_DefaultRectangularArr_chpl_TableEntry_chpl_taskID_t_1_int64_t_F_DefaultRectangularArr_chpl_TableEntry_chpl_taskID_t_1_int64_t_F _5_rvfDerefTmp;
   int64_t _ln;
   c_string _fn;
 } chpl__class_localscoforall_fn2_object;
@@ -445,12 +447,7 @@ typedef struct chpl__class_localscoforall_fn5_s {
 } chpl__class_localscoforall_fn5_object;
 
 typedef struct chpl__class_localscoforall_fn6_s {
-  _tuple_2_star_range_int64_t_bounded_F _0_locBlock;
-  int64_t _1_parDim;
-  int64_t _2_numChunks;
-  int64_t _3_chunk;
-  chpl___EndCount _4_rvfDerefTmp;
-  _tuple_3_star__array_DefaultRectangularArr__real64_2_int64_t_F_DefaultRectangularArr__real64_2_int64_t_F _5_rvfDerefTmp;
+  chpl___EndCount _0_rvfDerefTmp;
 } chpl__class_localscoforall_fn6_object;
 
 typedef struct chpl__class_localscoforall_fn7_s {
@@ -458,10 +455,19 @@ typedef struct chpl__class_localscoforall_fn7_s {
   int64_t _1_parDim;
   int64_t _2_numChunks;
   int64_t _3_chunk;
+  chpl___EndCount _4_rvfDerefTmp;
+  _tuple_3_star__array_DefaultRectangularArr__real64_2_int64_t_F_DefaultRectangularArr__real64_2_int64_t_F _5_rvfDerefTmp;
+} chpl__class_localscoforall_fn7_object;
+
+typedef struct chpl__class_localscoforall_fn8_s {
+  _tuple_2_star_range_int64_t_bounded_F _0_locBlock;
+  int64_t _1_parDim;
+  int64_t _2_numChunks;
+  int64_t _3_chunk;
   _ref__EndCount _4__tmp;
   DefaultRectangularArr__real64_2_int64_t_F _5_rvfDerefTmp;
   _ref_SumReduceScanOp__real64 _6__tmp;
-} chpl__class_localscoforall_fn7_object;
+} chpl__class_localscoforall_fn8_object;
 
 typedef struct chpl_object_s {
   chpl__class_id chpl__cid;
@@ -801,8 +807,8 @@ static void chpl__convertRuntimeTypeToValue6(DefaultRectangularDom_1_int64_t_F d
 static void chpl__convertRuntimeTypeToValue7(DefaultRectangularDom_1_int64_t_F dom, _ref_DefaultRectangularArr_chpldev_Task_1_int64_t_F _retArg, int64_t _ln, c_string _fn);
 static void chpl__convertRuntimeTypeToValue8(DefaultAssociativeDom_chpl_taskID_t_F dom, _ref_DefaultAssociativeArr_chpldev_Task_chpl_taskID_t_F _retArg, int64_t _ln, c_string _fn);
 static void chpl__convertRuntimeTypeToValue9(DefaultRectangularDom_2_int64_t_F dom, _ref_DefaultRectangularArr__real64_2_int64_t_F _retArg, int64_t _ln, c_string _fn);
-static void coforall_fn(_tuple_2_star_range_int64_t_bounded_F* const locBlock, int64_t parDim, int64_t numChunks, int64_t chunk, chpl___EndCount _coforallCount, DefaultRectangularArr__real64_2_int64_t_F chpl__iter, _real64 b, int64_t _ln, c_string _fn);
-static void coforall_fn2(_tuple_1_star_range_int64_t_bounded_F* const locBlock, int64_t parDim, int64_t numChunks, int64_t chunk, chpl___EndCount _coforallCount, _tuple_2_star__array_DefaultRectangularArr_chpl_TableEntry_chpl_taskID_t_1_int64_t_F_DefaultRectangularArr_chpl_TableEntry_chpl_taskID_t_1_int64_t_F* const chpl__iter, int64_t _ln, c_string _fn);
+static void coforall_fn(_tuple_1_star_range_int64_t_bounded_F* const locBlock, int64_t parDim, int64_t numChunks, int64_t chunk, chpl___EndCount _coforallCount, _tuple_2_star__array_DefaultRectangularArr_chpl_TableEntry_chpl_taskID_t_1_int64_t_F_DefaultRectangularArr_chpl_TableEntry_chpl_taskID_t_1_int64_t_F* const chpl__iter, int64_t _ln, c_string _fn);
+static void coforall_fn2(_tuple_2_star_range_int64_t_bounded_F* const locBlock, int64_t parDim, int64_t numChunks, int64_t chunk, chpl___EndCount _coforallCount, DefaultRectangularArr__real64_2_int64_t_F chpl__iter, _real64 b, int64_t _ln, c_string _fn);
 static void coforall_fn3(_tuple_1_star_range_int64_t_bounded_F* const locBlock, int64_t parDim, int64_t numChunks, int64_t chunk, chpl___EndCount _coforallCount, _tuple_2_star__array_DefaultRectangularArr_chpldev_Task_1_int64_t_F_DefaultRectangularArr_chpldev_Task_1_int64_t_F* const chpl__iter, int64_t _ln, c_string _fn);
 static void chpl_incRefCountsForDomainsInArrayEltTypes(void);
 static void chpl_incRefCountsForDomainsInArrayEltTypes2(void);
@@ -882,10 +888,10 @@ static void _dom2(DefaultRectangularArr_chpl_TableEntry_chpl_taskID_t_1_int64_t_
 static void newAlias(DefaultRectangularArr_locale_1_int64_t_F this8, _ref_DefaultRectangularArr_locale_1_int64_t_F _retArg, int64_t _ln, c_string _fn);
 static void chpl___ASSIGN_(DefaultDist a, DefaultDist b, int64_t _ln, c_string _fn);
 static void chpl___ASSIGN_2(DefaultRectangularDom_1_int64_t_F a, DefaultRectangularDom_1_int64_t_F b, int64_t _ln, c_string _fn);
-static void wrapcoforall_fn(_class_localscoforall_fn2 c);
+static void wrapcoforall_fn(_class_localscoforall_fn c);
 static void wrapcoforall_fn2(_class_localscoforall_fn3 c);
 static void chpl___ASSIGN_3(DefaultRectangularArr__real64_2_int64_t_F a, _real64 b, int64_t _ln, c_string _fn);
-static void wrapcoforall_fn3(_class_localscoforall_fn c);
+static void wrapcoforall_fn3(_class_localscoforall_fn2 c);
 static void chpl__auto_destroy__OpaqueIndex(chpl___OpaqueIndex this8, int64_t _ln, c_string _fn);
 static DefaultDist chpl__initCopy(DefaultDist a, int64_t _ln, c_string _fn);
 static DefaultRectangularDom_1_int64_t_F chpl__initCopy2(DefaultRectangularDom_1_int64_t_F a, int64_t _ln, c_string _fn);
@@ -1071,8 +1077,8 @@ void chpldev_taskTable_print(int64_t _ln, c_string _fn);
 static void chpl__init_ChapelThreads(int64_t _ln, c_string _fn);
 static void chpl__init_ChapelTuple(int64_t _ln, c_string _fn);
 static int64_t this4(_ref__tuple_27_star_int64_t this8, int64_t i, int64_t _ln, c_string _fn);
-static _ref_range_int64_t_bounded_F this5(_ref__tuple_2_star_range_int64_t_bounded_F this8, int64_t i, int64_t _ln, c_string _fn);
-static _ref_range_int64_t_bounded_F this6(_ref__tuple_1_star_range_int64_t_bounded_F this8, int64_t i, int64_t _ln, c_string _fn);
+static _ref_range_int64_t_bounded_F this5(_ref__tuple_1_star_range_int64_t_bounded_F this8, int64_t i, int64_t _ln, c_string _fn);
+static _ref_range_int64_t_bounded_F this6(_ref__tuple_2_star_range_int64_t_bounded_F this8, int64_t i, int64_t _ln, c_string _fn);
 static void this7(_ref__tuple_1_star_range_int64_t_bounded_F this8, int64_t i, _ref_range_int64_t_bounded_F _retArg, int64_t _ln, c_string _fn);
 static void chpl__init_ChapelUtil(int64_t _ln, c_string _fn);
 static void chpl__init_DefaultAssociative(int64_t _ln, c_string _fn);
@@ -1225,8 +1231,8 @@ static void chpl__init_CommDiagnostics(int64_t _ln, c_string _fn);
 static void chpl__init_DSIUtil(int64_t _ln, c_string _fn);
 static void createTuple(int64_t val, _ref__tuple_1_star_int64_t _retArg, int64_t _ln, c_string _fn);
 static void createTuple2(int64_t val, _ref__tuple_2_star_int64_t _retArg, int64_t _ln, c_string _fn);
-static void _computeChunkStuff(int64_t maxTasks, chpl_bool ignoreRunning, int64_t minSize, _tuple_2_star_range_int64_t_bounded_F* const ranges, _ref__tuple_2_star_int64_t _retArg, int64_t _ln, c_string _fn);
-static void _computeChunkStuff2(int64_t maxTasks, chpl_bool ignoreRunning, int64_t minSize, _tuple_1_star_range_int64_t_bounded_F* const ranges, _ref__tuple_2_star_int64_t _retArg, int64_t _ln, c_string _fn);
+static void _computeChunkStuff(int64_t maxTasks, chpl_bool ignoreRunning, int64_t minSize, _tuple_1_star_range_int64_t_bounded_F* const ranges, _ref__tuple_2_star_int64_t _retArg, int64_t _ln, c_string _fn);
+static void _computeChunkStuff2(int64_t maxTasks, chpl_bool ignoreRunning, int64_t minSize, _tuple_2_star_range_int64_t_bounded_F* const ranges, _ref__tuple_2_star_int64_t _retArg, int64_t _ln, c_string _fn);
 static int64_t _computeNumChunks(int64_t maxTasks, chpl_bool ignoreRunning, int64_t minSize, uint64_t numElems, int64_t _ln, c_string _fn);
 static uint64_t intCeilXDivByY(uint64_t x, uint64_t y, int64_t _ln, c_string _fn);
 static void _computeBlock(int64_t numelems, int64_t numblocks, int64_t blocknum, int64_t wayhi, int64_t waylo, int64_t lo, _ref__tuple_2_star_int64_t _retArg, int64_t _ln, c_string _fn);
@@ -1264,16 +1270,12 @@ static void reader(_ref_file this8, _ref_syserr error, int64_t start, int64_t en
 static void reader2(_ref_file this8, int64_t start, int64_t end, int32_t hints, iostyle* const style, _ref_channel_F_dynamic_T _retArg, int64_t _ln, c_string _fn);
 static void writer(_ref_file this8, _ref_syserr error, int64_t start, int64_t end, int32_t hints, iostyle* const style, _ref_channel_T_dynamic_T _retArg, int64_t _ln, c_string _fn);
 static void writer2(_ref_file this8, int64_t start, int64_t end, int32_t hints, iostyle* const style, _ref_channel_T_dynamic_T _retArg, int64_t _ln, c_string _fn);
-static syserr _write_text_internal(qio_channel_ptr_t _channel_internal, _real64 x, int64_t _ln, c_string _fn);
-static syserr _write_text_internal2(qio_channel_ptr_t _channel_internal, chpl_string x, int64_t _ln, c_string _fn);
-static syserr _write_text_internal3(qio_channel_ptr_t _channel_internal, c_string x, int64_t _ln, c_string _fn);
-static syserr _write_text_internal4(qio_channel_ptr_t _channel_internal, uint32_t x, int64_t _ln, c_string _fn);
-static syserr _write_text_internal5(qio_channel_ptr_t _channel_internal, taskState x, int64_t _ln, c_string _fn);
-static chpl_string _args_to_proto(_real64 _e0_args, ioNewline* const _e1_args, chpl_string preArg, int64_t _ln, c_string _fn);
-static chpl_string _args_to_proto2(chpl_string _e0_args, c_string _e1_args, chpl_string _e2_args, uint32_t _e3_args, chpl_string _e4_args, taskState _e5_args, ioNewline* const _e6_args, chpl_string preArg, int64_t _ln, c_string _fn);
-static chpl_bool writeln(_ref_channel_T_dynamic_T this8, _real64 _e0_args, int64_t _ln, c_string _fn);
-static chpl_bool writeln2(_ref_channel_T_dynamic_T this8, chpl_string _e0_args, c_string _e1_args, chpl_string _e2_args, uint32_t _e3_args, chpl_string _e4_args, taskState _e5_args, int64_t _ln, c_string _fn);
-static void writeln3(_real64 _e0_args, int64_t _ln, c_string _fn);
+static syserr _write_text_internal(qio_channel_ptr_t _channel_internal, chpl_string x, int64_t _ln, c_string _fn);
+static syserr _write_text_internal2(qio_channel_ptr_t _channel_internal, c_string x, int64_t _ln, c_string _fn);
+static syserr _write_text_internal3(qio_channel_ptr_t _channel_internal, uint32_t x, int64_t _ln, c_string _fn);
+static syserr _write_text_internal4(qio_channel_ptr_t _channel_internal, taskState x, int64_t _ln, c_string _fn);
+static chpl_string _args_to_proto(chpl_string _e0_args, c_string _e1_args, chpl_string _e2_args, uint32_t _e3_args, chpl_string _e4_args, taskState _e5_args, ioNewline* const _e6_args, chpl_string preArg, int64_t _ln, c_string _fn);
+static chpl_bool writeln(_ref_channel_T_dynamic_T this8, chpl_string _e0_args, c_string _e1_args, chpl_string _e2_args, uint32_t _e3_args, chpl_string _e4_args, taskState _e5_args, int64_t _ln, c_string _fn);
 static void chpl__init_List(int64_t _ln, c_string _fn);
 static listNode_BaseArr _construct_listNode(BaseArr data, listNode_BaseArr next, listNode_BaseArr meme, int64_t _ln, c_string _fn);
 static void chpl__auto_destroy_listNode(listNode_BaseArr this8, int64_t _ln, c_string _fn);
@@ -1299,10 +1301,14 @@ _real32 simpleReals(_real32 x, _real32 y);
 int64_t simpleInts(int64_t x, int64_t y);
 _real64 nicestuff(int64_t w, int64_t h, int64_t i);
 static void chpl__autoDestroyGlobals(void);
-static void wrapcoforall_fn6(_class_localscoforall_fn6 c);
-static void wrapcoforall_fn7(_class_localscoforall_fn7 c);
-static void coforall_fn6(_tuple_2_star_range_int64_t_bounded_F* const locBlock, int64_t parDim, int64_t numChunks, int64_t chunk, chpl___EndCount _coforallCount, _tuple_3_star__array_DefaultRectangularArr__real64_2_int64_t_F_DefaultRectangularArr__real64_2_int64_t_F* const chpl__iter);
-static void coforall_fn7(_tuple_2_star_range_int64_t_bounded_F* const locBlock, int64_t parDim, int64_t numChunks, int64_t chunk, _ref__EndCount _coforallCount, DefaultRectangularArr__real64_2_int64_t_F _tmp, _ref_SumReduceScanOp__real64 _tmp2);
+static void wrapcoforall_fn6(_class_localscoforall_fn7 c);
+static void wrapcoforall_fn7(_class_localscoforall_fn8 c);
+void somethingelse(void);
+static void coforall_fn6(chpl___EndCount _coforallCount);
+static void wrapcoforall_fn8(_class_localscoforall_fn6 c);
+int64_t woahhh(int64_t x);
+static void coforall_fn7(_tuple_2_star_range_int64_t_bounded_F* const locBlock, int64_t parDim, int64_t numChunks, int64_t chunk, chpl___EndCount _coforallCount, _tuple_3_star__array_DefaultRectangularArr__real64_2_int64_t_F_DefaultRectangularArr__real64_2_int64_t_F* const chpl__iter);
+static void coforall_fn8(_tuple_2_star_range_int64_t_bounded_F* const locBlock, int64_t parDim, int64_t numChunks, int64_t chunk, _ref__EndCount _coforallCount, DefaultRectangularArr__real64_2_int64_t_F _tmp, _ref_SumReduceScanOp__real64 _tmp2);
 /*** Function Pointer Table ***/
 
 chpl_fn_p chpl_ftable[] = {
@@ -1312,7 +1318,8 @@ chpl_fn_p chpl_ftable[] = {
   (chpl_fn_p)wrapcoforall_fn4,
   (chpl_fn_p)wrapcoforall_fn5,
   (chpl_fn_p)wrapcoforall_fn6,
-  (chpl_fn_p)wrapcoforall_fn7
+  (chpl_fn_p)wrapcoforall_fn7,
+  (chpl_fn_p)wrapcoforall_fn8
 };
 /*** Virtual Method Table ***/
 
@@ -1454,12 +1461,12 @@ chpl_fn_p chpl_vmtable[] = {
   (chpl_fn_p)NULL,
   /* BaseArr */
   (chpl_fn_p)chpl__auto_destroy_BaseArr,
+  (chpl_fn_p)_preserveArrayElement,
   (chpl_fn_p)_removeArrayBackup,
   (chpl_fn_p)clearEntry,
-  (chpl_fn_p)_preserveArrayElement,
+  (chpl_fn_p)_backupArray,
   (chpl_fn_p)dsiGetBaseDom,
   (chpl_fn_p)dsiReallocate,
-  (chpl_fn_p)_backupArray,
   (chpl_fn_p)dsiDestroyData,
   /* Writer */
   (chpl_fn_p)chpl__auto_destroy_Writer,
@@ -1481,27 +1488,27 @@ chpl_fn_p chpl_vmtable[] = {
   (chpl_fn_p)NULL,
   /* locale */
   (chpl_fn_p)chpl__auto_destroy_locale,
-  (chpl_fn_p)getChildCount,
   (chpl_fn_p)chpl_id,
   (chpl_fn_p)getChild,
+  (chpl_fn_p)getChildCount,
   (chpl_fn_p)NULL,
   (chpl_fn_p)NULL,
   (chpl_fn_p)NULL,
   (chpl_fn_p)NULL,
   /* AbstractLocaleModel */
   (chpl_fn_p)chpl__auto_destroy_AbstractLocaleModel,
-  (chpl_fn_p)getChildCount,
   (chpl_fn_p)chpl_id,
   (chpl_fn_p)getChild,
+  (chpl_fn_p)getChildCount,
   (chpl_fn_p)NULL,
   (chpl_fn_p)NULL,
   (chpl_fn_p)NULL,
   (chpl_fn_p)NULL,
   /* AbstractRootLocale */
   (chpl_fn_p)chpl__auto_destroy_AbstractRootLocale,
-  (chpl_fn_p)getChildCount,
   (chpl_fn_p)chpl_id,
   (chpl_fn_p)getChild,
+  (chpl_fn_p)getChildCount,
   (chpl_fn_p)localeIDtoLocale,
   (chpl_fn_p)NULL,
   (chpl_fn_p)NULL,
@@ -1580,12 +1587,12 @@ chpl_fn_p chpl_vmtable[] = {
   (chpl_fn_p)NULL,
   /* DefaultAssociativeArr_chpldev_Task_chpl_taskID_t_F */
   (chpl_fn_p)chpl__auto_destroy_DefaultAssociativeArr,
+  (chpl_fn_p)_preserveArrayElement2,
   (chpl_fn_p)_removeArrayBackup2,
   (chpl_fn_p)clearEntry2,
-  (chpl_fn_p)_preserveArrayElement2,
+  (chpl_fn_p)_backupArray2,
   (chpl_fn_p)dsiGetBaseDom2,
   (chpl_fn_p)dsiReallocate,
-  (chpl_fn_p)_backupArray2,
   (chpl_fn_p)dsiDestroyData,
   /* DefaultDist */
   (chpl_fn_p)chpl__auto_destroy_DefaultDist,
@@ -1634,48 +1641,48 @@ chpl_fn_p chpl_vmtable[] = {
   (chpl_fn_p)NULL,
   /* DefaultRectangularArr__real64_2_int64_t_F */
   (chpl_fn_p)chpl__auto_destroy_DefaultRectangularArr5,
+  (chpl_fn_p)_preserveArrayElement,
   (chpl_fn_p)_removeArrayBackup,
   (chpl_fn_p)clearEntry,
-  (chpl_fn_p)_preserveArrayElement,
+  (chpl_fn_p)_backupArray,
   (chpl_fn_p)dsiGetBaseDom7,
   (chpl_fn_p)dsiReallocate6,
-  (chpl_fn_p)_backupArray,
   (chpl_fn_p)dsiDestroyData6,
   /* DefaultRectangularArr_chpl_TableEntry_chpl_taskID_t_1_int64_t_F */
   (chpl_fn_p)chpl__auto_destroy_DefaultRectangularArr3,
+  (chpl_fn_p)_preserveArrayElement,
   (chpl_fn_p)_removeArrayBackup,
   (chpl_fn_p)clearEntry,
-  (chpl_fn_p)_preserveArrayElement,
+  (chpl_fn_p)_backupArray,
   (chpl_fn_p)dsiGetBaseDom5,
   (chpl_fn_p)dsiReallocate4,
-  (chpl_fn_p)_backupArray,
   (chpl_fn_p)dsiDestroyData4,
   /* DefaultRectangularArr_chpldev_Task_1_int64_t_F */
   (chpl_fn_p)chpl__auto_destroy_DefaultRectangularArr4,
+  (chpl_fn_p)_preserveArrayElement,
   (chpl_fn_p)_removeArrayBackup,
   (chpl_fn_p)clearEntry,
-  (chpl_fn_p)_preserveArrayElement,
+  (chpl_fn_p)_backupArray,
   (chpl_fn_p)dsiGetBaseDom6,
   (chpl_fn_p)dsiReallocate5,
-  (chpl_fn_p)_backupArray,
   (chpl_fn_p)dsiDestroyData5,
   /* DefaultRectangularArr_locale_1_int64_t_F */
   (chpl_fn_p)chpl__auto_destroy_DefaultRectangularArr,
+  (chpl_fn_p)_preserveArrayElement,
   (chpl_fn_p)_removeArrayBackup,
   (chpl_fn_p)clearEntry,
-  (chpl_fn_p)_preserveArrayElement,
+  (chpl_fn_p)_backupArray,
   (chpl_fn_p)dsiGetBaseDom3,
   (chpl_fn_p)dsiReallocate2,
-  (chpl_fn_p)_backupArray,
   (chpl_fn_p)dsiDestroyData2,
   /* DefaultRectangularArr_localesSignal_1_int64_t_F */
   (chpl_fn_p)chpl__auto_destroy_DefaultRectangularArr2,
+  (chpl_fn_p)_preserveArrayElement,
   (chpl_fn_p)_removeArrayBackup,
   (chpl_fn_p)clearEntry,
-  (chpl_fn_p)_preserveArrayElement,
+  (chpl_fn_p)_backupArray,
   (chpl_fn_p)dsiGetBaseDom4,
   (chpl_fn_p)dsiReallocate3,
-  (chpl_fn_p)_backupArray,
   (chpl_fn_p)dsiDestroyData3,
   /* _ic_these_DefaultRectangularArr__real64_2_int64_t_F */
   (chpl_fn_p)chpl__auto_destroy_object,
@@ -1688,18 +1695,18 @@ chpl_fn_p chpl_vmtable[] = {
   (chpl_fn_p)NULL,
   /* LocaleModel */
   (chpl_fn_p)chpl__auto_destroy_LocaleModel,
-  (chpl_fn_p)getChildCount2,
   (chpl_fn_p)chpl_id2,
   (chpl_fn_p)getChild2,
+  (chpl_fn_p)getChildCount2,
   (chpl_fn_p)NULL,
   (chpl_fn_p)NULL,
   (chpl_fn_p)NULL,
   (chpl_fn_p)NULL,
   /* RootLocale */
   (chpl_fn_p)chpl__auto_destroy_RootLocale,
-  (chpl_fn_p)getChildCount3,
   (chpl_fn_p)chpl_id3,
   (chpl_fn_p)getChild3,
+  (chpl_fn_p)getChildCount3,
   (chpl_fn_p)localeIDtoLocale2,
   (chpl_fn_p)NULL,
   (chpl_fn_p)NULL,
@@ -1750,6 +1757,15 @@ chpl_fn_p chpl_vmtable[] = {
   (chpl_fn_p)NULL,
   (chpl_fn_p)NULL,
   /* _class_localscoforall_fn7 */
+  (chpl_fn_p)NULL,
+  (chpl_fn_p)NULL,
+  (chpl_fn_p)NULL,
+  (chpl_fn_p)NULL,
+  (chpl_fn_p)NULL,
+  (chpl_fn_p)NULL,
+  (chpl_fn_p)NULL,
+  (chpl_fn_p)NULL,
+  /* _class_localscoforall_fn8 */
   (chpl_fn_p)NULL,
   (chpl_fn_p)NULL,
   (chpl_fn_p)NULL,
@@ -1885,6 +1901,11 @@ const char* chpl_mem_descs[] = {
   "[DefaultAssociativeDom(chpl_taskID_t,false)] chpldev_Task",
   "_ic_these_DefaultRectangularArr_locale_1_int64_t_F",
   "chpldev_taskTable_t",
+  "_ic__lookForSlots_DefaultAssociativeDom_chpl_taskID_t_F",
+  "_ic_these_DefaultRectangularArr_chpl_TableEntry_chpl_taskID_t_1_int64_t_F",
+  "_ic__fullSlots_DefaultAssociativeDom_chpl_taskID_t_F",
+  "StringWriter",
+  "_ic_these_DefaultAssociativeDom_chpl_taskID_t_F",
   "domain(2,int(64),false)",
   "_ddata(real(64))",
   "[domain(2,int(64),false)] real(64)",
@@ -1892,11 +1913,6 @@ const char* chpl_mem_descs[] = {
   "_ic_these_DefaultRectangularDom_2_int64_t_F",
   "_ic_these_DefaultRectangularArr__real64_2_int64_t_F",
   "SumReduceScanOp(real(64))",
-  "_ic__lookForSlots_DefaultAssociativeDom_chpl_taskID_t_F",
-  "_ic_these_DefaultRectangularArr_chpl_TableEntry_chpl_taskID_t_1_int64_t_F",
-  "_ic__fullSlots_DefaultAssociativeDom_chpl_taskID_t_F",
-  "StringWriter",
-  "_ic_these_DefaultAssociativeDom_chpl_taskID_t_F",
   "_ic_these_DefaultRectangularArr_chpldev_Task_1_int64_t_F",
   "_ddata(string)",
   "bundled args"

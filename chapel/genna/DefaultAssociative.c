@@ -648,7 +648,7 @@ static void dsiRemove(DefaultAssociativeDom_chpl_taskID_t_F this8, chpl_taskID_t
     while (T) {
       ret3 = (tmp)->data;
       _virtual_method_tmp_ = ((object)(ret3))->chpl__cid;
-      ((void(*)(BaseArr, chpl_taskID_t, chpl_bool, int64_t, c_string))chpl_vmtable[((INT64(8) * _virtual_method_tmp_) + INT64(2))])(ret3, idx, true, _ln, _fn);
+      ((void(*)(BaseArr, chpl_taskID_t, chpl_bool, int64_t, c_string))chpl_vmtable[((INT64(8) * _virtual_method_tmp_) + INT64(3))])(ret3, idx, true, _ln, _fn);
       ret4 = (tmp)->next;
       tmp = ret4;
       call_tmp4 = ((object)(ret4));
@@ -888,7 +888,7 @@ static void _resize(DefaultAssociativeDom_chpl_taskID_t_F this8, chpl_bool grow,
   int64_t end;
   int64_t ret27;
   chpl___EndCount rvfDerefTmp = NULL;
-  _class_localscoforall_fn2 _args_forcoforall_fn = NULL;
+  _class_localscoforall_fn _args_forcoforall_fn = NULL;
   int64_t chpl_here_alloc_size;
   chpl_opaque chpl_here_alloc_tmp;
   chpl___EndCount delete_tmp = NULL;
@@ -1016,7 +1016,7 @@ static void _resize(DefaultAssociativeDom_chpl_taskID_t_F this8, chpl_bool grow,
   call_tmp15 = chpl__initCopy_chpl_rt_localeID_t(call_tmp14);
   call_tmp16 = chpl_localeID_to_locale(&call_tmp15, _ln, _fn);
   _virtual_method_tmp_ = ((object)(call_tmp16))->chpl__cid;
-  ((int64_t(*)(locale, int64_t, c_string))chpl_vmtable[((INT64(8) * _virtual_method_tmp_) + INT64(1))])(call_tmp16, _ln, _fn);
+  ((int64_t(*)(locale, int64_t, c_string))chpl_vmtable[((INT64(8) * _virtual_method_tmp_) + INT64(3))])(call_tmp16, _ln, _fn);
   call_tmp17 = (default_argtasksPerLocale == INT64(0));
   if (call_tmp17) {
     call_tmp19 = chpl_task_getRequestedSubloc();
@@ -1038,7 +1038,7 @@ static void _resize(DefaultAssociativeDom_chpl_taskID_t_F this8, chpl_bool grow,
   } else {
     *(ret6 + INT64(0)) = *((this10)->ranges + INT64(0));
     ret_to_arg_ref_tmp_6 = &wrap_call_tmp;
-    _computeChunkStuff2(T, default_argignoreRunning, default_argminIndicesPerTask, &ret6, ret_to_arg_ref_tmp_6, _ln, _fn);
+    _computeChunkStuff(T, default_argignoreRunning, default_argminIndicesPerTask, &ret6, ret_to_arg_ref_tmp_6, _ln, _fn);
     ret_x1 = *(wrap_call_tmp + INT64(0));
     ret_x2 = *(wrap_call_tmp + INT64(1));
     const_tmp_x1 = ret_x1;
@@ -1210,9 +1210,9 @@ static void _resize(DefaultAssociativeDom_chpl_taskID_t_F this8, chpl_bool grow,
     for (i = ret26; ((i <= end)); i += INT64(1)) {
       _upEndCount(_coforallCount, _ln, _fn);
       rvfDerefTmp = _coforallCount;
-      chpl_here_alloc_size = sizeof(chpl__class_localscoforall_fn2_object);
+      chpl_here_alloc_size = sizeof(chpl__class_localscoforall_fn_object);
       chpl_here_alloc_tmp = chpl_here_alloc(chpl_here_alloc_size, INT16(42), _ln, _fn);
-      _args_forcoforall_fn = ((_class_localscoforall_fn2)(chpl_here_alloc_tmp));
+      _args_forcoforall_fn = ((_class_localscoforall_fn)(chpl_here_alloc_tmp));
       *((_args_forcoforall_fn)->_0_locBlock + INT64(0)) = *(locBlock + INT64(0));
       (_args_forcoforall_fn)->_1_parDim = parDim;
       (_args_forcoforall_fn)->_2_numChunks = numChunks;
@@ -2468,7 +2468,7 @@ static void _backupArray2(DefaultAssociativeArr_chpldev_Task_chpl_taskID_t_F thi
   call_tmp14 = chpl__initCopy_chpl_rt_localeID_t(call_tmp13);
   call_tmp15 = chpl_localeID_to_locale(&call_tmp14, _ln, _fn);
   _virtual_method_tmp_ = ((object)(call_tmp15))->chpl__cid;
-  ((int64_t(*)(locale, int64_t, c_string))chpl_vmtable[((INT64(8) * _virtual_method_tmp_) + INT64(1))])(call_tmp15, _ln, _fn);
+  ((int64_t(*)(locale, int64_t, c_string))chpl_vmtable[((INT64(8) * _virtual_method_tmp_) + INT64(3))])(call_tmp15, _ln, _fn);
   call_tmp16 = (default_argtasksPerLocale == INT64(0));
   if (call_tmp16) {
     call_tmp18 = chpl_task_getRequestedSubloc();
@@ -2490,7 +2490,7 @@ static void _backupArray2(DefaultAssociativeArr_chpldev_Task_chpl_taskID_t_F thi
   } else {
     *(ret6 + INT64(0)) = *((this10)->ranges + INT64(0));
     ret_to_arg_ref_tmp_4 = &wrap_call_tmp;
-    _computeChunkStuff2(T, default_argignoreRunning, default_argminIndicesPerTask, &ret6, ret_to_arg_ref_tmp_4, _ln, _fn);
+    _computeChunkStuff(T, default_argignoreRunning, default_argminIndicesPerTask, &ret6, ret_to_arg_ref_tmp_4, _ln, _fn);
     ret_x1 = *(wrap_call_tmp + INT64(0));
     ret_x2 = *(wrap_call_tmp + INT64(1));
     const_tmp_x1 = ret_x1;

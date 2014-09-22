@@ -1,5 +1,8 @@
 docs/build
 chapel/ccode
+chapel/genna
+chapel/core
+chapel/libby
 *.swp
 *.pyc
 *.so

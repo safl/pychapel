@@ -685,7 +685,7 @@ void chpldev_taskTable_print(int64_t _ln, c_string _fn) {
       string_from_c_string(&call_tmp20, ":", INT64(0), INT64(0), _ln, _fn);
       string_from_c_string(&call_tmp21, " is ", INT64(0), INT64(0), _ln, _fn);
       _ref_tmp_ = &local_stderr;
-      writeln2(_ref_tmp_, call_tmp19, ret12, call_tmp20, ret14, call_tmp21, ret16, _ln, _fn);
+      writeln(_ref_tmp_, call_tmp19, ret12, call_tmp20, ret14, call_tmp21, ret16, _ln, _fn);
     }
   }
   chpl__autoDestroy2(call_tmp5, _ln, _fn);

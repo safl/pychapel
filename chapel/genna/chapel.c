@@ -3,7 +3,6 @@ static void chpl__init_chapel(int64_t _ln, c_string _fn) {
   c_string modFormatStr;
   c_string modStr;
   _ref_int32_t refIndentLevel = NULL;
-  _real64 call_tmp;
   if (chpl__init_chapel_p) {
     goto _exit_chpl__init_chapel;
   }
@@ -13,8 +12,7 @@ static void chpl__init_chapel(int64_t _ln, c_string _fn) {
   refIndentLevel = &moduleInitLevel;
   *(refIndentLevel) += INT64(1);
   chpl__init_chapel_p = true;
-  call_tmp = nicestuff(INT64(10), INT64(10), INT64(10));
-  writeln3(call_tmp, INT64(39), "chapel.chpl");
+  somethingelse();
   *(refIndentLevel) -= INT64(1);
   _exit_chpl__init_chapel:;
   return;
@@ -308,7 +306,7 @@ _real64 nicestuff(int64_t w, int64_t h, int64_t i) {
   int64_t ret13;
   chpl___EndCount rvfDerefTmp = NULL;
   _tuple_3_star__array_DefaultRectangularArr__real64_2_int64_t_F_DefaultRectangularArr__real64_2_int64_t_F rvfDerefTmp2;
-  _class_localscoforall_fn6 _args_forcoforall_fn = NULL;
+  _class_localscoforall_fn7 _args_forcoforall_fn = NULL;
   int64_t chpl_here_alloc_size;
   chpl_opaque chpl_here_alloc_tmp;
   chpl___EndCount delete_tmp = NULL;
@@ -506,7 +504,7 @@ _real64 nicestuff(int64_t w, int64_t h, int64_t i) {
   int64_t ret36;
   _ref__EndCount T13 = NULL;
   _ref_SumReduceScanOp__real64 T14 = NULL;
-  _class_localscoforall_fn7 _args_forcoforall_fn2 = NULL;
+  _class_localscoforall_fn8 _args_forcoforall_fn2 = NULL;
   int64_t chpl_here_alloc_size2;
   chpl_opaque chpl_here_alloc_tmp2;
   chpl___EndCount delete_tmp2 = NULL;
@@ -600,7 +598,7 @@ _real64 nicestuff(int64_t w, int64_t h, int64_t i) {
     call_tmp24 = chpl__initCopy_chpl_rt_localeID_t(call_tmp23);
     call_tmp25 = chpl_localeID_to_locale(&call_tmp24, INT64(31), "chapel.chpl");
     _virtual_method_tmp_ = ((object)(call_tmp25))->chpl__cid;
-    ((int64_t(*)(locale, int64_t, c_string))chpl_vmtable[((INT64(8) * _virtual_method_tmp_) + INT64(1))])(call_tmp25, INT64(31), "chapel.chpl");
+    ((int64_t(*)(locale, int64_t, c_string))chpl_vmtable[((INT64(8) * _virtual_method_tmp_) + INT64(3))])(call_tmp25, INT64(31), "chapel.chpl");
     call_tmp26 = (default_argtasksPerLocale == INT64(0));
     if (call_tmp26) {
       call_tmp28 = chpl_task_getRequestedSubloc();
@@ -623,7 +621,7 @@ _real64 nicestuff(int64_t w, int64_t h, int64_t i) {
       *(ret6 + INT64(0)) = *((this9)->ranges + INT64(0));
       *(ret6 + INT64(1)) = *((this9)->ranges + INT64(1));
       ret_to_arg_ref_tmp_17 = &wrap_call_tmp;
-      _computeChunkStuff(T, default_argignoreRunning, default_argminIndicesPerTask, &ret6, ret_to_arg_ref_tmp_17, INT64(31), "chapel.chpl");
+      _computeChunkStuff2(T, default_argignoreRunning, default_argminIndicesPerTask, &ret6, ret_to_arg_ref_tmp_17, INT64(31), "chapel.chpl");
       ret_x1 = *(wrap_call_tmp + INT64(0));
       ret_x2 = *(wrap_call_tmp + INT64(1));
       const_tmp_x1 = ret_x1;
@@ -693,7 +691,7 @@ _real64 nicestuff(int64_t w, int64_t h, int64_t i) {
       default_argignoreRunning4 = local_dataParIgnoreRunningTasks;
       default_argminIndicesPerTask4 = local_dataParMinGranularity;
       call_tmp44 = sizeof(chpl__ic_these_DefaultRectangularArr__real64_2_int64_t_F_object);
-      cast_tmp = chpl_here_alloc(call_tmp44, INT16(33), INT64(31), "chapel.chpl");
+      cast_tmp = chpl_here_alloc(call_tmp44, INT16(38), INT64(31), "chapel.chpl");
       _ic_ = ((_ic_these_DefaultRectangularArr__real64_2_int64_t_F)(cast_tmp));
       ((object)(_ic_))->chpl__cid = chpl__cid__ic_these_DefaultRectangularArr__real64_2_int64_t_F;
       (_ic_)->more = INT64(1);
@@ -706,7 +704,7 @@ _real64 nicestuff(int64_t w, int64_t h, int64_t i) {
       (_ic_)->F3_ignoreRunning = default_argignoreRunning2;
       (_ic_)->F4_minIndicesPerTask = default_argminIndicesPerTask2;
       call_tmp45 = sizeof(chpl__ic_these_DefaultRectangularArr__real64_2_int64_t_F_object);
-      cast_tmp2 = chpl_here_alloc(call_tmp45, INT16(33), INT64(31), "chapel.chpl");
+      cast_tmp2 = chpl_here_alloc(call_tmp45, INT16(38), INT64(31), "chapel.chpl");
       _ic_2 = ((_ic_these_DefaultRectangularArr__real64_2_int64_t_F)(cast_tmp2));
       ((object)(_ic_2))->chpl__cid = chpl__cid__ic_these_DefaultRectangularArr__real64_2_int64_t_F;
       (_ic_2)->more = INT64(1);
@@ -719,7 +717,7 @@ _real64 nicestuff(int64_t w, int64_t h, int64_t i) {
       (_ic_2)->F3_ignoreRunning = default_argignoreRunning3;
       (_ic_2)->F4_minIndicesPerTask = default_argminIndicesPerTask3;
       call_tmp46 = sizeof(chpl__ic_these_DefaultRectangularArr__real64_2_int64_t_F_object);
-      cast_tmp3 = chpl_here_alloc(call_tmp46, INT16(33), INT64(31), "chapel.chpl");
+      cast_tmp3 = chpl_here_alloc(call_tmp46, INT16(38), INT64(31), "chapel.chpl");
       _ic_3 = ((_ic_these_DefaultRectangularArr__real64_2_int64_t_F)(cast_tmp3));
       ((object)(_ic_3))->chpl__cid = chpl__cid__ic_these_DefaultRectangularArr__real64_2_int64_t_F;
       (_ic_3)->more = INT64(1);
@@ -837,9 +835,9 @@ _real64 nicestuff(int64_t w, int64_t h, int64_t i) {
         *(rvfDerefTmp2 + INT64(0)) = chpl__iter_x1;
         *(rvfDerefTmp2 + INT64(1)) = chpl__iter_x2;
         *(rvfDerefTmp2 + INT64(2)) = chpl__iter_x3;
-        chpl_here_alloc_size = sizeof(chpl__class_localscoforall_fn6_object);
+        chpl_here_alloc_size = sizeof(chpl__class_localscoforall_fn7_object);
         chpl_here_alloc_tmp = chpl_here_alloc(chpl_here_alloc_size, INT16(42), INT64(31), "chapel.chpl");
-        _args_forcoforall_fn = ((_class_localscoforall_fn6)(chpl_here_alloc_tmp));
+        _args_forcoforall_fn = ((_class_localscoforall_fn7)(chpl_here_alloc_tmp));
         *((_args_forcoforall_fn)->_0_locBlock + INT64(0)) = *(locBlock + INT64(0));
         *((_args_forcoforall_fn)->_0_locBlock + INT64(1)) = *(locBlock + INT64(1));
         (_args_forcoforall_fn)->_1_parDim = parDim;
@@ -862,7 +860,7 @@ _real64 nicestuff(int64_t w, int64_t h, int64_t i) {
     }
     T9 = R;
     call_tmp72 = sizeof(chpl_SumReduceScanOp__real64_object);
-    cast_tmp5 = chpl_here_alloc(call_tmp72, INT16(34), INT64(34), "chapel.chpl");
+    cast_tmp5 = chpl_here_alloc(call_tmp72, INT16(39), INT64(34), "chapel.chpl");
     this20 = ((SumReduceScanOp__real64)(cast_tmp5));
     ((object)(this20))->chpl__cid = chpl__cid_SumReduceScanOp__real64;
     (this20)->value = 0.0;
@@ -886,7 +884,7 @@ _real64 nicestuff(int64_t w, int64_t h, int64_t i) {
     call_tmp75 = chpl__initCopy_chpl_rt_localeID_t(call_tmp74);
     call_tmp76 = chpl_localeID_to_locale(&call_tmp75, INT64(34), "chapel.chpl");
     _virtual_method_tmp_2 = ((object)(call_tmp76))->chpl__cid;
-    ((int64_t(*)(locale, int64_t, c_string))chpl_vmtable[((INT64(8) * _virtual_method_tmp_2) + INT64(1))])(call_tmp76, INT64(34), "chapel.chpl");
+    ((int64_t(*)(locale, int64_t, c_string))chpl_vmtable[((INT64(8) * _virtual_method_tmp_2) + INT64(3))])(call_tmp76, INT64(34), "chapel.chpl");
     call_tmp77 = (default_argtasksPerLocale5 == INT64(0));
     if (call_tmp77) {
       call_tmp79 = chpl_task_getRequestedSubloc();
@@ -909,7 +907,7 @@ _real64 nicestuff(int64_t w, int64_t h, int64_t i) {
       *(ret17 + INT64(0)) = *((this22)->ranges + INT64(0));
       *(ret17 + INT64(1)) = *((this22)->ranges + INT64(1));
       ret_to_arg_ref_tmp_31 = &wrap_call_tmp10;
-      _computeChunkStuff(T11, default_argignoreRunning5, default_argminIndicesPerTask5, &ret17, ret_to_arg_ref_tmp_31, INT64(34), "chapel.chpl");
+      _computeChunkStuff2(T11, default_argignoreRunning5, default_argminIndicesPerTask5, &ret17, ret_to_arg_ref_tmp_31, INT64(34), "chapel.chpl");
       ret_x12 = *(wrap_call_tmp10 + INT64(0));
       ret_x22 = *(wrap_call_tmp10 + INT64(1));
       const_tmp_x12 = ret_x12;
@@ -966,7 +964,7 @@ _real64 nicestuff(int64_t w, int64_t h, int64_t i) {
       ret18 = T9;
       _ic__F0_this3 = ret18;
       call_tmp97 = sizeof(chpl_SumReduceScanOp__real64_object);
-      cast_tmp6 = chpl_here_alloc(call_tmp97, INT16(34), INT64(34), "chapel.chpl");
+      cast_tmp6 = chpl_here_alloc(call_tmp97, INT16(39), INT64(34), "chapel.chpl");
       this27 = ((SumReduceScanOp__real64)(cast_tmp6));
       ((object)(this27))->chpl__cid = chpl__cid_SumReduceScanOp__real64;
       (this27)->value = 0.0;
@@ -1147,9 +1145,9 @@ _real64 nicestuff(int64_t w, int64_t h, int64_t i) {
         _upEndCount(_coforallCount2, INT64(34), "chapel.chpl");
         T13 = &_coforallCount2;
         T14 = &T10;
-        chpl_here_alloc_size2 = sizeof(chpl__class_localscoforall_fn7_object);
+        chpl_here_alloc_size2 = sizeof(chpl__class_localscoforall_fn8_object);
         chpl_here_alloc_tmp2 = chpl_here_alloc(chpl_here_alloc_size2, INT16(42), INT64(34), "chapel.chpl");
-        _args_forcoforall_fn2 = ((_class_localscoforall_fn7)(chpl_here_alloc_tmp2));
+        _args_forcoforall_fn2 = ((_class_localscoforall_fn8)(chpl_here_alloc_tmp2));
         *((_args_forcoforall_fn2)->_0_locBlock + INT64(0)) = *(locBlock2 + INT64(0));
         *((_args_forcoforall_fn2)->_0_locBlock + INT64(1)) = *(locBlock2 + INT64(1));
         (_args_forcoforall_fn2)->_1_parDim = parDim2;
@@ -1224,7 +1222,7 @@ static void chpl__autoDestroyGlobals(void) {
 }
 
 /* chapel.chpl:31 */
-static void wrapcoforall_fn6(_class_localscoforall_fn6 c) {
+static void wrapcoforall_fn6(_class_localscoforall_fn7 c) {
   _tuple_2_star_range_int64_t_bounded_F _0_locBlock;
   int64_t _1_parDim;
   int64_t _2_numChunks;
@@ -1240,13 +1238,13 @@ static void wrapcoforall_fn6(_class_localscoforall_fn6 c) {
   *(_5_rvfDerefTmp + INT64(0)) = *((c)->_5_rvfDerefTmp + INT64(0));
   *(_5_rvfDerefTmp + INT64(1)) = *((c)->_5_rvfDerefTmp + INT64(1));
   *(_5_rvfDerefTmp + INT64(2)) = *((c)->_5_rvfDerefTmp + INT64(2));
-  coforall_fn6(&_0_locBlock, _1_parDim, _2_numChunks, _3_chunk, _4_rvfDerefTmp, &_5_rvfDerefTmp);
+  coforall_fn7(&_0_locBlock, _1_parDim, _2_numChunks, _3_chunk, _4_rvfDerefTmp, &_5_rvfDerefTmp);
   chpl_here_free(((void*)(c)), INT64(31), "chapel.chpl");
   return;
 }
 
 /* chapel.chpl:34 */
-static void wrapcoforall_fn7(_class_localscoforall_fn7 c) {
+static void wrapcoforall_fn7(_class_localscoforall_fn8 c) {
   _tuple_2_star_range_int64_t_bounded_F _0_locBlock;
   int64_t _1_parDim;
   int64_t _2_numChunks;
@@ -1262,13 +1260,113 @@ static void wrapcoforall_fn7(_class_localscoforall_fn7 c) {
   _4__tmp = (c)->_4__tmp;
   _5_rvfDerefTmp = (c)->_5_rvfDerefTmp;
   _6__tmp = (c)->_6__tmp;
-  coforall_fn7(&_0_locBlock, _1_parDim, _2_numChunks, _3_chunk, _4__tmp, _5_rvfDerefTmp, _6__tmp);
+  coforall_fn8(&_0_locBlock, _1_parDim, _2_numChunks, _3_chunk, _4__tmp, _5_rvfDerefTmp, _6__tmp);
   chpl_here_free(((void*)(c)), INT64(34), "chapel.chpl");
   return;
 }
 
+/* chapel.chpl:40 */
+void somethingelse(void) {
+  chpl___EndCount _coforallCount = NULL;
+  chpl___EndCount this8 = NULL;
+  int64_t call_tmp;
+  chpl_opaque cast_tmp;
+  atomic_int64 _init_class_tmp_;
+  atomic_int64 this9;
+  atomic_int_least64_t ret;
+  atomic_int_least64_t type_tmp;
+  _ref_atomic_int_least64_t _ref_tmp_ = NULL;
+  atomic_int64 wrap_call_tmp;
+  chpl_task_list_p ret2;
+  chpl___EndCount wrap_call_tmp2 = NULL;
+  range_int64_t_bounded_F call_tmp2;
+  _ref_range_int64_t_bounded_F ret_to_arg_ref_tmp_ = NULL;
+  range_int64_t_bounded_F _ic__F0_this;
+  int64_t i;
+  int64_t ret3;
+  int64_t end;
+  int64_t ret4;
+  chpl___EndCount rvfDerefTmp = NULL;
+  _class_localscoforall_fn6 _args_forcoforall_fn = NULL;
+  int64_t chpl_here_alloc_size;
+  chpl_opaque chpl_here_alloc_tmp;
+  chpl___EndCount delete_tmp = NULL;
+  _ref_atomic_int64 _field_destructor_tmp_ = NULL;
+  _ref_atomic_int_least64_t call_tmp3 = NULL;
+  chpl_opaque call_tmp4;
+  call_tmp = sizeof(chpl_chpl___EndCount_object);
+  cast_tmp = chpl_here_alloc(call_tmp, INT16(15), INT64(41), "chapel.chpl");
+  this8 = ((chpl___EndCount)(cast_tmp));
+  ((object)(this8))->chpl__cid = chpl__cid_chpl___EndCount;
+  (this8)->i = _init_class_tmp_;
+  (this8)->taskCnt = INT64(0);
+  (this8)->taskList = NULL;
+  ret = type_tmp;
+  _ref_tmp_ = &ret;
+  atomic_init_int_least64_t(_ref_tmp_, INT64(0));
+  (&this9)->_v = ret;
+  wrap_call_tmp = _construct_atomic_int64(ret, &this9, INT64(41), "chapel.chpl");
+  (this8)->i = wrap_call_tmp;
+  (this8)->taskCnt = INT64(0);
+  ret2 = NULL;
+  (this8)->taskList = ret2;
+  wrap_call_tmp2 = _construct__EndCount(&wrap_call_tmp, INT64(0), ret2, this8, INT64(41), "chapel.chpl");
+  _coforallCount = wrap_call_tmp2;
+  ret_to_arg_ref_tmp_ = &call_tmp2;
+  _build_range(INT64(1), INT64(4), ret_to_arg_ref_tmp_, INT64(41), "chapel.chpl");
+  _ic__F0_this = call_tmp2;
+  ret3 = (&_ic__F0_this)->_low;
+  ret4 = (&_ic__F0_this)->_high;
+  end = ret4;
+  for (i = ret3; ((i <= end)); i += INT64(1)) {
+    _upEndCount(_coforallCount, INT64(41), "chapel.chpl");
+    rvfDerefTmp = _coforallCount;
+    chpl_here_alloc_size = sizeof(chpl__class_localscoforall_fn6_object);
+    chpl_here_alloc_tmp = chpl_here_alloc(chpl_here_alloc_size, INT16(42), INT64(41), "chapel.chpl");
+    _args_forcoforall_fn = ((_class_localscoforall_fn6)(chpl_here_alloc_tmp));
+    (_args_forcoforall_fn)->_0_rvfDerefTmp = rvfDerefTmp;
+    /*** wrapcoforall_fn8 ***/ chpl_taskListAddCoStmt(INT32(-2), INT64(7), ((void*)(_args_forcoforall_fn)), &(((_args_forcoforall_fn)->_0_rvfDerefTmp)->taskList), chpl_nodeID, INT64(41), "chapel.chpl");
+  }
+  chpl_taskListProcess((_coforallCount)->taskList, INT64(41), "chapel.chpl");
+  _waitEndCount(_coforallCount, INT64(41), "chapel.chpl");
+  delete_tmp = _coforallCount;
+  _field_destructor_tmp_ = &((delete_tmp)->i);
+  call_tmp3 = &((_field_destructor_tmp_)->_v);
+  atomic_destroy_int_least64_t(call_tmp3);
+  call_tmp4 = ((void*)(delete_tmp));
+  chpl_here_free(call_tmp4, INT64(41), "chapel.chpl");
+  return;
+}
+
+/* chapel.chpl:41 */
+static void coforall_fn6(chpl___EndCount _coforallCount) {
+  chpl_bool T;
+  T = true;
+  while (T) {
+    T = true;
+  }
+  _downEndCount(_coforallCount, INT64(41), "chapel.chpl");
+  return;
+}
+
+/* chapel.chpl:41 */
+static void wrapcoforall_fn8(_class_localscoforall_fn6 c) {
+  chpl___EndCount _0_rvfDerefTmp = NULL;
+  _0_rvfDerefTmp = (c)->_0_rvfDerefTmp;
+  coforall_fn6(_0_rvfDerefTmp);
+  chpl_here_free(((void*)(c)), INT64(41), "chapel.chpl");
+  return;
+}
+
+/* chapel.chpl:47 */
+int64_t woahhh(int64_t x) {
+  int64_t call_tmp;
+  call_tmp = (x + x);
+  return call_tmp;
+}
+
 /* DefaultRectangular.chpl:281 */
-static void coforall_fn6(_tuple_2_star_range_int64_t_bounded_F* const locBlock, int64_t parDim, int64_t numChunks, int64_t chunk, chpl___EndCount _coforallCount, _tuple_3_star__array_DefaultRectangularArr__real64_2_int64_t_F_DefaultRectangularArr__real64_2_int64_t_F* const chpl__iter) {
+static void coforall_fn7(_tuple_2_star_range_int64_t_bounded_F* const locBlock, int64_t parDim, int64_t numChunks, int64_t chunk, chpl___EndCount _coforallCount, _tuple_3_star__array_DefaultRectangularArr__real64_2_int64_t_F_DefaultRectangularArr__real64_2_int64_t_F* const chpl__iter) {
   int64_t local_dataParMinGranularity;
   chpl_bool local_dataParIgnoreRunningTasks;
   int64_t local_dataParTasksPerLocale;
@@ -1380,23 +1478,23 @@ static void coforall_fn6(_tuple_2_star_range_int64_t_bounded_F* const locBlock, 
   *(followMe + INT64(0)) = *(*(locBlock) + INT64(0));
   *(followMe + INT64(1)) = *(*(locBlock) + INT64(1));
   _ref_tmp_ = locBlock;
-  call_tmp = this5(_ref_tmp_, parDim, INT64(283), "/home/safl/chapel/modules/internal/DefaultRectangular.chpl");
+  call_tmp = this6(_ref_tmp_, parDim, INT64(283), "/home/safl/chapel/modules/internal/DefaultRectangular.chpl");
   call_tmp2 = length(call_tmp, INT64(283), "/home/safl/chapel/modules/internal/DefaultRectangular.chpl");
   _ref_tmp_2 = locBlock;
-  call_tmp3 = this5(_ref_tmp_2, parDim, INT64(285), "/home/safl/chapel/modules/internal/DefaultRectangular.chpl");
+  call_tmp3 = this6(_ref_tmp_2, parDim, INT64(285), "/home/safl/chapel/modules/internal/DefaultRectangular.chpl");
   ret = (call_tmp3)->_high;
   _ref_tmp_3 = locBlock;
-  call_tmp4 = this5(_ref_tmp_3, parDim, INT64(286), "/home/safl/chapel/modules/internal/DefaultRectangular.chpl");
+  call_tmp4 = this6(_ref_tmp_3, parDim, INT64(286), "/home/safl/chapel/modules/internal/DefaultRectangular.chpl");
   ret2 = (call_tmp4)->_low;
   _ref_tmp_4 = locBlock;
-  call_tmp5 = this5(_ref_tmp_4, parDim, INT64(287), "/home/safl/chapel/modules/internal/DefaultRectangular.chpl");
+  call_tmp5 = this6(_ref_tmp_4, parDim, INT64(287), "/home/safl/chapel/modules/internal/DefaultRectangular.chpl");
   ret3 = (call_tmp5)->_low;
   ret_to_arg_ref_tmp_ = &const_tmp;
   _computeBlock(call_tmp2, numChunks, chunk, ret, ret2, ret3, ret_to_arg_ref_tmp_, INT64(283), "/home/safl/chapel/modules/internal/DefaultRectangular.chpl");
   _tmp_x1 = *(const_tmp + INT64(0));
   _tmp_x2 = *(const_tmp + INT64(1));
   _ref_tmp_5 = &followMe;
-  call_tmp6 = this5(_ref_tmp_5, parDim, INT64(288), "/home/safl/chapel/modules/internal/DefaultRectangular.chpl");
+  call_tmp6 = this6(_ref_tmp_5, parDim, INT64(288), "/home/safl/chapel/modules/internal/DefaultRectangular.chpl");
   ret_to_arg_ref_tmp_2 = &call_tmp7;
   _build_range(_tmp_x1, _tmp_x2, ret_to_arg_ref_tmp_2, INT64(288), "/home/safl/chapel/modules/internal/DefaultRectangular.chpl");
   *(call_tmp6) = call_tmp7;
@@ -1421,7 +1519,7 @@ static void coforall_fn6(_tuple_2_star_range_int64_t_bounded_F* const locBlock, 
   default_argignoreRunning3 = local_dataParIgnoreRunningTasks;
   default_argminIndicesPerTask3 = local_dataParMinGranularity;
   call_tmp8 = sizeof(chpl__ic_these_DefaultRectangularArr__real64_2_int64_t_F_object);
-  cast_tmp = chpl_here_alloc(call_tmp8, INT16(33), INT64(31), "chapel.chpl");
+  cast_tmp = chpl_here_alloc(call_tmp8, INT16(38), INT64(31), "chapel.chpl");
   _ic_ = ((_ic_these_DefaultRectangularArr__real64_2_int64_t_F)(cast_tmp));
   ((object)(_ic_))->chpl__cid = chpl__cid__ic_these_DefaultRectangularArr__real64_2_int64_t_F;
   (_ic_)->more = INT64(1);
@@ -1434,7 +1532,7 @@ static void coforall_fn6(_tuple_2_star_range_int64_t_bounded_F* const locBlock, 
   (_ic_)->F3_ignoreRunning = default_argignoreRunning;
   (_ic_)->F4_minIndicesPerTask = default_argminIndicesPerTask;
   call_tmp9 = sizeof(chpl__ic_these_DefaultRectangularArr__real64_2_int64_t_F_object);
-  cast_tmp2 = chpl_here_alloc(call_tmp9, INT16(33), INT64(31), "chapel.chpl");
+  cast_tmp2 = chpl_here_alloc(call_tmp9, INT16(38), INT64(31), "chapel.chpl");
   _ic_2 = ((_ic_these_DefaultRectangularArr__real64_2_int64_t_F)(cast_tmp2));
   ((object)(_ic_2))->chpl__cid = chpl__cid__ic_these_DefaultRectangularArr__real64_2_int64_t_F;
   (_ic_2)->more = INT64(1);
@@ -1447,7 +1545,7 @@ static void coforall_fn6(_tuple_2_star_range_int64_t_bounded_F* const locBlock, 
   (_ic_2)->F3_ignoreRunning = default_argignoreRunning2;
   (_ic_2)->F4_minIndicesPerTask = default_argminIndicesPerTask2;
   call_tmp10 = sizeof(chpl__ic_these_DefaultRectangularArr__real64_2_int64_t_F_object);
-  cast_tmp3 = chpl_here_alloc(call_tmp10, INT16(33), INT64(31), "chapel.chpl");
+  cast_tmp3 = chpl_here_alloc(call_tmp10, INT16(38), INT64(31), "chapel.chpl");
   _ic_3 = ((_ic_these_DefaultRectangularArr__real64_2_int64_t_F)(cast_tmp3));
   ((object)(_ic_3))->chpl__cid = chpl__cid__ic_these_DefaultRectangularArr__real64_2_int64_t_F;
   (_ic_3)->more = INT64(1);
@@ -1493,7 +1591,7 @@ static void coforall_fn6(_tuple_2_star_range_int64_t_bounded_F* const locBlock, 
 }
 
 /* DefaultRectangular.chpl:281 */
-static void coforall_fn7(_tuple_2_star_range_int64_t_bounded_F* const locBlock, int64_t parDim, int64_t numChunks, int64_t chunk, _ref__EndCount _coforallCount, DefaultRectangularArr__real64_2_int64_t_F _tmp, _ref_SumReduceScanOp__real64 _tmp2) {
+static void coforall_fn8(_tuple_2_star_range_int64_t_bounded_F* const locBlock, int64_t parDim, int64_t numChunks, int64_t chunk, _ref__EndCount _coforallCount, DefaultRectangularArr__real64_2_int64_t_F _tmp, _ref_SumReduceScanOp__real64 _tmp2) {
   range_int64_t_bounded_F newRet_x1;
   range_int64_t_bounded_F newRet_x2;
   _tuple_2_star_range_int64_t_bounded_F followMe;
@@ -1631,23 +1729,23 @@ static void coforall_fn7(_tuple_2_star_range_int64_t_bounded_F* const locBlock, 
   *(followMe + INT64(0)) = *(*(locBlock) + INT64(0));
   *(followMe + INT64(1)) = *(*(locBlock) + INT64(1));
   _ref_tmp_ = locBlock;
-  call_tmp = this5(_ref_tmp_, parDim, INT64(283), "/home/safl/chapel/modules/internal/DefaultRectangular.chpl");
+  call_tmp = this6(_ref_tmp_, parDim, INT64(283), "/home/safl/chapel/modules/internal/DefaultRectangular.chpl");
   call_tmp2 = length(call_tmp, INT64(283), "/home/safl/chapel/modules/internal/DefaultRectangular.chpl");
   _ref_tmp_2 = locBlock;
-  call_tmp3 = this5(_ref_tmp_2, parDim, INT64(285), "/home/safl/chapel/modules/internal/DefaultRectangular.chpl");
+  call_tmp3 = this6(_ref_tmp_2, parDim, INT64(285), "/home/safl/chapel/modules/internal/DefaultRectangular.chpl");
   ret = (call_tmp3)->_high;
   _ref_tmp_3 = locBlock;
-  call_tmp4 = this5(_ref_tmp_3, parDim, INT64(286), "/home/safl/chapel/modules/internal/DefaultRectangular.chpl");
+  call_tmp4 = this6(_ref_tmp_3, parDim, INT64(286), "/home/safl/chapel/modules/internal/DefaultRectangular.chpl");
   ret2 = (call_tmp4)->_low;
   _ref_tmp_4 = locBlock;
-  call_tmp5 = this5(_ref_tmp_4, parDim, INT64(287), "/home/safl/chapel/modules/internal/DefaultRectangular.chpl");
+  call_tmp5 = this6(_ref_tmp_4, parDim, INT64(287), "/home/safl/chapel/modules/internal/DefaultRectangular.chpl");
   ret3 = (call_tmp5)->_low;
   ret_to_arg_ref_tmp_ = &const_tmp;
   _computeBlock(call_tmp2, numChunks, chunk, ret, ret2, ret3, ret_to_arg_ref_tmp_, INT64(283), "/home/safl/chapel/modules/internal/DefaultRectangular.chpl");
   _tmp_x1 = *(const_tmp + INT64(0));
   _tmp_x2 = *(const_tmp + INT64(1));
   _ref_tmp_5 = &followMe;
-  call_tmp6 = this5(_ref_tmp_5, parDim, INT64(288), "/home/safl/chapel/modules/internal/DefaultRectangular.chpl");
+  call_tmp6 = this6(_ref_tmp_5, parDim, INT64(288), "/home/safl/chapel/modules/internal/DefaultRectangular.chpl");
   ret_to_arg_ref_tmp_2 = &call_tmp7;
   _build_range(_tmp_x1, _tmp_x2, ret_to_arg_ref_tmp_2, INT64(288), "/home/safl/chapel/modules/internal/DefaultRectangular.chpl");
   *(call_tmp6) = call_tmp7;
@@ -1657,7 +1755,7 @@ static void coforall_fn7(_tuple_2_star_range_int64_t_bounded_F* const locBlock, 
   ret4 = T2;
   _ic__F0_this = ret4;
   call_tmp8 = sizeof(chpl_SumReduceScanOp__real64_object);
-  cast_tmp = chpl_here_alloc(call_tmp8, INT16(34), INT64(34), "chapel.chpl");
+  cast_tmp = chpl_here_alloc(call_tmp8, INT16(39), INT64(34), "chapel.chpl");
   this10 = ((SumReduceScanOp__real64)(cast_tmp));
   ((object)(this10))->chpl__cid = chpl__cid_SumReduceScanOp__real64;
   (this10)->value = 0.0;

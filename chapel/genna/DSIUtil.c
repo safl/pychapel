@@ -46,7 +46,121 @@ static void createTuple2(int64_t val, _ref__tuple_2_star_int64_t _retArg, int64_
 }
 
 /* DSIUtil.chpl:47 */
-static void _computeChunkStuff(int64_t maxTasks, chpl_bool ignoreRunning, int64_t minSize, _tuple_2_star_range_int64_t_bounded_F* const ranges, _ref__tuple_2_star_int64_t _retArg, int64_t _ln, c_string _fn) {
+static void _computeChunkStuff(int64_t maxTasks, chpl_bool ignoreRunning, int64_t minSize, _tuple_1_star_range_int64_t_bounded_F* const ranges, _ref__tuple_2_star_int64_t _retArg, int64_t _ln, c_string _fn) {
+  _tuple_2_star_int64_t ret;
+  uint64_t numElems;
+  _ref_range_int64_t_bounded_F call_tmp = NULL;
+  int64_t call_tmp2;
+  uint64_t call_tmp3;
+  int64_t numChunks;
+  int64_t call_tmp4;
+  chpl_bool call_tmp5;
+  _tuple_2_star_int64_t call_tmp6;
+  int64_t T;
+  int64_t T2;
+  chpl_bool call_tmp7;
+  int64_t parDim;
+  int64_t maxDim;
+  uint64_t maxElems;
+  uint64_t call_tmp8;
+  range_int64_t_bounded_F call_tmp9;
+  _ref_range_int64_t_bounded_F ret_to_arg_ref_tmp_ = NULL;
+  range_int64_t_bounded_F _ic__F0_this;
+  int64_t i;
+  int64_t ret2;
+  int64_t end;
+  int64_t ret3;
+  int64_t i2;
+  uint64_t curElems;
+  _ref_range_int64_t_bounded_F call_tmp10 = NULL;
+  _ref__tuple_1_star_range_int64_t_bounded_F _ref_tmp_ = NULL;
+  int64_t call_tmp11;
+  uint64_t call_tmp12;
+  uint64_t call_tmp13;
+  chpl_bool call_tmp14;
+  chpl_bool call_tmp15;
+  chpl_bool call_tmp16;
+  uint64_t call_tmp17;
+  chpl_bool call_tmp18;
+  int64_t call_tmp19;
+  _tuple_2_star_int64_t call_tmp20;
+  int64_t T3;
+  int64_t T4;
+  numElems = UINT64(1);
+  call_tmp = (*(ranges) + INT64(0));
+  call_tmp2 = length(call_tmp, _ln, _fn);
+  call_tmp3 = ((uint64_t)(call_tmp2));
+  numElems *= call_tmp3;
+  call_tmp4 = _computeNumChunks(maxTasks, ignoreRunning, minSize, numElems, _ln, _fn);
+  numChunks = call_tmp4;
+  call_tmp5 = (call_tmp4 == INT64(0));
+  if (call_tmp5) {
+    *(call_tmp6 + INT64(0)) = INT64(0);
+    *(call_tmp6 + INT64(1)) = INT64(-1);
+    *(ret + INT64(0)) = *(call_tmp6 + INT64(0));
+    *(ret + INT64(1)) = *(call_tmp6 + INT64(1));
+    T = *(ret + INT64(0));
+    T2 = *(ret + INT64(1));
+    *(*(_retArg) + INT64(0)) = T;
+    *(*(_retArg) + INT64(1)) = T2;
+    goto _end__computeChunkStuff;
+  }
+  call_tmp7 = (numChunks > INT64(0));
+  assert2(call_tmp7, _ln, _fn);
+  parDim = INT64(-1);
+  maxDim = INT64(-1);
+  call_tmp8 = min3(_ln, _fn);
+  maxElems = call_tmp8;
+  ret_to_arg_ref_tmp_ = &call_tmp9;
+  _build_range(INT64(1), INT64(1), ret_to_arg_ref_tmp_, _ln, _fn);
+  _ic__F0_this = call_tmp9;
+  ret2 = (&_ic__F0_this)->_low;
+  ret3 = (&_ic__F0_this)->_high;
+  end = ret3;
+  for (i = ret2; ((i <= end)); i += INT64(1)) {
+    i2 = i;
+    _ref_tmp_ = ranges;
+    call_tmp10 = this5(_ref_tmp_, i, _ln, _fn);
+    call_tmp11 = length(call_tmp10, _ln, _fn);
+    call_tmp12 = ((uint64_t)(call_tmp11));
+    curElems = call_tmp12;
+    call_tmp13 = ((uint64_t)(numChunks));
+    call_tmp14 = (call_tmp12 >= call_tmp13);
+    if (call_tmp14) {
+      parDim = i;
+      goto _breakLabel;
+    }
+    call_tmp15 = (curElems > maxElems);
+    if (call_tmp15) {
+      maxElems = curElems;
+      maxDim = i2;
+    }
+  }
+  _breakLabel:;
+  call_tmp16 = (parDim == INT64(-1));
+  if (call_tmp16) {
+    parDim = maxDim;
+    call_tmp17 = ((uint64_t)(numChunks));
+    call_tmp18 = (maxElems < call_tmp17);
+    if (call_tmp18) {
+      call_tmp19 = ((int64_t)(maxElems));
+      numChunks = call_tmp19;
+    }
+  }
+  *(call_tmp20 + INT64(0)) = numChunks;
+  *(call_tmp20 + INT64(1)) = parDim;
+  *(ret + INT64(0)) = *(call_tmp20 + INT64(0));
+  *(ret + INT64(1)) = *(call_tmp20 + INT64(1));
+  T3 = *(ret + INT64(0));
+  T4 = *(ret + INT64(1));
+  *(*(_retArg) + INT64(0)) = T3;
+  *(*(_retArg) + INT64(1)) = T4;
+  _end__computeChunkStuff:;
+  return;
+}
+
+/* DSIUtil.chpl:47 */
+static void _computeChunkStuff2(int64_t maxTasks, chpl_bool ignoreRunning, int64_t minSize, _tuple_2_star_range_int64_t_bounded_F* const ranges, _ref__tuple_2_star_int64_t _retArg, int64_t _ln, c_string _fn) {
   _tuple_2_star_int64_t ret;
   uint64_t numElems;
   _ref_range_int64_t_bounded_F call_tmp = NULL;
@@ -127,7 +241,7 @@ static void _computeChunkStuff(int64_t maxTasks, chpl_bool ignoreRunning, int64_
   for (i = ret2; ((i <= end)); i += INT64(1)) {
     i2 = i;
     _ref_tmp_ = ranges;
-    call_tmp13 = this5(_ref_tmp_, i, _ln, _fn);
+    call_tmp13 = this6(_ref_tmp_, i, _ln, _fn);
     call_tmp14 = length(call_tmp13, _ln, _fn);
     call_tmp15 = ((uint64_t)(call_tmp14));
     curElems = call_tmp15;
@@ -158,120 +272,6 @@ static void _computeChunkStuff(int64_t maxTasks, chpl_bool ignoreRunning, int64_
   *(call_tmp23 + INT64(1)) = parDim;
   *(ret + INT64(0)) = *(call_tmp23 + INT64(0));
   *(ret + INT64(1)) = *(call_tmp23 + INT64(1));
-  T3 = *(ret + INT64(0));
-  T4 = *(ret + INT64(1));
-  *(*(_retArg) + INT64(0)) = T3;
-  *(*(_retArg) + INT64(1)) = T4;
-  _end__computeChunkStuff:;
-  return;
-}
-
-/* DSIUtil.chpl:47 */
-static void _computeChunkStuff2(int64_t maxTasks, chpl_bool ignoreRunning, int64_t minSize, _tuple_1_star_range_int64_t_bounded_F* const ranges, _ref__tuple_2_star_int64_t _retArg, int64_t _ln, c_string _fn) {
-  _tuple_2_star_int64_t ret;
-  uint64_t numElems;
-  _ref_range_int64_t_bounded_F call_tmp = NULL;
-  int64_t call_tmp2;
-  uint64_t call_tmp3;
-  int64_t numChunks;
-  int64_t call_tmp4;
-  chpl_bool call_tmp5;
-  _tuple_2_star_int64_t call_tmp6;
-  int64_t T;
-  int64_t T2;
-  chpl_bool call_tmp7;
-  int64_t parDim;
-  int64_t maxDim;
-  uint64_t maxElems;
-  uint64_t call_tmp8;
-  range_int64_t_bounded_F call_tmp9;
-  _ref_range_int64_t_bounded_F ret_to_arg_ref_tmp_ = NULL;
-  range_int64_t_bounded_F _ic__F0_this;
-  int64_t i;
-  int64_t ret2;
-  int64_t end;
-  int64_t ret3;
-  int64_t i2;
-  uint64_t curElems;
-  _ref_range_int64_t_bounded_F call_tmp10 = NULL;
-  _ref__tuple_1_star_range_int64_t_bounded_F _ref_tmp_ = NULL;
-  int64_t call_tmp11;
-  uint64_t call_tmp12;
-  uint64_t call_tmp13;
-  chpl_bool call_tmp14;
-  chpl_bool call_tmp15;
-  chpl_bool call_tmp16;
-  uint64_t call_tmp17;
-  chpl_bool call_tmp18;
-  int64_t call_tmp19;
-  _tuple_2_star_int64_t call_tmp20;
-  int64_t T3;
-  int64_t T4;
-  numElems = UINT64(1);
-  call_tmp = (*(ranges) + INT64(0));
-  call_tmp2 = length(call_tmp, _ln, _fn);
-  call_tmp3 = ((uint64_t)(call_tmp2));
-  numElems *= call_tmp3;
-  call_tmp4 = _computeNumChunks(maxTasks, ignoreRunning, minSize, numElems, _ln, _fn);
-  numChunks = call_tmp4;
-  call_tmp5 = (call_tmp4 == INT64(0));
-  if (call_tmp5) {
-    *(call_tmp6 + INT64(0)) = INT64(0);
-    *(call_tmp6 + INT64(1)) = INT64(-1);
-    *(ret + INT64(0)) = *(call_tmp6 + INT64(0));
-    *(ret + INT64(1)) = *(call_tmp6 + INT64(1));
-    T = *(ret + INT64(0));
-    T2 = *(ret + INT64(1));
-    *(*(_retArg) + INT64(0)) = T;
-    *(*(_retArg) + INT64(1)) = T2;
-    goto _end__computeChunkStuff;
-  }
-  call_tmp7 = (numChunks > INT64(0));
-  assert2(call_tmp7, _ln, _fn);
-  parDim = INT64(-1);
-  maxDim = INT64(-1);
-  call_tmp8 = min3(_ln, _fn);
-  maxElems = call_tmp8;
-  ret_to_arg_ref_tmp_ = &call_tmp9;
-  _build_range(INT64(1), INT64(1), ret_to_arg_ref_tmp_, _ln, _fn);
-  _ic__F0_this = call_tmp9;
-  ret2 = (&_ic__F0_this)->_low;
-  ret3 = (&_ic__F0_this)->_high;
-  end = ret3;
-  for (i = ret2; ((i <= end)); i += INT64(1)) {
-    i2 = i;
-    _ref_tmp_ = ranges;
-    call_tmp10 = this6(_ref_tmp_, i, _ln, _fn);
-    call_tmp11 = length(call_tmp10, _ln, _fn);
-    call_tmp12 = ((uint64_t)(call_tmp11));
-    curElems = call_tmp12;
-    call_tmp13 = ((uint64_t)(numChunks));
-    call_tmp14 = (call_tmp12 >= call_tmp13);
-    if (call_tmp14) {
-      parDim = i;
-      goto _breakLabel;
-    }
-    call_tmp15 = (curElems > maxElems);
-    if (call_tmp15) {
-      maxElems = curElems;
-      maxDim = i2;
-    }
-  }
-  _breakLabel:;
-  call_tmp16 = (parDim == INT64(-1));
-  if (call_tmp16) {
-    parDim = maxDim;
-    call_tmp17 = ((uint64_t)(numChunks));
-    call_tmp18 = (maxElems < call_tmp17);
-    if (call_tmp18) {
-      call_tmp19 = ((int64_t)(maxElems));
-      numChunks = call_tmp19;
-    }
-  }
-  *(call_tmp20 + INT64(0)) = numChunks;
-  *(call_tmp20 + INT64(1)) = parDim;
-  *(ret + INT64(0)) = *(call_tmp20 + INT64(0));
-  *(ret + INT64(1)) = *(call_tmp20 + INT64(1));
   T3 = *(ret + INT64(0));
   T4 = *(ret + INT64(1));
   *(*(_retArg) + INT64(0)) = T3;

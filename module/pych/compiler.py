@@ -10,8 +10,8 @@ class Compiler(object):
     loadable by the ObjectCache.
     """
 
-    def __init__(self, cmd):
-        self._cmd = cmd
+    def __init__(self, options):
+        self._options = options
 
     def compile(self, source, object_abspath):
         """
@@ -19,15 +19,17 @@ class Compiler(object):
         The source is piped to the compiler and will be stored
         in the result will be stored in object_abspath.
         """
-        logging.debug("Compiling to %s", object_abspath)
+        logging.debug("If succesful; result should be here %s", object_abspath)
 
-        cmd = [
-            self._cmd, '-lm', '-O3', '-x', 'c', '-fPIC',
-            '-march=native', '-fopenmp', '-std=c99',
-            '-shared', '-', '-o', object_abspath
-        ]
-        process = Popen(cmd, stdout=PIPE, stdin=PIPE)
+        options = self._options             # Setup command-arguments
+        options["lib_out"] = object_abspath
+        options["tmp_out"] = "something"
 
-        out, err = process.communicate(source)
+        for cmd_str in options["commands"]: # Execute commands
+            cmd = (cmd_str % options).split(" ")
+            logging.debug("Cmd: %s", " ".join(cmd))
+
+            process = Popen(cmd, stdout=PIPE, stdin=PIPE)
+            out, err = process.communicate(source)
 
         return out, err
