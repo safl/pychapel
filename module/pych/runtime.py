@@ -68,7 +68,7 @@ class Runtime(object):
                 source  = self.specializer.load(extern.sfile)
 
             if source:
-                out, err = self.compilers["c"].compile(
+                out, err = self.compilers[extern.slang.lower()].compile(
                     source, 
                     "%s/%s" % (self.object_cache._output_path, extern.elib)
                 )
