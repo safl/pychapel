@@ -4,7 +4,7 @@ from pych.extern import Extern
 # Mapping the Python function "hello_world" to the function "hello_world"
 # from the library "libexamples.so".
 #
-@Extern(elib="libexamples.so", ename="hello_world")
+@Extern(lib="libexamples.so", ename="hello_world")
 def hello_world():
     return None
 
@@ -12,7 +12,7 @@ def hello_world():
 # Mapping the Python function "add_ints" to the function "add_ints"
 # from the library "libexamples.so".
 #
-@Extern(elib="libexamples.so", ename="add_ints")
+@Extern(lib="libexamples.so", ename="add_ints")
 def add_ints(x=int, y=int):
     return int
 
@@ -20,7 +20,7 @@ def add_ints(x=int, y=int):
 # Mapping the Python function "add_doubles" to the function "add_doubles"
 # from the library "libexamples.so".
 #
-@Extern(elib="libexamples.so", ename="add_doubles")
+@Extern(lib="libexamples.so", ename="add_doubles")
 def add_doubles(x=float, y=float):
     return float
 

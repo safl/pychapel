@@ -16,56 +16,33 @@ typemap = {
     unicode:    ctypes.c_wchar_p
 }
 
-#class Extern(object):
-#    """
-#    Encapsulates a mapping between a Python function and an external function.
-#    """
-#
-#    def __init__(self, pfunc=None, pname=None, doc=None,
-#                 atypes=[], anames=[], rtype=None,
-#                 efunc=None, ename=None, elib=None,
-#                 sfile=None, slang=None):
-#
-#        self.pfunc  = pfunc     # Python function handle
-#        self.pname  = pname     # Python function name
-#        self.doc    = doc       # Python doc-string (used for inline source-code)
-#        self.atypes = atypes    # Python types of function arguments
-#        self.anames = anames    # Python names of function arguments
-#        self.rtype  = rtype     # Python type for the return value
-#
-#        self.efunc  = efunc     # ctypes function handle
-#        self.ename  = ename     # External function name
-#        self.elib   = elib      # Library filename
-#        self.sfile  = sfile     # File with sourcecode
-#        self.slang  = slang     # Language of the 
-#
-#    def __repr__(self):
-#        return pprint.pformat(vars(self))
-
 #
 # Decorate a Python-function with these to construct a mapping to an Extern.
 #
 class Extern(object):
     """Encapsulates a mapping and call to an external function."""
 
-    def __init__(self, ename=None, elib=None, sfile=None, slang=None):
+    def __init__(self, ename=None, lib=None, sfile=None, slang=None):
 
         # This is done only once; when the function is decorated
-        self.pfunc   = None
-        self.pname   = None
-        self.doc     = None
-        self.atypes  = []
-        self.anames  = []
-        self.rtype   = None
+        self.pfunc   = None     # Python function handle
+        self.pname   = None     # Python function name
+        self.doc     = None     # Python doc-string (used for inline source-code)
+        self.atypes  = []       # Python types of function arguments
+        self.anames  = []       # Python names of function arguments
+        self.rtype   = None     # Python type for the return value
 
-        self.efunc   = None
-        self.ename   = ename
-        self.elib    = elib
+        self.efunc   = None     # ctypes function handle
+        self.ename   = ename    # External function name
+        self.lib    = lib     # Library filename
 
-        self.sfile   = sfile
-        self.slang   = slang
+        self.sfile   = sfile    # File with sourcecode
+        self.slang   = slang    # Language of the sourcefile or inline
 
         logging.debug("__init__decorate__")
+
+    def __repr__(self):
+        return pprint.pformat(vars(self))
 
     def _validate_decl(self):
         """Validate the function declaration."""
@@ -115,7 +92,7 @@ class Extern(object):
         # Extract attributes for "inline" function
         if self.doc:
             self.ename = self.pname
-            self.elib  = "inline.so"
+            self.lib  = "inline.so"
 
         #
         # Extract attributes for "sfile" function
@@ -125,7 +102,7 @@ class Extern(object):
             if not self.ename:
                 self.ename = self.pname
 
-            self.elib = "lib%s.so" % os.path.splitext(os.path.basename(
+            self.lib = "lib%s.so" % os.path.splitext(os.path.basename(
                 self.sfile
             ))[0]
 
@@ -168,10 +145,10 @@ class Extern(object):
 
 class FromC(Extern):
 
-    def __init__(self, ename=None, elib=None, sfile=None):
+    def __init__(self, ename=None, lib=None, sfile=None):
         super(FromC, self).__init__(
             ename = ename,
-            elib = elib,
+            lib = lib,
 
             sfile = sfile,
             slang = "C"
@@ -179,10 +156,10 @@ class FromC(Extern):
 
 class FromChapel(Extern):
 
-    def __init__(self, ename=None, elib=None, sfile=None):
+    def __init__(self, ename=None, lib=None, sfile=None):
         super(FromChapel, self).__init__(
             ename = ename,
-            elib = elib,
+            lib = lib,
 
             sfile = sfile,
             slang = "Chapel"

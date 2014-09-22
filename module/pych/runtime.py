@@ -70,7 +70,7 @@ class Runtime(object):
             if source:
                 out, err = self.compilers[extern.slang.lower()].compile(
                     source, 
-                    "%s/%s" % (self.object_cache._output_path, extern.elib)
+                    "%s/%s" % (self.object_cache._output_path, extern.lib)
                 )
             
             efunc = self.object_cache.evoke(extern) # Attempt evocation again

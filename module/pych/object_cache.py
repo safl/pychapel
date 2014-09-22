@@ -37,7 +37,7 @@ class ObjectCache(object):
 
         logging.debug(
             "Opened the following libraries 'ahead of time': %s",
-            [elib for elib in self._libraries]
+            [lib for lib in self._libraries]
         )
 
     def load(self, library_fn, function_name):
@@ -57,14 +57,14 @@ class ObjectCache(object):
         for sp in self._search_paths:
             library_abspath = "%s/%s" % (sp, library_fn)
             logging.debug(
-                "Is elib(%s) here: '%s'?",
+                "Is lib(%s) here: '%s'?",
                 library_fn,
                 library_abspath
             )
             if os.path.exists(library_abspath):
                 return self.open(library_abspath)
 
-        logging.debug("elib(%s) is nowhere to be found.", library_fn)
+        logging.debug("lib(%s) is nowhere to be found.", library_fn)
         return None
 
     def evoke(self, extern):
@@ -83,30 +83,30 @@ class ObjectCache(object):
             )
 
         try:    # Loading it from associated library aka dlload()...
-            return self.load(extern.elib, extern.ename)
+            return self.load(extern.lib, extern.ename)
         except KeyError as exc:
-            logging.debug("No library-handle for: [%s]", extern.elib)
+            logging.debug("No library-handle for: [%s]", extern.lib)
         except AttributeError as exc:
             logging.error(
                 "Library(%s) found but ename(%s) is not in it.",
-                extern.elib,
+                extern.lib,
                 extern.ename
             )
 
         try:    # Opening library from disk and loading aka dlopen(), dlload()
-            logging.debug("Trying to 'find' library(%s) on disk.", extern.elib)
-            lh = self.find(extern.elib)
+            logging.debug("Trying to 'find' library(%s) on disk.", extern.lib)
+            lh = self.find(extern.lib)
             if lh:
                 logging.debug(
                     "Library(%s) found, trying to load(%s)",
-                    extern.elib,
+                    extern.lib,
                     extern.ename
                 )
-                return self.load(extern.elib, extern.ename)
+                return self.load(extern.lib, extern.ename)
         except AttributeError as exc:
             logging.error(
                 "Library(%s) found but ename(%s) is not in it.",
-                extern.elib,
+                extern.lib,
                 extern.ename
             )
 
