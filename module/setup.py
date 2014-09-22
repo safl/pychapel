@@ -8,8 +8,8 @@ setup(
     author      = 'Simon A. F. Lund',
     author_email='safl@safl.dk',
     data_files  = [
-        ('share/pych/ccode',        glob.glob('ccode/*.c']),
-        ('share/pych/chapelccode',  glob.glob('chapelcode/*.c']),
+        ('share/pych/externs/src', glob.glob('externs/src/*.c']),
+        ('share/pych/externs/src', glob.glob('externs/src/*.chpl']),
         ('config', 'pych.json')
     ],
     packages=['pych']

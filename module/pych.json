@@ -8,13 +8,12 @@
         },
         "Chapel":    {
             "commands": [
-                "chpl --fast --library --static -o /tmp/%(tmp_out)s %(sfile)",
-                "g++ -shared -lpthread -o %(lib_out)s -Wl,--whole-archive /tmp/%(tmp_out)s %(dep_path)s/libchpl.a %(dep_path)s/main.o -Wl,--no-whole-archive"
+                "chpl --fast --library --static -o /tmp/%(tmp_out)s %(sfile)s",
+                "g++ -shared -lpthread -o %(lib_out)s -Wl,--whole-archive /tmp/%(tmp_out)s.a %(dep_path)s/libchpl.a %(dep_path)s/main.o -Wl,--no-whole-archive"
             ],
-            "dep_path": "/home/safl/pychapel/modules/libraries/dependencies"
+            "dep_path": "/home/safl/pychapel/module/libraries/dependencies"
         }
     },
-    "chapelcode_path":  "/home/safl/pychapel/module/chapelcode",
-    "ccode_path":       "/home/safl/pychapel/module/ccode/src",
+    "externs_path":  "/home/safl/pychapel/module/externs/src",
     "log_level": "DEBUG"
 }

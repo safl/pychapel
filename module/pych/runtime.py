@@ -29,7 +29,7 @@ class Runtime(object):
             self.compilers[compiler.lower()] = Compiler(config["compilers"][compiler])
         
         self.object_cache   = ObjectCache(config["search_paths"])
-        self.specializer    = Specializer(config["ccode_path"])
+        self.specializer    = Specializer(config["externs_path"])
 
         self.object_cache.open_ahead()
 

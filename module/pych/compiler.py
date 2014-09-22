@@ -2,7 +2,13 @@
     Encapsulation for calling the backend-compiler.
 """
 from subprocess import Popen, PIPE
+import tempfile
 import logging
+
+lang2ext = {
+    "c": ".c",
+    "chapel": ".chpl"
+}
 
 class Compiler(object):
     """
@@ -33,7 +39,33 @@ class Compiler(object):
         return (all_out, all_err)
 
     def _source_from_file(self, extern, object_abspath):
-        pass
+
+        with tempfile.NamedTemporaryFile(
+            suffix=lang2ext[extern.slang.lower()],
+            prefix="autogen-",
+            delete=False) as sf:
+
+            sf.write(extern.source)             # Dump the source out
+            sf.flush()
+
+            options = self._options             # Setup command-arguments
+            options["lib_out"] = object_abspath
+            options["tmp_out"] = "something"
+            options["sfile"] = sf.name
+
+            all_out = ""
+            all_err = ""
+            for cmd_str in options["commands"]: # Execute commands
+                logging.debug("cmd_str(%s)", cmd_str)
+                cmd = (cmd_str % options).split(" ")
+                logging.debug("Cmd: %s", " ".join(cmd))
+
+                process = Popen(cmd, stdout=PIPE, stdin=PIPE)
+                out, err = process.communicate(extern.source)
+                all_out += out if out else ""
+                all_err += err if err else ""
+
+        return (all_out, all_err)
 
     def compile(self, extern, object_abspath):
         """

@@ -16,6 +16,16 @@ type2csource = {
     unicode:    "char*"
 }
 
+type2chapelsource = {
+    None:       "void",
+    bool:       "bool",
+    int:        "int(32)",
+    long:       "int(64)",
+    float:      "real(64)",
+    str:        "char*",
+    unicode:    "char*"
+}
+
 class Specializer(object):
     """The actual Specializer class handling eveyrhting."""
 
@@ -58,7 +68,27 @@ class Specializer(object):
             extern.source = tmpl % func_text
 
     def _specialize_chapel(self, extern):
-        pass
+        #
+        # Check if "inline-source" / function-body is available,
+        # the inline skeletons are basically just a hardcoded
+        # instance of an "adaptable" code-template.
+        if extern.doc:
+            # Grabt the "template"
+            tmpl = self.load(os.sep.join(["templates", "inline.skeleton.chpl"]))
+
+            # Create the function signature
+            args = ["%s: %s" % (aname, type2chapelsource[atype])
+                for aname, atype in
+                zip(extern.anames, extern.atypes)
+            ]
+
+            func_text = {
+                "rtype":   type2chapelsource[extern.rtype],
+                "args":    ", ".join(args),
+                "ename":   extern.ename,
+                "fbody":   extern.doc
+            }
+            extern.source = tmpl % func_text
 
     def specialize(self, extern):
         """Constructs source-code based on the extern."""
@@ -74,4 +104,4 @@ class Specializer(object):
         if extern.slang.lower() == "c":
             self._specialize_c(extern)
         elif extern.slang.lower() == "chapel":
-            self._specialice_chapel(extern)
+            self._specialize_chapel(extern)
