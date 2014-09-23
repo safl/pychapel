@@ -4,6 +4,7 @@ import pprint
 import ctypes
 import os
 
+from pych.exceptions import *
 import pych.runtime
 
 typemap = {
@@ -91,9 +92,18 @@ class Extern(object):
 
         # 
         # Extract attributes for "inline" function
+        #
+        # TODO: Consider library-naming, we want to persist across
+        #       executions, and really want to do the impossible:
+        #       expand the inline-library. So what can be done instead?
+        #
+        #       Collisions should be avoided yet so should compilation also.
+        #
         if self.doc:
-            self.ename = self.pname
-            self.lib  = "inline.so"
+            if not self.ename:
+                self.ename = self.pname
+            if not self.lib:
+                self.lib = "inline-%s.so" % self.slang.lower()
 
         #
         # Extract attributes for "sfile" function
@@ -128,7 +138,7 @@ class Extern(object):
                 efunc = pych.runtime.instance.materialize(self)
 
                 if not efunc:
-                    raise Exception("Failed materializing function!")
+                    raise MaterializationError(self)
                 #
                 # Register argument conversion functions on efunc
                 efunc.argtypes = [typemap[atype] for atype in self.atypes]

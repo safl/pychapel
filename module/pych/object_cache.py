@@ -9,6 +9,8 @@ import pprint
 import glob
 import os
 
+from pych.exceptions import *
+
 class ObjectCache(object):
     """The object cache encapsulation."""
 
@@ -104,11 +106,7 @@ class ObjectCache(object):
                 )
                 return self.load(extern.lib, extern.ename)
         except AttributeError as exc:
-            logging.error(
-                "Library(%s) found but ename(%s) is not in it.",
-                extern.lib,
-                extern.ename
-            )
+            raise LibraryError(extern)
 
         logging.debug(
             "I used all my magic but failed evoking the ufunc for extern(%s).",

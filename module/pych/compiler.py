@@ -5,6 +5,8 @@ from subprocess import Popen, PIPE
 import tempfile
 import logging
 
+from pych.exceptions import *
+
 lang2ext = {
     "c": ".c",
     "chapel": ".chpl"
@@ -42,7 +44,7 @@ class Compiler(object):
 
         with tempfile.NamedTemporaryFile(
             suffix=lang2ext[extern.slang.lower()],
-            prefix="autogen-",
+            prefix="temp-",
             delete=False) as sf:
 
             sf.write(extern.source)             # Dump the source out
@@ -67,18 +69,16 @@ class Compiler(object):
 
         return (all_out, all_err)
 
-    def compile(self, extern, object_abspath):
+    def compile(self, source, language, object_abspath):
         """
         Compiles the given 'source' into a shared library.
         The result will be stored in object_abspath.
         """
         logging.debug("If succesful; result should be here %s", object_abspath)
 
-        if extern.slang.lower() == "c":
-            out, err = self._source_from_pipe(extern, object_abspath)
-        elif extern.slang.lower() == "chapel":
-            out, err = self._source_from_file(extern, object_abspath)
-        else:
-            raise Exception("Unsupported language(%s)" % extern.lang)
+        if language == "c":
+            out, err = self._source_from_pipe(source, object_abspath)
+        elif language == "chapel":
+            out, err = self._source_from_file(source, object_abspath)
 
         return out, err

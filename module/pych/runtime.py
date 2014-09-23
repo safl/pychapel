@@ -8,6 +8,7 @@ from pych.object_cache import ObjectCache
 from pych.specializer import Specializer
 from pych.compiler import Compiler
 
+
 class Runtime(object):
 
     def __init__(self, config_fn=None):
@@ -21,7 +22,7 @@ class Runtime(object):
             format="%(levelname)s:%(module)s:%(funcName)s: %(message)s"
         )
 
-        self.hints = []
+        self.hints = {}
 
         self.compilers = {}                     # Initialize compilers
         for compiler in config["compilers"]:
@@ -38,7 +39,10 @@ class Runtime(object):
         Hint the runtime that we might be interested in this extern
         at some point in the future.
         """
-        self.hints.append(extern)
+        if extern.lib not in self.hints:
+            self.hints[extern.lib] = []
+
+        self.hints[extern.lib].append(extern)
 
     def materialize(self, extern):
         """
@@ -56,7 +60,14 @@ class Runtime(object):
                     is not yet materialized aka verified that
                     Extern.efunc == None.
                     Nothing bad will happen except for unnessecary work.
+
+        @assumption Materialization should not occur until after all
+                    mapped functions have been decorated. This limitation
+                    should be removed somehow... some day...
         """
+
+        logging.debug("Hints: [%s]", pprint.pformat(self.hints))
+        self.hints = {}
 
         efunc = self.object_cache.evoke(extern) # Evoke the efunc
 
@@ -69,6 +80,10 @@ class Runtime(object):
                 extern.source = self.specializer.load(extern.sfile)
 
             if extern.source:
+
+                if extern.language.lower() not in ["c", "chapel"]:
+                    raise Exception("Unsupported language(%s)" % language)
+
                 out, err = self.compilers[extern.slang.lower()].compile(
                     extern, 
                     "%s/%s" % (self.object_cache._output_path, extern.lib)
