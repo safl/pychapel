@@ -146,7 +146,7 @@ class Extern(object):
         # function ahead of time. Or compile all hinted functions
         # in one go as the first call hits a function.
         #
-        pych.runtime.INSTANCE.hint(self)
+        pych.RT.hint(self)
 
         def wrapped_f(*args):
             """The logic invoked when calling a mapped function."""
@@ -159,7 +159,7 @@ class Extern(object):
             #
             # Obtain the external object.
             if not self.efunc:
-                efunc = pych.runtime.INSTANCE.materialize(self)
+                efunc = pych.RT.materialize(self)
 
                 if not efunc:
                     raise MaterializationError(self)

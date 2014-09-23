@@ -1,1 +1,3 @@
-# Move the runtime instance into this place and out of runtime.py
+import pych.runtime
+
+RT = pych.runtime.Runtime()    # Singleton instance of the runtime

@@ -96,7 +96,6 @@ class Runtime(object):
                         in_library,
                         prefix=False
                     )
-                self.hints[extern.lib] = []     # Reset hints for library
 
             if extern.sfile:
                 source = self.specializer.load(extern.sfile)
@@ -117,6 +116,3 @@ class Runtime(object):
             # TODO: Call rt init/finalize and module-initializer for Chapel code
 
         return efunc
-
-INSTANCE = Runtime()    # Singleton instance of the runtime
-
