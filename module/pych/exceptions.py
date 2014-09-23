@@ -1,19 +1,15 @@
+"""
+    pyChapel specfic errors.
+"""
 class Error(Exception):
     """Base class for errors runtime pych errors."""
+
     def __init__(self, extern, msg=None):
         self.extern = extern
         self.msg = msg
 
-class LanguageError(Error):
-
-    def __str__(self):
-        return "Extern(%s) uses unsupported language: '%s'. AUX[%s]" % (
-            self.extern,
-            self.lang,
-            self.msg
-        )
-
 class LibraryError(Error):
+    """Intended use when something goes wrong related to a library open/load."""
 
     def __str__(self):
         return "Library(%s) found but ename(%s) is not available. AUX[%s]" % (
@@ -23,6 +19,10 @@ class LibraryError(Error):
         )
 
 class MaterializationError(Error):
+    """
+    Intended use for pyChapel specific errors, related to specialization, and
+    compilazation.
+    """
 
     def __str__(self):
         return "Failed materializing (%s), reason: [%s]" % (

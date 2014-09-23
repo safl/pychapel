@@ -5,11 +5,10 @@
 from ctypes import cdll
 import operator
 import logging
-import pprint
 import glob
 import os
 
-from pych.exceptions import *
+from pych.exceptions import LibraryError
 
 class ObjectCache(object):
     """The object cache encapsulation."""
@@ -48,7 +47,7 @@ class ObjectCache(object):
         handle = operator.attrgetter(function_name)(self._libraries[library_fn])
 
         self._functions[function_name] = handle
- 
+
         return self._functions[function_name]
 
     def find(self, library_fn):
@@ -56,8 +55,9 @@ class ObjectCache(object):
         Look through the search_paths for 'library_fn'.
         Opening the first matching library.
         """
-        for sp in self._search_paths:
-            library_abspath = "%s/%s" % (sp, library_fn)
+
+        for search_path in self._search_paths:
+            library_abspath = "%s/%s" % (search_path, library_fn)
             logging.debug(
                 "Is lib(%s) here: '%s'?",
                 library_fn,
@@ -77,7 +77,7 @@ class ObjectCache(object):
 
         try:    # Grabbing it from existing loaded symbols
             return self._functions[extern.ename]
-        except KeyError as exc:
+        except KeyError:
             logging.debug(
                 "No function-handle for: [P: %s -> C: %s]",
                 extern.pname,
@@ -86,9 +86,9 @@ class ObjectCache(object):
 
         try:    # Loading it from associated library aka dlload()...
             return self.load(extern.lib, extern.ename)
-        except KeyError as exc:
+        except KeyError:
             logging.debug("No library-handle for: [%s]", extern.lib)
-        except AttributeError as exc:
+        except AttributeError:
             logging.error(
                 "Library(%s) found but ename(%s) is not in it.",
                 extern.lib,
@@ -97,15 +97,15 @@ class ObjectCache(object):
 
         try:    # Opening library from disk and loading aka dlopen(), dlload()
             logging.debug("Trying to 'find' library(%s) on disk.", extern.lib)
-            lh = self.find(extern.lib)
-            if lh:
+            lib_h = self.find(extern.lib)
+            if lib_h:
                 logging.debug(
                     "Library(%s) found, trying to load(%s)",
                     extern.lib,
                     extern.ename
                 )
                 return self.load(extern.lib, extern.ename)
-        except AttributeError as exc:
+        except AttributeError:
             raise LibraryError(extern)
 
         logging.debug(

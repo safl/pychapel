@@ -6,7 +6,7 @@
 import logging
 import os
 
-type2source = {
+TYPE2SOURCE = {
     "c": {
         None:       "void",
         bool:       "bool",
@@ -23,7 +23,7 @@ type2source = {
         long:       "int(64)",
         float:      "real(64)",
         str:        "string",
-        unicode:    "string"   
+        unicode:    "string"
     }
 }
 
@@ -46,6 +46,7 @@ class Specializer(object):
         return self.sources[filename]
 
     def _specialize_c(self, externs, prefix=True):
+        """Specialize the inline-c code-template to the given externs."""
 
         # Grab the "template"
         source = ""
@@ -55,13 +56,13 @@ class Specializer(object):
         for extern in externs:
 
             # Create the function signature
-            args = ["%s %s" % (type2source["c"][atype], aname)
+            args = ["%s %s" % (TYPE2SOURCE["c"][atype], aname)
                 for aname, atype in
                 zip(extern.anames, extern.atypes)
             ]
 
             func_text = {
-                "rtype":   type2source["c"][extern.rtype],
+                "rtype":   TYPE2SOURCE["c"][extern.rtype],
                 "args":    ", ".join(args),
                 "ename":   extern.ename,
                 "fbody":   extern.doc
@@ -71,6 +72,7 @@ class Specializer(object):
         return source
 
     def _specialize_chapel(self, externs, prefix=True):
+        """Specialize the inline-chapel code-template to the given externs."""
 
         # Grab the "template"
         source = ""
@@ -79,13 +81,13 @@ class Specializer(object):
         tmpl = self.load(os.sep.join(["templates", "inline.func.chpl"]))
         for extern in externs:
             # Create the function signature
-            args = ["%s: %s" % (aname, type2source["chapel"][atype])
+            args = ["%s: %s" % (aname, TYPE2SOURCE["chapel"][atype])
                 for aname, atype in
                 zip(extern.anames, extern.atypes)
             ]
 
             func_text = {
-                "rtype":   type2source["chapel"][extern.rtype],
+                "rtype":   TYPE2SOURCE["chapel"][extern.rtype],
                 "args":    ", ".join(args),
                 "ename":   extern.ename,
                 "fbody":   extern.doc

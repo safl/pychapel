@@ -1,21 +1,27 @@
+"""
+    The "Runtime", the top of the organization.
+
+    Sets up object_cache, specializer, compilers in to
+    orchestrate materialization of Externs and initialization
+    of Externs/libraries.
+"""
 import logging
-import ctypes
 import pprint
 import json
-import os
 
 from pych.object_cache import ObjectCache
 from pych.specializer import Specializer
 from pych.compiler import Compiler
-
+from pych.exceptions import MaterializationError
 
 class Runtime(object):
+    """Encapsulation of runtime activities, compilation, loading, etc."""
 
     def __init__(self, config_fn=None):
         if not config_fn:                       # Load configuration
             config_fn = "pych.json"
 
-        config = json.load(open(config_fn))     
+        config = json.load(open(config_fn))
 
         logging.basicConfig(                    # Setup logging
             level=config["log_level"],
@@ -27,10 +33,12 @@ class Runtime(object):
         self.compilers = {}                     # Initialize compilers
         for compiler in config["compilers"]:
             logging.debug("Initializing %s compiler.", compiler)
-            self.compilers[compiler.lower()] = Compiler(config["compilers"][compiler])
-        
-        self.object_cache   = ObjectCache(config["search_paths"])
-        self.specializer    = Specializer(config["externs_path"])
+            self.compilers[compiler.lower()] = Compiler(
+                config["compilers"][compiler]
+            )
+
+        self.object_cache = ObjectCache(config["search_paths"])
+        self.specializer = Specializer(config["externs_path"])
 
         self.object_cache.open_ahead()
 
@@ -81,8 +89,8 @@ class Runtime(object):
                 )
 
             if extern.doc:                      # Specialize inline
-               
-                # Get source for all Externs in this library
+                # Use hints to specialize source for all externs
+                # mapped into this library
                 for in_library in self.hints[extern.lib]:
                     source += self.specializer.specialize(
                         in_library,
@@ -96,16 +104,19 @@ class Runtime(object):
             if source:                          # Compile the source
 
                 out, err = self.compilers[extern.slang.lower()].compile(
-                    source, 
+                    source,
                     extern.slang.lower(),
                     "%s/%s" % (self.object_cache._output_path, extern.lib)
                 )
-            
-                efunc = self.object_cache.evoke(extern) # Attempt evocation again
+                #
+                # TODO: Check the output of out/err and report
+                #       an appropriate error.
+                #
+                efunc = self.object_cache.evoke(extern) # Evoke it again!
 
             # TODO: Call rt init/finalize and module-initializer for Chapel code
 
         return efunc
 
-instance = Runtime()    # Singleton instance of the runtime
+INSTANCE = Runtime()    # Singleton instance of the runtime
 

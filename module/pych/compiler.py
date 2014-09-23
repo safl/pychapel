@@ -5,9 +5,7 @@ from subprocess import Popen, PIPE
 import tempfile
 import logging
 
-from pych.exceptions import *
-
-lang2ext = {
+LANG2EXT = {
     "c":        ".c",
     "chapel":   ".chpl"
 }
@@ -32,17 +30,17 @@ class Compiler(object):
         all_err = ""
 
         with tempfile.NamedTemporaryFile(
-            suffix=lang2ext[language],
+            suffix=LANG2EXT[language],
             prefix="temp-",
-            delete=False) as sf:
+            delete=False) as sfile_h:
 
-            sf.write(source)                    # Dump the source out
-            sf.flush()
+            sfile_h.write(source)                    # Dump the source out
+            sfile_h.flush()
 
             options = self._options             # Setup command-arguments
             options["lib_out"] = object_abspath
             options["tmp_out"] = "something"
-            options["sfile"] = sf.name
+            options["sfile"] = sfile_h.name
 
             for cmd_str in options["commands"]: # Execute commands
                 logging.debug("cmd_str(%s)", cmd_str)
@@ -53,5 +51,5 @@ class Compiler(object):
                 out, err = process.communicate(source)
                 all_out += out if out else ""
                 all_err += err if err else ""
-    
+
         return all_out, all_err
