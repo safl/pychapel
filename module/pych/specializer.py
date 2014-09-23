@@ -22,8 +22,8 @@ type2source = {
         int:        "int",
         long:       "int(64)",
         float:      "real(64)",
-        str:        "char*",
-        unicode:    "char*"   
+        str:        "string",
+        unicode:    "string"   
     }
 }
 
@@ -45,10 +45,12 @@ class Specializer(object):
 
         return self.sources[filename]
 
-    def _specialize_c(self, externs):
+    def _specialize_c(self, externs, prefix=True):
 
         # Grab the "template"
-        source = self.load(os.sep.join(["templates", "inline.prefix.c"]))
+        source = ""
+        if prefix:
+            source = self.load(os.sep.join(["templates", "inline.prefix.c"]))
         tmpl = self.load(os.sep.join(["templates", "inline.func.c"]))
         for extern in externs:
 
@@ -68,10 +70,12 @@ class Specializer(object):
 
         return source
 
-    def _specialize_chapel(self, externs):
+    def _specialize_chapel(self, externs, prefix=True):
 
         # Grab the "template"
-        source = self.load(os.sep.join(["templates", "inline.prefix.chpl"]))
+        source = ""
+        if prefix:
+            source = self.load(os.sep.join(["templates", "inline.prefix.chpl"]))
         tmpl = self.load(os.sep.join(["templates", "inline.func.chpl"]))
         for extern in externs:
             # Create the function signature
@@ -90,25 +94,14 @@ class Specializer(object):
 
         return source
 
-    def specialize(self, extern):
+    def specialize(self, extern, prefix=True):
         """Constructs source-code based on the extern."""
 
         logging.debug(" target-extern: %s", extern)
-        if extern.slang.lower() not in ["c", "chapel"]:
-            raise MaterializationError(
-                extern,
-                "Unsupported source language(%s)" % extern.slang
-            )
-
-        if not extern.doc:
-            raise MaterializationError(
-                extern,
-                "No inline-source available, specify it in doc-string."
-            )
 
         if extern.slang.lower() == "c":
-            source = self._specialize_c([extern])
+            source = self._specialize_c([extern], prefix)
         elif extern.slang.lower() == "chapel":
-            source = self._specialize_chapel([extern])
+            source = self._specialize_chapel([extern], prefix)
 
-        extern.source = source
+        return source

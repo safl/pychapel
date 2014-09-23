@@ -67,30 +67,43 @@ class Runtime(object):
         """
 
         logging.debug("Hints: [%s]", pprint.pformat(self.hints))
-        self.hints = {}
 
         efunc = self.object_cache.evoke(extern) # Evoke the efunc
 
         if not efunc:                           # Create an evokeable object
-            source = None
-            if extern.doc:
-                self.specializer.specialize(extern)
+            source = ""
+
+            if (extern.doc or extern.sfile) and \
+               extern.slang.lower() not in ["c", "chapel"]:
+                raise MaterializationError(
+                    extern,
+                    "Unsupported source language(%s)" % extern.slang
+                )
+
+            if extern.doc:                      # Specialize inline
+               
+                # Get source for all Externs in this library
+                for in_library in self.hints[extern.lib]:
+                    source += self.specializer.specialize(
+                        in_library,
+                        prefix=False
+                    )
+                self.hints[extern.lib] = []     # Reset hints for library
 
             if extern.sfile:
-                extern.source = self.specializer.load(extern.sfile)
+                source = self.specializer.load(extern.sfile)
 
-            if extern.source:
-
-                if extern.slang.lower() not in ["c", "chapel"]:
-                    raise Exception("Unsupported language(%s)" % language)
+            if source:                          # Compile the source
 
                 out, err = self.compilers[extern.slang.lower()].compile(
-                    extern.source, 
+                    source, 
                     extern.slang.lower(),
                     "%s/%s" % (self.object_cache._output_path, extern.lib)
                 )
             
-            efunc = self.object_cache.evoke(extern) # Attempt evocation again
+                efunc = self.object_cache.evoke(extern) # Attempt evocation again
+
+            # TODO: Call rt init/finalize and module-initializer for Chapel code
 
         return efunc
 
