@@ -165,10 +165,10 @@ class FromC(Extern):
             slang = "C"
         )
 
-class FromChapel(Extern):
+class Chapel(Extern):
 
     def __init__(self, ename=None, lib=None, sfile=None):
-        super(FromChapel, self).__init__(
+        super(Chapel, self).__init__(
             ename = ename,
             lib = lib,
 

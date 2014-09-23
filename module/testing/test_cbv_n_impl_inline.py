@@ -5,16 +5,16 @@
     * Inline Chapel code
     * Multiple functions are mapped from the same implicit library
 """
-from pych.extern import FromChapel
+from pych.extern import Chapel
 
-@FromChapel()
+@Chapel()
 def add_doubles_nii(x=float, y=float):
     """
     return x+y;
     """
     return float
 
-@FromChapel()
+@Chapel()
 def add_ints_nii(x=int, y=int):
     """
     return x+y;

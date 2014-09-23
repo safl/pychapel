@@ -1,14 +1,14 @@
-from pych.extern import FromChapel
+from pych.extern import Chapel
 
-@FromChapel(sfile="examples.chpl")
+@Chapel(sfile="examples.chpl")
 def hello_world():
     return None
 
-@FromChapel(sfile="examples.chpl")
+@Chapel(sfile="examples.chpl")
 def add_ints(x=int, y=int):
     return int
 
-@FromChapel(sfile="examples.chpl")
+@Chapel(sfile="examples.chpl")
 def add_doubles(x=float, y=float):
     return float
 

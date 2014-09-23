@@ -5,9 +5,9 @@
 	* Inline Chapel code
 	* Single function is mapped
 """
-from pych.extern import FromChapel
+from pych.extern import Chapel
 
-@FromChapel()
+@Chapel()
 def add_doubles_isi(x=float, y=float):
     """
     return x+y;

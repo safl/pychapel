@@ -5,16 +5,16 @@
     * Inline Chapel code
     * Multiple Python functions are mapped to distinct explicitly named libraries
 """
-from pych.extern import FromChapel
+from pych.extern import Chapel
 
-@FromChapel(lib="libfancy1.so")
+@Chapel(lib="libfancy1.so")
 def add_doubles_emd(x=float, y=float):
     """
     return x+y;
     """
     return float
 
-@FromChapel(lib="libfancy2.so")
+@Chapel(lib="libfancy2.so")
 def add_ints_emd(x=int, y=int):
     """
     return x+y;

@@ -3,7 +3,7 @@
     "compilers": {
         "C":       {
             "commands":  [
-                "gcc -lm -O3 -march=native -fopenmp -fPIC -std=c99 -x c -shared - -o %(lib_out)s"
+                "gcc -lm -O3 -march=native -fopenmp -fPIC -std=c99 -x c -shared -o %(lib_out)s %(sfile)s"
             ]
         },
         "Chapel":    {

@@ -59,7 +59,7 @@ class Specializer(object):
             ]
 
             func_text = {
-                "rtype":   type2csource["c"][extern.rtype],
+                "rtype":   type2source["c"][extern.rtype],
                 "args":    ", ".join(args),
                 "ename":   extern.ename,
                 "fbody":   extern.doc

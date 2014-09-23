@@ -81,11 +81,12 @@ class Runtime(object):
 
             if extern.source:
 
-                if extern.language.lower() not in ["c", "chapel"]:
+                if extern.slang.lower() not in ["c", "chapel"]:
                     raise Exception("Unsupported language(%s)" % language)
 
                 out, err = self.compilers[extern.slang.lower()].compile(
-                    extern, 
+                    extern.source, 
+                    extern.slang.lower(),
                     "%s/%s" % (self.object_cache._output_path, extern.lib)
                 )
             
