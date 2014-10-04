@@ -648,7 +648,7 @@ static void dsiRemove(DefaultAssociativeDom_chpl_taskID_t_F this8, chpl_taskID_t
     while (T) {
       ret3 = (tmp)->data;
       _virtual_method_tmp_ = ((object)(ret3))->chpl__cid;
-      ((void(*)(BaseArr, chpl_taskID_t, chpl_bool, int64_t, c_string))chpl_vmtable[((INT64(8) * _virtual_method_tmp_) + INT64(3))])(ret3, idx, true, _ln, _fn);
+      ((void(*)(BaseArr, chpl_taskID_t, chpl_bool, int64_t, c_string))chpl_vmtable[((INT64(8) * _virtual_method_tmp_) + INT64(6))])(ret3, idx, true, _ln, _fn);
       ret4 = (tmp)->next;
       tmp = ret4;
       call_tmp4 = ((object)(ret4));
@@ -1016,7 +1016,7 @@ static void _resize(DefaultAssociativeDom_chpl_taskID_t_F this8, chpl_bool grow,
   call_tmp15 = chpl__initCopy_chpl_rt_localeID_t(call_tmp14);
   call_tmp16 = chpl_localeID_to_locale(&call_tmp15, _ln, _fn);
   _virtual_method_tmp_ = ((object)(call_tmp16))->chpl__cid;
-  ((int64_t(*)(locale, int64_t, c_string))chpl_vmtable[((INT64(8) * _virtual_method_tmp_) + INT64(3))])(call_tmp16, _ln, _fn);
+  ((int64_t(*)(locale, int64_t, c_string))chpl_vmtable[((INT64(8) * _virtual_method_tmp_) + INT64(2))])(call_tmp16, _ln, _fn);
   call_tmp17 = (default_argtasksPerLocale == INT64(0));
   if (call_tmp17) {
     call_tmp19 = chpl_task_getRequestedSubloc();
@@ -2468,7 +2468,7 @@ static void _backupArray2(DefaultAssociativeArr_chpldev_Task_chpl_taskID_t_F thi
   call_tmp14 = chpl__initCopy_chpl_rt_localeID_t(call_tmp13);
   call_tmp15 = chpl_localeID_to_locale(&call_tmp14, _ln, _fn);
   _virtual_method_tmp_ = ((object)(call_tmp15))->chpl__cid;
-  ((int64_t(*)(locale, int64_t, c_string))chpl_vmtable[((INT64(8) * _virtual_method_tmp_) + INT64(3))])(call_tmp15, _ln, _fn);
+  ((int64_t(*)(locale, int64_t, c_string))chpl_vmtable[((INT64(8) * _virtual_method_tmp_) + INT64(2))])(call_tmp15, _ln, _fn);
   call_tmp16 = (default_argtasksPerLocale == INT64(0));
   if (call_tmp16) {
     call_tmp18 = chpl_task_getRequestedSubloc();

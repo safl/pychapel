@@ -2914,7 +2914,7 @@ static void chpl___ASSIGN_3(DefaultRectangularArr__real64_2_int64_t_F a, _real64
   call_tmp3 = chpl__initCopy_chpl_rt_localeID_t(call_tmp2);
   call_tmp4 = chpl_localeID_to_locale(&call_tmp3, _ln, _fn);
   _virtual_method_tmp_ = ((object)(call_tmp4))->chpl__cid;
-  ((int64_t(*)(locale, int64_t, c_string))chpl_vmtable[((INT64(8) * _virtual_method_tmp_) + INT64(3))])(call_tmp4, _ln, _fn);
+  ((int64_t(*)(locale, int64_t, c_string))chpl_vmtable[((INT64(8) * _virtual_method_tmp_) + INT64(2))])(call_tmp4, _ln, _fn);
   call_tmp5 = (default_argtasksPerLocale == INT64(0));
   if (call_tmp5) {
     call_tmp7 = chpl_task_getRequestedSubloc();

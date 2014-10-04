@@ -1,19 +1,76 @@
 {
-    "search_paths": ["/home/safl/pychapel/module/libraries"],
-    "compilers": {
-        "C":       {
-            "commands":  [
-                "gcc -lm -O3 -march=native -fopenmp -fPIC -std=c99 -x c -shared -o %(lib_out)s %(sfile)s"
-            ]
+    "log_level":    "DEBUG",
+    "open_ahead":   true,
+
+    "object_store": {
+        "root_path":    "/home/safl/pychapel/module",
+        "search_paths": {
+            "tp":       ["lib/third_party"],
+            "c":        ["lib/c"],
+            "chapel":   ["lib/chapel"]
         },
-        "Chapel":    {
-            "commands": [
-                "chpl --fast --library --static -o /tmp/%(tmp_out)s %(sfile)s",
-                "g++ -shared -lpthread -o %(lib_out)s -Wl,--whole-archive /tmp/%(tmp_out)s.a %(dep_path)s/libchpl.a %(dep_path)s/main.o -Wl,--no-whole-archive"
-            ],
-            "dep_path": "/home/safl/pychapel/module/libraries/dependencies"
+        "output_paths": {
+            "c":        "lib/c",
+            "chapel":   "lib/chapel"
         }
     },
-    "externs_path":  "/home/safl/pychapel/module/externs/src",
-    "log_level": "DEBUG"
+
+    "specializers": {
+        "c":            "/home/safl/pychapel/module/templates",
+        "chapel":       "/home/safl/pychapel/module/templates"
+    },
+
+    "compilers": {
+        "c":       {
+            "root_path":    "/home/safl/pychapel/module",
+            "output_path":  "lib/c",
+            "lib_path":     "lib",
+            "inc_path":     "include",
+            "includes":     ["include"],
+
+            "cflags": [
+                "-lm",
+                "-O3",
+                "-march=native",
+                "-fopenmp",
+                "-fPIC",
+                "-std=c99",
+                "-shared"
+            ],
+            "commands": [
+                "gcc %(flags) %(include_paths)s %(targets)s -o %(OBJECT_ABSPATH)s "
+            ]
+        },
+
+        "chapel":    {
+            "root_path":        "/home/safl/pychapel/module",
+            "output_path":      "store/chapel",
+            "lib_path":         "lib",
+            "inc_path":         "include",
+            "includes":         ["/usr/include/python2.7"],
+
+            "cflags": [
+                "--fast",
+                "--library",
+                "--static"
+            ],
+            "lflags": [
+                "-shared",
+                "-lpthread"
+            ],
+            "targets": [
+                "%(inc_path)s/pych.h",
+                "%(sfile)s"
+            ],
+            "link_targets": [
+                "%(TMP_PATH)s.a",
+                "%(lib_path)s/libchpl.a",
+                "%(lib_path)s/main.o"
+            ],
+            "commands": [
+                "chpl %(cflags)s %(targets)s -o %(TMP_PATH)s ",
+                "g++ %(lflags) -Wl,--whole-archive %(link_targets)s -Wl,--no-whole-archive - %(OBJECT_ABSPATH)s"
+            ]
+        }
+    }
 }

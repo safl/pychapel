@@ -4,6 +4,8 @@
 from subprocess import Popen, PIPE
 import tempfile
 import logging
+import copy
+import os
 
 LANG2EXT = {
     "c":        ".c",
@@ -13,7 +15,7 @@ LANG2EXT = {
 class Compiler(object):
     """
     Use this class to compile source-code to shared libraries,
-    loadable by the ObjectCache.
+    loadable by the ObjectStore.
     """
 
     def __init__(self, options):
@@ -34,16 +36,20 @@ class Compiler(object):
             prefix="temp-",
             delete=False) as sfile_h:
 
-            sfile_h.write(source)                    # Dump the source out
+            sfile_h.write(source)               # Dump the source out
             sfile_h.flush()
 
-            options = self._options             # Setup command-arguments
+            options = copy.deepcopy(self._options)       # Setup command-arguments
             options["lib_out"] = object_abspath
             options["tmp_out"] = "something"
-            options["sfile"] = sfile_h.name
+            options["targets"] = sfile_h.name
+            options["flags"] = " ".join(self._options["flags"])
+            options["include_paths"] = ""
+            for include_path in self._options["include_paths"]:
+                options["include_paths"] += '-I %s%s' % (include_path, os.sep)
 
             for cmd_str in options["commands"]: # Execute commands
-                logging.debug("cmd_str(%s)", cmd_str)
+                logging.debug("cmd_str[%s]", cmd_str)
                 cmd = (cmd_str % options).split(" ")
                 logging.debug("Cmd: %s", " ".join(cmd))
 

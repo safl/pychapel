@@ -1,4 +1,5 @@
 docs/build
+exp/src/here
 chapel/ccode
 chapel/genna
 chapel/core

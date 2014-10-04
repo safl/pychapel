@@ -74,7 +74,7 @@ static void writeIt2(Writer this8, chpl_taskID_t x, int64_t _ln, c_string _fn) {
 static void writeIt3(Writer this8, uint64_t x, int64_t _ln, c_string _fn) {
   int32_t _virtual_method_tmp_;
   _virtual_method_tmp_ = ((object)(this8))->chpl__cid;
-  ((void(*)(Writer, uint64_t, int64_t, c_string))chpl_vmtable[((INT64(8) * _virtual_method_tmp_) + INT64(1))])(this8, x, _ln, _fn);
+  ((void(*)(Writer, uint64_t, int64_t, c_string))chpl_vmtable[((INT64(8) * _virtual_method_tmp_) + INT64(3))])(this8, x, _ln, _fn);
   return;
 }
 
@@ -82,7 +82,7 @@ static void writeIt3(Writer this8, uint64_t x, int64_t _ln, c_string _fn) {
 static void writeIt4(Writer this8, int64_t x, int64_t _ln, c_string _fn) {
   int32_t _virtual_method_tmp_;
   _virtual_method_tmp_ = ((object)(this8))->chpl__cid;
-  ((void(*)(Writer, int64_t, int64_t, c_string))chpl_vmtable[((INT64(8) * _virtual_method_tmp_) + INT64(3))])(this8, x, _ln, _fn);
+  ((void(*)(Writer, int64_t, int64_t, c_string))chpl_vmtable[((INT64(8) * _virtual_method_tmp_) + INT64(1))])(this8, x, _ln, _fn);
   return;
 }
 

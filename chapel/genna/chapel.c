@@ -598,7 +598,7 @@ _real64 nicestuff(int64_t w, int64_t h, int64_t i) {
     call_tmp24 = chpl__initCopy_chpl_rt_localeID_t(call_tmp23);
     call_tmp25 = chpl_localeID_to_locale(&call_tmp24, INT64(31), "chapel.chpl");
     _virtual_method_tmp_ = ((object)(call_tmp25))->chpl__cid;
-    ((int64_t(*)(locale, int64_t, c_string))chpl_vmtable[((INT64(8) * _virtual_method_tmp_) + INT64(3))])(call_tmp25, INT64(31), "chapel.chpl");
+    ((int64_t(*)(locale, int64_t, c_string))chpl_vmtable[((INT64(8) * _virtual_method_tmp_) + INT64(2))])(call_tmp25, INT64(31), "chapel.chpl");
     call_tmp26 = (default_argtasksPerLocale == INT64(0));
     if (call_tmp26) {
       call_tmp28 = chpl_task_getRequestedSubloc();
@@ -884,7 +884,7 @@ _real64 nicestuff(int64_t w, int64_t h, int64_t i) {
     call_tmp75 = chpl__initCopy_chpl_rt_localeID_t(call_tmp74);
     call_tmp76 = chpl_localeID_to_locale(&call_tmp75, INT64(34), "chapel.chpl");
     _virtual_method_tmp_2 = ((object)(call_tmp76))->chpl__cid;
-    ((int64_t(*)(locale, int64_t, c_string))chpl_vmtable[((INT64(8) * _virtual_method_tmp_2) + INT64(3))])(call_tmp76, INT64(34), "chapel.chpl");
+    ((int64_t(*)(locale, int64_t, c_string))chpl_vmtable[((INT64(8) * _virtual_method_tmp_2) + INT64(2))])(call_tmp76, INT64(34), "chapel.chpl");
     call_tmp77 = (default_argtasksPerLocale5 == INT64(0));
     if (call_tmp77) {
       call_tmp79 = chpl_task_getRequestedSubloc();

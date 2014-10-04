@@ -20,8 +20,54 @@ import pprint
 import ctypes
 import os
 
+import numpy as np
+from numpy.ctypeslib import ndpointer
+
 from pych.exceptions import MaterializationError
 import pych.runtime
+
+class PyNdArray(ctypes.Structure):
+
+    _fields_ = [
+        ('two',         ctypes.c_int),
+        ('nd',          ctypes.c_int),
+        ('typekind',    ctypes.c_char),
+        ('itemsize',    ctypes.c_int),
+        ('flags',       ctypes.c_int),
+        ('shape',       ctypes.c_int*16),
+        ('strides',     ctypes.c_int*16),
+        ('data',        ctypes.c_void_p)
+    ]
+
+def construct_struct(array):
+
+    array_id = id(array)
+
+    try:
+        return pych.RT.arrays[array_id]
+    except KeyError:
+        logging.debug("Array does not exist.")
+
+    #
+    # Create one
+    #
+    shape = [nelements for nelements in array.shape]
+    shape += [0]*(16-len(shape))
+
+    strides = [stride for stride in array.strides]
+    strides += [0]*(16-len(strides))
+
+    pych.RT.arrays[array_id] = PyNdArray(
+        two=2,
+        nd=array.ndim,
+        typekind=array.__array_interface__['typestr'][1],
+        itemsize=array.itemsize,
+        flags=0,
+        shape=(ctypes.c_int*16)(*shape),
+        strides=(ctypes.c_int*16)(*strides),
+        data=array.ctypes.data
+    )
+    return pych.RT.arrays[array_id]
 
 TYPEMAP = {
     None:       None,
@@ -30,7 +76,8 @@ TYPEMAP = {
     long:       ctypes.c_long,
     float:      ctypes.c_double,
     str:        ctypes.c_char_p,
-    unicode:    ctypes.c_wchar_p
+    unicode:    ctypes.c_wchar_p,
+    np.ndarray: ctypes.POINTER(PyNdArray)
 }
 
 #
@@ -82,6 +129,7 @@ class Extern(object):
         """Compare argument-types with extern declation."""
 
         call_types = [type(arg) for arg in args]
+        
         if call_types != self.atypes:
             ct_text = pprint.pformat(call_types)
             at_text = pprint.pformat(self.atypes)
@@ -104,11 +152,11 @@ class Extern(object):
         arg_spec = inspect.getargspec(self.pfunc)
 
         self.anames = arg_spec.args         # Extract argument names
-        if arg_spec.defaults:                       # Extract argument types
+        if arg_spec.defaults:               # Extract argument types
             self.atypes = list(arg_spec.defaults)
-        self.rtype = self.pfunc()  # Obtain return-type
+        self.rtype = self.pfunc()           # Obtain return-type
 
-        self._validate_decl()                       # Validate declaration
+        self._validate_decl()               # Validate declaration
 
         #
         # Extract attributes for "inline" function
@@ -172,9 +220,18 @@ class Extern(object):
                 # Register the efunc handle on Extern
                 self.efunc = efunc
 
+            # Convert the nptypes
+            c_args = []
+            for i, arg in enumerate(args):
+                print type(arg), arg, i
+                if type(arg) is np.ndarray:
+                    c_args.append(construct_struct(arg))
+                else:
+                    c_args.append(arg)
+
             #
             # Call
-            return self.efunc(*args)
+            return self.efunc(*c_args)
 
         return wrapped_f
 

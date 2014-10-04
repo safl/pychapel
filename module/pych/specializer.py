@@ -6,6 +6,8 @@
 import logging
 import os
 
+import numpy as np
+
 TYPE2SOURCE = {
     "c": {
         None:       "void",
@@ -14,7 +16,8 @@ TYPE2SOURCE = {
         long:       "long",
         float:      "double",
         str:        "char*",
-        unicode:    "char*"
+        unicode:    "char*",
+        np.ndarray: "py_ndarray*"
     },
     "chapel": {
         None:       "void",
@@ -23,11 +26,21 @@ TYPE2SOURCE = {
         long:       "int(64)",
         float:      "real(64)",
         str:        "string",
-        unicode:    "string"
+        unicode:    "string",
+        np.ndarray: "ndarray"
     }
 }
 
-class Specializer(object):
+def get_specializer(slang):
+
+    if slang.lower() == "c":
+        return CSpecializer
+    elif slang.lower() == "chapel":
+        return ChapelSpecializer
+    else:
+        return None
+
+class BaseSpecializer(object):
     """The actual Specializer class handling eveyrhting."""
 
     def __init__(self, sourcecode_path):
@@ -45,14 +58,23 @@ class Specializer(object):
 
         return self.sources[filename]
 
-    def _specialize_c(self, externs, prefix=True):
+    def specialize(self, externs, prefix=True):
+        raise Exception("Not implemented.")
+
+class CSpecializer(BaseSpecializer):
+
+    def __init__(self, sourcecode_path):
+        super(CSpecializer, self).__init__(sourcecode_path)
+
+    def specialize(self, externs, prefix=True):
         """Specialize the inline-c code-template to the given externs."""
 
         # Grab the "template"
         source = ""
         if prefix:
-            source = self.load(os.sep.join(["templates", "inline.prefix.c"]))
-        tmpl = self.load(os.sep.join(["templates", "inline.func.c"]))
+            source = self.load(os.sep.join(["inline.prefix.c"]))
+
+        tmpl = self.load(os.sep.join(["inline.func.c"]))
         for extern in externs:
 
             # Create the function signature
@@ -71,14 +93,20 @@ class Specializer(object):
 
         return source
 
-    def _specialize_chapel(self, externs, prefix=True):
+class ChapelSpecializer(BaseSpecializer):
+
+    def __init__(self, sourcecode_path):
+        super(ChapelSpecializer, self).__init__(sourcecode_path)
+
+    def specialize(self, externs, prefix=True):
         """Specialize the inline-chapel code-template to the given externs."""
 
         # Grab the "template"
         source = ""
         if prefix:
-            source = self.load(os.sep.join(["templates", "inline.prefix.chpl"]))
-        tmpl = self.load(os.sep.join(["templates", "inline.func.chpl"]))
+            source = self.load(os.sep.join(["inline.prefix.chpl"]))
+
+        tmpl = self.load(os.sep.join(["inline.func.chpl"]))
         for extern in externs:
             # Create the function signature
             args = ["%s: %s" % (aname, TYPE2SOURCE["chapel"][atype])
@@ -92,18 +120,7 @@ class Specializer(object):
                 "ename":   extern.ename,
                 "fbody":   extern.doc
             }
-            source = tmpl % func_text
+            source += tmpl % func_text
 
         return source
 
-    def specialize(self, extern, prefix=True):
-        """Constructs source-code based on the extern."""
-
-        logging.debug(" target-extern: %s", extern)
-
-        if extern.slang.lower() == "c":
-            source = self._specialize_c([extern], prefix)
-        elif extern.slang.lower() == "chapel":
-            source = self._specialize_chapel([extern], prefix)
-
-        return source

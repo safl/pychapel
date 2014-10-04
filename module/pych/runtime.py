@@ -1,7 +1,7 @@
 """
     The "Runtime", the top of the organization.
 
-    Sets up object_cache, specializer, compilers in to
+    Sets up object_store, specializer, compilers in to
     orchestrate materialization of Externs and initialization
     of Externs/libraries.
 """
@@ -9,8 +9,8 @@ import logging
 import pprint
 import json
 
-from pych.object_cache import ObjectCache
-from pych.specializer import Specializer
+from pych.object_store import ObjectStore
+from pych.specializer import get_specializer
 from pych.compiler import Compiler
 from pych.exceptions import MaterializationError
 
@@ -30,17 +30,24 @@ class Runtime(object):
 
         self.hints = {}
 
-        self.compilers = {}                     # Initialize compilers
+        self.object_store = ObjectStore(        # Init object-store
+            config["object_store"]
+        )
+        if config["open_ahead"]:
+            self.object_store.open_ahead()
+
+        self.compilers = {}                     # Init compilers
         for compiler in config["compilers"]:
             logging.debug("Initializing %s compiler.", compiler)
-            self.compilers[compiler.lower()] = Compiler(
+            self.compilers[compiler] = Compiler(
                 config["compilers"][compiler]
             )
 
-        self.object_cache = ObjectCache(config["search_paths"])
-        self.specializer = Specializer(config["externs_path"])
+        self.specializers = {}                  # Init specializers
+        for slang in config["specializers"]:
+            self.specializers[slang] = get_specializer(slang)(config["specializers"][slang])
 
-        self.object_cache.open_ahead()
+        self.arrays = {}                        # Array mappings
 
     def hint(self, extern):
         """
@@ -76,13 +83,14 @@ class Runtime(object):
 
         logging.debug("Hints: [%s]", pprint.pformat(self.hints))
 
-        efunc = self.object_cache.evoke(extern) # Evoke the efunc
+        efunc = self.object_store.evoke(extern) # Evoke the efunc
 
         if not efunc:                           # Create an evokeable object
             source = ""
+            slang = extern.slang.lower() if extern.slang else None
 
             if (extern.doc or extern.sfile) and \
-               extern.slang.lower() not in ["c", "chapel"]:
+                slang not in ["c", "chapel"]:
                 raise MaterializationError(
                     extern,
                     "Unsupported source language(%s)" % extern.slang
@@ -91,27 +99,26 @@ class Runtime(object):
             if extern.doc:                      # Specialize inline
                 # Use hints to specialize source for all externs
                 # mapped into this library
-                for in_library in self.hints[extern.lib]:
-                    source += self.specializer.specialize(
-                        in_library,
-                        prefix=False
-                    )
+                source = self.specializers[slang].specialize(
+                    self.hints[extern.lib]
+                )
 
             if extern.sfile:
-                source = self.specializer.load(extern.sfile)
+                source = self.specializers[slang].load(
+                    extern.sfile
+                )
 
             if source:                          # Compile the source
-
-                out, err = self.compilers[extern.slang.lower()].compile(
+                out, err = self.compilers[slang].compile(
                     source,
-                    extern.slang.lower(),
-                    "%s/%s" % (self.object_cache._output_path, extern.lib)
+                    slang,
+                    "%s/%s" % (self.object_store._output_paths[slang], extern.lib)
                 )
                 #
                 # TODO: Check the output of out/err and report
                 #       an appropriate error.
                 #
-                efunc = self.object_cache.evoke(extern) # Evoke it again!
+                efunc = self.object_store.evoke(extern) # Evoke it again!
 
             # TODO: Call rt init/finalize and module-initializer for Chapel code
 

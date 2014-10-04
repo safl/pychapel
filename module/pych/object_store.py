@@ -10,13 +10,36 @@ import os
 
 from pych.exceptions import LibraryError
 
-class ObjectCache(object):
+def prepend_path(root, path):
+
+    abspath = path
+    if not os.path.isabs(abspath):
+        abspath = "%s%s%s" % (root, os.sep, path)
+    abspath = os.path.abspath(abspath)
+
+    return abspath
+
+class ObjectStore(object):
     """The object cache encapsulation."""
 
-    def __init__(self, search_paths):
-        self._search_paths = search_paths
-        self._output_path = search_paths[0] # Output is the search in the
-                                            # object search-path
+    def __init__(self, config):
+
+        self._root_path = config["root_path"]   
+        if not self._root_path:             # Root-path defaults to cwd
+            self._root_path = os.getcwd()
+                                            # Search paths
+        self._search_paths = {source:[] for source in config["search_paths"]}
+        for source in config["search_paths"]:
+            for path in config["search_paths"][source]:
+                self._search_paths[source].append(prepend_path(
+                    self._root_path, path
+                ))
+                                            # Output paths
+        self._output_paths = {source:[] for source in config["output_paths"]}
+        for source in config["output_paths"]:
+            output_path = config["output_paths"][source]
+            self._output_paths[source] = prepend_path(self._root_path, path)
+
         self._functions = {}
         self._libraries = {}                # library.so => cdll-library-handle
 
@@ -72,7 +95,7 @@ class ObjectCache(object):
     def evoke(self, extern):
         """
         Evoke the efunc related the given Extern channeling all the power
-        of the mighty ObjectCache.
+        of the mighty ObjectStore.
         """
 
         try:    # Grabbing it from existing loaded symbols
