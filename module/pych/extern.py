@@ -46,7 +46,7 @@ def construct_struct(array):
     try:
         return pych.RT.arrays[array_id]
     except KeyError:
-        logging.debug("Array does not exist.")
+        logging.debug("Array is not mapped... yet...")
 
     #
     # Create one
@@ -67,6 +67,7 @@ def construct_struct(array):
         strides=(ctypes.c_int*16)(*strides),
         data=array.ctypes.data
     )
+
     return pych.RT.arrays[array_id]
 
 TYPEMAP = {

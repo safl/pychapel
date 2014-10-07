@@ -5,13 +5,13 @@
     "object_store": {
         "root_path":    "/home/safl/pychapel/module",
         "search_paths": {
-            "tp":       ["lib/third_party"],
-            "c":        ["lib/c"],
-            "chapel":   ["lib/chapel"]
+            "tp":       ["store/third_party"],
+            "c":        ["store/c"],
+            "chapel":   ["store/chapel"]
         },
         "output_paths": {
-            "c":        "lib/c",
-            "chapel":   "lib/chapel"
+            "c":        "store/c",
+            "chapel":   "store/chapel"
         }
     },
 
@@ -34,11 +34,16 @@
                 "-march=native",
                 "-fopenmp",
                 "-fPIC",
-                "-std=c99",
+               "-std=c99",
                 "-shared"
             ],
+            "lflags": [],
+            "ctargets": [
+                "__SFILE__"
+            ],
+            "ltargets": [],
             "commands": [
-                "gcc %(flags) %(include_paths)s %(targets)s -o %(OBJECT_ABSPATH)s "
+                "gcc %(cflags)s %(includes)s %(ctargets)s -o __OBJECT_ABSPATH__ "
             ]
         },
 
@@ -58,18 +63,20 @@
                 "-shared",
                 "-lpthread"
             ],
-            "targets": [
+
+            "ctargets": [
                 "%(inc_path)s/pych.h",
-                "%(sfile)s"
+                "__SFILE__"
             ],
-            "link_targets": [
-                "%(TMP_PATH)s.a",
+            "ltargets": [
+                "__TMP_PATH__.a",
                 "%(lib_path)s/libchpl.a",
                 "%(lib_path)s/main.o"
             ],
+
             "commands": [
-                "chpl %(cflags)s %(targets)s -o %(TMP_PATH)s ",
-                "g++ %(lflags) -Wl,--whole-archive %(link_targets)s -Wl,--no-whole-archive - %(OBJECT_ABSPATH)s"
+                "chpl %(cflags)s %(ctargets)s -o __TMP_PATH__ ",
+                "g++ %(lflags)s -Wl,--whole-archive %(ltargets)s -Wl,--no-whole-archive - __OBJECT_ABSPATH__"
             ]
         }
     }

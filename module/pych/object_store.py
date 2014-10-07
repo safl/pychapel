@@ -5,6 +5,7 @@
 from ctypes import cdll
 import operator
 import logging
+import pprint
 import glob
 import os
 
@@ -43,11 +44,17 @@ class ObjectStore(object):
         self._functions = {}
         self._libraries = {}                # library.so => cdll-library-handle
 
+        logging.debug("Object-store: %s", self)
+
+    def __repr__(self):
+        return pprint.pformat(vars(self))
+
     def open(self, library_abspath):
         """Open a library, return and store a handle to it."""
 
         library_fn = os.path.basename(library_abspath)
         if library_fn not in self._libraries:
+            # Module/library initialization for chapel libraries
             self._libraries[library_fn] = cdll.LoadLibrary(library_abspath)
 
         return self._libraries[library_fn]
@@ -79,15 +86,16 @@ class ObjectStore(object):
         Opening the first matching library.
         """
 
-        for search_path in self._search_paths:
-            library_abspath = "%s/%s" % (search_path, library_fn)
-            logging.debug(
-                "Is lib(%s) here: '%s'?",
-                library_fn,
-                library_abspath
-            )
-            if os.path.exists(library_abspath):
-                return self.open(library_abspath)
+        for source in self._search_paths:
+            for search_path in self._search_paths[source]:                
+                library_abspath = "%s/%s" % (search_path, library_fn)
+                logging.debug(
+                    "Is lib(%s) here: '%s'?",
+                    library_fn,
+                    library_abspath
+                )
+                if os.path.exists(library_abspath):
+                    return self.open(library_abspath)
 
         logging.debug("lib(%s) is nowhere to be found.", library_fn)
         return None
