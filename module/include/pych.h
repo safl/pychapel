@@ -1,6 +1,6 @@
 #ifndef __PYCH_H
 #define __PYCH_H
-#include "Python.h"
+//#include "Python.h"
 
 #define ND_MAX 16
 

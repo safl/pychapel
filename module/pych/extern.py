@@ -24,51 +24,8 @@ import numpy as np
 from numpy.ctypeslib import ndpointer
 
 from pych.exceptions import MaterializationError
+from pych.array import PychArray
 import pych.runtime
-
-class PyNdArray(ctypes.Structure):
-
-    _fields_ = [
-        ('two',         ctypes.c_int),
-        ('nd',          ctypes.c_int),
-        ('typekind',    ctypes.c_char),
-        ('itemsize',    ctypes.c_int),
-        ('flags',       ctypes.c_int),
-        ('shape',       ctypes.c_int*16),
-        ('strides',     ctypes.c_int*16),
-        ('data',        ctypes.c_void_p)
-    ]
-
-def construct_struct(array):
-
-    array_id = id(array)
-
-    try:
-        return pych.RT.arrays[array_id]
-    except KeyError:
-        logging.debug("Array is not mapped... yet...")
-
-    #
-    # Create one
-    #
-    shape = [nelements for nelements in array.shape]
-    shape += [0]*(16-len(shape))
-
-    strides = [stride for stride in array.strides]
-    strides += [0]*(16-len(strides))
-
-    pych.RT.arrays[array_id] = PyNdArray(
-        two=2,
-        nd=array.ndim,
-        typekind=array.__array_interface__['typestr'][1],
-        itemsize=array.itemsize,
-        flags=0,
-        shape=(ctypes.c_int*16)(*shape),
-        strides=(ctypes.c_int*16)(*strides),
-        data=array.ctypes.data
-    )
-
-    return pych.RT.arrays[array_id]
 
 TYPEMAP = {
     None:       None,
@@ -78,7 +35,7 @@ TYPEMAP = {
     float:      ctypes.c_double,
     str:        ctypes.c_char_p,
     unicode:    ctypes.c_wchar_p,
-    np.ndarray: ctypes.POINTER(PyNdArray)
+    np.ndarray: ctypes.POINTER(PychArray)
 }
 
 #
@@ -104,8 +61,6 @@ class Extern(object):
         self.sfile = sfile  # File with sourcecode
         self.slang = slang  # Language of the sourcefile or inline
         self.source = None  # Sourcecode in textual representation
-
-        logging.debug("__init__decorate__")
 
     def __repr__(self):
         return pprint.pformat(vars(self))
@@ -200,9 +155,6 @@ class Extern(object):
         def wrapped_f(*args):
             """The logic invoked when calling a mapped function."""
 
-            # This is invoked on each function-call
-            logging.debug("__actual_call__")
-
             self._type_check(args)      # Typecheck actuals with declaration
 
             #
@@ -226,7 +178,7 @@ class Extern(object):
             for i, arg in enumerate(args):
                 print type(arg), arg, i
                 if type(arg) is np.ndarray:
-                    c_args.append(construct_struct(arg))
+                    c_args.append(pych.RT.map_nparray(arg))
                 else:
                     c_args.append(arg)
 

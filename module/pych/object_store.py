@@ -31,15 +31,15 @@ class ObjectStore(object):
                                             # Search paths
         self._search_paths = {source:[] for source in config["search_paths"]}
         for source in config["search_paths"]:
-            for path in config["search_paths"][source]:
+            for search_path in config["search_paths"][source]:
                 self._search_paths[source].append(prepend_path(
-                    self._root_path, path
+                    self._root_path, search_path
                 ))
                                             # Output paths
         self._output_paths = {source:[] for source in config["output_paths"]}
         for source in config["output_paths"]:
             output_path = config["output_paths"][source]
-            self._output_paths[source] = prepend_path(self._root_path, path)
+            self._output_paths[source] = prepend_path(self._root_path, output_path)
 
         self._functions = {}
         self._libraries = {}                # library.so => cdll-library-handle
@@ -140,7 +140,6 @@ class ObjectStore(object):
             raise LibraryError(extern)
 
         logging.debug(
-            "I used all my magic but failed evoking the ufunc for extern(%s).",
-            extern
+            "I used all my magic but failed evoking the ufunc for extern."
         )
         return None                                     # At last we give up

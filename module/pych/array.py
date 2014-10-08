@@ -3,4 +3,15 @@
 """
 import ctypes
 
+class PychArray(ctypes.Structure):
 
+    _fields_ = [
+        ('two',         ctypes.c_int),
+        ('nd',          ctypes.c_int),
+        ('typekind',    ctypes.c_char),
+        ('itemsize',    ctypes.c_int),
+        ('flags',       ctypes.c_int),
+        ('shape',       ctypes.c_int*16),
+        ('strides',     ctypes.c_int*16),
+        ('data',        ctypes.c_void_p)
+    ]

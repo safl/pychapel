@@ -6,9 +6,11 @@
     of Externs/libraries.
 """
 import logging
+import ctypes
 import pprint
 import json
 
+from pych.array import PychArray
 from pych.object_store import ObjectStore
 from pych.specializer import get_specializer
 from pych.compiler import Compiler
@@ -81,8 +83,6 @@ class Runtime(object):
                     should be removed somehow... some day...
         """
 
-        logging.debug("Hints: [%s]", pprint.pformat(self.hints))
-
         efunc = self.object_store.evoke(extern) # Evoke the efunc
 
         if not efunc:                           # Create an evokeable object
@@ -123,3 +123,38 @@ class Runtime(object):
             # TODO: Call rt init/finalize and module-initializer for Chapel code
 
         return efunc
+
+    def map_nparray(self, nparray):
+        """
+        Map a NumPy array to a PychArray for ffi interoperability.
+        
+        @returns The PychArray usable by ctypes.
+        """
+        nparray_id = id(nparray)
+
+        try:
+            return self.arrays[nparray_id]
+        except KeyError:
+            logging.debug("Array is not mapped... yet...")
+
+        #
+        # Create one
+        #
+        shape = [nelements for nelements in nparray.shape]
+        shape += [0]*(16-len(shape))
+
+        strides = [stride for stride in nparray.strides]
+        strides += [0]*(16-len(strides))
+
+        self.arrays[nparray_id] = PychArray(
+            two=2,
+            nd=nparray.ndim,
+            typekind=nparray.__array_interface__['typestr'][1],
+            itemsize=nparray.itemsize,
+            flags=0,
+            shape=(ctypes.c_int*16)(*shape),
+            strides=(ctypes.c_int*16)(*strides),
+            data=nparray.ctypes.data
+        )
+
+        return self.arrays[nparray_id]
