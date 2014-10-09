@@ -1,6 +1,6 @@
 """
-    Responsible for loading objects from disk and
-    maintaining handles functions and libraries.
+    Responsible for opening libraries, loading functions and maintaining
+    handles to both.
 """
 from ctypes import cdll
 import operator
@@ -50,29 +50,57 @@ class ObjectStore(object):
         return pprint.pformat(vars(self))
 
     def open(self, library_abspath):
-        """Open a library, return and store a handle to it."""
+        """
+        Open a library, store a handle to it and return the handle.
+        
+        :param str library_abspath: Absolute path to the library (.so).
+        :returns: Handle to library when successful, None othervise.
+        :rtype: ctypes.CDLL
 
+        :raises OSError: When 'library_abspath' is not found.
+        """
         library_fn = os.path.basename(library_abspath)
-        if library_fn not in self._libraries:
-            # Module/library initialization for chapel libraries
+        if library_fn not in self._libraries:   # Avoid reopening libraries
             self._libraries[library_fn] = cdll.LoadLibrary(library_abspath)
 
         return self._libraries[library_fn]
 
     def open_ahead(self):
-        """Open handles to all libraries in search-path."""
+        """Open handles to all libraries in search paths."""
 
         for search_path in self._search_paths:
             for library_abspath in glob.glob("%s/*.so" % search_path):
                 self.open(library_abspath)
 
-        logging.debug(
-            "Opened the following libraries 'ahead of time': %s",
-            [lib for lib in self._libraries]
-        )
+    def open_fn(self, library_fn):
+        """
+        Look through the search_paths for 'library_fn', opening the first
+        matching library via open(...) thereby implicitly also storing a handle
+        to it.
+
+        :param str library_fn: Filename of library without path, for example "libc.so".
+        :returns: Handle to library when successful, None othervise.
+        :rtype: ctypes.CDLL
+        """
+        for source in self._search_paths:
+            for search_path in self._search_paths[source]:                
+                library_abspath = "%s/%s" % (search_path, library_fn)
+                if os.path.exists(library_abspath):
+                    return self.open(library_abspath)
+
+        return None
 
     def load(self, library_fn, function_name):
-        """Load a function from library, return and store a handle to it."""
+        """
+        Load a function from library, store a handle to it, and return
+        the handle.
+        
+        :param str library_fn: Filename of library without path for example "libc.so".
+        :param str function_name: Name of the symbol/function to load, for example "printf".
+        :returns: Handle to library function as a ctypes function pointer.
+        :rtype: ctypes._FuncPtr
+        :raises AttributeError: When function is not in library.
+        """
 
         handle = operator.attrgetter(function_name)(self._libraries[library_fn])
 
@@ -80,40 +108,31 @@ class ObjectStore(object):
 
         return self._functions[function_name]
 
-    def find(self, library_fn):
-        """
-        Look through the search_paths for 'library_fn'.
-        Opening the first matching library.
-        """
-
-        for source in self._search_paths:
-            for search_path in self._search_paths[source]:                
-                library_abspath = "%s/%s" % (search_path, library_fn)
-                logging.debug(
-                    "Is lib(%s) here: '%s'?",
-                    library_fn,
-                    library_abspath
-                )
-                if os.path.exists(library_abspath):
-                    return self.open(library_abspath)
-
-        logging.debug("lib(%s) is nowhere to be found.", library_fn)
-        return None
 
     def evoke(self, extern):
         """
-        Evoke the efunc related the given Extern channeling all the power
-        of the mighty ObjectStore.
+        Evoke the efunc related the given Extern channeling all the power of the mighty ObjectStore.
+
+        This entails going through the "hierachy":
+
+        1. Check and see if function pointer is readily available.
+        2. Try loading from existing library handle.
+        3. Search for library associated with 'extern', open library, load function.
+
+        Hitting 3) should only occur the first time an Extern is evoked.
+
+        Meaning that evocations of different Externs in the same library will not go to disk.
+
+        Similarly, multiple evocations of the same Extern will only result in a
+        lookup.
+
+        :param pych.Extern extern: Python representation for which an external function should be conjured.
+        :returns: Handle to library function as a ctypes function pointer.
+        :rtype: ctypes._FuncPtr 
         """
 
-        try:    # Grabbing it from existing loaded symbols
+        if extern.ename in self._functions:     # Grabbing loaded symbols
             return self._functions[extern.ename]
-        except KeyError:
-            logging.debug(
-                "No function-handle for: [P: %s -> C: %s]",
-                extern.pname,
-                extern.ename
-            )
 
         try:    # Loading it from associated library aka dlload()...
             return self.load(extern.lib, extern.ename)
@@ -127,14 +146,8 @@ class ObjectStore(object):
             )
 
         try:    # Opening library from disk and loading aka dlopen(), dlload()
-            logging.debug("Trying to 'find' library(%s) on disk.", extern.lib)
-            lib_h = self.find(extern.lib)
+            lib_h = self.open_fn(extern.lib)
             if lib_h:
-                logging.debug(
-                    "Library(%s) found, trying to load(%s)",
-                    extern.lib,
-                    extern.ename
-                )
                 return self.load(extern.lib, extern.ename)
         except AttributeError:
             raise LibraryError(extern)

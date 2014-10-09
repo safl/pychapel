@@ -1,6 +1,6 @@
 Object Cache
 ============
 
-.. automodule:: pych.object_cache
+.. automodule:: pych.object_store
    :members:
 

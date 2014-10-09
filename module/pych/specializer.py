@@ -1,6 +1,6 @@
 """
     The Specializer is responsible for loading up sourcecode,
-    specializing code-templates to Externs and possibly other
+    specializing code-templates for Externs and possibly other
     things down the road.
 """
 import logging
@@ -32,7 +32,13 @@ TYPE2SOURCE = {
 }
 
 def get_specializer(slang):
+    """
+    Return a specializer instance for the given source language (slang).
 
+    :param str slang: Source language, e.g. "c" or "chapel".
+    :returns: A specializer for the given source language.
+    :rtype: CSpecializer|ChapelSpecializer
+    """
     if slang.lower() == "c":
         return CSpecializer
     elif slang.lower() == "chapel":
@@ -41,7 +47,10 @@ def get_specializer(slang):
         return None
 
 class BaseSpecializer(object):
-    """The actual Specializer class handling eveyrhting."""
+    """
+    Handles loading of source-code and code-templates for specialization.
+    The actual language-specific specialization is performed by subclasses.
+    """
 
     def __init__(self, sourcecode_path):
         self.sourcecode_path = sourcecode_path
@@ -51,6 +60,10 @@ class BaseSpecializer(object):
         """
         Reads content of 'filename' into sources dict and returns the
         content.
+
+        :param str filename: Filename without path.
+        :returns: Filecontents.
+        :rtype: str
         """
         if filename not in self.sources:
             path = "%s/%s" % (self.sourcecode_path, filename)
@@ -59,9 +72,19 @@ class BaseSpecializer(object):
         return self.sources[filename]
 
     def specialize(self, externs, prefix=True):
-        raise Exception("Not implemented.")
+        """
+        The function performing the actual specialization for the given
+        Extern(s).
+
+        :param pych.Extern externs: List of Externs to specialize.
+        :returns: Sourcecode in the Externs language.
+        :rtype: str
+        :raises NotImplementedError: When using the BaseSpecializer directly. Use the "targeted" specializer for C or Chapel.
+        """
+        raise NotImplementedError("Do not use the BaseSpecializer directly.")
 
 class CSpecializer(BaseSpecializer):
+    """Specializer for C code."""
 
     def __init__(self, sourcecode_path):
         super(CSpecializer, self).__init__(sourcecode_path)
@@ -94,6 +117,7 @@ class CSpecializer(BaseSpecializer):
         return source
 
 class ChapelSpecializer(BaseSpecializer):
+    """Specializer for Chapel code."""
 
     def __init__(self, sourcecode_path):
         super(ChapelSpecializer, self).__init__(sourcecode_path)

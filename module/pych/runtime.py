@@ -65,20 +65,29 @@ class Runtime(object):
         """
         Materializes an extern.
 
-        That means doing all it can to obtain efunc/function-handle:
+        That means doing all it can to obtain a ctypes._FuncPtr that usable as
+        the "efunc" attribute of the given Extern:
 
-        Compile it using an inline-template
-        Compile it from a straightforward sourcefile
-        Compile it using a specialization template
-        Or "Just" load it if defined as a library-wrapper
-        Possibly other stunts..
+        - Compile it using an inline-template
+        - Compile it from a sourcefile
+        - Compile it using a specialization template
 
-        @contract   Assume that the caller has checked that the Extern
+        Or "Just" load it if defined as a library-wrapper and possibly other stunts.
+
+        It is up to the caller to check the return-value of the function.
+        Meaning the caller must/should check whether or not it was possible
+        to materialize the Extern.
+
+        :param pych.Extern extern: The Extern to "materialize".
+        :returns: A ctypes function pointer when successful, None othervise.
+        :rtype: ctypes._FuncPtr
+
+        :assumes:   That the caller has checked that the Extern
                     is not yet materialized aka verified that
                     Extern.efunc == None.
                     Nothing bad will happen except for unnessecary work.
 
-        @assumption Materialization should not occur until after all
+        :constracts: Materialization should not occur until after all
                     mapped functions have been decorated. This limitation
                     should be removed somehow... some day...
         """
@@ -126,9 +135,11 @@ class Runtime(object):
 
     def map_nparray(self, nparray):
         """
-        Map a NumPy array to a PychArray for ffi interoperability.
-        
-        @returns The PychArray usable by ctypes.
+        Map a NumPy array to a PychArray for ctypes interoperability.
+       
+        :param numpy.ndarray nparray: The NumPy array to map
+        :returns: A PychArray usable by ctypes
+        :rtype: pych.PychArray
         """
         nparray_id = id(nparray)
 

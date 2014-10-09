@@ -4,6 +4,10 @@
 import ctypes
 
 class PychArray(ctypes.Structure):
+    """
+    Representation of a NumPy array when interoperating with C/Chapel
+    via ctypes.
+    """
 
     _fields_ = [
         ('two',         ctypes.c_int),

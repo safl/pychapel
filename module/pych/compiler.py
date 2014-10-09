@@ -62,8 +62,6 @@ class Compiler(object):
             cmd % self._options for cmd in options["commands"]
         ]
 
-        logging.debug("Compiler-setup: %s", self)
-
     def __repr__(self):
         return pprint.pformat(vars(self))
 
@@ -71,8 +69,12 @@ class Compiler(object):
         """
         Compiles the given 'source' into a shared library.
         The result will be stored in object_abspath.
+
+        :param str source: Sourcecode to compile.
+        :param str language: Language of the given sourceode e.g. "c" or "chapel".
+        :returns: Accumulation of all output and errors from compiler/linker commands as tuple(out, err).
+        :rtype: tuple
         """
-        logging.debug("If succesful; result should be here %s", object_abspath)
 
         all_out = ""
         all_err = ""
@@ -89,8 +91,6 @@ class Compiler(object):
                 cmd = cmd.replace("__SFILE__", sfile_h.name)
                 cmd = cmd.replace("__TMP_PATH__", "/tmp/asdf")
                 cmd = cmd.replace("__OBJECT_ABSPATH__", object_abspath)
-
-                logging.debug("cmd[%s]", cmd)
 
                 process = Popen(cmd.split(), stdout=PIPE, stdin=PIPE)
                 out, err = process.communicate(source)
