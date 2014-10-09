@@ -20,23 +20,9 @@ import pprint
 import ctypes
 import os
 
-import numpy as np
-from numpy.ctypeslib import ndpointer
-
 from pych.exceptions import MaterializationError
-from pych.array import PychArray
+from pych.types import PychArray, TYPEMAP, np
 import pych.runtime
-
-TYPEMAP = {
-    None:       None,
-    bool:       ctypes.c_bool,
-    int:        ctypes.c_int,
-    long:       ctypes.c_long,
-    float:      ctypes.c_double,
-    str:        ctypes.c_char_p,
-    unicode:    ctypes.c_wchar_p,
-    np.ndarray: ctypes.POINTER(PychArray)
-}
 
 #
 # Decorate a Python-function with these to construct a mapping to an Extern.

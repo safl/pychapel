@@ -10,7 +10,7 @@ import ctypes
 import pprint
 import json
 
-from pych.array import PychArray
+from pych.types import PychArray
 from pych.object_store import ObjectStore
 from pych.specializer import get_specializer
 from pych.compiler import Compiler

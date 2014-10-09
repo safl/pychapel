@@ -1,7 +1,9 @@
 """
-    pyChapel Array - Mapping the NumPy ndarray to something edible by ctypes.
+    Mapping of types between Python - NumPy - ctypes.
 """
 import ctypes
+
+import numpy as np
 
 class PychArray(ctypes.Structure):
     """
@@ -19,3 +21,14 @@ class PychArray(ctypes.Structure):
         ('strides',     ctypes.c_int*16),
         ('data',        ctypes.c_void_p)
     ]
+
+TYPEMAP = {
+    None:       None,
+    bool:       ctypes.c_bool,
+    int:        ctypes.c_int,
+    long:       ctypes.c_long,
+    float:      ctypes.c_double,
+    str:        ctypes.c_char_p,
+    unicode:    ctypes.c_wchar_p,
+    np.ndarray: ctypes.POINTER(PychArray)
+}
