@@ -3,6 +3,7 @@ from pych.extern import Chapel
 @Chapel()
 def add_fff(x=float, y=float):
     """
+    writeln("Hello");
     return x + y;
     """
     return float

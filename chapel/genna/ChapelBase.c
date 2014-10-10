@@ -60,7 +60,7 @@ static void compilerAssert(void) {
   return;
 }
 
-/* ChapelBase.chpl:655 */
+/* ChapelBase.chpl:663 */
 static void init_elts(_ddata_locale x, int64_t s, int64_t _ln, c_string _fn) {
   range_int64_t_bounded_F call_tmp;
   _ref_range_int64_t_bounded_F ret_to_arg_ref_tmp_ = NULL;
@@ -85,7 +85,7 @@ static void init_elts(_ddata_locale x, int64_t s, int64_t _ln, c_string _fn) {
   return;
 }
 
-/* ChapelBase.chpl:655 */
+/* ChapelBase.chpl:663 */
 static void init_elts2(_ddata_localesSignal x, int64_t s, int64_t _ln, c_string _fn) {
   range_int64_t_bounded_F call_tmp;
   _ref_range_int64_t_bounded_F ret_to_arg_ref_tmp_ = NULL;
@@ -110,7 +110,7 @@ static void init_elts2(_ddata_localesSignal x, int64_t s, int64_t _ln, c_string 
   return;
 }
 
-/* ChapelBase.chpl:655 */
+/* ChapelBase.chpl:663 */
 static void init_elts3(_ddata_chpl_TableEntry_chpl_taskID_t x, int64_t s, int64_t _ln, c_string _fn) {
   range_int64_t_bounded_F call_tmp;
   _ref_range_int64_t_bounded_F ret_to_arg_ref_tmp_ = NULL;
@@ -144,7 +144,7 @@ static void init_elts3(_ddata_chpl_TableEntry_chpl_taskID_t x, int64_t s, int64_
   return;
 }
 
-/* ChapelBase.chpl:655 */
+/* ChapelBase.chpl:663 */
 static void init_elts4(_ddata_chpldev_Task x, int64_t s, int64_t _ln, c_string _fn) {
   range_int64_t_bounded_F call_tmp;
   _ref_range_int64_t_bounded_F ret_to_arg_ref_tmp_ = NULL;
@@ -178,7 +178,7 @@ static void init_elts4(_ddata_chpldev_Task x, int64_t s, int64_t _ln, c_string _
   return;
 }
 
-/* ChapelBase.chpl:655 */
+/* ChapelBase.chpl:663 */
 static void init_elts5(_ddata__real64 x, int64_t s, int64_t _ln, c_string _fn) {
   range_int64_t_bounded_F call_tmp;
   _ref_range_int64_t_bounded_F ret_to_arg_ref_tmp_ = NULL;
@@ -201,7 +201,7 @@ static void init_elts5(_ddata__real64 x, int64_t s, int64_t _ln, c_string _fn) {
   return;
 }
 
-/* ChapelBase.chpl:768 */
+/* ChapelBase.chpl:776 */
 static chpl___EndCount _construct__EndCount(atomic_int64* const i, int64_t taskCnt, chpl_task_list_p taskList, chpl___EndCount meme, int64_t _ln, c_string _fn) {
   chpl___EndCount this8 = NULL;
   object T = NULL;
@@ -214,7 +214,7 @@ static chpl___EndCount _construct__EndCount(atomic_int64* const i, int64_t taskC
   return this8;
 }
 
-/* ChapelBase.chpl:768 */
+/* ChapelBase.chpl:776 */
 static void chpl__auto_destroy__EndCount(chpl___EndCount this8, int64_t _ln, c_string _fn) {
   _ref_atomic_int64 _field_destructor_tmp_ = NULL;
   _ref_atomic_int_least64_t call_tmp = NULL;
@@ -224,7 +224,7 @@ static void chpl__auto_destroy__EndCount(chpl___EndCount this8, int64_t _ln, c_s
   return;
 }
 
-/* ChapelBase.chpl:795 */
+/* ChapelBase.chpl:803 */
 static void _upEndCount(chpl___EndCount e, int64_t _ln, c_string _fn) {
   memory_order local_memory_order_relaxed;
   memory_order local_memory_order_release;
@@ -259,7 +259,7 @@ static void _upEndCount(chpl___EndCount e, int64_t _ln, c_string _fn) {
   return;
 }
 
-/* ChapelBase.chpl:816 */
+/* ChapelBase.chpl:824 */
 static void _downEndCount(chpl___EndCount e, int64_t _ln, c_string _fn) {
   memory_order local_memory_order_release;
   _ref_atomic_int64 call_tmp = NULL;
@@ -271,7 +271,7 @@ static void _downEndCount(chpl___EndCount e, int64_t _ln, c_string _fn) {
   return;
 }
 
-/* ChapelBase.chpl:823 */
+/* ChapelBase.chpl:831 */
 static void _waitEndCount(chpl___EndCount e, int64_t _ln, c_string _fn) {
   memory_order local_memory_order_acquire;
   memory_order local_memory_order_relaxed;
@@ -326,100 +326,108 @@ static void _waitEndCount(chpl___EndCount e, int64_t _ln, c_string _fn) {
   return;
 }
 
-/* ChapelBase.chpl:854 */
+/* ChapelBase.chpl:862 */
 static void _waitEndCount2(chpl___EndCount _endCount, int64_t _ln, c_string _fn) {
   _waitEndCount(_endCount, _ln, _fn);
   return;
 }
 
-/* ChapelBase.chpl:860 */
+/* ChapelBase.chpl:868 */
 static int64_t _command_line_cast(c_string x, int64_t _ln, c_string _fn) {
   int64_t call_tmp;
   call_tmp = c_string_to_int64_t(x, _ln, _fn);
   return call_tmp;
 }
 
-/* ChapelBase.chpl:860 */
+/* ChapelBase.chpl:868 */
 static chpl_bool _command_line_cast2(c_string x, int64_t _ln, c_string _fn) {
   chpl_bool call_tmp;
   call_tmp = c_string_to_chpl_bool(x, _ln, _fn);
   return call_tmp;
 }
 
-/* ChapelBase.chpl:860 */
+/* ChapelBase.chpl:868 */
 static int64_t _command_line_cast3(c_string x, int64_t _ln, c_string _fn) {
   int64_t call_tmp;
   call_tmp = c_string_to_int64_t(x, _ln, _fn);
   return call_tmp;
 }
 
-/* ChapelBase.chpl:860 */
+/* ChapelBase.chpl:868 */
 static int64_t _command_line_cast4(c_string x, int64_t _ln, c_string _fn) {
   int64_t call_tmp;
   call_tmp = c_string_to_int64_t(x, _ln, _fn);
   return call_tmp;
 }
 
-/* ChapelBase.chpl:860 */
+/* ChapelBase.chpl:868 */
 static chpl_bool _command_line_cast5(c_string x, int64_t _ln, c_string _fn) {
   chpl_bool call_tmp;
   call_tmp = c_string_to_chpl_bool(x, _ln, _fn);
   return call_tmp;
 }
 
-/* ChapelBase.chpl:860 */
+/* ChapelBase.chpl:868 */
 static chpl_bool _command_line_cast6(c_string x, int64_t _ln, c_string _fn) {
   chpl_bool call_tmp;
   call_tmp = c_string_to_chpl_bool(x, _ln, _fn);
   return call_tmp;
 }
 
-/* ChapelBase.chpl:860 */
+/* ChapelBase.chpl:868 */
 static chpl_bool _command_line_cast7(c_string x, int64_t _ln, c_string _fn) {
   chpl_bool call_tmp;
   call_tmp = c_string_to_chpl_bool(x, _ln, _fn);
   return call_tmp;
 }
 
-/* ChapelBase.chpl:860 */
+/* ChapelBase.chpl:868 */
 static chpl_bool _command_line_cast8(c_string x, int64_t _ln, c_string _fn) {
   chpl_bool call_tmp;
   call_tmp = c_string_to_chpl_bool(x, _ln, _fn);
   return call_tmp;
 }
 
-/* ChapelBase.chpl:860 */
+/* ChapelBase.chpl:868 */
 static uint64_t _command_line_cast9(c_string x, int64_t _ln, c_string _fn) {
   uint64_t call_tmp;
   call_tmp = c_string_to_uint64_t(x, _ln, _fn);
   return call_tmp;
 }
 
-/* ChapelBase.chpl:860 */
+/* ChapelBase.chpl:868 */
 static uint64_t _command_line_cast10(c_string x, int64_t _ln, c_string _fn) {
   uint64_t call_tmp;
   call_tmp = c_string_to_uint64_t(x, _ln, _fn);
   return call_tmp;
 }
 
-/* ChapelBase.chpl:860 */
-static c_string _command_line_cast11(c_string x) {
-  return x;
+/* ChapelBase.chpl:868 */
+static c_string _command_line_cast11(c_string x, int64_t _ln, c_string _fn) {
+  chpl_string call_tmp;
+  c_string call_tmp2;
+  string_from_c_string(&call_tmp, x, INT64(0), INT64(0), _ln, _fn);
+  c_string_from_string(&call_tmp2, &call_tmp, _ln, _fn);
+  return call_tmp2;
 }
 
-/* ChapelBase.chpl:860 */
-static c_string _command_line_cast12(c_string x) {
-  return x;
+/* ChapelBase.chpl:868 */
+static c_string _command_line_cast12(c_string x, int64_t _ln, c_string _fn) {
+  chpl_string call_tmp;
+  c_string call_tmp2;
+  string_from_c_string(&call_tmp, x, INT64(0), INT64(0), _ln, _fn);
+  c_string_from_string(&call_tmp2, &call_tmp, _ln, _fn);
+  return call_tmp2;
 }
 
-/* ChapelBase.chpl:860 */
+/* ChapelBase.chpl:868 */
 static chpl_bool _command_line_cast13(c_string x, int64_t _ln, c_string _fn) {
   chpl_bool call_tmp;
   call_tmp = c_string_to_chpl_bool(x, _ln, _fn);
   return call_tmp;
 }
 
-/* ChapelBase.chpl:1006 */
+/* ChapelBase.chpl:1013 */
 static DefaultDist chpl__autoCopy(DefaultDist x, int64_t _ln, c_string _fn) {
   memory_order local_memory_order_seq_cst;
   DefaultDist ret = NULL;
@@ -442,7 +450,7 @@ static DefaultDist chpl__autoCopy(DefaultDist x, int64_t _ln, c_string _fn) {
   return x;
 }
 
-/* ChapelBase.chpl:1014 */
+/* ChapelBase.chpl:1021 */
 static DefaultRectangularDom_1_int64_t_F chpl__autoCopy2(DefaultRectangularDom_1_int64_t_F x, int64_t _ln, c_string _fn) {
   memory_order local_memory_order_seq_cst;
   DefaultRectangularDom_1_int64_t_F ret = NULL;
@@ -465,7 +473,7 @@ static DefaultRectangularDom_1_int64_t_F chpl__autoCopy2(DefaultRectangularDom_1
   return x;
 }
 
-/* ChapelBase.chpl:1014 */
+/* ChapelBase.chpl:1021 */
 static DefaultAssociativeDom_chpl_taskID_t_F chpl__autoCopy3(DefaultAssociativeDom_chpl_taskID_t_F x, int64_t _ln, c_string _fn) {
   memory_order local_memory_order_seq_cst;
   DefaultAssociativeDom_chpl_taskID_t_F ret = NULL;
@@ -488,7 +496,7 @@ static DefaultAssociativeDom_chpl_taskID_t_F chpl__autoCopy3(DefaultAssociativeD
   return x;
 }
 
-/* ChapelBase.chpl:1014 */
+/* ChapelBase.chpl:1021 */
 static DefaultRectangularDom_2_int64_t_F chpl__autoCopy4(DefaultRectangularDom_2_int64_t_F x, int64_t _ln, c_string _fn) {
   memory_order local_memory_order_seq_cst;
   DefaultRectangularDom_2_int64_t_F ret = NULL;
@@ -511,7 +519,7 @@ static DefaultRectangularDom_2_int64_t_F chpl__autoCopy4(DefaultRectangularDom_2
   return x;
 }
 
-/* ChapelBase.chpl:1022 */
+/* ChapelBase.chpl:1029 */
 static DefaultRectangularArr_locale_1_int64_t_F chpl__autoCopy5(DefaultRectangularArr_locale_1_int64_t_F x, int64_t _ln, c_string _fn) {
   memory_order local_memory_order_seq_cst;
   DefaultRectangularArr_locale_1_int64_t_F ret = NULL;
@@ -534,7 +542,7 @@ static DefaultRectangularArr_locale_1_int64_t_F chpl__autoCopy5(DefaultRectangul
   return x;
 }
 
-/* ChapelBase.chpl:1022 */
+/* ChapelBase.chpl:1029 */
 static DefaultRectangularArr_localesSignal_1_int64_t_F chpl__autoCopy6(DefaultRectangularArr_localesSignal_1_int64_t_F x, int64_t _ln, c_string _fn) {
   memory_order local_memory_order_seq_cst;
   DefaultRectangularArr_localesSignal_1_int64_t_F ret = NULL;
@@ -557,7 +565,7 @@ static DefaultRectangularArr_localesSignal_1_int64_t_F chpl__autoCopy6(DefaultRe
   return x;
 }
 
-/* ChapelBase.chpl:1022 */
+/* ChapelBase.chpl:1029 */
 static DefaultRectangularArr_chpl_TableEntry_chpl_taskID_t_1_int64_t_F chpl__autoCopy7(DefaultRectangularArr_chpl_TableEntry_chpl_taskID_t_1_int64_t_F x, int64_t _ln, c_string _fn) {
   memory_order local_memory_order_seq_cst;
   DefaultRectangularArr_chpl_TableEntry_chpl_taskID_t_1_int64_t_F ret = NULL;
@@ -580,7 +588,7 @@ static DefaultRectangularArr_chpl_TableEntry_chpl_taskID_t_1_int64_t_F chpl__aut
   return x;
 }
 
-/* ChapelBase.chpl:1022 */
+/* ChapelBase.chpl:1029 */
 static DefaultRectangularArr_chpldev_Task_1_int64_t_F chpl__autoCopy8(DefaultRectangularArr_chpldev_Task_1_int64_t_F x, int64_t _ln, c_string _fn) {
   memory_order local_memory_order_seq_cst;
   DefaultRectangularArr_chpldev_Task_1_int64_t_F ret = NULL;
@@ -603,7 +611,7 @@ static DefaultRectangularArr_chpldev_Task_1_int64_t_F chpl__autoCopy8(DefaultRec
   return x;
 }
 
-/* ChapelBase.chpl:1022 */
+/* ChapelBase.chpl:1029 */
 static DefaultAssociativeArr_chpldev_Task_chpl_taskID_t_F chpl__autoCopy9(DefaultAssociativeArr_chpldev_Task_chpl_taskID_t_F x, int64_t _ln, c_string _fn) {
   memory_order local_memory_order_seq_cst;
   DefaultAssociativeArr_chpldev_Task_chpl_taskID_t_F ret = NULL;
@@ -626,7 +634,7 @@ static DefaultAssociativeArr_chpldev_Task_chpl_taskID_t_F chpl__autoCopy9(Defaul
   return x;
 }
 
-/* ChapelBase.chpl:1022 */
+/* ChapelBase.chpl:1029 */
 static DefaultRectangularArr__real64_2_int64_t_F chpl__autoCopy10(DefaultRectangularArr__real64_2_int64_t_F x, int64_t _ln, c_string _fn) {
   memory_order local_memory_order_seq_cst;
   DefaultRectangularArr__real64_2_int64_t_F ret = NULL;
@@ -649,61 +657,61 @@ static DefaultRectangularArr__real64_2_int64_t_F chpl__autoCopy10(DefaultRectang
   return x;
 }
 
-/* ChapelBase.chpl:1067 */
+/* ChapelBase.chpl:1074 */
 static void chpl__autoDestroy(DefaultDist x, int64_t _ln, c_string _fn) {
   chpl___TILDE__distribution(x, _ln, _fn);
   return;
 }
 
-/* ChapelBase.chpl:1072 */
+/* ChapelBase.chpl:1079 */
 static void chpl__autoDestroy2(DefaultRectangularDom_1_int64_t_F x, int64_t _ln, c_string _fn) {
   chpl___TILDE__domain(x, _ln, _fn);
   return;
 }
 
-/* ChapelBase.chpl:1072 */
+/* ChapelBase.chpl:1079 */
 static void chpl__autoDestroy3(DefaultAssociativeDom_chpl_taskID_t_F x, int64_t _ln, c_string _fn) {
   chpl___TILDE__domain2(x, _ln, _fn);
   return;
 }
 
-/* ChapelBase.chpl:1072 */
+/* ChapelBase.chpl:1079 */
 static void chpl__autoDestroy4(DefaultRectangularDom_2_int64_t_F x, int64_t _ln, c_string _fn) {
   chpl___TILDE__domain3(x, _ln, _fn);
   return;
 }
 
-/* ChapelBase.chpl:1077 */
+/* ChapelBase.chpl:1084 */
 static void chpl__autoDestroy5(DefaultRectangularArr_locale_1_int64_t_F x, int64_t _ln, c_string _fn) {
   chpl___TILDE__array(x, _ln, _fn);
   return;
 }
 
-/* ChapelBase.chpl:1077 */
+/* ChapelBase.chpl:1084 */
 static void chpl__autoDestroy6(DefaultRectangularArr_localesSignal_1_int64_t_F x, int64_t _ln, c_string _fn) {
   chpl___TILDE__array2(x, _ln, _fn);
   return;
 }
 
-/* ChapelBase.chpl:1077 */
+/* ChapelBase.chpl:1084 */
 static void chpl__autoDestroy7(DefaultRectangularArr_chpl_TableEntry_chpl_taskID_t_1_int64_t_F x, int64_t _ln, c_string _fn) {
   chpl___TILDE__array3(x, _ln, _fn);
   return;
 }
 
-/* ChapelBase.chpl:1077 */
+/* ChapelBase.chpl:1084 */
 static void chpl__autoDestroy8(DefaultRectangularArr_chpldev_Task_1_int64_t_F x, int64_t _ln, c_string _fn) {
   chpl___TILDE__array4(x, _ln, _fn);
   return;
 }
 
-/* ChapelBase.chpl:1077 */
+/* ChapelBase.chpl:1084 */
 static void chpl__autoDestroy9(DefaultAssociativeArr_chpldev_Task_chpl_taskID_t_F x, int64_t _ln, c_string _fn) {
   chpl___TILDE__array5(x, _ln, _fn);
   return;
 }
 
-/* ChapelBase.chpl:1077 */
+/* ChapelBase.chpl:1084 */
 static void chpl__autoDestroy10(DefaultRectangularArr__real64_2_int64_t_F x, int64_t _ln, c_string _fn) {
   chpl___TILDE__array6(x, _ln, _fn);
   return;

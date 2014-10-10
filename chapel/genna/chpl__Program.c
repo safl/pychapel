@@ -45,6 +45,8 @@ void chpl__init_preInit(int64_t _ln, c_string _fn) {
   chpl__init_ChapelDynDispHack_p = false;
   chpl__init_ChapelNumLocales_p = false;
   chpl__init_chapel_p = false;
+  chpl__init_BaseStringType_p = false;
+  chpl__init_NewString_p = false;
   chpl__init_Types_p = false;
   chpl__init_Sys_p = false;
   chpl__init_DSIUtil_p = false;

@@ -162,7 +162,6 @@ class Extern(object):
             # Convert the nptypes
             c_args = []
             for i, arg in enumerate(args):
-                print type(arg), arg, i
                 if type(arg) is np.ndarray:
                     c_args.append(pych.RT.map_nparray(arg))
                 else:

@@ -725,7 +725,7 @@ static DefaultRectangularArr_chpl_TableEntry_chpl_taskID_t_1_int64_t_F dsiBuildA
   _ddata_chpl_TableEntry_chpl_taskID_t call_tmp4 = NULL;
   DefaultRectangularArr_chpl_TableEntry_chpl_taskID_t_1_int64_t_F wrap_call_tmp3 = NULL;
   call_tmp = sizeof(chpl_DefaultRectangularArr_chpl_TableEntry_chpl_taskID_t_1_int64_t_F_object);
-  cast_tmp = chpl_here_alloc(call_tmp, INT16(21), _ln, _fn);
+  cast_tmp = chpl_here_alloc(call_tmp, INT16(20), _ln, _fn);
   this9 = ((DefaultRectangularArr_chpl_TableEntry_chpl_taskID_t_1_int64_t_F)(cast_tmp));
   ((object)(this9))->chpl__cid = chpl__cid_DefaultRectangularArr_chpl_TableEntry_chpl_taskID_t_1_int64_t_F;
   (this9)->dom = nil;
@@ -791,7 +791,7 @@ static DefaultRectangularArr_chpldev_Task_1_int64_t_F dsiBuildArray5(DefaultRect
   _ddata_chpldev_Task call_tmp4 = NULL;
   DefaultRectangularArr_chpldev_Task_1_int64_t_F wrap_call_tmp3 = NULL;
   call_tmp = sizeof(chpl_DefaultRectangularArr_chpldev_Task_1_int64_t_F_object);
-  cast_tmp = chpl_here_alloc(call_tmp, INT16(24), _ln, _fn);
+  cast_tmp = chpl_here_alloc(call_tmp, INT16(23), _ln, _fn);
   this9 = ((DefaultRectangularArr_chpldev_Task_1_int64_t_F)(cast_tmp));
   ((object)(this9))->chpl__cid = chpl__cid_DefaultRectangularArr_chpldev_Task_1_int64_t_F;
   (this9)->dom = nil;
@@ -1304,7 +1304,7 @@ static void dsiDestroyData6(DefaultRectangularArr__real64_2_int64_t_F this8, int
   return;
 }
 
-/* DefaultRectangular.chpl:638 */
+/* DefaultRectangular.chpl:641 */
 static void advance(_ic_these_DefaultRectangularArr__real64_2_int64_t_F this8, int64_t _ln, c_string _fn) {
   int64_t more;
   chpl_bool T;
@@ -1735,7 +1735,7 @@ static void advance(_ic_these_DefaultRectangularArr__real64_2_int64_t_F this8, i
   return;
 }
 
-/* DefaultRectangular.chpl:652 */
+/* DefaultRectangular.chpl:655 */
 static void computeFactoredOffs(DefaultRectangularArr_locale_1_int64_t_F this8, int64_t _ln, c_string _fn) {
   _ref_int64_t call_tmp = NULL;
   _ref_int64_t call_tmp2 = NULL;
@@ -1760,7 +1760,7 @@ static void computeFactoredOffs(DefaultRectangularArr_locale_1_int64_t_F this8, 
   return;
 }
 
-/* DefaultRectangular.chpl:652 */
+/* DefaultRectangular.chpl:655 */
 static void computeFactoredOffs2(DefaultRectangularArr_localesSignal_1_int64_t_F this8, int64_t _ln, c_string _fn) {
   _ref_int64_t call_tmp = NULL;
   _ref_int64_t call_tmp2 = NULL;
@@ -1785,7 +1785,7 @@ static void computeFactoredOffs2(DefaultRectangularArr_localesSignal_1_int64_t_F
   return;
 }
 
-/* DefaultRectangular.chpl:652 */
+/* DefaultRectangular.chpl:655 */
 static void computeFactoredOffs3(DefaultRectangularArr_chpl_TableEntry_chpl_taskID_t_1_int64_t_F this8, int64_t _ln, c_string _fn) {
   _ref_int64_t call_tmp = NULL;
   _ref_int64_t call_tmp2 = NULL;
@@ -1810,7 +1810,7 @@ static void computeFactoredOffs3(DefaultRectangularArr_chpl_TableEntry_chpl_task
   return;
 }
 
-/* DefaultRectangular.chpl:652 */
+/* DefaultRectangular.chpl:655 */
 static void computeFactoredOffs4(DefaultRectangularArr_chpldev_Task_1_int64_t_F this8, int64_t _ln, c_string _fn) {
   _ref_int64_t call_tmp = NULL;
   _ref_int64_t call_tmp2 = NULL;
@@ -1835,7 +1835,7 @@ static void computeFactoredOffs4(DefaultRectangularArr_chpldev_Task_1_int64_t_F 
   return;
 }
 
-/* DefaultRectangular.chpl:652 */
+/* DefaultRectangular.chpl:655 */
 static void computeFactoredOffs5(DefaultRectangularArr__real64_2_int64_t_F this8, int64_t _ln, c_string _fn) {
   _ref_int64_t call_tmp = NULL;
   _ref_int64_t call_tmp2 = NULL;
@@ -1877,7 +1877,7 @@ static void computeFactoredOffs5(DefaultRectangularArr__real64_2_int64_t_F this8
   return;
 }
 
-/* DefaultRectangular.chpl:675 */
+/* DefaultRectangular.chpl:678 */
 static void initialize8(DefaultRectangularArr_locale_1_int64_t_F this8, int64_t _ln, c_string _fn) {
   chpl_bool ret;
   chpl_bool call_tmp;
@@ -1970,7 +1970,7 @@ static void initialize8(DefaultRectangularArr_locale_1_int64_t_F this8, int64_t 
   return;
 }
 
-/* DefaultRectangular.chpl:675 */
+/* DefaultRectangular.chpl:678 */
 static void initialize9(DefaultRectangularArr_localesSignal_1_int64_t_F this8, int64_t _ln, c_string _fn) {
   chpl_bool ret;
   chpl_bool call_tmp;
@@ -2063,7 +2063,7 @@ static void initialize9(DefaultRectangularArr_localesSignal_1_int64_t_F this8, i
   return;
 }
 
-/* DefaultRectangular.chpl:675 */
+/* DefaultRectangular.chpl:678 */
 static void initialize10(DefaultRectangularArr_chpl_TableEntry_chpl_taskID_t_1_int64_t_F this8, int64_t _ln, c_string _fn) {
   chpl_bool ret;
   chpl_bool call_tmp;
@@ -2156,7 +2156,7 @@ static void initialize10(DefaultRectangularArr_chpl_TableEntry_chpl_taskID_t_1_i
   return;
 }
 
-/* DefaultRectangular.chpl:675 */
+/* DefaultRectangular.chpl:678 */
 static void initialize11(DefaultRectangularArr_chpldev_Task_1_int64_t_F this8, int64_t _ln, c_string _fn) {
   chpl_bool ret;
   chpl_bool call_tmp;
@@ -2249,7 +2249,7 @@ static void initialize11(DefaultRectangularArr_chpldev_Task_1_int64_t_F this8, i
   return;
 }
 
-/* DefaultRectangular.chpl:675 */
+/* DefaultRectangular.chpl:678 */
 static void initialize12(DefaultRectangularArr__real64_2_int64_t_F this8, int64_t _ln, c_string _fn) {
   chpl_bool ret;
   chpl_bool call_tmp;
@@ -2391,7 +2391,7 @@ static void initialize12(DefaultRectangularArr__real64_2_int64_t_F this8, int64_
   return;
 }
 
-/* DefaultRectangular.chpl:835 */
+/* DefaultRectangular.chpl:838 */
 static void dsiReallocate2(DefaultRectangularArr_locale_1_int64_t_F this8, DefaultRectangularDom_1_int64_t_F d, int64_t _ln, c_string _fn) {
   DefaultRectangularArr_locale_1_int64_t_F copy = NULL;
   DefaultRectangularDom_1_int64_t_F ret = NULL;
@@ -2596,7 +2596,7 @@ static void dsiReallocate2(DefaultRectangularArr_locale_1_int64_t_F this8, Defau
   return;
 }
 
-/* DefaultRectangular.chpl:835 */
+/* DefaultRectangular.chpl:838 */
 static void dsiReallocate3(DefaultRectangularArr_localesSignal_1_int64_t_F this8, DefaultRectangularDom_1_int64_t_F d, int64_t _ln, c_string _fn) {
   DefaultRectangularArr_localesSignal_1_int64_t_F copy = NULL;
   DefaultRectangularDom_1_int64_t_F ret = NULL;
@@ -2801,7 +2801,7 @@ static void dsiReallocate3(DefaultRectangularArr_localesSignal_1_int64_t_F this8
   return;
 }
 
-/* DefaultRectangular.chpl:835 */
+/* DefaultRectangular.chpl:838 */
 static void dsiReallocate4(DefaultRectangularArr_chpl_TableEntry_chpl_taskID_t_1_int64_t_F this8, DefaultRectangularDom_1_int64_t_F d, int64_t _ln, c_string _fn) {
   DefaultRectangularArr_chpl_TableEntry_chpl_taskID_t_1_int64_t_F copy = NULL;
   DefaultRectangularDom_1_int64_t_F ret = NULL;
@@ -2890,7 +2890,7 @@ static void dsiReallocate4(DefaultRectangularArr_chpl_TableEntry_chpl_taskID_t_1
   chpl_opaque call_tmp23;
   ret = d;
   call_tmp = sizeof(chpl_DefaultRectangularArr_chpl_TableEntry_chpl_taskID_t_1_int64_t_F_object);
-  cast_tmp = chpl_here_alloc(call_tmp, INT16(21), _ln, _fn);
+  cast_tmp = chpl_here_alloc(call_tmp, INT16(20), _ln, _fn);
   this9 = ((DefaultRectangularArr_chpl_TableEntry_chpl_taskID_t_1_int64_t_F)(cast_tmp));
   ((object)(this9))->chpl__cid = chpl__cid_DefaultRectangularArr_chpl_TableEntry_chpl_taskID_t_1_int64_t_F;
   (this9)->dom = nil;
@@ -3012,7 +3012,7 @@ static void dsiReallocate4(DefaultRectangularArr_chpl_TableEntry_chpl_taskID_t_1
   return;
 }
 
-/* DefaultRectangular.chpl:835 */
+/* DefaultRectangular.chpl:838 */
 static void dsiReallocate5(DefaultRectangularArr_chpldev_Task_1_int64_t_F this8, DefaultRectangularDom_1_int64_t_F d, int64_t _ln, c_string _fn) {
   DefaultRectangularArr_chpldev_Task_1_int64_t_F copy = NULL;
   DefaultRectangularDom_1_int64_t_F ret = NULL;
@@ -3101,7 +3101,7 @@ static void dsiReallocate5(DefaultRectangularArr_chpldev_Task_1_int64_t_F this8,
   chpl_opaque call_tmp23;
   ret = d;
   call_tmp = sizeof(chpl_DefaultRectangularArr_chpldev_Task_1_int64_t_F_object);
-  cast_tmp = chpl_here_alloc(call_tmp, INT16(24), _ln, _fn);
+  cast_tmp = chpl_here_alloc(call_tmp, INT16(23), _ln, _fn);
   this9 = ((DefaultRectangularArr_chpldev_Task_1_int64_t_F)(cast_tmp));
   ((object)(this9))->chpl__cid = chpl__cid_DefaultRectangularArr_chpldev_Task_1_int64_t_F;
   (this9)->dom = nil;
@@ -3223,7 +3223,7 @@ static void dsiReallocate5(DefaultRectangularArr_chpldev_Task_1_int64_t_F this8,
   return;
 }
 
-/* DefaultRectangular.chpl:835 */
+/* DefaultRectangular.chpl:838 */
 static void dsiReallocate6(DefaultRectangularArr__real64_2_int64_t_F this8, DefaultRectangularDom_1_int64_t_F d, int64_t _ln, c_string _fn) {
   halt("illegal reallocation", _ln, _fn);
   return;

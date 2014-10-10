@@ -19,6 +19,7 @@ void chpl__init_ChapelStandard(int64_t _ln, c_string _fn) {
     chpl__init_Atomics(_ln, _fn);
     chpl__init_NetworkAtomics(_ln, _fn);
     chpl__init_AtomicsCommon(_ln, _fn);
+    chpl__init_NewString(_ln, _fn);
     chpl__init_ChapelThreads(_ln, _fn);
     chpl__init_ChapelTuple(_ln, _fn);
     chpl__init_ChapelRange(_ln, _fn);

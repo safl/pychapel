@@ -53,9 +53,10 @@ const chpl__class_id chpl__cid__class_localscoforall_fn5 = 43;
 const chpl__class_id chpl__cid_object = 44;
 const chpl__class_id chpl__cid_listNode_BaseArr = 45;
 const chpl__class_id chpl__cid_listNode_BaseDom = 46;
-const chpl__class_id chpl__cid__class_localscoforall_fn6 = 47;
-const chpl__class_id chpl__cid__class_localscoforall_fn7 = 48;
-const chpl__class_id chpl__cid__class_localscoforall_fn8 = 49;
+const chpl__class_id chpl__cid_string_refcnt = 47;
+const chpl__class_id chpl__cid__class_localscoforall_fn6 = 48;
+const chpl__class_id chpl__cid__class_localscoforall_fn7 = 49;
+const chpl__class_id chpl__cid__class_localscoforall_fn8 = 50;
 /*** Class Prototypes ***/
 
 typedef struct chpl__class_localscoforall_fn_s* _class_localscoforall_fn;
@@ -99,6 +100,7 @@ typedef struct chpl__class_localscoforall_fn5_s* _class_localscoforall_fn5;
 typedef struct chpl_object_s* object;
 typedef struct chpl_listNode_BaseArr_s* listNode_BaseArr;
 typedef struct chpl_listNode_BaseDom_s* listNode_BaseDom;
+typedef struct chpl_string_refcnt_s* string_refcnt;
 typedef struct chpl__class_localscoforall_fn6_s* _class_localscoforall_fn6;
 typedef struct chpl__class_localscoforall_fn7_s* _class_localscoforall_fn7;
 typedef struct chpl__class_localscoforall_fn8_s* _class_localscoforall_fn8;
@@ -111,6 +113,7 @@ typedef enum {chpl__hash_status_empty = UINT32(1), chpl__hash_status_full = UINT
 typedef enum {iomode_r = INT64(1), iomode_cw = INT64(2), iomode_rw = INT64(3), iomode_cwr = INT64(4)} iomode;
 typedef enum {iokind_dynamic = INT64(0), iokind_native = INT64(1), iokind_big = INT64(2), iokind_little = INT64(3)} iokind;
 typedef enum {iostringstyle_len1b_data = INT64(-1), iostringstyle_len2b_data = INT64(-2), iostringstyle_len4b_data = INT64(-4), iostringstyle_len8b_data = INT64(-8), iostringstyle_lenVb_data = INT64(-10), iostringstyle_data_toeof = INT64(-65280), iostringstyle_data_null = INT64(-256)} iostringstyle;
+typedef enum {relType_eq = INT64(1), relType_neq = UINT32(2), relType_lt = UINT32(3), relType_lte = UINT32(4), relType_gt = UINT32(5), relType_gte = UINT32(6)} relType;
 /*** Records, Unions, Data Class, References (Hierarchically) ***/
 
 typedef struct chpl_atomicflag_s {
@@ -294,6 +297,7 @@ typedef atomic_int_least64_t *_ref_atomic_int_least64_t;
 typedef atomic_refcnt *_ref_atomic_refcnt;
 typedef atomicflag *_ref_atomicflag;
 typedef c_string *_ref_c_string;
+typedef c_string_copy *_ref_c_string_copy;
 typedef struct chpl_channel_F_dynamic_T_s {
   locale home;
   qio_channel_ptr_t _channel_internal;
@@ -372,15 +376,16 @@ typedef struct chpl_range_int64_t_boundedLow_F_s {
 
 typedef range_int64_t_boundedLow_F *_ref_range_int64_t_boundedLow_F;
 typedef range_int64_t_bounded_F *_ref_range_int64_t_bounded_F;
-typedef struct chpl_range_int64_t_bounded_T_s {
-  int64_t _low;
-  int64_t _high;
-  int64_t _stride;
-  int64_t _alignment;
-  chpl_bool _aligned;
-} range_int64_t_bounded_T;
+typedef struct chpl_string_rec_s {
+  c_string base;
+  int64_t len;
+  locale home;
+  string_refcnt refCnt;
+  string_refcnt aliasRefCnt;
+} string_rec;
 
-typedef range_int64_t_bounded_T *_ref_range_int64_t_bounded_T;
+typedef string_rec *_ref_string_rec;
+typedef string_refcnt *_ref_string_refcnt;
 typedef syserr *_ref_syserr;
 typedef taskState *_ref_taskState;
 typedef uint32_t *_ref_uint32_t;
@@ -626,6 +631,11 @@ typedef struct chpl_listNode_BaseDom_s /* : object */ {
   listNode_BaseDom next;
 } chpl_listNode_BaseDom_object;
 
+typedef struct chpl_string_refcnt_s /* : object */ {
+  chpl_object_object super;
+  atomic_refcnt val;
+} chpl_string_refcnt_object;
+
 typedef struct chpl_BaseRectangularDom_s /* : BaseDom */ {
   chpl_BaseDom_object super;
 } chpl_BaseRectangularDom_object;
@@ -636,7 +646,7 @@ typedef struct chpl_BaseAssociativeDom_s /* : BaseDom */ {
 
 typedef struct chpl_StringWriter_s /* : Writer */ {
   chpl_Writer_object super;
-  c_string s;
+  c_string_copy s;
 } chpl_StringWriter_object;
 
 typedef struct chpl_AbstractLocaleModel_s /* : locale */ {
@@ -919,8 +929,8 @@ static chpl_bool _command_line_cast7(c_string x, int64_t _ln, c_string _fn);
 static chpl_bool _command_line_cast8(c_string x, int64_t _ln, c_string _fn);
 static uint64_t _command_line_cast9(c_string x, int64_t _ln, c_string _fn);
 static uint64_t _command_line_cast10(c_string x, int64_t _ln, c_string _fn);
-static c_string _command_line_cast11(c_string x);
-static c_string _command_line_cast12(c_string x);
+static c_string _command_line_cast11(c_string x, int64_t _ln, c_string _fn);
+static c_string _command_line_cast12(c_string x, int64_t _ln, c_string _fn);
 static chpl_bool _command_line_cast13(c_string x, int64_t _ln, c_string _fn);
 static DefaultDist chpl__autoCopy(DefaultDist x, int64_t _ln, c_string _fn);
 static DefaultRectangularDom_1_int64_t_F chpl__autoCopy2(DefaultRectangularDom_1_int64_t_F x, int64_t _ln, c_string _fn);
@@ -991,7 +1001,8 @@ static void halt2(chpl_string _e0_args, chpl_taskID_t _e1_args, chpl_string _e2_
 static void halt3(chpl_string _e0_args, chpl_taskID_t _e1_args, int64_t _ln, c_string _fn);
 static void halt4(chpl_string _e0_args, int64_t _e1_args, int64_t _ln, c_string _fn);
 static void writeThis(chpl_taskID_t this8, Writer f, int64_t _ln, c_string _fn);
-static StringWriter _construct_StringWriter(c_string s, StringWriter meme, int64_t _ln, c_string _fn);
+static StringWriter _construct_StringWriter(c_string_copy s, StringWriter meme, int64_t _ln, c_string _fn);
+static StringWriter StringWriter2(c_string x, int64_t _ln, c_string _fn);
 static void writePrimitive4(StringWriter this8, chpl_string x, int64_t _ln, c_string _fn);
 static void writePrimitive5(StringWriter this8, uint64_t x, int64_t _ln, c_string _fn);
 static void writePrimitive6(StringWriter this8, int64_t x, int64_t _ln, c_string _fn);
@@ -1026,20 +1037,14 @@ static void chpl__init_ChapelNumLocales(int64_t _ln, c_string _fn);
 static void chpl__init_ChapelRange(int64_t _ln, c_string _fn);
 static range_int64_t_bounded_F _construct_range(int64_t _low, int64_t _high, int64_t _stride, int64_t _alignment, chpl_bool _aligned, range_int64_t_bounded_F* const meme, int64_t _ln, c_string _fn);
 static range_int64_t_boundedLow_F _construct_range2(int64_t _low, int64_t _high, int64_t _stride, int64_t _alignment, chpl_bool _aligned, range_int64_t_boundedLow_F* const meme, int64_t _ln, c_string _fn);
-static range_int64_t_bounded_T _construct_range3(int64_t _low, int64_t _high, int64_t _stride, int64_t _alignment, chpl_bool _aligned, range_int64_t_bounded_T* const meme, int64_t _ln, c_string _fn);
 static range_int64_t_bounded_F range(int64_t _low, int64_t _high, int64_t _stride, int64_t _alignment, chpl_bool _aligned, int64_t _ln, c_string _fn);
 static range_int64_t_boundedLow_F range2(int64_t _low, int64_t _high, int64_t _stride, int64_t _alignment, chpl_bool _aligned, int64_t _ln, c_string _fn);
-static range_int64_t_bounded_T range3(int64_t _low, int64_t _high, int64_t _stride, int64_t _alignment, chpl_bool _aligned, int64_t _ln, c_string _fn);
 static void _build_range(int64_t low, int64_t high2, _ref_range_int64_t_bounded_F _retArg, int64_t _ln, c_string _fn);
 static void _build_range2(int64_t bound, _ref_range_int64_t_boundedLow_F _retArg, int64_t _ln, c_string _fn);
 static int64_t length(_ref_range_int64_t_bounded_F this8, int64_t _ln, c_string _fn);
-static chpl_bool isAmbiguous(_ref_range_int64_t_bounded_T this8, int64_t _ln, c_string _fn);
-static void by(range_int64_t_bounded_F* const r, int64_t step, _ref_range_int64_t_bounded_T _retArg, int64_t _ln, c_string _fn);
 static void this3(_ref_range_int64_t_bounded_F this8, range_int64_t_bounded_F* const other, _ref_range_int64_t_bounded_F _retArg, int64_t _ln, c_string _fn);
 static void chpl_count_help(range_int64_t_boundedLow_F* const r, int64_t count, _ref_range_int64_t_bounded_F _retArg, int64_t _ln, c_string _fn);
 static void chpl___POUND_(range_int64_t_boundedLow_F* const r, int64_t count, _ref_range_int64_t_bounded_F _retArg, int64_t _ln, c_string _fn);
-static int64_t chpl__mod(int64_t dividend, int64_t modulus, int64_t _ln, c_string _fn);
-static int64_t chpl__diffMod(int64_t minuend, int64_t subtrahend, int64_t modulus, int64_t _ln, c_string _fn);
 static int64_t chpl__add(int64_t a, int64_t b, int64_t _ln, c_string _fn);
 static void chpl__init_ChapelReduce(int64_t _ln, c_string _fn);
 static void chpl__reduceCombine(SumReduceScanOp__real64 globalOp, SumReduceScanOp__real64 localOp, int64_t _ln, c_string _fn);
@@ -1227,6 +1232,7 @@ static object _construct_object(object meme);
 static void chpl__auto_destroy_object(object this8, int64_t _ln, c_string _fn);
 void chpl__heapAllocateGlobals(void);
 void chpl__init_preInit(int64_t _ln, c_string _fn);
+static void chpl__init_BaseStringType(int64_t _ln, c_string _fn);
 static void chpl__init_CommDiagnostics(int64_t _ln, c_string _fn);
 static void chpl__init_DSIUtil(int64_t _ln, c_string _fn);
 static void createTuple(int64_t val, _ref__tuple_1_star_int64_t _retArg, int64_t _ln, c_string _fn);
@@ -1285,6 +1291,14 @@ static list_BaseDom _construct_list2(listNode_BaseDom first, listNode_BaseDom la
 static void remove3(_ref_list_BaseDom this8, BaseDom x, int64_t _ln, c_string _fn);
 static void remove4(_ref_list_BaseArr this8, BaseArr x, int64_t _ln, c_string _fn);
 static void append(_ref_list_BaseArr this8, BaseArr e, int64_t _ln, c_string _fn);
+static void chpl__init_NewString(int64_t _ln, c_string _fn);
+static string_refcnt _construct_string_refcnt(atomic_refcnt* const val, string_refcnt meme, int64_t _ln, c_string _fn);
+static void chpl__auto_destroy_string_refcnt(string_refcnt this8, int64_t _ln, c_string _fn);
+static string_rec _construct_string_rec(c_string base, int64_t len, locale home, string_refcnt refCnt, string_refcnt aliasRefCnt, string_rec* const meme, int64_t _ln, c_string _fn);
+static string_rec string_rec2(int64_t _ln, c_string _fn);
+static void chpl___TILDE_string_rec(_ref_string_rec this8, int64_t _ln, c_string _fn);
+static void reinitString(_ref_string_rec this8, c_string s, int64_t slen, int64_t _ln, c_string _fn);
+static void chpl___ASSIGN_9(_ref_string_rec lhs, c_string rhs_c, int64_t _ln, c_string _fn);
 static void chpl__init_Regexp(int64_t _ln, c_string _fn);
 static void chpl__init_Sys(int64_t _ln, c_string _fn);
 static void chpl__init_SysBasic(int64_t _ln, c_string _fn);
@@ -1461,54 +1475,54 @@ chpl_fn_p chpl_vmtable[] = {
   (chpl_fn_p)NULL,
   /* BaseArr */
   (chpl_fn_p)chpl__auto_destroy_BaseArr,
-  (chpl_fn_p)_backupArray,
-  (chpl_fn_p)_removeArrayBackup,
-  (chpl_fn_p)dsiGetBaseDom,
-  (chpl_fn_p)dsiReallocate,
   (chpl_fn_p)_preserveArrayElement,
   (chpl_fn_p)clearEntry,
+  (chpl_fn_p)dsiReallocate,
+  (chpl_fn_p)_removeArrayBackup,
   (chpl_fn_p)dsiDestroyData,
+  (chpl_fn_p)dsiGetBaseDom,
+  (chpl_fn_p)_backupArray,
   /* Writer */
   (chpl_fn_p)chpl__auto_destroy_Writer,
-  (chpl_fn_p)writePrimitive3,
-  (chpl_fn_p)writePrimitive,
   (chpl_fn_p)writePrimitive2,
+  (chpl_fn_p)writePrimitive,
+  (chpl_fn_p)writePrimitive3,
   (chpl_fn_p)NULL,
   (chpl_fn_p)NULL,
   (chpl_fn_p)NULL,
   (chpl_fn_p)NULL,
   /* StringWriter */
   (chpl_fn_p)chpl___TILDE_StringWriter,
-  (chpl_fn_p)writePrimitive6,
-  (chpl_fn_p)writePrimitive4,
   (chpl_fn_p)writePrimitive5,
+  (chpl_fn_p)writePrimitive4,
+  (chpl_fn_p)writePrimitive6,
   (chpl_fn_p)NULL,
   (chpl_fn_p)NULL,
   (chpl_fn_p)NULL,
   (chpl_fn_p)NULL,
   /* locale */
   (chpl_fn_p)chpl__auto_destroy_locale,
-  (chpl_fn_p)chpl_id,
   (chpl_fn_p)getChildCount,
   (chpl_fn_p)getChild,
+  (chpl_fn_p)chpl_id,
   (chpl_fn_p)NULL,
   (chpl_fn_p)NULL,
   (chpl_fn_p)NULL,
   (chpl_fn_p)NULL,
   /* AbstractLocaleModel */
   (chpl_fn_p)chpl__auto_destroy_AbstractLocaleModel,
-  (chpl_fn_p)chpl_id,
   (chpl_fn_p)getChildCount,
   (chpl_fn_p)getChild,
+  (chpl_fn_p)chpl_id,
   (chpl_fn_p)NULL,
   (chpl_fn_p)NULL,
   (chpl_fn_p)NULL,
   (chpl_fn_p)NULL,
   /* AbstractRootLocale */
   (chpl_fn_p)chpl__auto_destroy_AbstractRootLocale,
-  (chpl_fn_p)chpl_id,
   (chpl_fn_p)getChildCount,
   (chpl_fn_p)getChild,
+  (chpl_fn_p)chpl_id,
   (chpl_fn_p)localeIDtoLocale,
   (chpl_fn_p)NULL,
   (chpl_fn_p)NULL,
@@ -1587,13 +1601,13 @@ chpl_fn_p chpl_vmtable[] = {
   (chpl_fn_p)NULL,
   /* DefaultAssociativeArr_chpldev_Task_chpl_taskID_t_F */
   (chpl_fn_p)chpl__auto_destroy_DefaultAssociativeArr,
-  (chpl_fn_p)_backupArray2,
-  (chpl_fn_p)_removeArrayBackup2,
-  (chpl_fn_p)dsiGetBaseDom2,
-  (chpl_fn_p)dsiReallocate,
   (chpl_fn_p)_preserveArrayElement2,
   (chpl_fn_p)clearEntry2,
+  (chpl_fn_p)dsiReallocate,
+  (chpl_fn_p)_removeArrayBackup2,
   (chpl_fn_p)dsiDestroyData,
+  (chpl_fn_p)dsiGetBaseDom2,
+  (chpl_fn_p)_backupArray2,
   /* DefaultDist */
   (chpl_fn_p)chpl__auto_destroy_DefaultDist,
   (chpl_fn_p)NULL,
@@ -1641,49 +1655,49 @@ chpl_fn_p chpl_vmtable[] = {
   (chpl_fn_p)NULL,
   /* DefaultRectangularArr__real64_2_int64_t_F */
   (chpl_fn_p)chpl__auto_destroy_DefaultRectangularArr5,
-  (chpl_fn_p)_backupArray,
-  (chpl_fn_p)_removeArrayBackup,
-  (chpl_fn_p)dsiGetBaseDom7,
-  (chpl_fn_p)dsiReallocate6,
   (chpl_fn_p)_preserveArrayElement,
   (chpl_fn_p)clearEntry,
+  (chpl_fn_p)dsiReallocate6,
+  (chpl_fn_p)_removeArrayBackup,
   (chpl_fn_p)dsiDestroyData6,
+  (chpl_fn_p)dsiGetBaseDom7,
+  (chpl_fn_p)_backupArray,
   /* DefaultRectangularArr_chpl_TableEntry_chpl_taskID_t_1_int64_t_F */
   (chpl_fn_p)chpl__auto_destroy_DefaultRectangularArr3,
-  (chpl_fn_p)_backupArray,
-  (chpl_fn_p)_removeArrayBackup,
-  (chpl_fn_p)dsiGetBaseDom5,
-  (chpl_fn_p)dsiReallocate4,
   (chpl_fn_p)_preserveArrayElement,
   (chpl_fn_p)clearEntry,
+  (chpl_fn_p)dsiReallocate4,
+  (chpl_fn_p)_removeArrayBackup,
   (chpl_fn_p)dsiDestroyData4,
+  (chpl_fn_p)dsiGetBaseDom5,
+  (chpl_fn_p)_backupArray,
   /* DefaultRectangularArr_chpldev_Task_1_int64_t_F */
   (chpl_fn_p)chpl__auto_destroy_DefaultRectangularArr4,
-  (chpl_fn_p)_backupArray,
-  (chpl_fn_p)_removeArrayBackup,
-  (chpl_fn_p)dsiGetBaseDom6,
-  (chpl_fn_p)dsiReallocate5,
   (chpl_fn_p)_preserveArrayElement,
   (chpl_fn_p)clearEntry,
+  (chpl_fn_p)dsiReallocate5,
+  (chpl_fn_p)_removeArrayBackup,
   (chpl_fn_p)dsiDestroyData5,
+  (chpl_fn_p)dsiGetBaseDom6,
+  (chpl_fn_p)_backupArray,
   /* DefaultRectangularArr_locale_1_int64_t_F */
   (chpl_fn_p)chpl__auto_destroy_DefaultRectangularArr,
-  (chpl_fn_p)_backupArray,
-  (chpl_fn_p)_removeArrayBackup,
-  (chpl_fn_p)dsiGetBaseDom3,
-  (chpl_fn_p)dsiReallocate2,
   (chpl_fn_p)_preserveArrayElement,
   (chpl_fn_p)clearEntry,
+  (chpl_fn_p)dsiReallocate2,
+  (chpl_fn_p)_removeArrayBackup,
   (chpl_fn_p)dsiDestroyData2,
+  (chpl_fn_p)dsiGetBaseDom3,
+  (chpl_fn_p)_backupArray,
   /* DefaultRectangularArr_localesSignal_1_int64_t_F */
   (chpl_fn_p)chpl__auto_destroy_DefaultRectangularArr2,
-  (chpl_fn_p)_backupArray,
-  (chpl_fn_p)_removeArrayBackup,
-  (chpl_fn_p)dsiGetBaseDom4,
-  (chpl_fn_p)dsiReallocate3,
   (chpl_fn_p)_preserveArrayElement,
   (chpl_fn_p)clearEntry,
+  (chpl_fn_p)dsiReallocate3,
+  (chpl_fn_p)_removeArrayBackup,
   (chpl_fn_p)dsiDestroyData3,
+  (chpl_fn_p)dsiGetBaseDom4,
+  (chpl_fn_p)_backupArray,
   /* _ic_these_DefaultRectangularArr__real64_2_int64_t_F */
   (chpl_fn_p)chpl__auto_destroy_object,
   (chpl_fn_p)NULL,
@@ -1695,18 +1709,18 @@ chpl_fn_p chpl_vmtable[] = {
   (chpl_fn_p)NULL,
   /* LocaleModel */
   (chpl_fn_p)chpl__auto_destroy_LocaleModel,
-  (chpl_fn_p)chpl_id2,
   (chpl_fn_p)getChildCount2,
   (chpl_fn_p)getChild2,
+  (chpl_fn_p)chpl_id2,
   (chpl_fn_p)NULL,
   (chpl_fn_p)NULL,
   (chpl_fn_p)NULL,
   (chpl_fn_p)NULL,
   /* RootLocale */
   (chpl_fn_p)chpl__auto_destroy_RootLocale,
-  (chpl_fn_p)chpl_id3,
   (chpl_fn_p)getChildCount3,
   (chpl_fn_p)getChild3,
+  (chpl_fn_p)chpl_id3,
   (chpl_fn_p)localeIDtoLocale2,
   (chpl_fn_p)NULL,
   (chpl_fn_p)NULL,
@@ -1740,6 +1754,15 @@ chpl_fn_p chpl_vmtable[] = {
   (chpl_fn_p)NULL,
   /* listNode_BaseDom */
   (chpl_fn_p)chpl__auto_destroy_listNode2,
+  (chpl_fn_p)NULL,
+  (chpl_fn_p)NULL,
+  (chpl_fn_p)NULL,
+  (chpl_fn_p)NULL,
+  (chpl_fn_p)NULL,
+  (chpl_fn_p)NULL,
+  (chpl_fn_p)NULL,
+  /* string_refcnt */
+  (chpl_fn_p)chpl__auto_destroy_string_refcnt,
   (chpl_fn_p)NULL,
   (chpl_fn_p)NULL,
   (chpl_fn_p)NULL,
@@ -1806,9 +1829,9 @@ static chpl_bool memLeaksTable;
 static uint64_t memMax;
 static uint64_t memThreshold;
 static c_string memLog;
-static chpl_string s_memLog;
 static c_string memLeaksLog;
-static chpl_string s_memLeaksLog;
+static string_rec s_memLog;
+static string_rec s_memLeaksLog;
 static int32_t LINENO;
 static chpl_bool printModuleInitOrder;
 static int32_t moduleInitLevel;
@@ -1850,7 +1873,10 @@ static chpl_bool chpl__init_LocaleModel_p;
 static chpl_bool chpl__init_PrintModuleInitOrder_p;
 static chpl_bool chpl__init_LocalesArray_p;
 static chpl_bool chpl__init_Atomics_p;
+static chpl_bool chpl__init_BaseStringType_p;
+static chpl_bool chpl__init_NewString_p;
 static chpl_bool chpl__init_CString_p;
+static c_string baseType;
 static int32_t IOHINT_NONE;
 static int32_t IOHINT_RANDOM;
 static int32_t IOHINT_SEQUENTIAL;
@@ -1889,7 +1915,6 @@ const char* chpl_mem_descs[] = {
   "_ddata(localesSignal)",
   "[domain(1,int(64),false)] localesSignal",
   "_EndCount",
-  "_ic_posStrideIter__ref_range_int64_t_bounded_T",
   "_ic_these_DefaultRectangularArr_localesSignal_1_int64_t_F",
   "localesSignal",
   "LocaleModel",
@@ -1901,6 +1926,7 @@ const char* chpl_mem_descs[] = {
   "[DefaultAssociativeDom(chpl_taskID_t,false)] chpldev_Task",
   "_ic_these_DefaultRectangularArr_locale_1_int64_t_F",
   "chpldev_taskTable_t",
+  "string_refcnt",
   "_ic__lookForSlots_DefaultAssociativeDom_chpl_taskID_t_F",
   "_ic_these_DefaultRectangularArr_chpl_TableEntry_chpl_taskID_t_1_int64_t_F",
   "_ic__fullSlots_DefaultAssociativeDom_chpl_taskID_t_F",

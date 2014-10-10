@@ -131,7 +131,7 @@ static LocaleModel LocaleModel2(locale parent_loc, int64_t _ln, c_string _fn) {
   locale call_tmp4 = NULL;
   _ref_locale call_tmp5 = NULL;
   call_tmp = sizeof(chpl_LocaleModel_object);
-  cast_tmp = chpl_here_alloc(call_tmp, INT16(19), _ln, _fn);
+  cast_tmp = chpl_here_alloc(call_tmp, INT16(18), _ln, _fn);
   this9 = ((LocaleModel)(cast_tmp));
   ((object)(this9))->chpl__cid = chpl__cid_LocaleModel;
   (this9)->callStackSize = UINT64(0);
@@ -208,35 +208,30 @@ static void init(LocaleModel this8, int64_t _ln, c_string _fn) {
   c_string call_tmp17;
   chpl_string call_tmp18;
   c_string call_tmp19;
-  c_string call_tmp20;
+  c_string_copy call_tmp20;
   chpl_string call_tmp21;
-  int64_t call_tmp22;
-  chpl_bool call_tmp23;
   int64_t ret;
-  c_string call_tmp24;
-  chpl_string call_tmp25;
-  int64_t call_tmp26;
-  chpl_bool call_tmp27;
-  c_string call_tmp28;
+  c_string_copy call_tmp22;
+  uint32_t call_tmp23;
+  chpl_string call_tmp24;
+  c_string call_tmp25;
+  c_string call_tmp26;
+  c_string_copy call_tmp27;
+  chpl_string call_tmp28;
   c_string call_tmp29;
-  c_string call_tmp30;
-  chpl_string call_tmp31;
-  int64_t call_tmp32;
-  chpl_bool call_tmp33;
-  c_string call_tmp34;
-  chpl_string call_tmp35;
-  _ref_uint64_t call_tmp36 = NULL;
-  uint64_t call_tmp37;
+  chpl_string call_tmp30;
+  _ref_uint64_t call_tmp31 = NULL;
+  uint64_t call_tmp32;
   locale coerce_tmp = NULL;
-  locale call_tmp38 = NULL;
-  _ref_int64_t call_tmp39 = NULL;
-  int32_t call_tmp40;
-  int64_t call_tmp41;
+  locale call_tmp33 = NULL;
+  _ref_int64_t call_tmp34 = NULL;
+  int32_t call_tmp35;
+  int64_t call_tmp36;
   locale coerce_tmp2 = NULL;
-  locale call_tmp42 = NULL;
-  _ref_int64_t call_tmp43 = NULL;
-  uint32_t call_tmp44;
-  int64_t call_tmp45;
+  locale call_tmp37 = NULL;
+  _ref_int64_t call_tmp38 = NULL;
+  uint32_t call_tmp39;
+  int64_t call_tmp40;
   call_tmp = &((this8)->_node_id);
   call_tmp2 = ((int64_t)(chpl_nodeID));
   *(call_tmp) = call_tmp2;
@@ -278,50 +273,36 @@ static void init(LocaleModel this8, int64_t _ln, c_string _fn) {
     string_from_c_string(&call_tmp18, call_tmp17, INT64(0), INT64(0), _ln, _fn);
     c_string_from_string(&call_tmp19, &call_tmp18, _ln, _fn);
     call_tmp20 = string_concat(call_tmp19, "-", _ln, _fn);
-    string_from_c_string(&call_tmp21, call_tmp20, INT64(0), INT64(0), _ln, _fn);
-    call_tmp22 = string_length(call_tmp20);
-    call_tmp23 = (call_tmp22 > INT64(0));
-    if (call_tmp23) {
-      chpl_rt_free_c_string(call_tmp20, _ln, _fn);
-    }
+    call_tmp21 = string_from_c_string_copy(call_tmp20, false, INT64(0));
     ret = (this8)->_node_id;
-    call_tmp24 = int64_t_to_c_string(ret);
-    string_from_c_string(&call_tmp25, call_tmp24, INT64(0), INT64(0), _ln, _fn);
-    call_tmp26 = string_length(call_tmp24);
-    call_tmp27 = (call_tmp26 > INT64(0));
-    if (call_tmp27) {
-      chpl_rt_free_c_string(call_tmp24, _ln, _fn);
-    }
-    c_string_from_string(&call_tmp28, &call_tmp21, _ln, _fn);
-    c_string_from_string(&call_tmp29, &call_tmp25, _ln, _fn);
-    call_tmp30 = string_concat(call_tmp28, call_tmp29, _ln, _fn);
-    string_from_c_string(&call_tmp31, call_tmp30, INT64(0), INT64(0), _ln, _fn);
-    call_tmp32 = string_length(call_tmp30);
-    call_tmp33 = (call_tmp32 > INT64(0));
-    if (call_tmp33) {
-      chpl_rt_free_c_string(call_tmp30, _ln, _fn);
-    }
-    (this8)->local_name = call_tmp31;
+    call_tmp23 = ((uint32_t)(INT64(8)));
+    call_tmp22 = integral_to_c_string_copy(ret, call_tmp23, true);
+    call_tmp24 = string_from_c_string_copy(call_tmp22, false, INT64(0));
+    c_string_from_string(&call_tmp25, &call_tmp21, _ln, _fn);
+    c_string_from_string(&call_tmp26, &call_tmp24, _ln, _fn);
+    call_tmp27 = string_concat(call_tmp25, call_tmp26, _ln, _fn);
+    call_tmp28 = string_from_c_string_copy(call_tmp27, false, INT64(0));
+    (this8)->local_name = call_tmp28;
   } else {
-    call_tmp34 = chpl_nodeName();
-    string_from_c_string(&call_tmp35, call_tmp34, INT64(0), INT64(0), _ln, _fn);
-    (this8)->local_name = call_tmp35;
+    call_tmp29 = chpl_nodeName();
+    string_from_c_string(&call_tmp30, call_tmp29, INT64(0), INT64(0), _ln, _fn);
+    (this8)->local_name = call_tmp30;
   }
-  call_tmp36 = &((this8)->callStackSize);
-  call_tmp37 = chpl_task_getCallStackSize();
-  *(call_tmp36) = call_tmp37;
-  call_tmp38 = ((locale)(this8));
-  coerce_tmp = call_tmp38;
-  call_tmp39 = &((coerce_tmp)->numCores);
-  call_tmp40 = chpl_getNumPUsOnThisNode();
-  call_tmp41 = ((int64_t)(call_tmp40));
-  *(call_tmp39) = call_tmp41;
-  call_tmp42 = ((locale)(this8));
-  coerce_tmp2 = call_tmp42;
-  call_tmp43 = &((coerce_tmp2)->maxTaskPar);
-  call_tmp44 = chpl_task_getMaxPar();
-  call_tmp45 = ((int64_t)(call_tmp44));
-  *(call_tmp43) = call_tmp45;
+  call_tmp31 = &((this8)->callStackSize);
+  call_tmp32 = chpl_task_getCallStackSize();
+  *(call_tmp31) = call_tmp32;
+  call_tmp33 = ((locale)(this8));
+  coerce_tmp = call_tmp33;
+  call_tmp34 = &((coerce_tmp)->numCores);
+  call_tmp35 = chpl_getNumLogicalCpus(true);
+  call_tmp36 = ((int64_t)(call_tmp35));
+  *(call_tmp34) = call_tmp36;
+  call_tmp37 = ((locale)(this8));
+  coerce_tmp2 = call_tmp37;
+  call_tmp38 = &((coerce_tmp2)->maxTaskPar);
+  call_tmp39 = chpl_task_getMaxPar();
+  call_tmp40 = ((int64_t)(call_tmp39));
+  *(call_tmp38) = call_tmp40;
   return;
 }
 
@@ -853,7 +834,7 @@ static locale localeIDtoLocale2(RootLocale this8, chpl_localeID_t* const id2, in
   return ret3;
 }
 
-/* LocaleModel.chpl:278 */
+/* LocaleModel.chpl:277 */
 static chpl_opaque chpl_here_alloc(int64_t size, int16_t md, int64_t _ln, c_string _fn) {
   int16_t call_tmp;
   int16_t call_tmp2;
@@ -864,13 +845,13 @@ static chpl_opaque chpl_here_alloc(int64_t size, int16_t md, int64_t _ln, c_stri
   return call_tmp3;
 }
 
-/* LocaleModel.chpl:302 */
+/* LocaleModel.chpl:298 */
 static void chpl_here_free(chpl_opaque ptr, int64_t _ln, c_string _fn) {
   chpl_mem_free(ptr, _ln, _fn);
   return;
 }
 
-/* LocaleModel.chpl:329 */
+/* LocaleModel.chpl:325 */
 void chpl_executeOn(chpl_localeID_t* const loc, int64_t fn, c_void_ptr args, int32_t args_size, int64_t _ln, c_string _fn) {
   int32_t call_tmp;
   chpl_bool call_tmp2;
@@ -890,7 +871,7 @@ void chpl_executeOn(chpl_localeID_t* const loc, int64_t fn, c_void_ptr args, int
   return;
 }
 
-/* LocaleModel.chpl:350 */
+/* LocaleModel.chpl:346 */
 void chpl_executeOnFast(chpl_localeID_t* const loc, int64_t fn, c_void_ptr args, int32_t args_size, int64_t _ln, c_string _fn) {
   int32_t call_tmp;
   chpl_bool call_tmp2;
@@ -910,7 +891,7 @@ void chpl_executeOnFast(chpl_localeID_t* const loc, int64_t fn, c_void_ptr args,
   return;
 }
 
-/* LocaleModel.chpl:370 */
+/* LocaleModel.chpl:366 */
 void chpl_executeOnNB(chpl_localeID_t* const loc, int64_t fn, c_void_ptr args, int32_t args_size, int64_t _ln, c_string _fn) {
   int32_t call_tmp;
   chpl_bool call_tmp2;
@@ -952,31 +933,31 @@ void chpl_executeOnNB(chpl_localeID_t* const loc, int64_t fn, c_void_ptr args, i
   return;
 }
 
-/* LocaleModel.chpl:420 */
+/* LocaleModel.chpl:416 */
 void chpl_taskListAddBegin(int64_t subloc_id, int64_t fn, c_void_ptr args, _ref_chpl_task_list_p tlist, int64_t tlist_node_id, int64_t _ln, c_string _fn) {
   chpl_task_addToTaskList(fn, args, subloc_id, tlist, tlist_node_id, true, _ln, _fn);
   return;
 }
 
-/* LocaleModel.chpl:435 */
+/* LocaleModel.chpl:431 */
 void chpl_taskListAddCoStmt(int64_t subloc_id, int64_t fn, c_void_ptr args, _ref_chpl_task_list_p tlist, int64_t tlist_node_id, int64_t _ln, c_string _fn) {
   chpl_task_addToTaskList(fn, args, subloc_id, tlist, tlist_node_id, false, _ln, _fn);
   return;
 }
 
-/* LocaleModel.chpl:449 */
+/* LocaleModel.chpl:445 */
 void chpl_taskListProcess(chpl_task_list_p task_list, int64_t _ln, c_string _fn) {
   chpl_task_processTaskList(task_list);
   return;
 }
 
-/* LocaleModel.chpl:458 */
+/* LocaleModel.chpl:454 */
 void chpl_taskListExecute(chpl_task_list_p task_list, int64_t _ln, c_string _fn) {
   chpl_task_executeTasksInList(task_list);
   return;
 }
 
-/* LocaleModel.chpl:467 */
+/* LocaleModel.chpl:463 */
 void chpl_taskListFree(chpl_task_list_p task_list, int64_t _ln, c_string _fn) {
   chpl_task_freeTaskList(task_list);
   return;

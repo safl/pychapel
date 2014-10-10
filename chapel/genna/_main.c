@@ -30,6 +30,8 @@
 #include "ChapelDynDispHack.c"
 #include "ChapelNumLocales.c"
 #include "chapel.c"
+#include "BaseStringType.c"
+#include "NewString.c"
 #include "Types.c"
 #include "Sys.c"
 #include "DSIUtil.c"

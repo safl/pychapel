@@ -33,12 +33,14 @@ static void chpl__init_MemTracking(int64_t _ln, c_string _fn) {
   chpl_bool call_tmp21;
   chpl_bool call_tmp22;
   c_string call_tmp23;
-  chpl_string call_tmp24;
   c_string const_tmp8;
+  chpl_bool call_tmp24;
   chpl_bool call_tmp25;
-  chpl_bool call_tmp26;
-  c_string call_tmp27;
-  chpl_string call_tmp28;
+  c_string call_tmp26;
+  string_rec type_tmp;
+  _ref_string_rec _ref_tmp_ = NULL;
+  string_rec type_tmp2;
+  _ref_string_rec _ref_tmp_2 = NULL;
   if (chpl__init_MemTracking_p) {
     goto _exit_chpl__init_MemTracking;
   }
@@ -48,6 +50,9 @@ static void chpl__init_MemTracking(int64_t _ln, c_string _fn) {
   refIndentLevel = &moduleInitLevel;
   *(refIndentLevel) += INT64(1);
   chpl__init_MemTracking_p = true;
+  {
+    chpl__init_NewString(_ln, _fn);
+  }
   call_tmp = chpl_config_has_value("memTrack", "Built-in");
   call_tmp2 = (! call_tmp);
   if (call_tmp2) {
@@ -110,33 +115,37 @@ static void chpl__init_MemTracking(int64_t _ln, c_string _fn) {
     const_tmp7 = "";
   } else {
     call_tmp23 = chpl_config_get_value("memLog", "Built-in");
-    const_tmp7 = _command_line_cast11(call_tmp23);
+    const_tmp7 = _command_line_cast11(call_tmp23, _ln, _fn);
   }
   memLog = const_tmp7;
-  string_from_c_string(&call_tmp24, memLog, INT64(0), INT64(0), _ln, _fn);
-  s_memLog = call_tmp24;
-  call_tmp25 = chpl_config_has_value("memLeaksLog", "Built-in");
-  call_tmp26 = (! call_tmp25);
-  if (call_tmp26) {
+  call_tmp24 = chpl_config_has_value("memLeaksLog", "Built-in");
+  call_tmp25 = (! call_tmp24);
+  if (call_tmp25) {
     const_tmp8 = "";
   } else {
-    call_tmp27 = chpl_config_get_value("memLeaksLog", "Built-in");
-    const_tmp8 = _command_line_cast12(call_tmp27);
+    call_tmp26 = chpl_config_get_value("memLeaksLog", "Built-in");
+    const_tmp8 = _command_line_cast12(call_tmp26, _ln, _fn);
   }
   memLeaksLog = const_tmp8;
-  string_from_c_string(&call_tmp28, memLeaksLog, INT64(0), INT64(0), _ln, _fn);
-  s_memLeaksLog = call_tmp28;
+  type_tmp = string_rec2(_ln, _fn);
+  _ref_tmp_ = &type_tmp;
+  chpl___ASSIGN_9(_ref_tmp_, memLog, _ln, _fn);
+  s_memLog = type_tmp;
+  type_tmp2 = string_rec2(_ln, _fn);
+  _ref_tmp_2 = &type_tmp2;
+  chpl___ASSIGN_9(_ref_tmp_2, memLeaksLog, _ln, _fn);
+  s_memLeaksLog = type_tmp2;
   *(refIndentLevel) -= INT64(1);
   _exit_chpl__init_MemTracking:;
   return;
 }
 
-/* MemTracking.chpl:46 */
+/* MemTracking.chpl:56 */
 void chpl_memTracking_returnConfigVals(_ref_chpl_bool ret_memTrack, _ref_chpl_bool ret_memStats, _ref_chpl_bool ret_memLeaks, _ref_chpl_bool ret_memLeaksTable, _ref_uint64_t ret_memMax, _ref_uint64_t ret_memThreshold, _ref_c_string ret_memLog, _ref_c_string ret_memLeaksLog, int64_t _ln, c_string _fn) {
   c_string local_memLeaksLog;
-  chpl_string local_s_memLeaksLog;
   c_string local_memLog;
-  chpl_string local_s_memLog;
+  string_rec local_s_memLeaksLog;
+  string_rec local_s_memLog;
   uint64_t local_memThreshold;
   uint64_t local_memMax;
   chpl_bool local_memLeaksTable;
@@ -144,18 +153,31 @@ void chpl_memTracking_returnConfigVals(_ref_chpl_bool ret_memTrack, _ref_chpl_bo
   chpl_bool local_memStats;
   chpl_bool local_memTrack;
   int32_t call_tmp;
-  int32_t call_tmp2;
-  chpl_bool call_tmp3;
-  chpl_string ret;
-  c_string call_tmp4;
-  int32_t call_tmp5;
-  int32_t call_tmp6;
+  chpl_localeID_t call_tmp2;
+  _ref_chpl_localeID_t ret_to_arg_ref_tmp_ = NULL;
+  chpl_localeID_t call_tmp3;
+  locale call_tmp4 = NULL;
+  int64_t call_tmp5;
+  chpl_bool call_tmp6;
+  int64_t ret;
   chpl_bool call_tmp7;
-  chpl_string ret2;
-  c_string call_tmp8;
+  locale ret2 = NULL;
+  int64_t call_tmp8;
+  c_string ret3;
+  int64_t ret4;
+  c_string_copy call_tmp9;
+  c_string call_tmp10;
+  int64_t ret5;
+  chpl_bool call_tmp11;
+  locale ret6 = NULL;
+  int64_t call_tmp12;
+  c_string ret7;
+  int64_t ret8;
+  c_string_copy call_tmp13;
+  c_string call_tmp14;
   local_memLeaksLog = memLeaksLog;
-  local_s_memLeaksLog = s_memLeaksLog;
   local_memLog = memLog;
+  local_s_memLeaksLog = s_memLeaksLog;
   local_s_memLog = s_memLog;
   local_memThreshold = memThreshold;
   local_memMax = memMax;
@@ -169,24 +191,42 @@ void chpl_memTracking_returnConfigVals(_ref_chpl_bool ret_memTrack, _ref_chpl_bo
   *(ret_memLeaksTable) = local_memLeaksTable;
   *(ret_memMax) = local_memMax;
   *(ret_memThreshold) = local_memThreshold;
-  call_tmp = chpl_nodeID;
-  call_tmp2 = ((int32_t)(INT64(0)));
-  call_tmp3 = (call_tmp != call_tmp2);
-  if (call_tmp3) {
-    ret = local_s_memLog;
-    c_string_from_string(&call_tmp4, &ret, _ln, _fn);
-    *(ret_memLog) = call_tmp4;
+  call_tmp = chpl_task_getRequestedSubloc();
+  ret_to_arg_ref_tmp_ = &call_tmp2;
+  chpl_buildLocaleID(chpl_nodeID, call_tmp, ret_to_arg_ref_tmp_, _ln, _fn);
+  call_tmp3 = chpl__initCopy_chpl_rt_localeID_t(call_tmp2);
+  call_tmp4 = chpl_localeID_to_locale(&call_tmp3, _ln, _fn);
+  call_tmp5 = id(call_tmp4, _ln, _fn);
+  call_tmp6 = (call_tmp5 != INT64(0));
+  if (call_tmp6) {
+    ret = (&local_s_memLog)->len;
+    call_tmp7 = (ret != INT64(0));
+    if (call_tmp7) {
+      ret2 = (&local_s_memLog)->home;
+      call_tmp8 = id(ret2, _ln, _fn);
+      ret3 = (&local_s_memLog)->base;
+      ret4 = (&local_s_memLog)->len;
+      call_tmp9 = remoteStringCopy(call_tmp8, ret3, ret4, _ln, _fn);
+      call_tmp10 = ((c_string)(call_tmp9));
+      *(ret_memLog) = call_tmp10;
+    } else {
+      *(ret_memLog) = "";
+    }
+    ret5 = (&local_s_memLeaksLog)->len;
+    call_tmp11 = (ret5 != INT64(0));
+    if (call_tmp11) {
+      ret6 = (&local_s_memLeaksLog)->home;
+      call_tmp12 = id(ret6, _ln, _fn);
+      ret7 = (&local_s_memLeaksLog)->base;
+      ret8 = (&local_s_memLeaksLog)->len;
+      call_tmp13 = remoteStringCopy(call_tmp12, ret7, ret8, _ln, _fn);
+      call_tmp14 = ((c_string)(call_tmp13));
+      *(ret_memLeaksLog) = call_tmp14;
+    } else {
+      *(ret_memLeaksLog) = "";
+    }
   } else {
     *(ret_memLog) = local_memLog;
-  }
-  call_tmp5 = chpl_nodeID;
-  call_tmp6 = ((int32_t)(INT64(0)));
-  call_tmp7 = (call_tmp5 != call_tmp6);
-  if (call_tmp7) {
-    ret2 = local_s_memLeaksLog;
-    c_string_from_string(&call_tmp8, &ret2, _ln, _fn);
-    *(ret_memLeaksLog) = call_tmp8;
-  } else {
     *(ret_memLeaksLog) = local_memLeaksLog;
   }
   return;

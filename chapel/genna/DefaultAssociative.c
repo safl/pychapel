@@ -209,7 +209,7 @@ static DefaultAssociativeDom_chpl_taskID_t_F DefaultAssociativeDom(DefaultDist d
   DefaultAssociativeDom_chpl_taskID_t_F wrap_call_tmp7 = NULL;
   _ref_DefaultDist call_tmp11 = NULL;
   call_tmp = sizeof(chpl_DefaultAssociativeDom_chpl_taskID_t_F_object);
-  cast_tmp = chpl_here_alloc(call_tmp, INT16(22), _ln, _fn);
+  cast_tmp = chpl_here_alloc(call_tmp, INT16(21), _ln, _fn);
   this9 = ((DefaultAssociativeDom_chpl_taskID_t_F)(cast_tmp));
   ((object)(this9))->chpl__cid = chpl__cid_DefaultAssociativeDom_chpl_taskID_t_F;
   (this9)->dist = nil;
@@ -322,7 +322,7 @@ static DefaultAssociativeArr_chpldev_Task_chpl_taskID_t_F dsiBuildArray(DefaultA
   _ref_DefaultRectangularArr_chpldev_Task_1_int64_t_F ret_to_arg_ref_tmp_6 = NULL;
   DefaultAssociativeArr_chpldev_Task_chpl_taskID_t_F wrap_call_tmp3 = NULL;
   call_tmp = sizeof(chpl_DefaultAssociativeArr_chpldev_Task_chpl_taskID_t_F_object);
-  cast_tmp = chpl_here_alloc(call_tmp, INT16(25), _ln, _fn);
+  cast_tmp = chpl_here_alloc(call_tmp, INT16(24), _ln, _fn);
   this9 = ((DefaultAssociativeArr_chpldev_Task_chpl_taskID_t_F)(cast_tmp));
   ((object)(this9))->chpl__cid = chpl__cid_DefaultAssociativeArr_chpldev_Task_chpl_taskID_t_F;
   (this9)->dom = nil;
@@ -384,6 +384,7 @@ static chpl_bool dsiMember(DefaultAssociativeDom_chpl_taskID_t_F this8, chpl_tas
 static int64_t dsiAdd(DefaultAssociativeDom_chpl_taskID_t_F this8, chpl_taskID_t idx, int64_t slotNum, chpl_bool haveLock, int64_t _ln, c_string _fn) {
   memory_order local_memory_order_seq_cst;
   int64_t _formal_tmp_slotNum;
+  int64_t inSlot;
   chpl_bool shouldLock;
   chpl_bool call_tmp;
   chpl_bool T;
@@ -411,6 +412,7 @@ static int64_t dsiAdd(DefaultAssociativeDom_chpl_taskID_t_F this8, chpl_taskID_t
   _ref_atomic_flag call_tmp16 = NULL;
   local_memory_order_seq_cst = memory_order_seq_cst;
   _formal_tmp_slotNum = slotNum;
+  inSlot = slotNum;
   call_tmp = (! haveLock);
   if (call_tmp) {
     T = false;
@@ -447,20 +449,21 @@ static int64_t dsiAdd(DefaultAssociativeDom_chpl_taskID_t_F this8, chpl_taskID_t
     findAgain = true;
   }
   if (findAgain) {
-    _formal_tmp_slotNum = INT64(-1);
+    call_tmp14 = _add(this8, idx, INT64(-1), _ln, _fn);
+    _formal_tmp_slotNum = call_tmp14;
+  } else {
+    _add(this8, idx, inSlot, _ln, _fn);
   }
-  call_tmp14 = _add(this8, idx, _formal_tmp_slotNum, _ln, _fn);
-  _formal_tmp_slotNum = call_tmp14;
   if (shouldLock) {
     call_tmp15 = &((this8)->tableLock);
     default_argorder4 = local_memory_order_seq_cst;
     call_tmp16 = &((call_tmp15)->_v);
     atomic_flag_clear_explicit(call_tmp16, default_argorder4);
   }
-  return call_tmp14;
+  return _formal_tmp_slotNum;
 }
 
-/* DefaultAssociative.chpl:260 */
+/* DefaultAssociative.chpl:263 */
 static int64_t _add(DefaultAssociativeDom_chpl_taskID_t_F this8, chpl_taskID_t idx, int64_t slotNum, int64_t _ln, c_string _fn) {
   memory_order local_memory_order_seq_cst;
   int64_t _formal_tmp_slotNum;
@@ -581,7 +584,7 @@ static int64_t _add(DefaultAssociativeDom_chpl_taskID_t_F this8, chpl_taskID_t i
   return ret;
 }
 
-/* DefaultAssociative.chpl:278 */
+/* DefaultAssociative.chpl:281 */
 static void dsiRemove(DefaultAssociativeDom_chpl_taskID_t_F this8, chpl_taskID_t idx, int64_t _ln, c_string _fn) {
   memory_order local_memory_order_seq_cst;
   _tuple_2_chpl_bool_int64_t const_tmp;
@@ -648,7 +651,7 @@ static void dsiRemove(DefaultAssociativeDom_chpl_taskID_t_F this8, chpl_taskID_t
     while (T) {
       ret3 = (tmp)->data;
       _virtual_method_tmp_ = ((object)(ret3))->chpl__cid;
-      ((void(*)(BaseArr, chpl_taskID_t, chpl_bool, int64_t, c_string))chpl_vmtable[((INT64(8) * _virtual_method_tmp_) + INT64(6))])(ret3, idx, true, _ln, _fn);
+      ((void(*)(BaseArr, chpl_taskID_t, chpl_bool, int64_t, c_string))chpl_vmtable[((INT64(8) * _virtual_method_tmp_) + INT64(2))])(ret3, idx, true, _ln, _fn);
       ret4 = (tmp)->next;
       tmp = ret4;
       call_tmp4 = ((object)(ret4));
@@ -697,7 +700,7 @@ static void dsiRemove(DefaultAssociativeDom_chpl_taskID_t_F this8, chpl_taskID_t
   return;
 }
 
-/* DefaultAssociative.chpl:375 */
+/* DefaultAssociative.chpl:378 */
 static void _resize(DefaultAssociativeDom_chpl_taskID_t_F this8, chpl_bool grow, int64_t _ln, c_string _fn) {
   memory_order local_memory_order_seq_cst;
   int64_t local_dataParMinGranularity;
@@ -1016,7 +1019,7 @@ static void _resize(DefaultAssociativeDom_chpl_taskID_t_F this8, chpl_bool grow,
   call_tmp15 = chpl__initCopy_chpl_rt_localeID_t(call_tmp14);
   call_tmp16 = chpl_localeID_to_locale(&call_tmp15, _ln, _fn);
   _virtual_method_tmp_ = ((object)(call_tmp16))->chpl__cid;
-  ((int64_t(*)(locale, int64_t, c_string))chpl_vmtable[((INT64(8) * _virtual_method_tmp_) + INT64(2))])(call_tmp16, _ln, _fn);
+  ((int64_t(*)(locale, int64_t, c_string))chpl_vmtable[((INT64(8) * _virtual_method_tmp_) + INT64(1))])(call_tmp16, _ln, _fn);
   call_tmp17 = (default_argtasksPerLocale == INT64(0));
   if (call_tmp17) {
     call_tmp19 = chpl_task_getRequestedSubloc();
@@ -1222,7 +1225,7 @@ static void _resize(DefaultAssociativeDom_chpl_taskID_t_F this8, chpl_bool grow,
       *((_args_forcoforall_fn)->_5_rvfDerefTmp + INT64(1)) = *(chpl__iter + INT64(1));
       (_args_forcoforall_fn)->_ln = _ln;
       (_args_forcoforall_fn)->_fn = _fn;
-      /*** wrapcoforall_fn ***/ chpl_taskListAddCoStmt(INT32(-2), INT64(0), ((void*)(_args_forcoforall_fn)), &(((_args_forcoforall_fn)->_4_rvfDerefTmp)->taskList), chpl_nodeID, INT64(2308), "/home/safl/chapel/modules/internal/ChapelArray.chpl");
+      /*** wrapcoforall_fn ***/ chpl_taskListAddCoStmt(INT32(-2), INT64(0), ((void*)(_args_forcoforall_fn)), &(((_args_forcoforall_fn)->_4_rvfDerefTmp)->taskList), chpl_nodeID, INT64(2364), "/home/safl/chapel/modules/internal/ChapelArray.chpl");
     }
     chpl_taskListProcess((_coforallCount)->taskList, _ln, _fn);
     _waitEndCount(_coforallCount, _ln, _fn);
@@ -1338,7 +1341,7 @@ static void _resize(DefaultAssociativeDom_chpl_taskID_t_F this8, chpl_bool grow,
   return;
 }
 
-/* DefaultAssociative.chpl:405 */
+/* DefaultAssociative.chpl:408 */
 static void _findFilledSlot(DefaultAssociativeDom_chpl_taskID_t_F this8, chpl_taskID_t idx, _ref__tuple_2_chpl_bool_int64_t _retArg, int64_t _ln, c_string _fn) {
   _tuple_2_chpl_bool_int64_t ret;
   int64_t firstOpen;
@@ -1503,7 +1506,7 @@ static void _findFilledSlot(DefaultAssociativeDom_chpl_taskID_t_F this8, chpl_ta
   return;
 }
 
-/* DefaultAssociative.chpl:405 */
+/* DefaultAssociative.chpl:408 */
 static void _findFilledSlot3(DefaultAssociativeDom_chpl_taskID_t_F this8, chpl_taskID_t idx, _ref__tuple_2_chpl_bool_int64_t _retArg, int64_t _ln, c_string _fn) {
   _tuple_2_chpl_bool_int64_t ret;
   int64_t firstOpen;
@@ -1668,7 +1671,7 @@ static void _findFilledSlot3(DefaultAssociativeDom_chpl_taskID_t_F this8, chpl_t
   return;
 }
 
-/* DefaultAssociative.chpl:405 */
+/* DefaultAssociative.chpl:408 */
 static void _findFilledSlot2(DefaultAssociativeDom_chpl_taskID_t_F this8, chpl_taskID_t idx, _ref__tuple_2_chpl_bool_int64_t _retArg, int64_t _ln, c_string _fn) {
   _tuple_2_chpl_bool_int64_t ret;
   int64_t firstOpen;
@@ -1833,7 +1836,7 @@ static void _findFilledSlot2(DefaultAssociativeDom_chpl_taskID_t_F this8, chpl_t
   return;
 }
 
-/* DefaultAssociative.chpl:432 */
+/* DefaultAssociative.chpl:435 */
 static void _findEmptySlot(DefaultAssociativeDom_chpl_taskID_t_F this8, chpl_taskID_t idx, chpl_bool haveLock, _ref__tuple_2_chpl_bool_int64_t _retArg, int64_t _ln, c_string _fn) {
   _tuple_2_chpl_bool_int64_t ret;
   int64_t ret2;
@@ -1978,7 +1981,7 @@ static void _findEmptySlot(DefaultAssociativeDom_chpl_taskID_t_F this8, chpl_tas
   return;
 }
 
-/* DefaultAssociative.chpl:463 */
+/* DefaultAssociative.chpl:466 */
 static DefaultAssociativeArr_chpldev_Task_chpl_taskID_t_F _construct_DefaultAssociativeArr(atomic_refcnt* const _arrCnt, BaseArr _arrAlias, DefaultAssociativeDom_chpl_taskID_t_F dom, DefaultRectangularArr_chpldev_Task_1_int64_t_F data, DefaultRectangularDom_1_int64_t_F tmpDom, DefaultRectangularArr_chpldev_Task_1_int64_t_F tmpTable, DefaultAssociativeArr_chpldev_Task_chpl_taskID_t_F meme, int64_t _ln, c_string _fn) {
   DefaultAssociativeArr_chpldev_Task_chpl_taskID_t_F this8 = NULL;
   BaseArr T = NULL;
@@ -1992,7 +1995,7 @@ static DefaultAssociativeArr_chpldev_Task_chpl_taskID_t_F _construct_DefaultAsso
   return this8;
 }
 
-/* DefaultAssociative.chpl:463 */
+/* DefaultAssociative.chpl:466 */
 static void chpl__auto_destroy_DefaultAssociativeArr(DefaultAssociativeArr_chpldev_Task_chpl_taskID_t_F this8, int64_t _ln, c_string _fn) {
   DefaultRectangularArr_chpldev_Task_1_int64_t_F _field_destructor_tmp_ = NULL;
   DefaultRectangularDom_1_int64_t_F _field_destructor_tmp_2 = NULL;
@@ -2015,14 +2018,14 @@ static void chpl__auto_destroy_DefaultAssociativeArr(DefaultAssociativeArr_chpld
   return;
 }
 
-/* DefaultAssociative.chpl:478 */
+/* DefaultAssociative.chpl:481 */
 static DefaultAssociativeDom_chpl_taskID_t_F dsiGetBaseDom2(DefaultAssociativeArr_chpldev_Task_chpl_taskID_t_F this8, int64_t _ln, c_string _fn) {
   DefaultAssociativeDom_chpl_taskID_t_F ret = NULL;
   ret = (this8)->dom;
   return ret;
 }
 
-/* DefaultAssociative.chpl:480 */
+/* DefaultAssociative.chpl:483 */
 static void clearEntry2(DefaultAssociativeArr_chpldev_Task_chpl_taskID_t_F this8, chpl_taskID_t idx, chpl_bool haveLock, int64_t _ln, c_string _fn) {
   chpldev_Task this9;
   chpldev_Task wrap_call_tmp;
@@ -2041,7 +2044,7 @@ static void clearEntry2(DefaultAssociativeArr_chpldev_Task_chpl_taskID_t_F this8
   return;
 }
 
-/* DefaultAssociative.chpl:485 */
+/* DefaultAssociative.chpl:488 */
 static _ref_chpldev_Task dsiAccess(DefaultAssociativeArr_chpldev_Task_chpl_taskID_t_F this8, chpl_taskID_t idx, chpl_bool haveLock, int64_t _ln, c_string _fn) {
   memory_order local_memory_order_seq_cst;
   _ref_chpldev_Task ret = NULL;
@@ -2231,7 +2234,7 @@ static _ref_chpldev_Task dsiAccess(DefaultAssociativeArr_chpldev_Task_chpl_taskI
   return ret;
 }
 
-/* DefaultAssociative.chpl:577 */
+/* DefaultAssociative.chpl:580 */
 static void _backupArray2(DefaultAssociativeArr_chpldev_Task_chpl_taskID_t_F this8, int64_t _ln, c_string _fn) {
   int64_t local_dataParMinGranularity;
   chpl_bool local_dataParIgnoreRunningTasks;
@@ -2468,7 +2471,7 @@ static void _backupArray2(DefaultAssociativeArr_chpldev_Task_chpl_taskID_t_F thi
   call_tmp14 = chpl__initCopy_chpl_rt_localeID_t(call_tmp13);
   call_tmp15 = chpl_localeID_to_locale(&call_tmp14, _ln, _fn);
   _virtual_method_tmp_ = ((object)(call_tmp15))->chpl__cid;
-  ((int64_t(*)(locale, int64_t, c_string))chpl_vmtable[((INT64(8) * _virtual_method_tmp_) + INT64(2))])(call_tmp15, _ln, _fn);
+  ((int64_t(*)(locale, int64_t, c_string))chpl_vmtable[((INT64(8) * _virtual_method_tmp_) + INT64(1))])(call_tmp15, _ln, _fn);
   call_tmp16 = (default_argtasksPerLocale == INT64(0));
   if (call_tmp16) {
     call_tmp18 = chpl_task_getRequestedSubloc();
@@ -2674,7 +2677,7 @@ static void _backupArray2(DefaultAssociativeArr_chpldev_Task_chpl_taskID_t_F thi
       *((_args_forcoforall_fn)->_5_rvfDerefTmp + INT64(1)) = *(chpl__iter + INT64(1));
       (_args_forcoforall_fn)->_ln = _ln;
       (_args_forcoforall_fn)->_fn = _fn;
-      /*** wrapcoforall_fn2 ***/ chpl_taskListAddCoStmt(INT32(-2), INT64(1), ((void*)(_args_forcoforall_fn)), &(((_args_forcoforall_fn)->_4_rvfDerefTmp)->taskList), chpl_nodeID, INT64(2308), "/home/safl/chapel/modules/internal/ChapelArray.chpl");
+      /*** wrapcoforall_fn2 ***/ chpl_taskListAddCoStmt(INT32(-2), INT64(1), ((void*)(_args_forcoforall_fn)), &(((_args_forcoforall_fn)->_4_rvfDerefTmp)->taskList), chpl_nodeID, INT64(2364), "/home/safl/chapel/modules/internal/ChapelArray.chpl");
     }
     chpl_taskListProcess((_coforallCount)->taskList, _ln, _fn);
     _waitEndCount(_coforallCount, _ln, _fn);
@@ -2695,7 +2698,7 @@ static void _backupArray2(DefaultAssociativeArr_chpldev_Task_chpl_taskID_t_F thi
   return;
 }
 
-/* DefaultAssociative.chpl:582 */
+/* DefaultAssociative.chpl:585 */
 static void _removeArrayBackup2(DefaultAssociativeArr_chpldev_Task_chpl_taskID_t_F this8, int64_t _ln, c_string _fn) {
   DefaultRectangularDom_1_int64_t_F call_tmp = NULL;
   range_int64_t_bounded_F call_tmp2;
@@ -2712,7 +2715,7 @@ static void _removeArrayBackup2(DefaultAssociativeArr_chpldev_Task_chpl_taskID_t
   return;
 }
 
-/* DefaultAssociative.chpl:586 */
+/* DefaultAssociative.chpl:589 */
 static void _preserveArrayElement2(DefaultAssociativeArr_chpldev_Task_chpl_taskID_t_F this8, int64_t oldslot, int64_t newslot, int64_t _ln, c_string _fn) {
   DefaultRectangularArr_chpldev_Task_1_int64_t_F call_tmp = NULL;
   DefaultRectangularArr_chpldev_Task_1_int64_t_F coerce_tmp = NULL;
@@ -2774,7 +2777,7 @@ static void _preserveArrayElement2(DefaultAssociativeArr_chpldev_Task_chpl_taskI
   return;
 }
 
-/* DefaultAssociative.chpl:602 */
+/* DefaultAssociative.chpl:605 */
 static int64_t chpl__defaultHashWrapper(chpl_taskID_t x, int64_t _ln, c_string _fn) {
   int64_t call_tmp;
   int64_t call_tmp2;
@@ -2787,7 +2790,7 @@ static int64_t chpl__defaultHashWrapper(chpl_taskID_t x, int64_t _ln, c_string _
   return call_tmp4;
 }
 
-/* DefaultAssociative.chpl:609 */
+/* DefaultAssociative.chpl:612 */
 static int64_t _gen_key(int64_t i, int64_t _ln, c_string _fn) {
   int64_t key;
   int64_t call_tmp;

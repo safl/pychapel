@@ -74,7 +74,7 @@ static void writeIt2(Writer this8, chpl_taskID_t x, int64_t _ln, c_string _fn) {
 static void writeIt3(Writer this8, uint64_t x, int64_t _ln, c_string _fn) {
   int32_t _virtual_method_tmp_;
   _virtual_method_tmp_ = ((object)(this8))->chpl__cid;
-  ((void(*)(Writer, uint64_t, int64_t, c_string))chpl_vmtable[((INT64(8) * _virtual_method_tmp_) + INT64(3))])(this8, x, _ln, _fn);
+  ((void(*)(Writer, uint64_t, int64_t, c_string))chpl_vmtable[((INT64(8) * _virtual_method_tmp_) + INT64(1))])(this8, x, _ln, _fn);
   return;
 }
 
@@ -82,7 +82,7 @@ static void writeIt3(Writer this8, uint64_t x, int64_t _ln, c_string _fn) {
 static void writeIt4(Writer this8, int64_t x, int64_t _ln, c_string _fn) {
   int32_t _virtual_method_tmp_;
   _virtual_method_tmp_ = ((object)(this8))->chpl__cid;
-  ((void(*)(Writer, int64_t, int64_t, c_string))chpl_vmtable[((INT64(8) * _virtual_method_tmp_) + INT64(1))])(this8, x, _ln, _fn);
+  ((void(*)(Writer, int64_t, int64_t, c_string))chpl_vmtable[((INT64(8) * _virtual_method_tmp_) + INT64(3))])(this8, x, _ln, _fn);
   return;
 }
 
@@ -130,7 +130,7 @@ static void assert2(chpl_bool test, int64_t _ln, c_string _fn) {
 
 /* ChapelIO.chpl:507 */
 static void halt(c_string s, int64_t _ln, c_string _fn) {
-  c_string call_tmp;
+  c_string_copy call_tmp;
   call_tmp = string_concat("halt reached - ", s, _ln, _fn);
   chpl_error(call_tmp, _ln, _fn);
   return;
@@ -140,7 +140,7 @@ static void halt(c_string s, int64_t _ln, c_string _fn) {
 static void halt2(chpl_string _e0_args, chpl_taskID_t _e1_args, chpl_string _e2_args, int64_t _e3_args, chpl_string _e4_args, int64_t _e5_args, chpl_string _e6_args, int64_t _ln, c_string _fn) {
   c_string tmpstring;
   _ref_c_string _ref_tmp_ = NULL;
-  c_string call_tmp;
+  c_string_copy call_tmp;
   tmpstring = "";
   _ref_tmp_ = &tmpstring;
   write6(_ref_tmp_, _e0_args, _e1_args, _e2_args, _e3_args, _e4_args, _e5_args, _e6_args, _ln, _fn);
@@ -153,7 +153,7 @@ static void halt2(chpl_string _e0_args, chpl_taskID_t _e1_args, chpl_string _e2_
 static void halt3(chpl_string _e0_args, chpl_taskID_t _e1_args, int64_t _ln, c_string _fn) {
   c_string tmpstring;
   _ref_c_string _ref_tmp_ = NULL;
-  c_string call_tmp;
+  c_string_copy call_tmp;
   tmpstring = "";
   _ref_tmp_ = &tmpstring;
   write7(_ref_tmp_, _e0_args, _e1_args, _ln, _fn);
@@ -166,7 +166,7 @@ static void halt3(chpl_string _e0_args, chpl_taskID_t _e1_args, int64_t _ln, c_s
 static void halt4(chpl_string _e0_args, int64_t _e1_args, int64_t _ln, c_string _fn) {
   c_string tmpstring;
   _ref_c_string _ref_tmp_ = NULL;
-  c_string call_tmp;
+  c_string_copy call_tmp;
   tmpstring = "";
   _ref_tmp_ = &tmpstring;
   write8(_ref_tmp_, _e0_args, _e1_args, _ln, _fn);
@@ -184,7 +184,7 @@ static void writeThis(chpl_taskID_t this8, Writer f, int64_t _ln, c_string _fn) 
 }
 
 /* ChapelIO.chpl:547 */
-static StringWriter _construct_StringWriter(c_string s, StringWriter meme, int64_t _ln, c_string _fn) {
+static StringWriter _construct_StringWriter(c_string_copy s, StringWriter meme, int64_t _ln, c_string _fn) {
   StringWriter this8 = NULL;
   Writer T = NULL;
   this8 = meme;
@@ -195,225 +195,271 @@ static StringWriter _construct_StringWriter(c_string s, StringWriter meme, int64
 }
 
 /* ChapelIO.chpl:549 */
-static void writePrimitive4(StringWriter this8, chpl_string x, int64_t _ln, c_string _fn) {
-  c_string ret;
-  _ref_c_string call_tmp = NULL;
-  c_string call_tmp2;
-  c_string coerce_tmp;
-  c_string call_tmp3;
-  int64_t call_tmp4;
-  chpl_bool call_tmp5;
-  int64_t call_tmp6;
-  chpl_bool call_tmp7;
-  ret = (this8)->s;
-  call_tmp = &((this8)->s);
-  c_string_from_string(&call_tmp2, &x, _ln, _fn);
-  coerce_tmp = (this8)->s;
-  call_tmp3 = string_concat(coerce_tmp, call_tmp2, _ln, _fn);
-  *(call_tmp) = call_tmp3;
-  call_tmp4 = string_length(ret);
-  call_tmp5 = (call_tmp4 != INT64(0));
-  if (call_tmp5) {
-    call_tmp6 = string_length(ret);
-    call_tmp7 = (call_tmp6 > INT64(0));
-    if (call_tmp7) {
-      chpl_rt_free_c_string(ret, _ln, _fn);
-    }
-  }
-  return;
-}
-
-/* ChapelIO.chpl:549 */
-static void writePrimitive5(StringWriter this8, uint64_t x, int64_t _ln, c_string _fn) {
-  c_string ret;
-  _ref_c_string call_tmp = NULL;
-  c_string call_tmp2;
-  c_string coerce_tmp;
-  c_string call_tmp3;
-  int64_t call_tmp4;
-  chpl_bool call_tmp5;
-  int64_t call_tmp6;
-  chpl_bool call_tmp7;
-  ret = (this8)->s;
-  call_tmp = &((this8)->s);
-  call_tmp2 = uint64_t_to_c_string(x);
-  coerce_tmp = (this8)->s;
-  call_tmp3 = string_concat(coerce_tmp, call_tmp2, _ln, _fn);
-  *(call_tmp) = call_tmp3;
-  call_tmp4 = string_length(ret);
-  call_tmp5 = (call_tmp4 != INT64(0));
-  if (call_tmp5) {
-    call_tmp6 = string_length(ret);
-    call_tmp7 = (call_tmp6 > INT64(0));
-    if (call_tmp7) {
-      chpl_rt_free_c_string(ret, _ln, _fn);
-    }
-  }
-  return;
-}
-
-/* ChapelIO.chpl:549 */
-static void writePrimitive6(StringWriter this8, int64_t x, int64_t _ln, c_string _fn) {
-  c_string ret;
-  _ref_c_string call_tmp = NULL;
-  c_string call_tmp2;
-  c_string coerce_tmp;
-  c_string call_tmp3;
-  int64_t call_tmp4;
-  chpl_bool call_tmp5;
-  int64_t call_tmp6;
-  chpl_bool call_tmp7;
-  ret = (this8)->s;
-  call_tmp = &((this8)->s);
-  call_tmp2 = int64_t_to_c_string(x);
-  coerce_tmp = (this8)->s;
-  call_tmp3 = string_concat(coerce_tmp, call_tmp2, _ln, _fn);
-  *(call_tmp) = call_tmp3;
-  call_tmp4 = string_length(ret);
-  call_tmp5 = (call_tmp4 != INT64(0));
-  if (call_tmp5) {
-    call_tmp6 = string_length(ret);
-    call_tmp7 = (call_tmp6 > INT64(0));
-    if (call_tmp7) {
-      chpl_rt_free_c_string(ret, _ln, _fn);
-    }
-  }
-  return;
-}
-
-/* ChapelIO.chpl:554 */
-static void chpl___TILDE_StringWriter(StringWriter this8, int64_t _ln, c_string _fn) {
-  c_string ret;
+static StringWriter StringWriter2(c_string x, int64_t _ln, c_string _fn) {
+  StringWriter this8 = NULL;
+  StringWriter this9 = NULL;
   int64_t call_tmp;
-  chpl_bool call_tmp2;
-  c_string ret2;
+  chpl_opaque cast_tmp;
+  c_string_copy ret;
+  StringWriter wrap_call_tmp = NULL;
+  _ref_c_string_copy call_tmp2 = NULL;
+  c_string_copy call_tmp3;
+  c_string_copy coerce_tmp;
+  c_string call_tmp4;
+  c_string call_tmp5;
+  int64_t call_tmp6;
+  chpl_bool call_tmp7;
+  call_tmp = sizeof(chpl_StringWriter_object);
+  cast_tmp = chpl_here_alloc(call_tmp, INT16(31), _ln, _fn);
+  this9 = ((StringWriter)(cast_tmp));
+  ((object)(this9))->chpl__cid = chpl__cid_StringWriter;
+  (this9)->s = NULL;
+  ret = NULL;
+  (this9)->s = ret;
+  wrap_call_tmp = _construct_StringWriter(ret, this9, _ln, _fn);
+  this8 = wrap_call_tmp;
+  call_tmp2 = &((this8)->s);
+  call_tmp3 = string_copy(x, _ln, _fn);
+  coerce_tmp = (this8)->s;
+  call_tmp4 = ((c_string)(coerce_tmp));
+  call_tmp5 = ((c_string)(NULL));
+  call_tmp6 = string_compare(call_tmp4, call_tmp5);
+  call_tmp7 = (call_tmp6 != INT64(0));
+  if (call_tmp7) {
+    chpl_rt_free_c_string(coerce_tmp, _ln, _fn);
+  }
+  *(call_tmp2) = call_tmp3;
+  return this8;
+}
+
+/* ChapelIO.chpl:552 */
+static void writePrimitive4(StringWriter this8, chpl_string x, int64_t _ln, c_string _fn) {
+  c_string_copy call_tmp;
+  _ref_c_string_copy call_tmp2 = NULL;
+  c_string_copy coerce_tmp;
+  c_string call_tmp3;
+  c_string call_tmp4;
+  c_string_copy call_tmp5;
+  c_string_copy coerce_tmp2;
+  c_string call_tmp6;
+  c_string call_tmp7;
+  int64_t call_tmp8;
+  chpl_bool call_tmp9;
+  c_string call_tmp10;
+  c_string call_tmp11;
+  int64_t call_tmp12;
+  chpl_bool call_tmp13;
+  call_tmp = string_copy(x, _ln, _fn);
+  call_tmp2 = &((this8)->s);
+  coerce_tmp = (this8)->s;
+  call_tmp3 = ((c_string)(coerce_tmp));
+  call_tmp4 = ((c_string)(call_tmp));
+  call_tmp5 = string_concat(call_tmp3, call_tmp4, _ln, _fn);
+  coerce_tmp2 = (this8)->s;
+  call_tmp6 = ((c_string)(coerce_tmp2));
+  call_tmp7 = ((c_string)(NULL));
+  call_tmp8 = string_compare(call_tmp6, call_tmp7);
+  call_tmp9 = (call_tmp8 != INT64(0));
+  if (call_tmp9) {
+    chpl_rt_free_c_string(coerce_tmp2, _ln, _fn);
+  }
+  *(call_tmp2) = call_tmp5;
+  call_tmp10 = ((c_string)(call_tmp));
+  call_tmp11 = ((c_string)(NULL));
+  call_tmp12 = string_compare(call_tmp10, call_tmp11);
+  call_tmp13 = (call_tmp12 != INT64(0));
+  if (call_tmp13) {
+    chpl_rt_free_c_string(call_tmp, _ln, _fn);
+  }
+  return;
+}
+
+/* ChapelIO.chpl:552 */
+static void writePrimitive5(StringWriter this8, uint64_t x, int64_t _ln, c_string _fn) {
+  int64_t call_tmp;
+  c_string_copy call_tmp2;
+  uint32_t call_tmp3;
+  _ref_c_string_copy call_tmp4 = NULL;
+  c_string_copy coerce_tmp;
+  c_string call_tmp5;
+  c_string call_tmp6;
+  c_string_copy call_tmp7;
+  c_string_copy coerce_tmp2;
+  c_string call_tmp8;
+  c_string call_tmp9;
+  int64_t call_tmp10;
+  chpl_bool call_tmp11;
+  c_string call_tmp12;
+  c_string call_tmp13;
+  int64_t call_tmp14;
+  chpl_bool call_tmp15;
+  call_tmp = ((int64_t)(x));
+  call_tmp3 = ((uint32_t)(INT64(8)));
+  call_tmp2 = integral_to_c_string_copy(call_tmp, call_tmp3, false);
+  call_tmp4 = &((this8)->s);
+  coerce_tmp = (this8)->s;
+  call_tmp5 = ((c_string)(coerce_tmp));
+  call_tmp6 = ((c_string)(call_tmp2));
+  call_tmp7 = string_concat(call_tmp5, call_tmp6, _ln, _fn);
+  coerce_tmp2 = (this8)->s;
+  call_tmp8 = ((c_string)(coerce_tmp2));
+  call_tmp9 = ((c_string)(NULL));
+  call_tmp10 = string_compare(call_tmp8, call_tmp9);
+  call_tmp11 = (call_tmp10 != INT64(0));
+  if (call_tmp11) {
+    chpl_rt_free_c_string(coerce_tmp2, _ln, _fn);
+  }
+  *(call_tmp4) = call_tmp7;
+  call_tmp12 = ((c_string)(call_tmp2));
+  call_tmp13 = ((c_string)(NULL));
+  call_tmp14 = string_compare(call_tmp12, call_tmp13);
+  call_tmp15 = (call_tmp14 != INT64(0));
+  if (call_tmp15) {
+    chpl_rt_free_c_string(call_tmp2, _ln, _fn);
+  }
+  return;
+}
+
+/* ChapelIO.chpl:552 */
+static void writePrimitive6(StringWriter this8, int64_t x, int64_t _ln, c_string _fn) {
+  c_string_copy call_tmp;
+  uint32_t call_tmp2;
+  _ref_c_string_copy call_tmp3 = NULL;
+  c_string_copy coerce_tmp;
+  c_string call_tmp4;
+  c_string call_tmp5;
+  c_string_copy call_tmp6;
+  c_string_copy coerce_tmp2;
+  c_string call_tmp7;
+  c_string call_tmp8;
+  int64_t call_tmp9;
+  chpl_bool call_tmp10;
+  c_string call_tmp11;
+  c_string call_tmp12;
+  int64_t call_tmp13;
+  chpl_bool call_tmp14;
+  call_tmp2 = ((uint32_t)(INT64(8)));
+  call_tmp = integral_to_c_string_copy(x, call_tmp2, true);
+  call_tmp3 = &((this8)->s);
+  coerce_tmp = (this8)->s;
+  call_tmp4 = ((c_string)(coerce_tmp));
+  call_tmp5 = ((c_string)(call_tmp));
+  call_tmp6 = string_concat(call_tmp4, call_tmp5, _ln, _fn);
+  coerce_tmp2 = (this8)->s;
+  call_tmp7 = ((c_string)(coerce_tmp2));
+  call_tmp8 = ((c_string)(NULL));
+  call_tmp9 = string_compare(call_tmp7, call_tmp8);
+  call_tmp10 = (call_tmp9 != INT64(0));
+  if (call_tmp10) {
+    chpl_rt_free_c_string(coerce_tmp2, _ln, _fn);
+  }
+  *(call_tmp3) = call_tmp6;
+  call_tmp11 = ((c_string)(call_tmp));
+  call_tmp12 = ((c_string)(NULL));
+  call_tmp13 = string_compare(call_tmp11, call_tmp12);
+  call_tmp14 = (call_tmp13 != INT64(0));
+  if (call_tmp14) {
+    chpl_rt_free_c_string(call_tmp, _ln, _fn);
+  }
+  return;
+}
+
+/* ChapelIO.chpl:558 */
+static void chpl___TILDE_StringWriter(StringWriter this8, int64_t _ln, c_string _fn) {
+  c_string_copy ret;
+  c_string call_tmp;
+  c_string call_tmp2;
   int64_t call_tmp3;
   chpl_bool call_tmp4;
+  _ref_c_string_copy call_tmp5 = NULL;
   ret = (this8)->s;
-  call_tmp = string_length(ret);
-  call_tmp2 = (call_tmp != INT64(0));
-  if (call_tmp2) {
-    ret2 = (this8)->s;
-    call_tmp3 = string_length(ret2);
-    call_tmp4 = (call_tmp3 > INT64(0));
-    if (call_tmp4) {
-      chpl_rt_free_c_string(ret2, _ln, _fn);
-    }
+  call_tmp = ((c_string)(ret));
+  call_tmp2 = ((c_string)(NULL));
+  call_tmp3 = string_compare(call_tmp, call_tmp2);
+  call_tmp4 = (call_tmp3 != INT64(0));
+  if (call_tmp4) {
+    chpl_rt_free_c_string(ret, _ln, _fn);
   }
+  call_tmp5 = &((this8)->s);
+  *(call_tmp5) = NULL;
   return;
 }
 
-/* ChapelIO.chpl:574 */
+/* ChapelIO.chpl:580 */
 static void write7(_ref_c_string this8, chpl_string _e0_args, chpl_taskID_t _e1_args, int64_t _ln, c_string _fn) {
   StringWriter sc = NULL;
   c_string coerce_tmp;
-  StringWriter this9 = NULL;
-  int64_t call_tmp;
-  chpl_opaque cast_tmp;
-  StringWriter wrap_call_tmp = NULL;
-  Writer call_tmp2 = NULL;
-  _ref_c_string call_tmp3 = NULL;
-  c_string T;
-  c_string ret;
-  c_string call_tmp4;
+  Writer call_tmp = NULL;
+  c_string_copy ret;
+  c_string call_tmp2;
+  _ref_c_string_copy call_tmp3 = NULL;
   StringWriter delete_tmp = NULL;
-  chpl_opaque call_tmp5;
+  chpl_opaque call_tmp4;
   coerce_tmp = *(this8);
-  call_tmp = sizeof(chpl_StringWriter_object);
-  cast_tmp = chpl_here_alloc(call_tmp, INT16(31), _ln, _fn);
-  this9 = ((StringWriter)(cast_tmp));
-  ((object)(this9))->chpl__cid = chpl__cid_StringWriter;
-  (this9)->s = "";
-  (this9)->s = coerce_tmp;
-  wrap_call_tmp = _construct_StringWriter(coerce_tmp, this9, _ln, _fn);
-  sc = wrap_call_tmp;
-  call_tmp2 = ((Writer)(wrap_call_tmp));
-  write4(call_tmp2, _e0_args, _e1_args, _ln, _fn);
+  sc = StringWriter2(coerce_tmp, _ln, _fn);
+  call_tmp = ((Writer)(sc));
+  write4(call_tmp, _e0_args, _e1_args, _ln, _fn);
   ret = (sc)->s;
-  T = ret;
-  call_tmp3 = &T;
-  call_tmp4 = string_copy(*(call_tmp3), _ln, _fn);
-  *(this8) = call_tmp4;
-  delete_tmp = wrap_call_tmp;
-  chpl___TILDE_StringWriter(wrap_call_tmp, _ln, _fn);
-  call_tmp5 = ((void*)(delete_tmp));
-  chpl_here_free(call_tmp5, _ln, _fn);
+  call_tmp2 = ((c_string)(ret));
+  *(this8) = call_tmp2;
+  call_tmp3 = &((sc)->s);
+  *(call_tmp3) = NULL;
+  delete_tmp = sc;
+  chpl___TILDE_StringWriter(sc, _ln, _fn);
+  call_tmp4 = ((void*)(delete_tmp));
+  chpl_here_free(call_tmp4, _ln, _fn);
   return;
 }
 
-/* ChapelIO.chpl:574 */
+/* ChapelIO.chpl:580 */
 static void write8(_ref_c_string this8, chpl_string _e0_args, int64_t _e1_args, int64_t _ln, c_string _fn) {
   StringWriter sc = NULL;
   c_string coerce_tmp;
-  StringWriter this9 = NULL;
-  int64_t call_tmp;
-  chpl_opaque cast_tmp;
-  StringWriter wrap_call_tmp = NULL;
-  Writer call_tmp2 = NULL;
-  _ref_c_string call_tmp3 = NULL;
-  c_string T;
-  c_string ret;
-  c_string call_tmp4;
+  Writer call_tmp = NULL;
+  c_string_copy ret;
+  c_string call_tmp2;
+  _ref_c_string_copy call_tmp3 = NULL;
   StringWriter delete_tmp = NULL;
-  chpl_opaque call_tmp5;
+  chpl_opaque call_tmp4;
   coerce_tmp = *(this8);
-  call_tmp = sizeof(chpl_StringWriter_object);
-  cast_tmp = chpl_here_alloc(call_tmp, INT16(31), _ln, _fn);
-  this9 = ((StringWriter)(cast_tmp));
-  ((object)(this9))->chpl__cid = chpl__cid_StringWriter;
-  (this9)->s = "";
-  (this9)->s = coerce_tmp;
-  wrap_call_tmp = _construct_StringWriter(coerce_tmp, this9, _ln, _fn);
-  sc = wrap_call_tmp;
-  call_tmp2 = ((Writer)(wrap_call_tmp));
-  write5(call_tmp2, _e0_args, _e1_args, _ln, _fn);
+  sc = StringWriter2(coerce_tmp, _ln, _fn);
+  call_tmp = ((Writer)(sc));
+  write5(call_tmp, _e0_args, _e1_args, _ln, _fn);
   ret = (sc)->s;
-  T = ret;
-  call_tmp3 = &T;
-  call_tmp4 = string_copy(*(call_tmp3), _ln, _fn);
-  *(this8) = call_tmp4;
-  delete_tmp = wrap_call_tmp;
-  chpl___TILDE_StringWriter(wrap_call_tmp, _ln, _fn);
-  call_tmp5 = ((void*)(delete_tmp));
-  chpl_here_free(call_tmp5, _ln, _fn);
+  call_tmp2 = ((c_string)(ret));
+  *(this8) = call_tmp2;
+  call_tmp3 = &((sc)->s);
+  *(call_tmp3) = NULL;
+  delete_tmp = sc;
+  chpl___TILDE_StringWriter(sc, _ln, _fn);
+  call_tmp4 = ((void*)(delete_tmp));
+  chpl_here_free(call_tmp4, _ln, _fn);
   return;
 }
 
-/* ChapelIO.chpl:574 */
+/* ChapelIO.chpl:580 */
 static void write6(_ref_c_string this8, chpl_string _e0_args, chpl_taskID_t _e1_args, chpl_string _e2_args, int64_t _e3_args, chpl_string _e4_args, int64_t _e5_args, chpl_string _e6_args, int64_t _ln, c_string _fn) {
   StringWriter sc = NULL;
   c_string coerce_tmp;
-  StringWriter this9 = NULL;
-  int64_t call_tmp;
-  chpl_opaque cast_tmp;
-  StringWriter wrap_call_tmp = NULL;
-  Writer call_tmp2 = NULL;
-  _ref_c_string call_tmp3 = NULL;
-  c_string T;
-  c_string ret;
-  c_string call_tmp4;
+  Writer call_tmp = NULL;
+  c_string_copy ret;
+  c_string call_tmp2;
+  _ref_c_string_copy call_tmp3 = NULL;
   StringWriter delete_tmp = NULL;
-  chpl_opaque call_tmp5;
+  chpl_opaque call_tmp4;
   coerce_tmp = *(this8);
-  call_tmp = sizeof(chpl_StringWriter_object);
-  cast_tmp = chpl_here_alloc(call_tmp, INT16(31), _ln, _fn);
-  this9 = ((StringWriter)(cast_tmp));
-  ((object)(this9))->chpl__cid = chpl__cid_StringWriter;
-  (this9)->s = "";
-  (this9)->s = coerce_tmp;
-  wrap_call_tmp = _construct_StringWriter(coerce_tmp, this9, _ln, _fn);
-  sc = wrap_call_tmp;
-  call_tmp2 = ((Writer)(wrap_call_tmp));
-  write2(call_tmp2, _e0_args, _e1_args, _e2_args, _e3_args, _e4_args, _e5_args, _e6_args, _ln, _fn);
+  sc = StringWriter2(coerce_tmp, _ln, _fn);
+  call_tmp = ((Writer)(sc));
+  write2(call_tmp, _e0_args, _e1_args, _e2_args, _e3_args, _e4_args, _e5_args, _e6_args, _ln, _fn);
   ret = (sc)->s;
-  T = ret;
-  call_tmp3 = &T;
-  call_tmp4 = string_copy(*(call_tmp3), _ln, _fn);
-  *(this8) = call_tmp4;
-  delete_tmp = wrap_call_tmp;
-  chpl___TILDE_StringWriter(wrap_call_tmp, _ln, _fn);
-  call_tmp5 = ((void*)(delete_tmp));
-  chpl_here_free(call_tmp5, _ln, _fn);
+  call_tmp2 = ((c_string)(ret));
+  *(this8) = call_tmp2;
+  call_tmp3 = &((sc)->s);
+  *(call_tmp3) = NULL;
+  delete_tmp = sc;
+  chpl___TILDE_StringWriter(sc, _ln, _fn);
+  call_tmp4 = ((void*)(delete_tmp));
+  chpl_here_free(call_tmp4, _ln, _fn);
   return;
 }
 

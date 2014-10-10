@@ -58,11 +58,14 @@ static void ioerror(syserr error, chpl_string msg, chpl_string path, int64_t _ln
   c_string call_tmp4;
   int64_t call_tmp5;
   c_string call_tmp6;
-  c_string call_tmp7;
+  c_string_copy call_tmp7;
   c_string call_tmp8;
   c_string call_tmp9;
-  c_string call_tmp10;
+  c_string_copy call_tmp10;
   c_string call_tmp11;
+  c_string_copy call_tmp12;
+  c_string call_tmp13;
+  c_string_copy call_tmp14;
   call_tmp = qio_err_iserr(error);
   call_tmp2 = (call_tmp != INT32(0));
   if (call_tmp2) {
@@ -74,10 +77,13 @@ static void ioerror(syserr error, chpl_string msg, chpl_string path, int64_t _ln
     call_tmp6 = quote_string(path, call_tmp5, _ln, _fn);
     call_tmp7 = string_concat(call_tmp3, " ", _ln, _fn);
     c_string_from_string(&call_tmp8, &msg, _ln, _fn);
-    call_tmp9 = string_concat(call_tmp7, call_tmp8, _ln, _fn);
-    call_tmp10 = string_concat(call_tmp9, " with path ", _ln, _fn);
-    call_tmp11 = string_concat(call_tmp10, call_tmp6, _ln, _fn);
-    chpl_error(call_tmp11, _ln, _fn);
+    call_tmp9 = ((c_string)(call_tmp7));
+    call_tmp10 = string_concat(call_tmp9, call_tmp8, _ln, _fn);
+    call_tmp11 = ((c_string)(call_tmp10));
+    call_tmp12 = string_concat(call_tmp11, " with path ", _ln, _fn);
+    call_tmp13 = ((c_string)(call_tmp12));
+    call_tmp14 = string_concat(call_tmp13, call_tmp6, _ln, _fn);
+    chpl_error(call_tmp14, _ln, _fn);
   }
   return;
 }
@@ -92,14 +98,21 @@ static void ioerror2(syserr error, chpl_string msg, chpl_string path, int64_t of
   c_string call_tmp4;
   int64_t call_tmp5;
   c_string call_tmp6;
-  c_string call_tmp7;
+  c_string_copy call_tmp7;
   c_string call_tmp8;
   c_string call_tmp9;
-  c_string call_tmp10;
+  c_string_copy call_tmp10;
   c_string call_tmp11;
-  c_string call_tmp12;
+  c_string_copy call_tmp12;
   c_string call_tmp13;
-  c_string call_tmp14;
+  c_string_copy call_tmp14;
+  c_string call_tmp15;
+  c_string_copy call_tmp16;
+  c_string_copy call_tmp17;
+  uint32_t call_tmp18;
+  c_string call_tmp19;
+  c_string call_tmp20;
+  c_string_copy call_tmp21;
   call_tmp = qio_err_iserr(error);
   call_tmp2 = (call_tmp != INT32(0));
   if (call_tmp2) {
@@ -111,13 +124,20 @@ static void ioerror2(syserr error, chpl_string msg, chpl_string path, int64_t of
     call_tmp6 = quote_string(path, call_tmp5, _ln, _fn);
     call_tmp7 = string_concat(call_tmp3, " ", _ln, _fn);
     c_string_from_string(&call_tmp8, &msg, _ln, _fn);
-    call_tmp9 = string_concat(call_tmp7, call_tmp8, _ln, _fn);
-    call_tmp10 = string_concat(call_tmp9, " with path ", _ln, _fn);
-    call_tmp11 = string_concat(call_tmp10, call_tmp6, _ln, _fn);
-    call_tmp12 = string_concat(call_tmp11, " offset ", _ln, _fn);
-    call_tmp13 = int64_t_to_c_string(offset);
-    call_tmp14 = string_concat(call_tmp12, call_tmp13, _ln, _fn);
-    chpl_error(call_tmp14, _ln, _fn);
+    call_tmp9 = ((c_string)(call_tmp7));
+    call_tmp10 = string_concat(call_tmp9, call_tmp8, _ln, _fn);
+    call_tmp11 = ((c_string)(call_tmp10));
+    call_tmp12 = string_concat(call_tmp11, " with path ", _ln, _fn);
+    call_tmp13 = ((c_string)(call_tmp12));
+    call_tmp14 = string_concat(call_tmp13, call_tmp6, _ln, _fn);
+    call_tmp15 = ((c_string)(call_tmp14));
+    call_tmp16 = string_concat(call_tmp15, " offset ", _ln, _fn);
+    call_tmp18 = ((uint32_t)(INT64(8)));
+    call_tmp17 = integral_to_c_string_copy(offset, call_tmp18, true);
+    call_tmp19 = ((c_string)(call_tmp16));
+    call_tmp20 = ((c_string)(call_tmp17));
+    call_tmp21 = string_concat(call_tmp19, call_tmp20, _ln, _fn);
+    chpl_error(call_tmp21, _ln, _fn);
   }
   return;
 }

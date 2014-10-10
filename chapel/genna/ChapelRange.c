@@ -41,18 +41,6 @@ static range_int64_t_boundedLow_F _construct_range2(int64_t _low, int64_t _high,
   return this8;
 }
 
-/* ChapelRange.chpl:58 */
-static range_int64_t_bounded_T _construct_range3(int64_t _low, int64_t _high, int64_t _stride, int64_t _alignment, chpl_bool _aligned, range_int64_t_bounded_T* const meme, int64_t _ln, c_string _fn) {
-  range_int64_t_bounded_T this8;
-  this8 = *(meme);
-  (&this8)->_low = _low;
-  (&this8)->_high = _high;
-  (&this8)->_stride = _stride;
-  (&this8)->_alignment = _alignment;
-  (&this8)->_aligned = _aligned;
-  return this8;
-}
-
 /* ChapelRange.chpl:93 */
 static range_int64_t_bounded_F range(int64_t _low, int64_t _high, int64_t _stride, int64_t _alignment, chpl_bool _aligned, int64_t _ln, c_string _fn) {
   range_int64_t_bounded_F this8;
@@ -117,41 +105,6 @@ static range_int64_t_boundedLow_F range2(int64_t _low, int64_t _high, int64_t _s
   return this8;
 }
 
-/* ChapelRange.chpl:93 */
-static range_int64_t_bounded_T range3(int64_t _low, int64_t _high, int64_t _stride, int64_t _alignment, chpl_bool _aligned, int64_t _ln, c_string _fn) {
-  range_int64_t_bounded_T this8;
-  range_int64_t_bounded_T this9;
-  range_int64_t_bounded_T wrap_call_tmp;
-  _ref_int64_t call_tmp = NULL;
-  _ref_int64_t call_tmp2 = NULL;
-  _ref_int64_t call_tmp3 = NULL;
-  _ref_int64_t call_tmp4 = NULL;
-  _ref_chpl_bool call_tmp5 = NULL;
-  (&this9)->_low = INT64(0);
-  (&this9)->_high = INT64(0);
-  (&this9)->_stride = INT64(0);
-  (&this9)->_alignment = INT64(0);
-  (&this9)->_aligned = false;
-  (&this9)->_low = INT64(1);
-  (&this9)->_high = INT64(0);
-  (&this9)->_stride = INT64(1);
-  (&this9)->_alignment = INT64(0);
-  (&this9)->_aligned = false;
-  wrap_call_tmp = _construct_range3(INT64(1), INT64(0), INT64(1), INT64(0), false, &this9, _ln, _fn);
-  this8 = wrap_call_tmp;
-  call_tmp = &((&this8)->_low);
-  *(call_tmp) = _low;
-  call_tmp2 = &((&this8)->_high);
-  *(call_tmp2) = _high;
-  call_tmp3 = &((&this8)->_stride);
-  *(call_tmp3) = _stride;
-  call_tmp4 = &((&this8)->_alignment);
-  *(call_tmp4) = _alignment;
-  call_tmp5 = &((&this8)->_aligned);
-  *(call_tmp5) = _aligned;
-  return this8;
-}
-
 /* ChapelRange.chpl:128 */
 static void _build_range(int64_t low, int64_t high2, _ref_range_int64_t_bounded_F _retArg, int64_t _ln, c_string _fn) {
   range_int64_t_bounded_F wrap_call_tmp;
@@ -206,111 +159,6 @@ static int64_t length(_ref_range_int64_t_bounded_F this8, int64_t _ln, c_string 
   ret = call_tmp5;
   _end_length:;
   return ret;
-}
-
-/* ChapelRange.chpl:298 */
-static chpl_bool isAmbiguous(_ref_range_int64_t_bounded_T this8, int64_t _ln, c_string _fn) {
-  chpl_bool ret;
-  chpl_bool call_tmp;
-  chpl_bool T;
-  int64_t ret2;
-  chpl_bool call_tmp2;
-  chpl_bool T2;
-  int64_t ret3;
-  chpl_bool call_tmp3;
-  ret = (this8)->_aligned;
-  call_tmp = (! ret);
-  if (call_tmp) {
-    ret2 = (this8)->_stride;
-    call_tmp2 = (ret2 > INT64(1));
-    if (call_tmp2) {
-      T2 = true;
-    } else {
-      ret3 = (this8)->_stride;
-      call_tmp3 = (ret3 < INT64(-1));
-      T2 = call_tmp3;
-    }
-    T = T2;
-  } else {
-    T = false;
-  }
-  return T;
-}
-
-/* ChapelRange.chpl:698 */
-static void by(range_int64_t_bounded_F* const r, int64_t step, _ref_range_int64_t_bounded_T _retArg, int64_t _ln, c_string _fn) {
-  chpl_bool call_tmp;
-  chpl_bool call_tmp2;
-  chpl_bool T;
-  chpl_bool call_tmp3;
-  int64_t lw;
-  int64_t ret;
-  int64_t hh;
-  int64_t ret2;
-  int64_t st;
-  int64_t call_tmp4;
-  chpl_bool call_tmp_x1;
-  int64_t call_tmp_x2;
-  chpl_bool call_tmp5;
-  int64_t ret3;
-  int64_t ret4;
-  chpl_bool call_tmp_x12;
-  int64_t call_tmp_x22;
-  chpl_bool call_tmp6;
-  int64_t ret5;
-  int64_t ret6;
-  chpl_bool ret7;
-  int64_t ret8;
-  range_int64_t_bounded_T call_tmp7;
-  call_tmp = (step == INT64(0));
-  if (call_tmp) {
-    chpl_error("the step argument of the 'by' operator is zero", _ln, _fn);
-  }
-  call_tmp2 = (step > INT64(0));
-  if (call_tmp2) {
-    call_tmp3 = (step < INT64(0));
-    T = call_tmp3;
-  } else {
-    T = false;
-  }
-  if (T) {
-    chpl_error("the step argument of the 'by' operator is too large", _ln, _fn);
-  }
-  ret = (r)->_low;
-  lw = ret;
-  ret2 = (r)->_high;
-  hh = ret2;
-  call_tmp4 = (INT64(1) * step);
-  st = call_tmp4;
-  call_tmp5 = (call_tmp4 > INT64(0));
-  if (call_tmp5) {
-    ret4 = (r)->_low;
-    ret3 = ret4;
-    goto _end_alignedLow;
-    _end_alignedLow:;
-    call_tmp_x1 = true;
-    call_tmp_x2 = ret3;
-  } else {
-    call_tmp6 = (call_tmp4 < INT64(0));
-    if (call_tmp6) {
-      ret6 = (r)->_high;
-      ret5 = ret6;
-      goto _end_alignedHigh;
-      _end_alignedHigh:;
-      call_tmp_x12 = true;
-      call_tmp_x22 = ret5;
-    } else {
-      ret7 = (r)->_aligned;
-      ret8 = (r)->_alignment;
-      call_tmp_x12 = ret7;
-      call_tmp_x22 = ret8;
-    }
-    call_tmp_x1 = call_tmp_x12;
-    call_tmp_x2 = call_tmp_x22;
-  }
-  call_tmp7 = range3(lw, hh, st, call_tmp_x2, call_tmp_x1, _ln, _fn);
-  *(_retArg) = call_tmp7;
-  return;
 }
 
 /* ChapelRange.chpl:771 */
@@ -449,64 +297,7 @@ static void chpl___POUND_(range_int64_t_boundedLow_F* const r, int64_t count, _r
   return;
 }
 
-/* ChapelRange.chpl:1465 */
-static int64_t chpl__mod(int64_t dividend, int64_t modulus, int64_t _ln, c_string _fn) {
-  int64_t T;
-  chpl_bool call_tmp;
-  int64_t call_tmp2;
-  int64_t tmp;
-  int64_t call_tmp3;
-  chpl_bool call_tmp4;
-  call_tmp = (modulus < INT64(0));
-  if (call_tmp) {
-    call_tmp2 = (-modulus);
-    T = call_tmp2;
-  } else {
-    T = modulus;
-  }
-  call_tmp3 = (dividend % T);
-  tmp = call_tmp3;
-  call_tmp4 = (call_tmp3 < INT64(0));
-  if (call_tmp4) {
-    tmp += T;
-  }
-  return tmp;
-}
-
-/* ChapelRange.chpl:1492 */
-static int64_t chpl__diffMod(int64_t minuend, int64_t subtrahend, int64_t modulus, int64_t _ln, c_string _fn) {
-  int64_t T;
-  chpl_bool call_tmp;
-  int64_t call_tmp2;
-  int64_t call_tmp3;
-  int64_t call_tmp4;
-  int64_t T2;
-  chpl_bool call_tmp5;
-  int64_t call_tmp6;
-  int64_t call_tmp7;
-  int64_t call_tmp8;
-  call_tmp = (modulus < INT64(0));
-  if (call_tmp) {
-    call_tmp2 = (-modulus);
-    T = call_tmp2;
-  } else {
-    T = modulus;
-  }
-  call_tmp3 = chpl__mod(minuend, T, _ln, _fn);
-  call_tmp4 = chpl__mod(subtrahend, T, _ln, _fn);
-  call_tmp5 = (call_tmp3 < call_tmp4);
-  if (call_tmp5) {
-    call_tmp6 = (call_tmp4 - call_tmp3);
-    call_tmp7 = (T - call_tmp6);
-    T2 = call_tmp7;
-  } else {
-    call_tmp8 = (call_tmp3 - call_tmp4);
-    T2 = call_tmp8;
-  }
-  return T2;
-}
-
-/* ChapelRange.chpl:1524 */
+/* ChapelRange.chpl:1495 */
 static int64_t chpl__add(int64_t a, int64_t b, int64_t _ln, c_string _fn) {
   int64_t ret;
   chpl_bool call_tmp;

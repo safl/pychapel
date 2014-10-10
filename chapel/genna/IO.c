@@ -309,7 +309,7 @@ static void chpl__init_IO(int64_t _ln, c_string _fn) {
   return;
 }
 
-/* IO.chpl:472 */
+/* IO.chpl:468 */
 static void defaultIOStyle(_ref_iostyle _retArg, int64_t _ln, c_string _fn) {
   iostyle ret;
   iostyle type_tmp;
@@ -321,7 +321,7 @@ static void defaultIOStyle(_ref_iostyle _retArg, int64_t _ln, c_string _fn) {
   return;
 }
 
-/* IO.chpl:532 */
+/* IO.chpl:528 */
 static file _construct_file(locale home, qio_file_ptr_t _file_internal, file* const meme, int64_t _ln, c_string _fn) {
   file this8;
   this8 = *(meme);
@@ -330,7 +330,7 @@ static file _construct_file(locale home, qio_file_ptr_t _file_internal, file* co
   return this8;
 }
 
-/* IO.chpl:539 */
+/* IO.chpl:535 */
 static file chpl__initCopy5(file* const x, int64_t _ln, c_string _fn) {
   qio_file_ptr_t ret;
   ret = (x)->_file_internal;
@@ -338,7 +338,7 @@ static file chpl__initCopy5(file* const x, int64_t _ln, c_string _fn) {
   return *(x);
 }
 
-/* IO.chpl:546 */
+/* IO.chpl:542 */
 static void chpl___ASSIGN_6(_ref_file ret, file* const x, int64_t _ln, c_string _fn) {
   qio_file_ptr_t ret2;
   qio_file_ptr_t ret3;
@@ -359,7 +359,7 @@ static void chpl___ASSIGN_6(_ref_file ret, file* const x, int64_t _ln, c_string 
   return;
 }
 
-/* IO.chpl:561 */
+/* IO.chpl:557 */
 static void check(_ref_file this8, int64_t _ln, c_string _fn) {
   qio_file_ptr_t ret;
   chpl_bool call_tmp;
@@ -371,7 +371,7 @@ static void check(_ref_file this8, int64_t _ln, c_string _fn) {
   return;
 }
 
-/* IO.chpl:567 */
+/* IO.chpl:563 */
 static void chpl___TILDE_file(_ref_file this8, int64_t _ln, c_string _fn) {
   qio_file_ptr_t local_QIO_FILE_PTR_NULL;
   qio_file_ptr_t ret;
@@ -384,7 +384,7 @@ static void chpl___TILDE_file(_ref_file this8, int64_t _ln, c_string _fn) {
   return;
 }
 
-/* IO.chpl:593 */
+/* IO.chpl:589 */
 static void _style(_ref_file this8, _ref_iostyle _retArg, int64_t _ln, c_string _fn) {
   iostyle local_style;
   iostyle type_tmp;
@@ -399,74 +399,88 @@ static void _style(_ref_file this8, _ref_iostyle _retArg, int64_t _ln, c_string 
   return;
 }
 
-/* IO.chpl:701 */
+/* IO.chpl:631 */
 static chpl_string getPath(_ref_file this8, _ref_syserr error, int64_t _ln, c_string _fn) {
   syserr _formal_tmp_error;
   chpl_string ret;
   chpl_string ret2;
   chpl_string ret3;
-  c_string tmp;
-  c_string tmp2;
-  qio_file_ptr_t ret4;
+  c_string_copy tmp;
+  c_string_copy ret4;
+  c_string_copy tmp2;
+  c_string_copy ret5;
+  qio_file_ptr_t ret6;
   syserr call_tmp;
-  _ref_c_string _ref_tmp_ = NULL;
+  _ref_c_string_copy _ref_tmp_ = NULL;
   int32_t call_tmp2;
   chpl_bool call_tmp3;
-  qio_file_ptr_t ret5;
+  qio_file_ptr_t ret7;
   syserr call_tmp4;
-  _ref_c_string _ref_tmp_2 = NULL;
-  int64_t call_tmp5;
-  chpl_bool call_tmp6;
-  int32_t call_tmp7;
-  chpl_bool call_tmp8;
-  chpl_string call_tmp9;
-  int64_t call_tmp10;
+  c_string call_tmp5;
+  _ref_c_string_copy _ref_tmp_2 = NULL;
+  c_string call_tmp6;
+  c_string call_tmp7;
+  int64_t call_tmp8;
+  chpl_bool call_tmp9;
+  int32_t call_tmp10;
   chpl_bool call_tmp11;
-  _ref_chpl_string _ref_tmp_3 = NULL;
   chpl_string call_tmp12;
+  c_string call_tmp13;
+  c_string call_tmp14;
+  int64_t call_tmp15;
+  chpl_bool call_tmp16;
+  _ref_chpl_string _ref_tmp_3 = NULL;
+  chpl_string call_tmp17;
   check(this8, _ln, _fn);
   ret3 = defaultStringValue;
   ret2 = ret3;
-  tmp = "";
-  tmp2 = "";
-  ret4 = (this8)->_file_internal;
+  ret4 = NULL;
+  tmp = ret4;
+  ret5 = NULL;
+  tmp2 = ret5;
+  ret6 = (this8)->_file_internal;
   _ref_tmp_ = &tmp;
-  call_tmp = qio_file_path(ret4, _ref_tmp_);
+  call_tmp = qio_file_path(ret6, _ref_tmp_);
   _formal_tmp_error = call_tmp;
   call_tmp2 = qio_err_iserr(call_tmp);
   call_tmp3 = (call_tmp2 == INT32(0));
   if (call_tmp3) {
-    ret5 = (this8)->_file_internal;
+    ret7 = (this8)->_file_internal;
+    call_tmp5 = ((c_string)(tmp));
     _ref_tmp_2 = &tmp2;
-    call_tmp4 = qio_shortest_path(ret5, _ref_tmp_2, tmp);
+    call_tmp4 = qio_shortest_path(ret7, _ref_tmp_2, call_tmp5);
     _formal_tmp_error = call_tmp4;
   }
-  call_tmp5 = string_length(tmp);
-  call_tmp6 = (call_tmp5 > INT64(0));
-  if (call_tmp6) {
+  call_tmp6 = ((c_string)(tmp));
+  call_tmp7 = ((c_string)(NULL));
+  call_tmp8 = string_compare(call_tmp6, call_tmp7);
+  call_tmp9 = (call_tmp8 != INT64(0));
+  if (call_tmp9) {
     chpl_rt_free_c_string(tmp, _ln, _fn);
   }
-  call_tmp7 = qio_err_iserr(_formal_tmp_error);
-  call_tmp8 = (call_tmp7 == INT32(0));
-  if (call_tmp8) {
-    string_from_c_string(&call_tmp9, tmp2, INT64(0), INT64(0), _ln, _fn);
-    ret2 = call_tmp9;
-    call_tmp10 = string_length(tmp2);
-    call_tmp11 = (call_tmp10 > INT64(0));
-    if (call_tmp11) {
+  call_tmp10 = qio_err_iserr(_formal_tmp_error);
+  call_tmp11 = (call_tmp10 == INT32(0));
+  if (call_tmp11) {
+    call_tmp12 = string_from_c_string_copy(tmp2, false, INT64(0));
+    ret2 = call_tmp12;
+    call_tmp13 = ((c_string)(tmp2));
+    call_tmp14 = ((c_string)(NULL));
+    call_tmp15 = string_compare(call_tmp13, call_tmp14);
+    call_tmp16 = (call_tmp15 != INT64(0));
+    if (call_tmp16) {
       chpl_rt_free_c_string(tmp2, _ln, _fn);
     }
   } else {
     _ref_tmp_3 = &ret2;
-    string_from_c_string(&call_tmp12, "unknown", INT64(0), INT64(0), _ln, _fn);
-    *(_ref_tmp_3) = call_tmp12;
+    string_from_c_string(&call_tmp17, "unknown", INT64(0), INT64(0), _ln, _fn);
+    *(_ref_tmp_3) = call_tmp17;
   }
   ret = ret2;
   *(error) = _formal_tmp_error;
   return ret;
 }
 
-/* IO.chpl:723 */
+/* IO.chpl:653 */
 static chpl_string tryGetPath(_ref_file this8, int64_t _ln, c_string _fn) {
   chpl_string ret;
   syserr err;
@@ -500,7 +514,7 @@ static chpl_string tryGetPath(_ref_file this8, int64_t _ln, c_string _fn) {
   return ret;
 }
 
-/* IO.chpl:888 */
+/* IO.chpl:758 */
 static void openfd(int32_t fd, _ref_syserr error, int32_t hints, iostyle* const style, _ref_file _retArg, int64_t _ln, c_string _fn) {
   qio_file_ptr_t local_QIO_FILE_PTR_NULL;
   file ret;
@@ -586,7 +600,7 @@ static void openfd(int32_t fd, _ref_syserr error, int32_t hints, iostyle* const 
   return;
 }
 
-/* IO.chpl:897 */
+/* IO.chpl:767 */
 static void openfd2(int32_t fd, int32_t hints, iostyle* const style, _ref_file _retArg, int64_t _ln, c_string _fn) {
   qio_file_ptr_t local_QIO_FILE_PTR_NULL;
   file ret;
@@ -608,20 +622,27 @@ static void openfd2(int32_t fd, int32_t hints, iostyle* const style, _ref_file _
   _ref_syserr _ref_tmp_2 = NULL;
   int32_t call_tmp7;
   chpl_bool call_tmp8;
-  c_string path;
+  c_string_copy path;
+  c_string_copy ret3;
   syserr type_tmp2;
   _ref_syserr _ref_tmp_3 = NULL;
   syserr call_tmp9;
   syserr call_tmp10;
-  _ref_c_string _ref_tmp_4 = NULL;
+  _ref_c_string_copy _ref_tmp_4 = NULL;
   int32_t call_tmp11;
   chpl_bool call_tmp12;
   chpl_string call_tmp13;
   c_string call_tmp14;
-  chpl_string call_tmp15;
-  chpl_string call_tmp16;
-  _ref_file _ref_tmp_5 = NULL;
-  file call_tmp17;
+  _ref_c_string_copy _ref_tmp_5 = NULL;
+  c_string call_tmp15;
+  c_string call_tmp16;
+  int64_t call_tmp17;
+  chpl_bool call_tmp18;
+  c_string_copy call_tmp19;
+  chpl_string call_tmp20;
+  chpl_string call_tmp21;
+  _ref_file _ref_tmp_6 = NULL;
+  file call_tmp22;
   _ref_file _destructor_tmp_ = NULL;
   file ret_to_arg_tmp_;
   _ref_file _destructor_tmp_2 = NULL;
@@ -649,7 +670,8 @@ static void openfd2(int32_t fd, int32_t hints, iostyle* const style, _ref_file _
   call_tmp7 = qio_err_iserr(err);
   call_tmp8 = (call_tmp7 != INT32(0));
   if (call_tmp8) {
-    path = "";
+    ret3 = NULL;
+    path = ret3;
     _ref_tmp_3 = &type_tmp2;
     call_tmp9 = qio_int_to_err(INT32(0));
     *(_ref_tmp_3) = call_tmp9;
@@ -660,16 +682,25 @@ static void openfd2(int32_t fd, int32_t hints, iostyle* const style, _ref_file _
     if (call_tmp12) {
       string_from_c_string(&call_tmp13, "unknown", INT64(0), INT64(0), _ln, _fn);
       c_string_from_string(&call_tmp14, &call_tmp13, _ln, _fn);
-      path = call_tmp14;
+      _ref_tmp_5 = &path;
+      call_tmp15 = ((c_string)(path));
+      call_tmp16 = ((c_string)(NULL));
+      call_tmp17 = string_compare(call_tmp15, call_tmp16);
+      call_tmp18 = (call_tmp17 != INT64(0));
+      if (call_tmp18) {
+        chpl_rt_free_c_string(path, _ln, _fn);
+      }
+      call_tmp19 = string_copy(call_tmp14, _ln, _fn);
+      *(_ref_tmp_5) = call_tmp19;
     }
-    string_from_c_string(&call_tmp15, path, INT64(0), INT64(0), _ln, _fn);
-    string_from_c_string(&call_tmp16, "in openfd", INT64(0), INT64(0), _ln, _fn);
-    ioerror(err, call_tmp16, call_tmp15, _ln, _fn);
+    call_tmp20 = string_from_c_string_copy(path, false, INT64(0));
+    string_from_c_string(&call_tmp21, "in openfd", INT64(0), INT64(0), _ln, _fn);
+    ioerror(err, call_tmp21, call_tmp20, _ln, _fn);
   }
-  _ref_tmp_5 = &ret;
-  chpl___ASSIGN_6(_ref_tmp_5, &ret2, _ln, _fn);
-  call_tmp17 = chpl__initCopy5(&ret, _ln, _fn);
-  *(_retArg) = call_tmp17;
+  _ref_tmp_6 = &ret;
+  chpl___ASSIGN_6(_ref_tmp_6, &ret2, _ln, _fn);
+  call_tmp22 = chpl__initCopy5(&ret, _ln, _fn);
+  *(_retArg) = call_tmp22;
   _destructor_tmp_ = &ret2;
   chpl___TILDE_file(_destructor_tmp_, _ln, _fn);
   ret_to_arg_tmp_ = *(_retArg);
@@ -678,7 +709,7 @@ static void openfd2(int32_t fd, int32_t hints, iostyle* const style, _ref_file _
   return;
 }
 
-/* IO.chpl:910 */
+/* IO.chpl:780 */
 static void openfp(_cfile fp, _ref_syserr error, int32_t hints, iostyle* const style, _ref_file _retArg, int64_t _ln, c_string _fn) {
   qio_file_ptr_t local_QIO_FILE_PTR_NULL;
   file ret;
@@ -764,7 +795,7 @@ static void openfp(_cfile fp, _ref_syserr error, int32_t hints, iostyle* const s
   return;
 }
 
-/* IO.chpl:919 */
+/* IO.chpl:789 */
 static void openfp2(_cfile fp, int32_t hints, iostyle* const style, _ref_file _retArg, int64_t _ln, c_string _fn) {
   qio_file_ptr_t local_QIO_FILE_PTR_NULL;
   file ret;
@@ -786,20 +817,27 @@ static void openfp2(_cfile fp, int32_t hints, iostyle* const style, _ref_file _r
   _ref_syserr _ref_tmp_2 = NULL;
   int32_t call_tmp7;
   chpl_bool call_tmp8;
-  c_string path;
+  c_string_copy path;
+  c_string_copy ret3;
   syserr type_tmp2;
   _ref_syserr _ref_tmp_3 = NULL;
   syserr call_tmp9;
   syserr call_tmp10;
-  _ref_c_string _ref_tmp_4 = NULL;
+  _ref_c_string_copy _ref_tmp_4 = NULL;
   int32_t call_tmp11;
   chpl_bool call_tmp12;
   chpl_string call_tmp13;
   c_string call_tmp14;
-  chpl_string call_tmp15;
-  chpl_string call_tmp16;
-  _ref_file _ref_tmp_5 = NULL;
-  file call_tmp17;
+  _ref_c_string_copy _ref_tmp_5 = NULL;
+  c_string call_tmp15;
+  c_string call_tmp16;
+  int64_t call_tmp17;
+  chpl_bool call_tmp18;
+  c_string_copy call_tmp19;
+  chpl_string call_tmp20;
+  chpl_string call_tmp21;
+  _ref_file _ref_tmp_6 = NULL;
+  file call_tmp22;
   _ref_file _destructor_tmp_ = NULL;
   file ret_to_arg_tmp_;
   _ref_file _destructor_tmp_2 = NULL;
@@ -827,7 +865,8 @@ static void openfp2(_cfile fp, int32_t hints, iostyle* const style, _ref_file _r
   call_tmp7 = qio_err_iserr(err);
   call_tmp8 = (call_tmp7 != INT32(0));
   if (call_tmp8) {
-    path = "";
+    ret3 = NULL;
+    path = ret3;
     _ref_tmp_3 = &type_tmp2;
     call_tmp9 = qio_int_to_err(INT32(0));
     *(_ref_tmp_3) = call_tmp9;
@@ -838,16 +877,25 @@ static void openfp2(_cfile fp, int32_t hints, iostyle* const style, _ref_file _r
     if (call_tmp12) {
       string_from_c_string(&call_tmp13, "unknown", INT64(0), INT64(0), _ln, _fn);
       c_string_from_string(&call_tmp14, &call_tmp13, _ln, _fn);
-      path = call_tmp14;
+      _ref_tmp_5 = &path;
+      call_tmp15 = ((c_string)(path));
+      call_tmp16 = ((c_string)(NULL));
+      call_tmp17 = string_compare(call_tmp15, call_tmp16);
+      call_tmp18 = (call_tmp17 != INT64(0));
+      if (call_tmp18) {
+        chpl_rt_free_c_string(path, _ln, _fn);
+      }
+      call_tmp19 = string_copy(call_tmp14, _ln, _fn);
+      *(_ref_tmp_5) = call_tmp19;
     }
-    string_from_c_string(&call_tmp15, path, INT64(0), INT64(0), _ln, _fn);
-    string_from_c_string(&call_tmp16, "in openfp", INT64(0), INT64(0), _ln, _fn);
-    ioerror(err, call_tmp16, call_tmp15, _ln, _fn);
+    call_tmp20 = string_from_c_string_copy(path, false, INT64(0));
+    string_from_c_string(&call_tmp21, "in openfp", INT64(0), INT64(0), _ln, _fn);
+    ioerror(err, call_tmp21, call_tmp20, _ln, _fn);
   }
-  _ref_tmp_5 = &ret;
-  chpl___ASSIGN_6(_ref_tmp_5, &ret2, _ln, _fn);
-  call_tmp17 = chpl__initCopy5(&ret, _ln, _fn);
-  *(_retArg) = call_tmp17;
+  _ref_tmp_6 = &ret;
+  chpl___ASSIGN_6(_ref_tmp_6, &ret2, _ln, _fn);
+  call_tmp22 = chpl__initCopy5(&ret, _ln, _fn);
+  *(_retArg) = call_tmp22;
   _destructor_tmp_ = &ret2;
   chpl___TILDE_file(_destructor_tmp_, _ln, _fn);
   ret_to_arg_tmp_ = *(_retArg);
@@ -856,7 +904,7 @@ static void openfp2(_cfile fp, int32_t hints, iostyle* const style, _ref_file _r
   return;
 }
 
-/* IO.chpl:1002 */
+/* IO.chpl:836 */
 static channel_F_dynamic_T _construct_channel(locale home, qio_channel_ptr_t _channel_internal, channel_F_dynamic_T* const meme, int64_t _ln, c_string _fn) {
   channel_F_dynamic_T this8;
   this8 = *(meme);
@@ -865,7 +913,7 @@ static channel_F_dynamic_T _construct_channel(locale home, qio_channel_ptr_t _ch
   return this8;
 }
 
-/* IO.chpl:1002 */
+/* IO.chpl:836 */
 static channel_T_dynamic_T _construct_channel2(locale home, qio_channel_ptr_t _channel_internal, channel_T_dynamic_T* const meme, int64_t _ln, c_string _fn) {
   channel_T_dynamic_T this8;
   this8 = *(meme);
@@ -874,7 +922,7 @@ static channel_T_dynamic_T _construct_channel2(locale home, qio_channel_ptr_t _c
   return this8;
 }
 
-/* IO.chpl:1012 */
+/* IO.chpl:846 */
 static channel_F_dynamic_T chpl__initCopy6(channel_F_dynamic_T* const x, int64_t _ln, c_string _fn) {
   qio_channel_ptr_t ret;
   ret = (x)->_channel_internal;
@@ -882,7 +930,7 @@ static channel_F_dynamic_T chpl__initCopy6(channel_F_dynamic_T* const x, int64_t
   return *(x);
 }
 
-/* IO.chpl:1012 */
+/* IO.chpl:846 */
 static channel_T_dynamic_T chpl__initCopy7(channel_T_dynamic_T* const x, int64_t _ln, c_string _fn) {
   qio_channel_ptr_t ret;
   ret = (x)->_channel_internal;
@@ -890,7 +938,7 @@ static channel_T_dynamic_T chpl__initCopy7(channel_T_dynamic_T* const x, int64_t
   return *(x);
 }
 
-/* IO.chpl:1019 */
+/* IO.chpl:853 */
 static void chpl___ASSIGN_7(_ref_channel_F_dynamic_T ret, channel_F_dynamic_T* const x, int64_t _ln, c_string _fn) {
   qio_channel_ptr_t ret2;
   qio_channel_ptr_t ret3;
@@ -911,7 +959,7 @@ static void chpl___ASSIGN_7(_ref_channel_F_dynamic_T ret, channel_F_dynamic_T* c
   return;
 }
 
-/* IO.chpl:1019 */
+/* IO.chpl:853 */
 static void chpl___ASSIGN_8(_ref_channel_T_dynamic_T ret, channel_T_dynamic_T* const x, int64_t _ln, c_string _fn) {
   qio_channel_ptr_t ret2;
   qio_channel_ptr_t ret3;
@@ -932,7 +980,7 @@ static void chpl___ASSIGN_8(_ref_channel_T_dynamic_T ret, channel_T_dynamic_T* c
   return;
 }
 
-/* IO.chpl:1033 */
+/* IO.chpl:867 */
 static channel_F_dynamic_T channel(file* const f, _ref_syserr error, int32_t hints, int64_t start, int64_t end, iostyle* const local_style, int64_t _ln, c_string _fn) {
   qio_channel_ptr_t local_QIO_CHANNEL_PTR_NULL;
   iostyle _formal_tmp_local_style;
@@ -971,7 +1019,7 @@ static channel_F_dynamic_T channel(file* const f, _ref_syserr error, int32_t hin
   return this8;
 }
 
-/* IO.chpl:1033 */
+/* IO.chpl:867 */
 static channel_T_dynamic_T channel2(file* const f, _ref_syserr error, int32_t hints, int64_t start, int64_t end, iostyle* const local_style, int64_t _ln, c_string _fn) {
   qio_channel_ptr_t local_QIO_CHANNEL_PTR_NULL;
   iostyle _formal_tmp_local_style;
@@ -1010,7 +1058,7 @@ static channel_T_dynamic_T channel2(file* const f, _ref_syserr error, int32_t hi
   return this8;
 }
 
-/* IO.chpl:1046 */
+/* IO.chpl:880 */
 static void chpl___TILDE_channel(_ref_channel_F_dynamic_T this8, int64_t _ln, c_string _fn) {
   qio_channel_ptr_t local_QIO_CHANNEL_PTR_NULL;
   qio_channel_ptr_t ret;
@@ -1023,7 +1071,7 @@ static void chpl___TILDE_channel(_ref_channel_F_dynamic_T this8, int64_t _ln, c_
   return;
 }
 
-/* IO.chpl:1046 */
+/* IO.chpl:880 */
 static void chpl___TILDE_channel2(_ref_channel_T_dynamic_T this8, int64_t _ln, c_string _fn) {
   qio_channel_ptr_t local_QIO_CHANNEL_PTR_NULL;
   qio_channel_ptr_t ret;
@@ -1036,7 +1084,7 @@ static void chpl___TILDE_channel2(_ref_channel_T_dynamic_T this8, int64_t _ln, c
   return;
 }
 
-/* IO.chpl:1066 */
+/* IO.chpl:903 */
 static ioNewline _construct_ioNewline(chpl_bool skipWhitespaceOnly, ioNewline* const meme, int64_t _ln, c_string _fn) {
   ioNewline this8;
   this8 = *(meme);
@@ -1044,7 +1092,7 @@ static ioNewline _construct_ioNewline(chpl_bool skipWhitespaceOnly, ioNewline* c
   return this8;
 }
 
-/* IO.chpl:1112 */
+/* IO.chpl:957 */
 static void _ch_ioerror(_ref_channel_T_dynamic_T this8, syserr error, chpl_string msg, int64_t _ln, c_string _fn) {
   chpl_string path;
   chpl_string type_tmp;
@@ -1093,7 +1141,7 @@ static void _ch_ioerror(_ref_channel_T_dynamic_T this8, syserr error, chpl_strin
   return;
 }
 
-/* IO.chpl:1281 */
+/* IO.chpl:1126 */
 static void reader(_ref_file this8, _ref_syserr error, int64_t start, int64_t end, int32_t hints, iostyle* const style, _ref_channel_F_dynamic_T _retArg, int64_t _ln, c_string _fn) {
   qio_channel_ptr_t local_QIO_CHANNEL_PTR_NULL;
   syserr _formal_tmp_error;
@@ -1152,7 +1200,7 @@ static void reader(_ref_file this8, _ref_syserr error, int64_t start, int64_t en
   return;
 }
 
-/* IO.chpl:1291 */
+/* IO.chpl:1136 */
 static void reader2(_ref_file this8, int64_t start, int64_t end, int32_t hints, iostyle* const style, _ref_channel_F_dynamic_T _retArg, int64_t _ln, c_string _fn) {
   qio_channel_ptr_t local_QIO_CHANNEL_PTR_NULL;
   channel_F_dynamic_T ret;
@@ -1213,7 +1261,7 @@ static void reader2(_ref_file this8, int64_t start, int64_t end, int32_t hints, 
   return;
 }
 
-/* IO.chpl:1324 */
+/* IO.chpl:1169 */
 static void writer(_ref_file this8, _ref_syserr error, int64_t start, int64_t end, int32_t hints, iostyle* const style, _ref_channel_T_dynamic_T _retArg, int64_t _ln, c_string _fn) {
   qio_channel_ptr_t local_QIO_CHANNEL_PTR_NULL;
   syserr _formal_tmp_error;
@@ -1272,7 +1320,7 @@ static void writer(_ref_file this8, _ref_syserr error, int64_t start, int64_t en
   return;
 }
 
-/* IO.chpl:1334 */
+/* IO.chpl:1179 */
 static void writer2(_ref_file this8, int64_t start, int64_t end, int32_t hints, iostyle* const style, _ref_channel_T_dynamic_T _retArg, int64_t _ln, c_string _fn) {
   qio_channel_ptr_t local_QIO_CHANNEL_PTR_NULL;
   channel_T_dynamic_T ret;
@@ -1333,7 +1381,7 @@ static void writer2(_ref_file this8, int64_t start, int64_t end, int32_t hints, 
   return;
 }
 
-/* IO.chpl:1446 */
+/* IO.chpl:1288 */
 static syserr _write_text_internal(qio_channel_ptr_t _channel_internal, chpl_string x, int64_t _ln, c_string _fn) {
   syserr ret;
   c_string call_tmp;
@@ -1352,7 +1400,7 @@ static syserr _write_text_internal(qio_channel_ptr_t _channel_internal, chpl_str
   return ret;
 }
 
-/* IO.chpl:1446 */
+/* IO.chpl:1288 */
 static syserr _write_text_internal2(qio_channel_ptr_t _channel_internal, c_string x, int64_t _ln, c_string _fn) {
   syserr ret;
   int64_t call_tmp;
@@ -1367,7 +1415,7 @@ static syserr _write_text_internal2(qio_channel_ptr_t _channel_internal, c_strin
   return ret;
 }
 
-/* IO.chpl:1446 */
+/* IO.chpl:1288 */
 static syserr _write_text_internal3(qio_channel_ptr_t _channel_internal, uint32_t x, int64_t _ln, c_string _fn) {
   syserr ret;
   syserr call_tmp;
@@ -1386,7 +1434,7 @@ static syserr _write_text_internal3(qio_channel_ptr_t _channel_internal, uint32_
   return ret;
 }
 
-/* IO.chpl:1446 */
+/* IO.chpl:1288 */
 static syserr _write_text_internal4(qio_channel_ptr_t _channel_internal, taskState x, int64_t _ln, c_string _fn) {
   syserr ret;
   c_string call_tmp;
@@ -1403,7 +1451,7 @@ static syserr _write_text_internal4(qio_channel_ptr_t _channel_internal, taskSta
   return ret;
 }
 
-/* IO.chpl:1685 */
+/* IO.chpl:1525 */
 static chpl_string _args_to_proto(chpl_string _e0_args, c_string _e1_args, chpl_string _e2_args, uint32_t _e3_args, chpl_string _e4_args, taskState _e5_args, ioNewline* const _e6_args, chpl_string preArg, int64_t _ln, c_string _fn) {
   chpl_string ret;
   c_string err_args;
@@ -1412,230 +1460,165 @@ static chpl_string _args_to_proto(chpl_string _e0_args, c_string _e1_args, chpl_
   _ref_c_string _ref_tmp_ = NULL;
   c_string call_tmp;
   c_string call_tmp2;
-  c_string call_tmp3;
+  c_string_copy call_tmp3;
   chpl_string call_tmp4;
-  int64_t call_tmp5;
-  chpl_bool call_tmp6;
-  c_string call_tmp7;
+  c_string call_tmp5;
+  c_string_copy call_tmp6;
+  chpl_string call_tmp7;
   c_string call_tmp8;
-  chpl_string call_tmp9;
-  int64_t call_tmp10;
-  chpl_bool call_tmp11;
-  c_string call_tmp12;
-  c_string call_tmp13;
-  chpl_string call_tmp14;
-  int64_t call_tmp15;
-  chpl_bool call_tmp16;
+  c_string_copy call_tmp9;
+  chpl_string call_tmp10;
   _ref_c_string _ref_tmp_2 = NULL;
-  c_string call_tmp17;
-  c_string call_tmp18;
-  chpl_string call_tmp19;
-  int64_t call_tmp20;
-  chpl_bool call_tmp21;
-  c_string call_tmp22;
-  chpl_string call_tmp23;
+  c_string call_tmp11;
+  c_string_copy call_tmp12;
+  chpl_string call_tmp13;
+  c_string call_tmp14;
+  chpl_string call_tmp15;
   _ref_c_string _ref_tmp_3 = NULL;
-  c_string call_tmp24;
-  c_string call_tmp25;
-  chpl_string call_tmp26;
-  int64_t call_tmp27;
-  chpl_bool call_tmp28;
-  c_string call_tmp29;
+  c_string call_tmp16;
+  c_string_copy call_tmp17;
+  chpl_string call_tmp18;
+  c_string call_tmp19;
   c_string name2;
   chpl_string coerce_tmp2;
   _ref_c_string _ref_tmp_4 = NULL;
-  c_string call_tmp30;
-  c_string call_tmp31;
-  c_string call_tmp32;
-  chpl_string call_tmp33;
-  int64_t call_tmp34;
-  chpl_bool call_tmp35;
-  c_string call_tmp36;
-  c_string call_tmp37;
-  chpl_string call_tmp38;
-  int64_t call_tmp39;
-  chpl_bool call_tmp40;
-  c_string call_tmp41;
-  c_string call_tmp42;
-  chpl_string call_tmp43;
-  int64_t call_tmp44;
-  chpl_bool call_tmp45;
+  c_string call_tmp20;
+  c_string call_tmp21;
+  c_string_copy call_tmp22;
+  chpl_string call_tmp23;
+  c_string call_tmp24;
+  c_string_copy call_tmp25;
+  chpl_string call_tmp26;
+  c_string call_tmp27;
+  c_string_copy call_tmp28;
+  chpl_string call_tmp29;
   _ref_c_string _ref_tmp_5 = NULL;
-  c_string call_tmp46;
-  c_string call_tmp47;
-  chpl_string call_tmp48;
-  int64_t call_tmp49;
-  chpl_bool call_tmp50;
-  c_string call_tmp51;
-  chpl_string call_tmp52;
+  c_string call_tmp30;
+  c_string_copy call_tmp31;
+  chpl_string call_tmp32;
+  c_string call_tmp33;
+  chpl_string call_tmp34;
   _ref_c_string _ref_tmp_6 = NULL;
-  c_string call_tmp53;
-  c_string call_tmp54;
-  chpl_string call_tmp55;
-  int64_t call_tmp56;
-  chpl_bool call_tmp57;
-  c_string call_tmp58;
+  c_string call_tmp35;
+  c_string_copy call_tmp36;
+  chpl_string call_tmp37;
+  c_string call_tmp38;
   c_string name3;
   chpl_string coerce_tmp3;
   _ref_c_string _ref_tmp_7 = NULL;
-  c_string call_tmp59;
-  c_string call_tmp60;
-  c_string call_tmp61;
-  chpl_string call_tmp62;
-  int64_t call_tmp63;
-  chpl_bool call_tmp64;
-  c_string call_tmp65;
-  c_string call_tmp66;
-  chpl_string call_tmp67;
-  int64_t call_tmp68;
-  chpl_bool call_tmp69;
-  c_string call_tmp70;
-  c_string call_tmp71;
-  chpl_string call_tmp72;
-  int64_t call_tmp73;
-  chpl_bool call_tmp74;
+  c_string call_tmp39;
+  c_string call_tmp40;
+  c_string_copy call_tmp41;
+  chpl_string call_tmp42;
+  c_string call_tmp43;
+  c_string_copy call_tmp44;
+  chpl_string call_tmp45;
+  c_string call_tmp46;
+  c_string_copy call_tmp47;
+  chpl_string call_tmp48;
   _ref_c_string _ref_tmp_8 = NULL;
-  c_string call_tmp75;
-  c_string call_tmp76;
-  chpl_string call_tmp77;
-  int64_t call_tmp78;
-  chpl_bool call_tmp79;
-  c_string call_tmp80;
-  chpl_string call_tmp81;
+  c_string call_tmp49;
+  c_string_copy call_tmp50;
+  chpl_string call_tmp51;
+  c_string call_tmp52;
+  chpl_string call_tmp53;
   _ref_c_string _ref_tmp_9 = NULL;
-  c_string call_tmp82;
-  c_string call_tmp83;
-  chpl_string call_tmp84;
-  int64_t call_tmp85;
-  chpl_bool call_tmp86;
-  c_string call_tmp87;
+  c_string call_tmp54;
+  c_string_copy call_tmp55;
+  chpl_string call_tmp56;
+  c_string call_tmp57;
   c_string name4;
   chpl_string coerce_tmp4;
   _ref_c_string _ref_tmp_10 = NULL;
-  c_string call_tmp88;
-  c_string call_tmp89;
-  c_string call_tmp90;
-  chpl_string call_tmp91;
-  int64_t call_tmp92;
-  chpl_bool call_tmp93;
-  c_string call_tmp94;
-  c_string call_tmp95;
-  chpl_string call_tmp96;
-  int64_t call_tmp97;
-  chpl_bool call_tmp98;
-  c_string call_tmp99;
-  c_string call_tmp100;
-  chpl_string call_tmp101;
-  int64_t call_tmp102;
-  chpl_bool call_tmp103;
+  c_string call_tmp58;
+  c_string call_tmp59;
+  c_string_copy call_tmp60;
+  chpl_string call_tmp61;
+  c_string call_tmp62;
+  c_string_copy call_tmp63;
+  chpl_string call_tmp64;
+  c_string call_tmp65;
+  c_string_copy call_tmp66;
+  chpl_string call_tmp67;
   _ref_c_string _ref_tmp_11 = NULL;
-  c_string call_tmp104;
-  c_string call_tmp105;
-  chpl_string call_tmp106;
-  int64_t call_tmp107;
-  chpl_bool call_tmp108;
-  c_string call_tmp109;
-  chpl_string call_tmp110;
+  c_string call_tmp68;
+  c_string_copy call_tmp69;
+  chpl_string call_tmp70;
+  c_string call_tmp71;
+  chpl_string call_tmp72;
   _ref_c_string _ref_tmp_12 = NULL;
-  c_string call_tmp111;
-  c_string call_tmp112;
-  chpl_string call_tmp113;
-  int64_t call_tmp114;
-  chpl_bool call_tmp115;
-  c_string call_tmp116;
+  c_string call_tmp73;
+  c_string_copy call_tmp74;
+  chpl_string call_tmp75;
+  c_string call_tmp76;
   c_string name5;
   chpl_string coerce_tmp5;
   _ref_c_string _ref_tmp_13 = NULL;
-  c_string call_tmp117;
-  c_string call_tmp118;
-  c_string call_tmp119;
-  chpl_string call_tmp120;
-  int64_t call_tmp121;
-  chpl_bool call_tmp122;
-  c_string call_tmp123;
-  c_string call_tmp124;
-  chpl_string call_tmp125;
-  int64_t call_tmp126;
-  chpl_bool call_tmp127;
-  c_string call_tmp128;
-  c_string call_tmp129;
-  chpl_string call_tmp130;
-  int64_t call_tmp131;
-  chpl_bool call_tmp132;
+  c_string call_tmp77;
+  c_string call_tmp78;
+  c_string_copy call_tmp79;
+  chpl_string call_tmp80;
+  c_string call_tmp81;
+  c_string_copy call_tmp82;
+  chpl_string call_tmp83;
+  c_string call_tmp84;
+  c_string_copy call_tmp85;
+  chpl_string call_tmp86;
   _ref_c_string _ref_tmp_14 = NULL;
-  c_string call_tmp133;
-  c_string call_tmp134;
-  chpl_string call_tmp135;
-  int64_t call_tmp136;
-  chpl_bool call_tmp137;
-  c_string call_tmp138;
-  chpl_string call_tmp139;
+  c_string call_tmp87;
+  c_string_copy call_tmp88;
+  chpl_string call_tmp89;
+  c_string call_tmp90;
+  chpl_string call_tmp91;
   _ref_c_string _ref_tmp_15 = NULL;
-  c_string call_tmp140;
-  c_string call_tmp141;
-  chpl_string call_tmp142;
-  int64_t call_tmp143;
-  chpl_bool call_tmp144;
-  c_string call_tmp145;
+  c_string call_tmp92;
+  c_string_copy call_tmp93;
+  chpl_string call_tmp94;
+  c_string call_tmp95;
   c_string name6;
   chpl_string coerce_tmp6;
   _ref_c_string _ref_tmp_16 = NULL;
-  c_string call_tmp146;
-  c_string call_tmp147;
-  c_string call_tmp148;
-  chpl_string call_tmp149;
-  int64_t call_tmp150;
-  chpl_bool call_tmp151;
-  c_string call_tmp152;
-  c_string call_tmp153;
-  chpl_string call_tmp154;
-  int64_t call_tmp155;
-  chpl_bool call_tmp156;
-  c_string call_tmp157;
-  c_string call_tmp158;
-  chpl_string call_tmp159;
-  int64_t call_tmp160;
-  chpl_bool call_tmp161;
+  c_string call_tmp96;
+  c_string call_tmp97;
+  c_string_copy call_tmp98;
+  chpl_string call_tmp99;
+  c_string call_tmp100;
+  c_string_copy call_tmp101;
+  chpl_string call_tmp102;
+  c_string call_tmp103;
+  c_string_copy call_tmp104;
+  chpl_string call_tmp105;
   _ref_c_string _ref_tmp_17 = NULL;
-  c_string call_tmp162;
-  c_string call_tmp163;
-  chpl_string call_tmp164;
-  int64_t call_tmp165;
-  chpl_bool call_tmp166;
-  c_string call_tmp167;
-  chpl_string call_tmp168;
+  c_string call_tmp106;
+  c_string_copy call_tmp107;
+  chpl_string call_tmp108;
+  c_string call_tmp109;
+  chpl_string call_tmp110;
   _ref_c_string _ref_tmp_18 = NULL;
-  c_string call_tmp169;
-  c_string call_tmp170;
-  chpl_string call_tmp171;
-  int64_t call_tmp172;
-  chpl_bool call_tmp173;
-  c_string call_tmp174;
-  c_string call_tmp175;
-  c_string call_tmp176;
-  chpl_string call_tmp177;
-  int64_t call_tmp178;
-  chpl_bool call_tmp179;
-  c_string call_tmp180;
-  c_string call_tmp181;
-  chpl_string call_tmp182;
-  int64_t call_tmp183;
-  chpl_bool call_tmp184;
-  c_string call_tmp185;
-  c_string call_tmp186;
-  chpl_string call_tmp187;
-  int64_t call_tmp188;
-  chpl_bool call_tmp189;
+  c_string call_tmp111;
+  c_string_copy call_tmp112;
+  chpl_string call_tmp113;
+  c_string call_tmp114;
+  c_string_copy call_tmp115;
+  uint32_t call_tmp116;
+  c_string call_tmp117;
+  c_string_copy call_tmp118;
+  c_string call_tmp119;
+  c_string call_tmp120;
+  c_string_copy call_tmp121;
+  chpl_string call_tmp122;
+  c_string call_tmp123;
+  c_string_copy call_tmp124;
+  chpl_string call_tmp125;
+  c_string call_tmp126;
+  c_string_copy call_tmp127;
+  chpl_string call_tmp128;
   _ref_c_string _ref_tmp_19 = NULL;
-  c_string call_tmp190;
-  c_string call_tmp191;
-  chpl_string call_tmp192;
-  int64_t call_tmp193;
-  chpl_bool call_tmp194;
-  c_string call_tmp195;
-  chpl_string call_tmp196;
-  int64_t call_tmp197;
-  chpl_bool call_tmp198;
+  c_string call_tmp129;
+  c_string_copy call_tmp130;
+  chpl_string call_tmp131;
+  c_string call_tmp132;
+  chpl_string call_tmp133;
   err_args = "";
   name = "";
   coerce_tmp = *(_arg_to_proto_names + INT64(0));
@@ -1644,357 +1627,187 @@ static chpl_string _args_to_proto(chpl_string _e0_args, c_string _e1_args, chpl_
   *(_ref_tmp_) = call_tmp;
   c_string_from_string(&call_tmp2, &preArg, _ln, _fn);
   call_tmp3 = string_concat(call_tmp2, name, _ln, _fn);
-  string_from_c_string(&call_tmp4, call_tmp3, INT64(0), INT64(0), _ln, _fn);
-  call_tmp5 = string_length(call_tmp3);
-  call_tmp6 = (call_tmp5 > INT64(0));
-  if (call_tmp6) {
-    chpl_rt_free_c_string(call_tmp3, _ln, _fn);
-  }
-  c_string_from_string(&call_tmp7, &call_tmp4, _ln, _fn);
-  call_tmp8 = string_concat(call_tmp7, ":", _ln, _fn);
-  string_from_c_string(&call_tmp9, call_tmp8, INT64(0), INT64(0), _ln, _fn);
-  call_tmp10 = string_length(call_tmp8);
-  call_tmp11 = (call_tmp10 > INT64(0));
-  if (call_tmp11) {
-    chpl_rt_free_c_string(call_tmp8, _ln, _fn);
-  }
-  c_string_from_string(&call_tmp12, &call_tmp9, _ln, _fn);
-  call_tmp13 = string_concat(call_tmp12, "string", _ln, _fn);
-  string_from_c_string(&call_tmp14, call_tmp13, INT64(0), INT64(0), _ln, _fn);
-  call_tmp15 = string_length(call_tmp13);
-  call_tmp16 = (call_tmp15 > INT64(0));
-  if (call_tmp16) {
-    chpl_rt_free_c_string(call_tmp13, _ln, _fn);
-  }
+  call_tmp4 = string_from_c_string_copy(call_tmp3, false, INT64(0));
+  c_string_from_string(&call_tmp5, &call_tmp4, _ln, _fn);
+  call_tmp6 = string_concat(call_tmp5, ":", _ln, _fn);
+  call_tmp7 = string_from_c_string_copy(call_tmp6, false, INT64(0));
+  c_string_from_string(&call_tmp8, &call_tmp7, _ln, _fn);
+  call_tmp9 = string_concat(call_tmp8, "string", _ln, _fn);
+  call_tmp10 = string_from_c_string_copy(call_tmp9, false, INT64(0));
   _ref_tmp_2 = &err_args;
-  c_string_from_string(&call_tmp17, &call_tmp14, _ln, _fn);
-  call_tmp18 = string_concat(err_args, call_tmp17, _ln, _fn);
-  string_from_c_string(&call_tmp19, call_tmp18, INT64(0), INT64(0), _ln, _fn);
-  call_tmp20 = string_length(call_tmp18);
-  call_tmp21 = (call_tmp20 > INT64(0));
-  if (call_tmp21) {
-    chpl_rt_free_c_string(call_tmp18, _ln, _fn);
-  }
-  c_string_from_string(&call_tmp22, &call_tmp19, _ln, _fn);
-  *(_ref_tmp_2) = call_tmp22;
-  string_from_c_string(&call_tmp23, ", ", INT64(0), INT64(0), _ln, _fn);
+  c_string_from_string(&call_tmp11, &call_tmp10, _ln, _fn);
+  call_tmp12 = string_concat(err_args, call_tmp11, _ln, _fn);
+  call_tmp13 = string_from_c_string_copy(call_tmp12, false, INT64(0));
+  c_string_from_string(&call_tmp14, &call_tmp13, _ln, _fn);
+  *(_ref_tmp_2) = call_tmp14;
+  string_from_c_string(&call_tmp15, ", ", INT64(0), INT64(0), _ln, _fn);
   _ref_tmp_3 = &err_args;
-  c_string_from_string(&call_tmp24, &call_tmp23, _ln, _fn);
-  call_tmp25 = string_concat(err_args, call_tmp24, _ln, _fn);
-  string_from_c_string(&call_tmp26, call_tmp25, INT64(0), INT64(0), _ln, _fn);
-  call_tmp27 = string_length(call_tmp25);
-  call_tmp28 = (call_tmp27 > INT64(0));
-  if (call_tmp28) {
-    chpl_rt_free_c_string(call_tmp25, _ln, _fn);
-  }
-  c_string_from_string(&call_tmp29, &call_tmp26, _ln, _fn);
-  *(_ref_tmp_3) = call_tmp29;
+  c_string_from_string(&call_tmp16, &call_tmp15, _ln, _fn);
+  call_tmp17 = string_concat(err_args, call_tmp16, _ln, _fn);
+  call_tmp18 = string_from_c_string_copy(call_tmp17, false, INT64(0));
+  c_string_from_string(&call_tmp19, &call_tmp18, _ln, _fn);
+  *(_ref_tmp_3) = call_tmp19;
   name2 = "";
   coerce_tmp2 = *(_arg_to_proto_names + INT64(1));
   _ref_tmp_4 = &name2;
-  c_string_from_string(&call_tmp30, &coerce_tmp2, _ln, _fn);
-  *(_ref_tmp_4) = call_tmp30;
-  c_string_from_string(&call_tmp31, &preArg, _ln, _fn);
-  call_tmp32 = string_concat(call_tmp31, name2, _ln, _fn);
-  string_from_c_string(&call_tmp33, call_tmp32, INT64(0), INT64(0), _ln, _fn);
-  call_tmp34 = string_length(call_tmp32);
-  call_tmp35 = (call_tmp34 > INT64(0));
-  if (call_tmp35) {
-    chpl_rt_free_c_string(call_tmp32, _ln, _fn);
-  }
-  c_string_from_string(&call_tmp36, &call_tmp33, _ln, _fn);
-  call_tmp37 = string_concat(call_tmp36, ":", _ln, _fn);
-  string_from_c_string(&call_tmp38, call_tmp37, INT64(0), INT64(0), _ln, _fn);
-  call_tmp39 = string_length(call_tmp37);
-  call_tmp40 = (call_tmp39 > INT64(0));
-  if (call_tmp40) {
-    chpl_rt_free_c_string(call_tmp37, _ln, _fn);
-  }
-  c_string_from_string(&call_tmp41, &call_tmp38, _ln, _fn);
-  call_tmp42 = string_concat(call_tmp41, "c_string", _ln, _fn);
-  string_from_c_string(&call_tmp43, call_tmp42, INT64(0), INT64(0), _ln, _fn);
-  call_tmp44 = string_length(call_tmp42);
-  call_tmp45 = (call_tmp44 > INT64(0));
-  if (call_tmp45) {
-    chpl_rt_free_c_string(call_tmp42, _ln, _fn);
-  }
+  c_string_from_string(&call_tmp20, &coerce_tmp2, _ln, _fn);
+  *(_ref_tmp_4) = call_tmp20;
+  c_string_from_string(&call_tmp21, &preArg, _ln, _fn);
+  call_tmp22 = string_concat(call_tmp21, name2, _ln, _fn);
+  call_tmp23 = string_from_c_string_copy(call_tmp22, false, INT64(0));
+  c_string_from_string(&call_tmp24, &call_tmp23, _ln, _fn);
+  call_tmp25 = string_concat(call_tmp24, ":", _ln, _fn);
+  call_tmp26 = string_from_c_string_copy(call_tmp25, false, INT64(0));
+  c_string_from_string(&call_tmp27, &call_tmp26, _ln, _fn);
+  call_tmp28 = string_concat(call_tmp27, "c_string", _ln, _fn);
+  call_tmp29 = string_from_c_string_copy(call_tmp28, false, INT64(0));
   _ref_tmp_5 = &err_args;
-  c_string_from_string(&call_tmp46, &call_tmp43, _ln, _fn);
-  call_tmp47 = string_concat(err_args, call_tmp46, _ln, _fn);
-  string_from_c_string(&call_tmp48, call_tmp47, INT64(0), INT64(0), _ln, _fn);
-  call_tmp49 = string_length(call_tmp47);
-  call_tmp50 = (call_tmp49 > INT64(0));
-  if (call_tmp50) {
-    chpl_rt_free_c_string(call_tmp47, _ln, _fn);
-  }
-  c_string_from_string(&call_tmp51, &call_tmp48, _ln, _fn);
-  *(_ref_tmp_5) = call_tmp51;
-  string_from_c_string(&call_tmp52, ", ", INT64(0), INT64(0), _ln, _fn);
+  c_string_from_string(&call_tmp30, &call_tmp29, _ln, _fn);
+  call_tmp31 = string_concat(err_args, call_tmp30, _ln, _fn);
+  call_tmp32 = string_from_c_string_copy(call_tmp31, false, INT64(0));
+  c_string_from_string(&call_tmp33, &call_tmp32, _ln, _fn);
+  *(_ref_tmp_5) = call_tmp33;
+  string_from_c_string(&call_tmp34, ", ", INT64(0), INT64(0), _ln, _fn);
   _ref_tmp_6 = &err_args;
-  c_string_from_string(&call_tmp53, &call_tmp52, _ln, _fn);
-  call_tmp54 = string_concat(err_args, call_tmp53, _ln, _fn);
-  string_from_c_string(&call_tmp55, call_tmp54, INT64(0), INT64(0), _ln, _fn);
-  call_tmp56 = string_length(call_tmp54);
-  call_tmp57 = (call_tmp56 > INT64(0));
-  if (call_tmp57) {
-    chpl_rt_free_c_string(call_tmp54, _ln, _fn);
-  }
-  c_string_from_string(&call_tmp58, &call_tmp55, _ln, _fn);
-  *(_ref_tmp_6) = call_tmp58;
+  c_string_from_string(&call_tmp35, &call_tmp34, _ln, _fn);
+  call_tmp36 = string_concat(err_args, call_tmp35, _ln, _fn);
+  call_tmp37 = string_from_c_string_copy(call_tmp36, false, INT64(0));
+  c_string_from_string(&call_tmp38, &call_tmp37, _ln, _fn);
+  *(_ref_tmp_6) = call_tmp38;
   name3 = "";
   coerce_tmp3 = *(_arg_to_proto_names + INT64(2));
   _ref_tmp_7 = &name3;
-  c_string_from_string(&call_tmp59, &coerce_tmp3, _ln, _fn);
-  *(_ref_tmp_7) = call_tmp59;
-  c_string_from_string(&call_tmp60, &preArg, _ln, _fn);
-  call_tmp61 = string_concat(call_tmp60, name3, _ln, _fn);
-  string_from_c_string(&call_tmp62, call_tmp61, INT64(0), INT64(0), _ln, _fn);
-  call_tmp63 = string_length(call_tmp61);
-  call_tmp64 = (call_tmp63 > INT64(0));
-  if (call_tmp64) {
-    chpl_rt_free_c_string(call_tmp61, _ln, _fn);
-  }
-  c_string_from_string(&call_tmp65, &call_tmp62, _ln, _fn);
-  call_tmp66 = string_concat(call_tmp65, ":", _ln, _fn);
-  string_from_c_string(&call_tmp67, call_tmp66, INT64(0), INT64(0), _ln, _fn);
-  call_tmp68 = string_length(call_tmp66);
-  call_tmp69 = (call_tmp68 > INT64(0));
-  if (call_tmp69) {
-    chpl_rt_free_c_string(call_tmp66, _ln, _fn);
-  }
-  c_string_from_string(&call_tmp70, &call_tmp67, _ln, _fn);
-  call_tmp71 = string_concat(call_tmp70, "string", _ln, _fn);
-  string_from_c_string(&call_tmp72, call_tmp71, INT64(0), INT64(0), _ln, _fn);
-  call_tmp73 = string_length(call_tmp71);
-  call_tmp74 = (call_tmp73 > INT64(0));
-  if (call_tmp74) {
-    chpl_rt_free_c_string(call_tmp71, _ln, _fn);
-  }
+  c_string_from_string(&call_tmp39, &coerce_tmp3, _ln, _fn);
+  *(_ref_tmp_7) = call_tmp39;
+  c_string_from_string(&call_tmp40, &preArg, _ln, _fn);
+  call_tmp41 = string_concat(call_tmp40, name3, _ln, _fn);
+  call_tmp42 = string_from_c_string_copy(call_tmp41, false, INT64(0));
+  c_string_from_string(&call_tmp43, &call_tmp42, _ln, _fn);
+  call_tmp44 = string_concat(call_tmp43, ":", _ln, _fn);
+  call_tmp45 = string_from_c_string_copy(call_tmp44, false, INT64(0));
+  c_string_from_string(&call_tmp46, &call_tmp45, _ln, _fn);
+  call_tmp47 = string_concat(call_tmp46, "string", _ln, _fn);
+  call_tmp48 = string_from_c_string_copy(call_tmp47, false, INT64(0));
   _ref_tmp_8 = &err_args;
-  c_string_from_string(&call_tmp75, &call_tmp72, _ln, _fn);
-  call_tmp76 = string_concat(err_args, call_tmp75, _ln, _fn);
-  string_from_c_string(&call_tmp77, call_tmp76, INT64(0), INT64(0), _ln, _fn);
-  call_tmp78 = string_length(call_tmp76);
-  call_tmp79 = (call_tmp78 > INT64(0));
-  if (call_tmp79) {
-    chpl_rt_free_c_string(call_tmp76, _ln, _fn);
-  }
-  c_string_from_string(&call_tmp80, &call_tmp77, _ln, _fn);
-  *(_ref_tmp_8) = call_tmp80;
-  string_from_c_string(&call_tmp81, ", ", INT64(0), INT64(0), _ln, _fn);
+  c_string_from_string(&call_tmp49, &call_tmp48, _ln, _fn);
+  call_tmp50 = string_concat(err_args, call_tmp49, _ln, _fn);
+  call_tmp51 = string_from_c_string_copy(call_tmp50, false, INT64(0));
+  c_string_from_string(&call_tmp52, &call_tmp51, _ln, _fn);
+  *(_ref_tmp_8) = call_tmp52;
+  string_from_c_string(&call_tmp53, ", ", INT64(0), INT64(0), _ln, _fn);
   _ref_tmp_9 = &err_args;
-  c_string_from_string(&call_tmp82, &call_tmp81, _ln, _fn);
-  call_tmp83 = string_concat(err_args, call_tmp82, _ln, _fn);
-  string_from_c_string(&call_tmp84, call_tmp83, INT64(0), INT64(0), _ln, _fn);
-  call_tmp85 = string_length(call_tmp83);
-  call_tmp86 = (call_tmp85 > INT64(0));
-  if (call_tmp86) {
-    chpl_rt_free_c_string(call_tmp83, _ln, _fn);
-  }
-  c_string_from_string(&call_tmp87, &call_tmp84, _ln, _fn);
-  *(_ref_tmp_9) = call_tmp87;
+  c_string_from_string(&call_tmp54, &call_tmp53, _ln, _fn);
+  call_tmp55 = string_concat(err_args, call_tmp54, _ln, _fn);
+  call_tmp56 = string_from_c_string_copy(call_tmp55, false, INT64(0));
+  c_string_from_string(&call_tmp57, &call_tmp56, _ln, _fn);
+  *(_ref_tmp_9) = call_tmp57;
   name4 = "";
   coerce_tmp4 = *(_arg_to_proto_names + INT64(3));
   _ref_tmp_10 = &name4;
-  c_string_from_string(&call_tmp88, &coerce_tmp4, _ln, _fn);
-  *(_ref_tmp_10) = call_tmp88;
-  c_string_from_string(&call_tmp89, &preArg, _ln, _fn);
-  call_tmp90 = string_concat(call_tmp89, name4, _ln, _fn);
-  string_from_c_string(&call_tmp91, call_tmp90, INT64(0), INT64(0), _ln, _fn);
-  call_tmp92 = string_length(call_tmp90);
-  call_tmp93 = (call_tmp92 > INT64(0));
-  if (call_tmp93) {
-    chpl_rt_free_c_string(call_tmp90, _ln, _fn);
-  }
-  c_string_from_string(&call_tmp94, &call_tmp91, _ln, _fn);
-  call_tmp95 = string_concat(call_tmp94, ":", _ln, _fn);
-  string_from_c_string(&call_tmp96, call_tmp95, INT64(0), INT64(0), _ln, _fn);
-  call_tmp97 = string_length(call_tmp95);
-  call_tmp98 = (call_tmp97 > INT64(0));
-  if (call_tmp98) {
-    chpl_rt_free_c_string(call_tmp95, _ln, _fn);
-  }
-  c_string_from_string(&call_tmp99, &call_tmp96, _ln, _fn);
-  call_tmp100 = string_concat(call_tmp99, "uint(32)", _ln, _fn);
-  string_from_c_string(&call_tmp101, call_tmp100, INT64(0), INT64(0), _ln, _fn);
-  call_tmp102 = string_length(call_tmp100);
-  call_tmp103 = (call_tmp102 > INT64(0));
-  if (call_tmp103) {
-    chpl_rt_free_c_string(call_tmp100, _ln, _fn);
-  }
+  c_string_from_string(&call_tmp58, &coerce_tmp4, _ln, _fn);
+  *(_ref_tmp_10) = call_tmp58;
+  c_string_from_string(&call_tmp59, &preArg, _ln, _fn);
+  call_tmp60 = string_concat(call_tmp59, name4, _ln, _fn);
+  call_tmp61 = string_from_c_string_copy(call_tmp60, false, INT64(0));
+  c_string_from_string(&call_tmp62, &call_tmp61, _ln, _fn);
+  call_tmp63 = string_concat(call_tmp62, ":", _ln, _fn);
+  call_tmp64 = string_from_c_string_copy(call_tmp63, false, INT64(0));
+  c_string_from_string(&call_tmp65, &call_tmp64, _ln, _fn);
+  call_tmp66 = string_concat(call_tmp65, "uint(32)", _ln, _fn);
+  call_tmp67 = string_from_c_string_copy(call_tmp66, false, INT64(0));
   _ref_tmp_11 = &err_args;
-  c_string_from_string(&call_tmp104, &call_tmp101, _ln, _fn);
-  call_tmp105 = string_concat(err_args, call_tmp104, _ln, _fn);
-  string_from_c_string(&call_tmp106, call_tmp105, INT64(0), INT64(0), _ln, _fn);
-  call_tmp107 = string_length(call_tmp105);
-  call_tmp108 = (call_tmp107 > INT64(0));
-  if (call_tmp108) {
-    chpl_rt_free_c_string(call_tmp105, _ln, _fn);
-  }
-  c_string_from_string(&call_tmp109, &call_tmp106, _ln, _fn);
-  *(_ref_tmp_11) = call_tmp109;
-  string_from_c_string(&call_tmp110, ", ", INT64(0), INT64(0), _ln, _fn);
+  c_string_from_string(&call_tmp68, &call_tmp67, _ln, _fn);
+  call_tmp69 = string_concat(err_args, call_tmp68, _ln, _fn);
+  call_tmp70 = string_from_c_string_copy(call_tmp69, false, INT64(0));
+  c_string_from_string(&call_tmp71, &call_tmp70, _ln, _fn);
+  *(_ref_tmp_11) = call_tmp71;
+  string_from_c_string(&call_tmp72, ", ", INT64(0), INT64(0), _ln, _fn);
   _ref_tmp_12 = &err_args;
-  c_string_from_string(&call_tmp111, &call_tmp110, _ln, _fn);
-  call_tmp112 = string_concat(err_args, call_tmp111, _ln, _fn);
-  string_from_c_string(&call_tmp113, call_tmp112, INT64(0), INT64(0), _ln, _fn);
-  call_tmp114 = string_length(call_tmp112);
-  call_tmp115 = (call_tmp114 > INT64(0));
-  if (call_tmp115) {
-    chpl_rt_free_c_string(call_tmp112, _ln, _fn);
-  }
-  c_string_from_string(&call_tmp116, &call_tmp113, _ln, _fn);
-  *(_ref_tmp_12) = call_tmp116;
+  c_string_from_string(&call_tmp73, &call_tmp72, _ln, _fn);
+  call_tmp74 = string_concat(err_args, call_tmp73, _ln, _fn);
+  call_tmp75 = string_from_c_string_copy(call_tmp74, false, INT64(0));
+  c_string_from_string(&call_tmp76, &call_tmp75, _ln, _fn);
+  *(_ref_tmp_12) = call_tmp76;
   name5 = "";
   coerce_tmp5 = *(_arg_to_proto_names + INT64(4));
   _ref_tmp_13 = &name5;
-  c_string_from_string(&call_tmp117, &coerce_tmp5, _ln, _fn);
-  *(_ref_tmp_13) = call_tmp117;
-  c_string_from_string(&call_tmp118, &preArg, _ln, _fn);
-  call_tmp119 = string_concat(call_tmp118, name5, _ln, _fn);
-  string_from_c_string(&call_tmp120, call_tmp119, INT64(0), INT64(0), _ln, _fn);
-  call_tmp121 = string_length(call_tmp119);
-  call_tmp122 = (call_tmp121 > INT64(0));
-  if (call_tmp122) {
-    chpl_rt_free_c_string(call_tmp119, _ln, _fn);
-  }
-  c_string_from_string(&call_tmp123, &call_tmp120, _ln, _fn);
-  call_tmp124 = string_concat(call_tmp123, ":", _ln, _fn);
-  string_from_c_string(&call_tmp125, call_tmp124, INT64(0), INT64(0), _ln, _fn);
-  call_tmp126 = string_length(call_tmp124);
-  call_tmp127 = (call_tmp126 > INT64(0));
-  if (call_tmp127) {
-    chpl_rt_free_c_string(call_tmp124, _ln, _fn);
-  }
-  c_string_from_string(&call_tmp128, &call_tmp125, _ln, _fn);
-  call_tmp129 = string_concat(call_tmp128, "string", _ln, _fn);
-  string_from_c_string(&call_tmp130, call_tmp129, INT64(0), INT64(0), _ln, _fn);
-  call_tmp131 = string_length(call_tmp129);
-  call_tmp132 = (call_tmp131 > INT64(0));
-  if (call_tmp132) {
-    chpl_rt_free_c_string(call_tmp129, _ln, _fn);
-  }
+  c_string_from_string(&call_tmp77, &coerce_tmp5, _ln, _fn);
+  *(_ref_tmp_13) = call_tmp77;
+  c_string_from_string(&call_tmp78, &preArg, _ln, _fn);
+  call_tmp79 = string_concat(call_tmp78, name5, _ln, _fn);
+  call_tmp80 = string_from_c_string_copy(call_tmp79, false, INT64(0));
+  c_string_from_string(&call_tmp81, &call_tmp80, _ln, _fn);
+  call_tmp82 = string_concat(call_tmp81, ":", _ln, _fn);
+  call_tmp83 = string_from_c_string_copy(call_tmp82, false, INT64(0));
+  c_string_from_string(&call_tmp84, &call_tmp83, _ln, _fn);
+  call_tmp85 = string_concat(call_tmp84, "string", _ln, _fn);
+  call_tmp86 = string_from_c_string_copy(call_tmp85, false, INT64(0));
   _ref_tmp_14 = &err_args;
-  c_string_from_string(&call_tmp133, &call_tmp130, _ln, _fn);
-  call_tmp134 = string_concat(err_args, call_tmp133, _ln, _fn);
-  string_from_c_string(&call_tmp135, call_tmp134, INT64(0), INT64(0), _ln, _fn);
-  call_tmp136 = string_length(call_tmp134);
-  call_tmp137 = (call_tmp136 > INT64(0));
-  if (call_tmp137) {
-    chpl_rt_free_c_string(call_tmp134, _ln, _fn);
-  }
-  c_string_from_string(&call_tmp138, &call_tmp135, _ln, _fn);
-  *(_ref_tmp_14) = call_tmp138;
-  string_from_c_string(&call_tmp139, ", ", INT64(0), INT64(0), _ln, _fn);
+  c_string_from_string(&call_tmp87, &call_tmp86, _ln, _fn);
+  call_tmp88 = string_concat(err_args, call_tmp87, _ln, _fn);
+  call_tmp89 = string_from_c_string_copy(call_tmp88, false, INT64(0));
+  c_string_from_string(&call_tmp90, &call_tmp89, _ln, _fn);
+  *(_ref_tmp_14) = call_tmp90;
+  string_from_c_string(&call_tmp91, ", ", INT64(0), INT64(0), _ln, _fn);
   _ref_tmp_15 = &err_args;
-  c_string_from_string(&call_tmp140, &call_tmp139, _ln, _fn);
-  call_tmp141 = string_concat(err_args, call_tmp140, _ln, _fn);
-  string_from_c_string(&call_tmp142, call_tmp141, INT64(0), INT64(0), _ln, _fn);
-  call_tmp143 = string_length(call_tmp141);
-  call_tmp144 = (call_tmp143 > INT64(0));
-  if (call_tmp144) {
-    chpl_rt_free_c_string(call_tmp141, _ln, _fn);
-  }
-  c_string_from_string(&call_tmp145, &call_tmp142, _ln, _fn);
-  *(_ref_tmp_15) = call_tmp145;
+  c_string_from_string(&call_tmp92, &call_tmp91, _ln, _fn);
+  call_tmp93 = string_concat(err_args, call_tmp92, _ln, _fn);
+  call_tmp94 = string_from_c_string_copy(call_tmp93, false, INT64(0));
+  c_string_from_string(&call_tmp95, &call_tmp94, _ln, _fn);
+  *(_ref_tmp_15) = call_tmp95;
   name6 = "";
   coerce_tmp6 = *(_arg_to_proto_names + INT64(5));
   _ref_tmp_16 = &name6;
-  c_string_from_string(&call_tmp146, &coerce_tmp6, _ln, _fn);
-  *(_ref_tmp_16) = call_tmp146;
-  c_string_from_string(&call_tmp147, &preArg, _ln, _fn);
-  call_tmp148 = string_concat(call_tmp147, name6, _ln, _fn);
-  string_from_c_string(&call_tmp149, call_tmp148, INT64(0), INT64(0), _ln, _fn);
-  call_tmp150 = string_length(call_tmp148);
-  call_tmp151 = (call_tmp150 > INT64(0));
-  if (call_tmp151) {
-    chpl_rt_free_c_string(call_tmp148, _ln, _fn);
-  }
-  c_string_from_string(&call_tmp152, &call_tmp149, _ln, _fn);
-  call_tmp153 = string_concat(call_tmp152, ":", _ln, _fn);
-  string_from_c_string(&call_tmp154, call_tmp153, INT64(0), INT64(0), _ln, _fn);
-  call_tmp155 = string_length(call_tmp153);
-  call_tmp156 = (call_tmp155 > INT64(0));
-  if (call_tmp156) {
-    chpl_rt_free_c_string(call_tmp153, _ln, _fn);
-  }
-  c_string_from_string(&call_tmp157, &call_tmp154, _ln, _fn);
-  call_tmp158 = string_concat(call_tmp157, "taskState", _ln, _fn);
-  string_from_c_string(&call_tmp159, call_tmp158, INT64(0), INT64(0), _ln, _fn);
-  call_tmp160 = string_length(call_tmp158);
-  call_tmp161 = (call_tmp160 > INT64(0));
-  if (call_tmp161) {
-    chpl_rt_free_c_string(call_tmp158, _ln, _fn);
-  }
+  c_string_from_string(&call_tmp96, &coerce_tmp6, _ln, _fn);
+  *(_ref_tmp_16) = call_tmp96;
+  c_string_from_string(&call_tmp97, &preArg, _ln, _fn);
+  call_tmp98 = string_concat(call_tmp97, name6, _ln, _fn);
+  call_tmp99 = string_from_c_string_copy(call_tmp98, false, INT64(0));
+  c_string_from_string(&call_tmp100, &call_tmp99, _ln, _fn);
+  call_tmp101 = string_concat(call_tmp100, ":", _ln, _fn);
+  call_tmp102 = string_from_c_string_copy(call_tmp101, false, INT64(0));
+  c_string_from_string(&call_tmp103, &call_tmp102, _ln, _fn);
+  call_tmp104 = string_concat(call_tmp103, "taskState", _ln, _fn);
+  call_tmp105 = string_from_c_string_copy(call_tmp104, false, INT64(0));
   _ref_tmp_17 = &err_args;
-  c_string_from_string(&call_tmp162, &call_tmp159, _ln, _fn);
-  call_tmp163 = string_concat(err_args, call_tmp162, _ln, _fn);
-  string_from_c_string(&call_tmp164, call_tmp163, INT64(0), INT64(0), _ln, _fn);
-  call_tmp165 = string_length(call_tmp163);
-  call_tmp166 = (call_tmp165 > INT64(0));
-  if (call_tmp166) {
-    chpl_rt_free_c_string(call_tmp163, _ln, _fn);
-  }
-  c_string_from_string(&call_tmp167, &call_tmp164, _ln, _fn);
-  *(_ref_tmp_17) = call_tmp167;
-  string_from_c_string(&call_tmp168, ", ", INT64(0), INT64(0), _ln, _fn);
+  c_string_from_string(&call_tmp106, &call_tmp105, _ln, _fn);
+  call_tmp107 = string_concat(err_args, call_tmp106, _ln, _fn);
+  call_tmp108 = string_from_c_string_copy(call_tmp107, false, INT64(0));
+  c_string_from_string(&call_tmp109, &call_tmp108, _ln, _fn);
+  *(_ref_tmp_17) = call_tmp109;
+  string_from_c_string(&call_tmp110, ", ", INT64(0), INT64(0), _ln, _fn);
   _ref_tmp_18 = &err_args;
-  c_string_from_string(&call_tmp169, &call_tmp168, _ln, _fn);
-  call_tmp170 = string_concat(err_args, call_tmp169, _ln, _fn);
-  string_from_c_string(&call_tmp171, call_tmp170, INT64(0), INT64(0), _ln, _fn);
-  call_tmp172 = string_length(call_tmp170);
-  call_tmp173 = (call_tmp172 > INT64(0));
-  if (call_tmp173) {
-    chpl_rt_free_c_string(call_tmp170, _ln, _fn);
-  }
-  c_string_from_string(&call_tmp174, &call_tmp171, _ln, _fn);
-  *(_ref_tmp_18) = call_tmp174;
-  c_string_from_string(&call_tmp175, &preArg, _ln, _fn);
-  call_tmp176 = string_concat(call_tmp175, "x7", _ln, _fn);
-  string_from_c_string(&call_tmp177, call_tmp176, INT64(0), INT64(0), _ln, _fn);
-  call_tmp178 = string_length(call_tmp176);
-  call_tmp179 = (call_tmp178 > INT64(0));
-  if (call_tmp179) {
-    chpl_rt_free_c_string(call_tmp176, _ln, _fn);
-  }
-  c_string_from_string(&call_tmp180, &call_tmp177, _ln, _fn);
-  call_tmp181 = string_concat(call_tmp180, ":", _ln, _fn);
-  string_from_c_string(&call_tmp182, call_tmp181, INT64(0), INT64(0), _ln, _fn);
-  call_tmp183 = string_length(call_tmp181);
-  call_tmp184 = (call_tmp183 > INT64(0));
-  if (call_tmp184) {
-    chpl_rt_free_c_string(call_tmp181, _ln, _fn);
-  }
-  c_string_from_string(&call_tmp185, &call_tmp182, _ln, _fn);
-  call_tmp186 = string_concat(call_tmp185, "ioNewline", _ln, _fn);
-  string_from_c_string(&call_tmp187, call_tmp186, INT64(0), INT64(0), _ln, _fn);
-  call_tmp188 = string_length(call_tmp186);
-  call_tmp189 = (call_tmp188 > INT64(0));
-  if (call_tmp189) {
-    chpl_rt_free_c_string(call_tmp186, _ln, _fn);
-  }
+  c_string_from_string(&call_tmp111, &call_tmp110, _ln, _fn);
+  call_tmp112 = string_concat(err_args, call_tmp111, _ln, _fn);
+  call_tmp113 = string_from_c_string_copy(call_tmp112, false, INT64(0));
+  c_string_from_string(&call_tmp114, &call_tmp113, _ln, _fn);
+  *(_ref_tmp_18) = call_tmp114;
+  call_tmp116 = ((uint32_t)(INT64(8)));
+  call_tmp115 = integral_to_c_string_copy(INT64(7), call_tmp116, true);
+  call_tmp117 = ((c_string)(call_tmp115));
+  call_tmp118 = string_concat("x", call_tmp117, _ln, _fn);
+  call_tmp119 = ((c_string)(call_tmp118));
+  c_string_from_string(&call_tmp120, &preArg, _ln, _fn);
+  call_tmp121 = string_concat(call_tmp120, call_tmp119, _ln, _fn);
+  call_tmp122 = string_from_c_string_copy(call_tmp121, false, INT64(0));
+  c_string_from_string(&call_tmp123, &call_tmp122, _ln, _fn);
+  call_tmp124 = string_concat(call_tmp123, ":", _ln, _fn);
+  call_tmp125 = string_from_c_string_copy(call_tmp124, false, INT64(0));
+  c_string_from_string(&call_tmp126, &call_tmp125, _ln, _fn);
+  call_tmp127 = string_concat(call_tmp126, "ioNewline", _ln, _fn);
+  call_tmp128 = string_from_c_string_copy(call_tmp127, false, INT64(0));
   _ref_tmp_19 = &err_args;
-  c_string_from_string(&call_tmp190, &call_tmp187, _ln, _fn);
-  call_tmp191 = string_concat(err_args, call_tmp190, _ln, _fn);
-  string_from_c_string(&call_tmp192, call_tmp191, INT64(0), INT64(0), _ln, _fn);
-  call_tmp193 = string_length(call_tmp191);
-  call_tmp194 = (call_tmp193 > INT64(0));
-  if (call_tmp194) {
-    chpl_rt_free_c_string(call_tmp191, _ln, _fn);
-  }
-  c_string_from_string(&call_tmp195, &call_tmp192, _ln, _fn);
-  *(_ref_tmp_19) = call_tmp195;
-  string_from_c_string(&call_tmp196, err_args, INT64(0), INT64(0), _ln, _fn);
-  call_tmp197 = string_length(err_args);
-  call_tmp198 = (call_tmp197 > INT64(0));
-  if (call_tmp198) {
-    chpl_rt_free_c_string(err_args, _ln, _fn);
-  }
-  ret = call_tmp196;
+  c_string_from_string(&call_tmp129, &call_tmp128, _ln, _fn);
+  call_tmp130 = string_concat(err_args, call_tmp129, _ln, _fn);
+  call_tmp131 = string_from_c_string_copy(call_tmp130, false, INT64(0));
+  c_string_from_string(&call_tmp132, &call_tmp131, _ln, _fn);
+  *(_ref_tmp_19) = call_tmp132;
+  string_from_c_string(&call_tmp133, err_args, INT64(0), INT64(0), _ln, _fn);
+  ret = call_tmp133;
   return ret;
 }
 
-/* IO.chpl:2059 */
+/* IO.chpl:1897 */
 static chpl_bool writeln(_ref_channel_T_dynamic_T this8, chpl_string _e0_args, c_string _e1_args, chpl_string _e2_args, uint32_t _e3_args, chpl_string _e4_args, taskState _e5_args, int64_t _ln, c_string _fn) {
   ioNewline this9;
   ioNewline wrap_call_tmp;
@@ -2288,15 +2101,11 @@ static chpl_bool writeln(_ref_channel_T_dynamic_T this8, chpl_string _e0_args, c
   chpl_string call_tmp205;
   chpl_string call_tmp206;
   c_string call_tmp207;
-  c_string call_tmp208;
+  c_string_copy call_tmp208;
   chpl_string call_tmp209;
-  int64_t call_tmp210;
-  chpl_bool call_tmp211;
-  c_string call_tmp212;
-  c_string call_tmp213;
-  chpl_string call_tmp214;
-  int64_t call_tmp215;
-  chpl_bool call_tmp216;
+  c_string call_tmp210;
+  c_string_copy call_tmp211;
+  chpl_string call_tmp212;
   (&this9)->skipWhitespaceOnly = false;
   (&this9)->skipWhitespaceOnly = false;
   wrap_call_tmp = _construct_ioNewline(false, &this9, _ln, _fn);
@@ -2733,21 +2542,11 @@ static chpl_bool writeln(_ref_channel_T_dynamic_T this8, chpl_string _e0_args, c
     call_tmp205 = _args_to_proto(args_x1, args_x2, args_x3, args_x4, args_x5, args_x6, &args_x7, call_tmp206, _ln, _fn);
     c_string_from_string(&call_tmp207, &call_tmp205, _ln, _fn);
     call_tmp208 = string_concat("in channel.write(", call_tmp207, _ln, _fn);
-    string_from_c_string(&call_tmp209, call_tmp208, INT64(0), INT64(0), _ln, _fn);
-    call_tmp210 = string_length(call_tmp208);
-    call_tmp211 = (call_tmp210 > INT64(0));
-    if (call_tmp211) {
-      chpl_rt_free_c_string(call_tmp208, _ln, _fn);
-    }
-    c_string_from_string(&call_tmp212, &call_tmp209, _ln, _fn);
-    call_tmp213 = string_concat(call_tmp212, ")", _ln, _fn);
-    string_from_c_string(&call_tmp214, call_tmp213, INT64(0), INT64(0), _ln, _fn);
-    call_tmp215 = string_length(call_tmp213);
-    call_tmp216 = (call_tmp215 > INT64(0));
-    if (call_tmp216) {
-      chpl_rt_free_c_string(call_tmp213, _ln, _fn);
-    }
-    _ch_ioerror(this8, e, call_tmp214, _ln, _fn);
+    call_tmp209 = string_from_c_string_copy(call_tmp208, false, INT64(0));
+    c_string_from_string(&call_tmp210, &call_tmp209, _ln, _fn);
+    call_tmp211 = string_concat(call_tmp210, ")", _ln, _fn);
+    call_tmp212 = string_from_c_string_copy(call_tmp211, false, INT64(0));
+    _ch_ioerror(this8, e, call_tmp212, _ln, _fn);
     ret = false;
     goto _end_write;
   }

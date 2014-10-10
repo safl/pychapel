@@ -48,7 +48,9 @@ int64_t chpl_gen_main(chpl_main_argument* const _arg) {
   ret2 = NULL;
   (this8)->taskList = ret2;
   wrap_call_tmp2 = _construct__EndCount(&wrap_call_tmp, INT64(0), ret2, this8, INT64(1), "chapel.chpl");
+  chpl_rt_preUserCodeHook();
   chpl__init_chapel(INT64(1), "chapel.chpl");
+  chpl_rt_postUserCodeHook();
   _waitEndCount2(wrap_call_tmp2, INT64(1), "chapel.chpl");
   chpl__autoDestroyGlobals();
   return INT64(0);
@@ -598,7 +600,7 @@ _real64 nicestuff(int64_t w, int64_t h, int64_t i) {
     call_tmp24 = chpl__initCopy_chpl_rt_localeID_t(call_tmp23);
     call_tmp25 = chpl_localeID_to_locale(&call_tmp24, INT64(31), "chapel.chpl");
     _virtual_method_tmp_ = ((object)(call_tmp25))->chpl__cid;
-    ((int64_t(*)(locale, int64_t, c_string))chpl_vmtable[((INT64(8) * _virtual_method_tmp_) + INT64(2))])(call_tmp25, INT64(31), "chapel.chpl");
+    ((int64_t(*)(locale, int64_t, c_string))chpl_vmtable[((INT64(8) * _virtual_method_tmp_) + INT64(1))])(call_tmp25, INT64(31), "chapel.chpl");
     call_tmp26 = (default_argtasksPerLocale == INT64(0));
     if (call_tmp26) {
       call_tmp28 = chpl_task_getRequestedSubloc();
@@ -884,7 +886,7 @@ _real64 nicestuff(int64_t w, int64_t h, int64_t i) {
     call_tmp75 = chpl__initCopy_chpl_rt_localeID_t(call_tmp74);
     call_tmp76 = chpl_localeID_to_locale(&call_tmp75, INT64(34), "chapel.chpl");
     _virtual_method_tmp_2 = ((object)(call_tmp76))->chpl__cid;
-    ((int64_t(*)(locale, int64_t, c_string))chpl_vmtable[((INT64(8) * _virtual_method_tmp_2) + INT64(2))])(call_tmp76, INT64(34), "chapel.chpl");
+    ((int64_t(*)(locale, int64_t, c_string))chpl_vmtable[((INT64(8) * _virtual_method_tmp_2) + INT64(1))])(call_tmp76, INT64(34), "chapel.chpl");
     call_tmp77 = (default_argtasksPerLocale5 == INT64(0));
     if (call_tmp77) {
       call_tmp79 = chpl_task_getRequestedSubloc();
@@ -1195,15 +1197,21 @@ static void chpl__autoDestroyGlobals(void) {
   channel_T_dynamic_T local_stderr;
   channel_T_dynamic_T local_stdout;
   channel_F_dynamic_T local_stdin;
+  string_rec local_s_memLeaksLog;
+  string_rec local_s_memLog;
   DefaultRectangularDom_1_int64_t_F local_LocaleSpace = NULL;
   DefaultRectangularArr_locale_1_int64_t_F local_chpl_emptyLocales = NULL;
   DefaultRectangularDom_1_int64_t_F local_chpl_emptyLocaleSpace = NULL;
-  _ref_channel_F_dynamic_T _destructor_tmp_ = NULL;
-  _ref_channel_T_dynamic_T _destructor_tmp_2 = NULL;
-  _ref_channel_T_dynamic_T _destructor_tmp_3 = NULL;
+  _ref_string_rec _destructor_tmp_ = NULL;
+  _ref_string_rec _destructor_tmp_2 = NULL;
+  _ref_channel_F_dynamic_T _destructor_tmp_3 = NULL;
+  _ref_channel_T_dynamic_T _destructor_tmp_4 = NULL;
+  _ref_channel_T_dynamic_T _destructor_tmp_5 = NULL;
   local_stderr = stderr2;
   local_stdout = stdout2;
   local_stdin = stdin2;
+  local_s_memLeaksLog = s_memLeaksLog;
+  local_s_memLog = s_memLog;
   local_LocaleSpace = LocaleSpace;
   local_chpl_emptyLocales = chpl_emptyLocales;
   local_chpl_emptyLocaleSpace = chpl_emptyLocaleSpace;
@@ -1212,12 +1220,16 @@ static void chpl__autoDestroyGlobals(void) {
   chpl__autoDestroy(defaultDist, INT64(72), "/home/safl/chapel/modules/internal/DefaultRectangular.chpl");
   chpl__autoDestroy5(Locales, INT64(51), "/home/safl/chapel/modules/internal/LocalesArray.chpl");
   chpl__autoDestroy2(local_LocaleSpace, INT64(55), "/home/safl/chapel/modules/internal/LocalesArray.chpl");
-  _destructor_tmp_ = &local_stdin;
-  chpl___TILDE_channel(_destructor_tmp_, INT64(2186), "/home/safl/chapel/modules/standard/IO.chpl");
-  _destructor_tmp_2 = &local_stdout;
-  chpl___TILDE_channel2(_destructor_tmp_2, INT64(2187), "/home/safl/chapel/modules/standard/IO.chpl");
-  _destructor_tmp_3 = &local_stderr;
-  chpl___TILDE_channel2(_destructor_tmp_3, INT64(2188), "/home/safl/chapel/modules/standard/IO.chpl");
+  _destructor_tmp_ = &local_s_memLog;
+  chpl___TILDE_string_rec(_destructor_tmp_, INT64(40), "/home/safl/chapel/modules/internal/MemTracking.chpl");
+  _destructor_tmp_2 = &local_s_memLeaksLog;
+  chpl___TILDE_string_rec(_destructor_tmp_2, INT64(41), "/home/safl/chapel/modules/internal/MemTracking.chpl");
+  _destructor_tmp_3 = &local_stdin;
+  chpl___TILDE_channel(_destructor_tmp_3, INT64(2024), "/home/safl/chapel/modules/standard/IO.chpl");
+  _destructor_tmp_4 = &local_stdout;
+  chpl___TILDE_channel2(_destructor_tmp_4, INT64(2025), "/home/safl/chapel/modules/standard/IO.chpl");
+  _destructor_tmp_5 = &local_stderr;
+  chpl___TILDE_channel2(_destructor_tmp_5, INT64(2026), "/home/safl/chapel/modules/standard/IO.chpl");
   return;
 }
 

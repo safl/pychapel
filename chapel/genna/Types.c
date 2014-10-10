@@ -17,7 +17,7 @@ static void chpl__init_Types(int64_t _ln, c_string _fn) {
   return;
 }
 
-/* Types.chpl:380 */
+/* Types.chpl:387 */
 static int64_t min2(int64_t _ln, c_string _fn) {
   int64_t _formal_type_tmp_;
   int64_t call_tmp;
@@ -25,7 +25,7 @@ static int64_t min2(int64_t _ln, c_string _fn) {
   return call_tmp;
 }
 
-/* Types.chpl:380 */
+/* Types.chpl:387 */
 static uint64_t min3(int64_t _ln, c_string _fn) {
   uint64_t _formal_type_tmp_;
   uint64_t call_tmp;
@@ -33,7 +33,7 @@ static uint64_t min3(int64_t _ln, c_string _fn) {
   return call_tmp;
 }
 
-/* Types.chpl:397 */
+/* Types.chpl:404 */
 static int64_t max2(int64_t _ln, c_string _fn) {
   int64_t _formal_type_tmp_;
   int64_t call_tmp;

@@ -3,6 +3,7 @@
     handles to both.
 """
 from ctypes import cdll
+import ctypes
 import operator
 import logging
 import pprint
@@ -44,7 +45,14 @@ class ObjectStore(object):
         self._functions = {}
         self._libraries = {}                # library.so => cdll-library-handle
 
+        self._initializers = {}             # Chapel RT initializers
+        self._finalizers = {}               # Chapel RT finalizers
+        
         logging.debug("Object-store: %s", self)
+
+    def __del__(self):
+        for lib in self._finalizers:
+            self._finalizers[lib]()
 
     def __repr__(self):
         return pprint.pformat(vars(self))
@@ -148,8 +156,25 @@ class ObjectStore(object):
         try:    # Opening library from disk and loading aka dlopen(), dlload()
             lib_h = self.open_fn(extern.lib)
             if lib_h:
+                # TODO: Initialize the Chapel runtime if it is a Chapel library
+                if extern.slang.lower() == "chapel":
+                    initializer = self.load(extern.lib, "chpl_library_init")
+                    finalizer = self.load(extern.lib, "chpl_library_finalize")
+
+                    initializer.argtypes = [
+                        ctypes.c_int,
+                        ctypes.POINTER(ctypes.c_char_p)
+                    ]
+                    initializer(
+                        1,
+                        ctypes.c_char_p("inline_chapel")
+                    )
+                    self._initializers[extern.lib] = initializer
+                    self._finalizers[extern.lib] = finalizer
+
                 return self.load(extern.lib, extern.ename)
-        except AttributeError:
+        except AttributeError as e:
+            logging.debug(e)
             raise LibraryError(extern)
 
         logging.debug(

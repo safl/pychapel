@@ -2461,7 +2461,7 @@ static void _dom2(DefaultRectangularArr_chpl_TableEntry_chpl_taskID_t_1_int64_t_
   return;
 }
 
-/* ChapelArray.chpl:1447 */
+/* ChapelArray.chpl:1459 */
 static void newAlias(DefaultRectangularArr_locale_1_int64_t_F this8, _ref_DefaultRectangularArr_locale_1_int64_t_F _retArg, int64_t _ln, c_string _fn) {
   DefaultRectangularArr_locale_1_int64_t_F ret = NULL;
   DefaultRectangularArr_locale_1_int64_t_F call_tmp = NULL;
@@ -2473,7 +2473,7 @@ static void newAlias(DefaultRectangularArr_locale_1_int64_t_F this8, _ref_Defaul
   return;
 }
 
-/* ChapelArray.chpl:2035 */
+/* ChapelArray.chpl:2091 */
 static void chpl___ASSIGN_(DefaultDist a, DefaultDist b, int64_t _ln, c_string _fn) {
   memory_order local_memory_order_seq_cst;
   DefaultDist ret = NULL;
@@ -2544,7 +2544,7 @@ static void chpl___ASSIGN_(DefaultDist a, DefaultDist b, int64_t _ln, c_string _
   return;
 }
 
-/* ChapelArray.chpl:2057 */
+/* ChapelArray.chpl:2113 */
 static void chpl___ASSIGN_2(DefaultRectangularDom_1_int64_t_F a, DefaultRectangularDom_1_int64_t_F b, int64_t _ln, c_string _fn) {
   DefaultRectangularDom_1_int64_t_F ret = NULL;
   BaseDom coerce_tmp = NULL;
@@ -2660,7 +2660,7 @@ static void chpl___ASSIGN_2(DefaultRectangularDom_1_int64_t_F a, DefaultRectangu
   return;
 }
 
-/* ChapelArray.chpl:2308 */
+/* ChapelArray.chpl:2364 */
 static void wrapcoforall_fn(_class_localscoforall_fn c) {
   int64_t _ln;
   c_string _fn;
@@ -2684,7 +2684,7 @@ static void wrapcoforall_fn(_class_localscoforall_fn c) {
   return;
 }
 
-/* ChapelArray.chpl:2308 */
+/* ChapelArray.chpl:2364 */
 static void wrapcoforall_fn2(_class_localscoforall_fn3 c) {
   int64_t _ln;
   c_string _fn;
@@ -2708,7 +2708,7 @@ static void wrapcoforall_fn2(_class_localscoforall_fn3 c) {
   return;
 }
 
-/* ChapelArray.chpl:2369 */
+/* ChapelArray.chpl:2425 */
 static void chpl___ASSIGN_3(DefaultRectangularArr__real64_2_int64_t_F a, _real64 b, int64_t _ln, c_string _fn) {
   int64_t local_dataParMinGranularity;
   chpl_bool local_dataParIgnoreRunningTasks;
@@ -2914,7 +2914,7 @@ static void chpl___ASSIGN_3(DefaultRectangularArr__real64_2_int64_t_F a, _real64
   call_tmp3 = chpl__initCopy_chpl_rt_localeID_t(call_tmp2);
   call_tmp4 = chpl_localeID_to_locale(&call_tmp3, _ln, _fn);
   _virtual_method_tmp_ = ((object)(call_tmp4))->chpl__cid;
-  ((int64_t(*)(locale, int64_t, c_string))chpl_vmtable[((INT64(8) * _virtual_method_tmp_) + INT64(2))])(call_tmp4, _ln, _fn);
+  ((int64_t(*)(locale, int64_t, c_string))chpl_vmtable[((INT64(8) * _virtual_method_tmp_) + INT64(1))])(call_tmp4, _ln, _fn);
   call_tmp5 = (default_argtasksPerLocale == INT64(0));
   if (call_tmp5) {
     call_tmp7 = chpl_task_getRequestedSubloc();
@@ -3170,7 +3170,7 @@ static void chpl___ASSIGN_3(DefaultRectangularArr__real64_2_int64_t_F a, _real64
       (_args_forcoforall_fn)->_6_b = b;
       (_args_forcoforall_fn)->_ln = _ln;
       (_args_forcoforall_fn)->_fn = _fn;
-      /*** wrapcoforall_fn3 ***/ chpl_taskListAddCoStmt(INT32(-2), INT64(2), ((void*)(_args_forcoforall_fn)), &(((_args_forcoforall_fn)->_4_rvfDerefTmp)->taskList), chpl_nodeID, INT64(2371), "/home/safl/chapel/modules/internal/ChapelArray.chpl");
+      /*** wrapcoforall_fn3 ***/ chpl_taskListAddCoStmt(INT32(-2), INT64(2), ((void*)(_args_forcoforall_fn)), &(((_args_forcoforall_fn)->_4_rvfDerefTmp)->taskList), chpl_nodeID, INT64(2427), "/home/safl/chapel/modules/internal/ChapelArray.chpl");
     }
     chpl_taskListProcess((_coforallCount)->taskList, _ln, _fn);
     _waitEndCount(_coforallCount, _ln, _fn);
@@ -3185,7 +3185,7 @@ static void chpl___ASSIGN_3(DefaultRectangularArr__real64_2_int64_t_F a, _real64
   return;
 }
 
-/* ChapelArray.chpl:2371 */
+/* ChapelArray.chpl:2427 */
 static void wrapcoforall_fn3(_class_localscoforall_fn2 c) {
   int64_t _ln;
   c_string _fn;
@@ -3211,12 +3211,12 @@ static void wrapcoforall_fn3(_class_localscoforall_fn2 c) {
   return;
 }
 
-/* ChapelArray.chpl:2397 */
+/* ChapelArray.chpl:2453 */
 static void chpl__auto_destroy__OpaqueIndex(chpl___OpaqueIndex this8, int64_t _ln, c_string _fn) {
   return;
 }
 
-/* ChapelArray.chpl:2690 */
+/* ChapelArray.chpl:2747 */
 static DefaultDist chpl__initCopy(DefaultDist a, int64_t _ln, c_string _fn) {
   DefaultDist call_tmp = NULL;
   _ref_DefaultDist ret_to_arg_ref_tmp_ = NULL;
@@ -3225,7 +3225,7 @@ static DefaultDist chpl__initCopy(DefaultDist a, int64_t _ln, c_string _fn) {
   return call_tmp;
 }
 
-/* ChapelArray.chpl:2696 */
+/* ChapelArray.chpl:2753 */
 static DefaultRectangularDom_1_int64_t_F chpl__initCopy2(DefaultRectangularDom_1_int64_t_F a, int64_t _ln, c_string _fn) {
   DefaultRectangularDom_1_int64_t_F b = NULL;
   DefaultRectangularDom_1_int64_t_F type_tmp = NULL;
