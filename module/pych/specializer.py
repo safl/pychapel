@@ -66,7 +66,9 @@ class BaseSpecializer(object):
         :rtype: str
         """
         if filename not in self.sources:
-            path = "%s/%s" % (self.sourcecode_path, filename)
+            path = filename
+            if not os.path.isabs(path):
+                path = "%s/%s" % (self.sourcecode_path, filename)
             self.sources[filename] = open(path).read()
 
         return self.sources[filename]
@@ -95,9 +97,9 @@ class CSpecializer(BaseSpecializer):
         # Grab the "template"
         source = ""
         if prefix:
-            source = self.load(os.sep.join(["inline.prefix.c"]))
+            source = self.load(os.sep.join(["c", "inline.prefix.c"]))
 
-        tmpl = self.load(os.sep.join(["inline.func.c"]))
+        tmpl = self.load(os.sep.join(["c", "inline.func.c"]))
         for extern in externs:
 
             # Create the function signature
@@ -128,10 +130,14 @@ class ChapelSpecializer(BaseSpecializer):
         # Grab the "template"
         source = ""
         if prefix:
-            source = self.load(os.sep.join(["inline.prefix.chpl"]))
+            source = self.load(os.sep.join(["chapel", "prefix.chpl"]))
 
-        tmpl = self.load(os.sep.join(["inline.func.chpl"]))
         for extern in externs:
+            if extern.rtype:
+                tmpl = self.load(os.sep.join(["chapel", "func.return.chpl"]))
+            else:
+                tmpl = self.load(os.sep.join(["chapel", "func.noreturn.chpl"]))
+
             # Create the function signature
             args = ["%s: %s" % (aname, TYPE2SOURCE["chapel"][atype])
                 for aname, atype in

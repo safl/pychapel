@@ -174,8 +174,7 @@ class ObjectStore(object):
 
                 return self.load(extern.lib, extern.ename)
         except AttributeError as e:
-            logging.debug(e)
-            raise LibraryError(extern)
+            raise LibraryError(extern, cause=e)
 
         logging.debug(
             "I used all my magic but failed evoking the ufunc for extern."

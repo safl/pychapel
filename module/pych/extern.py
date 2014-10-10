@@ -118,16 +118,16 @@ class Extern(object):
                 )
 
         #
-        # Extract attributes for "sfile" function
+        # Extract attributes for "sfile"
         if self.sfile:
             # TODO: Consider parsing the source-file and expanding validation
             #       of the type-declaration using the parsed information.
             if not self.ename:
                 self.ename = self.pname
 
-            self.lib = "lib%s.so" % os.path.splitext(os.path.basename(
+            self.lib = "sfile-%s-%s.so" % (self.slang, os.path.splitext(os.path.basename(
                 self.sfile
-            ))[0]
+            ))[0])
 
         #
         # Hint the runtime that we might want to call this Extern in
@@ -185,7 +185,7 @@ class FromC(Extern):
             lib=lib,
 
             sfile=sfile,
-            slang="C"
+            slang="c"
         )
 
 class Chapel(Extern):
@@ -200,6 +200,6 @@ class Chapel(Extern):
             lib=lib,
 
             sfile=sfile,
-            slang="Chapel"
+            slang="chapel"
         )
 

@@ -1,18 +1,18 @@
 from pych.extern import Chapel
 
-@Chapel(sfile="examples.chpl")
-def hello_world():
+@Chapel(sfile="/home/safl/pychapel/module/ext/src/mymodule.chpl")
+def hello_mymodule():
     return None
 
-@Chapel(sfile="examples.chpl")
-def add_ints(x=int, y=int):
-    return int
+@Chapel(sfile="/home/safl/pychapel/module/ext/src/mymodule.chpl")
+def add_rr(x=float, y=float):
+    return float
 
-@Chapel(sfile="examples.chpl")
-def add_doubles(x=float, y=float):
+@Chapel(sfile="/home/safl/pychapel/module/ext/src/mymodule.chpl")
+def subtract_rr(x=float, y=float):
     return float
 
 if __name__ == "__main__":
-    hello_world()
-    print add_ints(1, 2)
-    print add_doubles(1.0, 3.0)
+    hello_mymodule()
+    print add_rr(1.0, 2.0)
+    print subtract_rr(1.0, 3.0)

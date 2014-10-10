@@ -1,5 +1,6 @@
 docs/build
-exp/src/here
+module/ext/src/here
+module/ext/src/a.out
 chapel/ccode
 chapel/genna
 chapel/core

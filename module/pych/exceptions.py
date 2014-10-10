@@ -1,31 +1,38 @@
 """
     pyChapel specfic errors.
 """
+
 class Error(Exception):
     """Base class for errors runtime pych errors."""
 
-    def __init__(self, extern, msg=None):
-        self.extern = extern
-        self.msg = msg
+    def __init__(self, msg, cause):
+        if cause:
+            msg += u', caused by '+ repr(cause)
+
+        super(Error, self).__init__(msg)
 
 class LibraryError(Error):
     """Intended use when something goes wrong related to a library open/load."""
 
-    def __str__(self):
-        return "Library(%s) found but ename(%s) is not available. AUX[%s]" % (
-            self.extern.lib,
-            self.extern.ename,
-            self.msg
+    def __init__(self, extern, reason=None, cause=None):
+        msg = "Library(%s) found but ename(%s) is not available." % (
+            extern.lib,
+            extern.ename
         )
+        if reason:
+            msg += reason
+
+        super(LibraryError, self).__init__(msg, cause)
 
 class MaterializationError(Error):
     """
     Intended use for pyChapel specific errors, related to specialization, and
-    compilazation.
+    compilation.
     """
 
-    def __str__(self):
-        return "Failed materializing (%s), reason: [%s]" % (
-            self.extern, self.msg
-        )
+    def __init__(self, extern, reason=None, cause=None):
+        msg = "Failed materializing (%s)." % extern
+        if reason:
+            msg += reason
 
+        super(MaterializationError, self).__init__(msg, cause)
