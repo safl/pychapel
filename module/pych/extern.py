@@ -21,7 +21,7 @@ import ctypes
 import os
 
 from pych.exceptions import MaterializationError
-from pych.types import PychArray, TYPEMAP, np
+from pych.types import PychArray, TYPEMAP, KEYWORDS, np
 import pych.runtime
 
 #
@@ -58,14 +58,29 @@ class Extern(object):
             # Check that we have sufficient amount of type-declarations
             raise TypeError("Missing type declaration on arguments.")
         else:
-            # Check that declared types are supported
+            # Check that declared types are supported and that the
+            # argument-names does not conflict with keywords.
             for i, arg in enumerate(self.anames):
+                # Keyword
+                if self.slang in KEYWORDS and arg in KEYWORDS[self.slang]:
+                    raise TypeError("Extern arg('%s') shadows %s keyword." % (
+                        arg,
+                        self.slang.capitalize()
+                    ))
+                # Type
                 arg_type = self.atypes[i]
                 if arg_type not in TYPEMAP:
                     msg = "Unsupported type: %s for argument %s" % (
                         arg_type, arg
                     )
                     raise TypeError(msg)
+
+        # Check the function-name
+        if self.ename and (self.ename in KEYWORDS[self.slang] or
+                           self.ename.endswith("_synced")):
+            raise TypeError("Extern ename('%s') shadows %s keyword." % (
+                self.ename, self.slang.capitalize()
+            ))
 
     def _type_check(self, args):
         """Compare argument-types with extern declation."""
@@ -98,8 +113,6 @@ class Extern(object):
             self.atypes = list(arg_spec.defaults)
         self.rtype = self.pfunc()           # Obtain return-type
 
-        self._validate_decl()               # Validate declaration
-
         #
         # Extract attributes for "inline" function
         #
@@ -128,6 +141,8 @@ class Extern(object):
             self.lib = "sfile-%s-%s.so" % (self.slang, os.path.splitext(os.path.basename(
                 self.sfile
             ))[0])
+
+        self._validate_decl()               # Validate declaration
 
         #
         # Hint the runtime that we might want to call this Extern in
