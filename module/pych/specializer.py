@@ -76,9 +76,9 @@ class CSpecializer(BaseSpecializer):
         # Grab the "template"
         source = ""
         if prefix:
-            source = self.load(os.sep.join(["c", "inline.prefix.c"]))
+            source = self.load(os.sep.join(["c", "prefix.c"]))
 
-        tmpl = self.load(os.sep.join(["c", "inline.func.c"]))
+        tmpl = self.load(os.sep.join(["c", "func.c"]))
         for extern in externs:
 
             # Create the function signature
