@@ -18,7 +18,8 @@ class PychArray(ctypes.Structure):
         ('flags',       ctypes.c_int),
         ('shape',       ctypes.c_int*16),
         ('strides',     ctypes.c_int*16),
-        ('data',        ctypes.c_void_p)
+        ('ptr_d',       ctypes.c_void_p),
+        ('ident',       ctypes.c_int)
     ]
 
 TYPEMAP = {
@@ -30,6 +31,29 @@ TYPEMAP = {
     str:        ctypes.c_char_p,
     unicode:    ctypes.c_wchar_p,
     np.ndarray: ctypes.POINTER(PychArray)
+}
+
+TYPE2SOURCE = {
+    "c": {
+        None:       "void",
+        bool:       "bool",
+        int:        "int",
+        long:       "long",
+        float:      "double",
+        str:        "char*",
+        unicode:    "char*",
+        np.ndarray: "pych_array*"
+    },
+    "chapel": {
+        None:       "void",
+        bool:       "bool",
+        int:        "int",
+        long:       "int(64)",
+        float:      "real(64)",
+        str:        "string",
+        unicode:    "string",
+        np.ndarray: "pych_array"
+    }
 }
 
 KEYWORDS = {

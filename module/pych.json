@@ -30,11 +30,12 @@
 
             "cflags": [
                 "-lm",
+                "-g",
                 "-O3",
                 "-march=native",
                 "-fopenmp",
                 "-fPIC",
-               "-std=c99",
+                "-std=c99",
                 "-shared"
             ],
             "lflags": [],
@@ -57,7 +58,9 @@
             "cflags": [
                 "--fast",
                 "--library",
-                "--static"
+                "--static",
+                "-snoRefCount",
+                "-searlyShiftData=false"
             ],
             "lflags": [
                 "-shared",
@@ -76,7 +79,7 @@
             ],
 
             "commands": [
-                "chpl %(cflags)s %(ctargets)s -o __TMP_PATH__ ",
+                "chpl %(cflags)s %(ctargets)s -o __TMP_PATH__ --savec here",
                 "g++ %(lflags)s -Wl,--whole-archive %(ltargets)s -Wl,--no-whole-archive -o __OBJECT_ABSPATH__"
             ]
         }

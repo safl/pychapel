@@ -156,16 +156,17 @@ class Runtime(object):
 
         strides = [stride for stride in nparray.strides]
         strides += [0]*(16-len(strides))
-
+        logging.debug("Mapping array[%d] data=%d", nparray_id, nparray.ctypes.data)
         self.arrays[nparray_id] = PychArray(
-            two=2,
-            nd=nparray.ndim,
-            typekind=nparray.__array_interface__['typestr'][1],
-            itemsize=nparray.itemsize,
-            flags=0,
-            shape=(ctypes.c_int*16)(*shape),
-            strides=(ctypes.c_int*16)(*strides),
-            data=nparray.ctypes.data
+            two = 2,
+            nd = nparray.ndim,
+            typekind = nparray.__array_interface__['typestr'][1],
+            itemsize = nparray.itemsize,
+            flags = 0,
+            shape = (ctypes.c_int*16)(*shape),
+            strides = (ctypes.c_int*16)(*strides),
+            ptr_d = nparray.ctypes.data,
+            ident = nparray_id
         )
 
         return self.arrays[nparray_id]

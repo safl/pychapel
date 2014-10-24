@@ -8,28 +8,7 @@ import os
 
 import numpy as np
 
-TYPE2SOURCE = {
-    "c": {
-        None:       "void",
-        bool:       "bool",
-        int:        "int",
-        long:       "long",
-        float:      "double",
-        str:        "char*",
-        unicode:    "char*",
-        np.ndarray: "py_ndarray*"
-    },
-    "chapel": {
-        None:       "void",
-        bool:       "bool",
-        int:        "int",
-        long:       "int(64)",
-        float:      "real(64)",
-        str:        "string",
-        unicode:    "string",
-        np.ndarray: "ndarray"
-    }
-}
+from pych.types import TYPE2SOURCE
 
 def get_specializer(slang):
     """

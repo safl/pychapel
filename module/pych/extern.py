@@ -176,9 +176,11 @@ class Extern(object):
 
             # Convert the nptypes
             c_args = []
-            for i, arg in enumerate(args):
+            for arg in args:
                 if type(arg) is np.ndarray:
-                    c_args.append(pych.RT.map_nparray(arg))
+                    mapped_array = pych.RT.map_nparray(arg)
+                    logging.debug("What? %d", mapped_array.ptr_d)
+                    c_args.append(mapped_array)
                 else:
                     c_args.append(arg)
 
