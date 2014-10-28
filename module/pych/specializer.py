@@ -112,23 +112,45 @@ class ChapelSpecializer(BaseSpecializer):
             source = self.load(os.sep.join(["chapel", "prefix.chpl"]))
 
         for extern in externs:
-            if extern.rtype:
-                tmpl = self.load(os.sep.join(["chapel", "func.return.chpl"]))
-            else:
-                tmpl = self.load(os.sep.join(["chapel", "func.noreturn.chpl"]))
+            
+            # The function that won't get exported
+            tmpl_internal = self.load(os.sep.join(["chapel", "func.internal.chpl"]))
+            
+            # NumPy conversion
+            conv_pych = self.load(os.sep.join(["chapel", "convert.pych.1d.chpl"]))
 
-            # Create the function signature
-            args = ["%s: %s" % (aname, TYPE2SOURCE["chapel"][atype])
-                for aname, atype in
-                zip(extern.anames, extern.atypes)
-            ]
+            # The function that will get exported
+            if extern.rtype:
+                tmpl = self.load(os.sep.join(["chapel", "func.export.return.chpl"]))
+            else:
+                tmpl = self.load(os.sep.join(["chapel", "func.export.noreturn.chpl"]))
+
+            #
+            # Exported signature
+            pars = []
+            conversion = ""
+            for aname, atype in zip(extern.anames, extern.atypes):
+                if atype is np.ndarray:
+                    pars.append("%s_pych: %s" % (
+                        aname, TYPE2SOURCE["chapel"][atype]
+                    ))
+                    conversion = conv_pych % {"aname": aname}
+
+            #
+            # The internal signature and arguments are just a list of
+            # extern.anames joined together.
 
             func_text = {
                 "rtype":   TYPE2SOURCE["chapel"][extern.rtype],
-                "args":    ", ".join(args),
+                "pars":    ", ".join(pars),
+                "conversion": conversion,
+                "pars_internal": ", ".join(extern.anames),
+                "args_internal": ", ".join(extern.anames),
                 "ename":   extern.ename,
                 "fbody":   extern.doc
             }
+
+            source += tmpl_internal % func_text
             source += tmpl % func_text
 
         return source

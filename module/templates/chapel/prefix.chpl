@@ -41,9 +41,66 @@ proc pprint_pych_array(arr: pych_array) {
     writeln("]");
 }
 
-proc pych_to_chpl(arr: pych_array) {
+proc rangify(shape) where isTuple(shape) {
+    proc tail(first, remainder...) {
+        return remainder;
+    }
+    if (shape.size == 1) {
+        return (0..shape(1):int(64),);
+    } else {
+        return ((0..shape(1):int(64)), (...rangify(tail((...shape)))));
+    }
+}
 
-    var dom = {0..2, 0..2};
+proc pych_to_chpl1D(arr: pych_array) {
+    var dom = {0..(arr.shape(1):int(64)-1)};
+
+    var stride = (1,);
+    var block = (1,);
+
+    var ret = new DefaultRectangularArr(
+        eltType = real,                 // Element type
+        rank = dom.rank,                // Rank
+        idxType = dom.idxType,          // Index type of domain
+        stridable = dom.stridable,      // Boolean, can we stride?
+        dom = dom._value,               // The underlying class implementation
+        noinit_data = true              // Prevent overwriting your data
+    );     
+   
+    for i in 1..arr.nd {
+        // TODO: Is this conversion from bytes to elements correct?
+        //ret.str(i) = (arr.strides(i):int(64) / (arr.itemsize));
+        ret.str(i) = 1;
+    }
+    writeln("Strides");
+    for str in ret.str {
+        writeln(str);
+    }
+    for i in 1..arr.nd {
+        // TODO: Is this conversion from bytes to elements correct?
+        // The block seems to be what NumPy call strides.
+        ret.blk(i) = (arr.strides(i):int(64) / arr.itemsize);
+    }
+    //ret.blk = block;
+
+    // get offsets from domain
+    for param i in 1..dom.rank {
+        ret.off(i) = dom._value.dsiDim(i).low;
+    }
+
+    ret.data = arr.ptr_d;
+    ret.origin = 0; // I believe 'origin' is the c ptr offset
+    ret.computeFactoredOffs();
+    ret.initShiftedData();
+
+    return ret;
+}
+
+proc pych_to_chpl2D(arr: pych_array) {
+
+    var dom = {(...rangify(arr.shape))};
+
+    writeln(pych_to_chplT(arr));
     var stride = (1, 1);
     var block = (3, 1);
 
@@ -60,12 +117,16 @@ proc pych_to_chpl(arr: pych_array) {
 
     // stride for each dimension
     // you might be able to get this out of the domain instead.
-    ret.str = stride;
+    //ret.str = stride;
+    
+    for i in 1..arr.nd {
+        ret.str(i) = arr.strides(i):int(64);
+    }
 
     // I'm not totally sure what this one is. I think it's the size of a row of data.
     // You can test this by writing code like:
-    var x = [1..10, 10..20]: int;
-    writeln("What is this?");
+    //var x = [1..10, 10..20]: int;
+    //writeln("What is this?");
 
     ret.blk = block;
 
