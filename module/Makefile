@@ -1,5 +1,6 @@
 all:
 
+#run: clean deploy c chapel
 run: clean deploy c chapel
 
 deploy:
@@ -9,7 +10,7 @@ c:
 	python /tmp/pych_dev/share/pych/examples/c.inline.py
 
 chapel:
-	python /tmp/pych_dev/share/pych/examples/chapel.inline.begin.py
+	python /tmp/pych_dev/share/pych/examples/chapel.inline.multi.py
 
 clean:
 	@rm -f store/c/*.so

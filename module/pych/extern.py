@@ -15,6 +15,7 @@
     decorated. Or somewhere in between those to points in time.
 """
 import logging
+import hashlib
 import inspect
 import pprint
 import ctypes
@@ -47,6 +48,11 @@ class Extern(object):
         self.sfile = sfile  # File with sourcecode
         self.slang = slang  # Language of the sourcefile or inline
         self.source = None  # Sourcecode in textual representation
+
+        # For externs mapped to inline or file-based sourcecode.
+        self.dec_fn = None  # Filename including the full path to the file
+        self.dec_ts = 0     # Modification timestamp
+        self.dec_hs = None  # Hash of the filename
 
     def __repr__(self):
         return pprint.pformat(vars(self))
@@ -122,25 +128,35 @@ class Extern(object):
         #
         #       Collisions should be avoided yet so should compilation also.
         #
-        if self.doc:
-            if not self.ename:
-                self.ename = self.pname
-            if not self.lib:
-                self.lib = "inline-%s.so" % (
-                    self.slang.lower()
-                )
 
         #
-        # Extract attributes for "sfile"
-        if self.sfile:
+        # Construct the library-name based on inline or sfile.
+        #
+        # Use dec_fn and dec_ts to determine is a sfile or inline has changed.
+        if self.sfile:  # Determine file to use to detect changes
+            self.dec_fn = self.sfile
+        else:
+            self.dec_fn = self.pfunc.func_globals["__file__"]
+        
+        if self.dec_fn: # Construct hash of filename to use as identifier
+            dec_hash = hashlib.md5()
+            dec_hash.update(self.dec_fn)
+
+            self.dec_ts = int(os.stat(self.dec_fn).st_mtime)
+            self.dec_hs = dec_hash.hexdigest()
+
+        if self.sfile or self.doc:  # Construct the filename for the library
             # TODO: Consider parsing the source-file and expanding validation
             #       of the type-declaration using the parsed information.
             if not self.ename:
                 self.ename = self.pname
-
-            self.lib = "sfile-%s-%s.so" % (self.slang, os.path.splitext(os.path.basename(
-                self.sfile
-            ))[0])
+            liborigin = "sfile" if self.sfile else "inline"
+            self.lib = "%s-%s-%s-%s.so" % (
+                liborigin,
+                self.slang,
+                self.dec_hs,
+                self.dec_ts
+            )
 
         self._validate_decl()               # Validate declaration
 

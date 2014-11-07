@@ -6,9 +6,11 @@
     of Externs/libraries.
 """
 import logging
+import inspect
 import ctypes
 import pprint
 import json
+import os
 
 from pych.types import PychArray
 from pych.object_store import ObjectStore
@@ -73,6 +75,10 @@ class Runtime(object):
         - Compile it using a specialization template
 
         Or "Just" load it if defined as a library-wrapper and possibly other stunts.
+        
+        The first time code is compiled/materialized is 
+        For dynamically compiled code from either inline or source,
+        materialization needs to determine if the source has changed.
 
         It is up to the caller to check the return-value of the function.
         Meaning the caller must/should check whether or not it was possible
@@ -87,7 +93,7 @@ class Runtime(object):
                     Extern.efunc == None.
                     Nothing bad will happen except for unnessecary work.
 
-        :constracts: Materialization should not occur until after all
+        :contracts: Materialization should not occur until after all
                     mapped functions have been decorated. This limitation
                     should be removed somehow... some day...
         """
