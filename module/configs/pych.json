@@ -3,27 +3,29 @@
     "open_ahead":   true,
 
     "object_store": {
-        "root_path":    "/home/safl/pychapel/module",
+        "root_path":    "/tmp/pych_dev/var/pych/store",
         "search_paths": {
-            "tp":       ["store/third_party"],
-            "c":        ["store/c"],
-            "chapel":   ["store/chapel"]
+            "tp":       ["third_party"],
+            "c":        ["c"],
+            "chapel":   ["chapel"]
         },
         "output_paths": {
-            "c":        "store/c",
-            "chapel":   "store/chapel"
+            "c":        "c",
+            "chapel":   "chapel"
         }
     },
 
     "specializers": {
-        "c":            "/home/safl/pychapel/module/templates",
-        "chapel":       "/home/safl/pychapel/module/templates"
+        "c":            "/tmp/pych_dev/share/pych/templates",
+        "chapel":       "/tmp/pych_dev/share/pych/templates"
     },
 
     "compilers": {
         "c":       {
-            "root_path":    "/home/safl/pychapel/module",
-            "output_path":  "lib/c",
+            "output_path":  "/tmp/pych_dev/share/pych/store/c",
+
+            "save_autogen": false,
+            "root_path":    "/tmp/pych_dev/share/pych",
             "lib_path":     "lib",
             "inc_path":     "include",
             "includes":     ["include"],
@@ -49,8 +51,10 @@
         },
 
         "chapel":    {
-            "root_path":        "/home/safl/pychapel/module",
-            "output_path":      "store/chapel",
+            "output_path":      "/tmp/pych_dev/var/pych/store/chapel",
+
+            "save_autogen":     false,
+            "root_path":        "/tmp/pych_dev/share/pych",
             "lib_path":         "lib",
             "inc_path":         "include",
             "includes":         ["/usr/include/python2.7"],

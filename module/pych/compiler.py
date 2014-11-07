@@ -86,10 +86,14 @@ class Compiler(object):
 
             sfile_h.write(source)               # Dump the source out
             sfile_h.flush()
-            
+
+            archive_tmp_name = "asdf"
+            with tempfile.NamedTemporaryFile() as fd:
+                archive_tmp_name = fd.name
+
             for cmd in self._options["commands"]: # Execute commands
                 cmd = cmd.replace("__SFILE__", sfile_h.name)
-                cmd = cmd.replace("__TMP_PATH__", "/tmp/asdf")
+                cmd = cmd.replace("__TMP_PATH__", archive_tmp_name)
                 cmd = cmd.replace("__OBJECT_ABSPATH__", object_abspath)
 
                 process = Popen(cmd.split(), stdout=PIPE, stdin=PIPE)

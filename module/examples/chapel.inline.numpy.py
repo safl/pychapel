@@ -4,8 +4,11 @@ from pych.extern import Chapel
 @Chapel()
 def ex_numpy(a=np.ndarray):
     """
-    for i in a.domain {                  // Try and access it.
-        a[i] = i;
+    use Time;
+    var b: [a.domain] real;
+    b = 2.0;
+    for i in a.domain {
+        a[i] = getCurrentTime() / 60;
         writeln(a[i]);
     }
     writeln(a);

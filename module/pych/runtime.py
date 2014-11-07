@@ -21,7 +21,7 @@ class Runtime(object):
 
     def __init__(self, config_fn=None):
         if not config_fn:                       # Load configuration
-            config_fn = "pych.json"
+            config_fn = "/tmp/pych_dev/share/pych/config/pych.json"
 
         config = json.load(open(config_fn))
 

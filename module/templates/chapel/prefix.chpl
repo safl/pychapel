@@ -1,6 +1,8 @@
 // Wrapper around the pych_array c-struct
 // to access NumPy arrays provided by the PyChapel
 // Python module
+use Random;
+
 param PYCH_MAXDIM: int(32)= 16;
 
 extern record pych_array {
@@ -72,10 +74,10 @@ proc pych_to_chpl1D(arr: pych_array) {
         //ret.str(i) = (arr.strides(i):int(64) / (arr.itemsize));
         ret.str(i) = 1;
     }
-    writeln("Strides");
-    for str in ret.str {
-        writeln(str);
-    }
+    //writeln("Strides");
+    //for str in ret.str {
+    //    writeln(str);
+    //}
     for i in 1..arr.nd {
         // TODO: Is this conversion from bytes to elements correct?
         // The block seems to be what NumPy call strides.
@@ -100,7 +102,7 @@ proc pych_to_chpl2D(arr: pych_array) {
 
     var dom = {(...rangify(arr.shape))};
 
-    writeln(pych_to_chplT(arr));
+    //writeln(pych_to_chplT(arr));
     var stride = (1, 1);
     var block = (3, 1);
 

@@ -129,12 +129,17 @@ class ChapelSpecializer(BaseSpecializer):
             # Exported signature
             pars = []
             conversion = ""
+            logging.debug("Args: %s", str(extern.anames))
+            logging.debug("Atypes: %s", str(extern.atypes))
             for aname, atype in zip(extern.anames, extern.atypes):
+                aname_postscript = ""
                 if atype is np.ndarray:
-                    pars.append("%s_pych: %s" % (
-                        aname, TYPE2SOURCE["chapel"][atype]
-                    ))
-                    conversion = conv_pych % {"aname": aname}
+                    aname_postscript = "_pych"
+                    conversion += conv_pych % {"aname": aname}
+
+                pars.append("%s%s: %s" % (
+                    aname, aname_postscript, TYPE2SOURCE["chapel"][atype]
+                ))
 
             #
             # The internal signature and arguments are just a list of
