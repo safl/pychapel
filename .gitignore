@@ -6,6 +6,8 @@ module/ext/src/chapel/genna
 module/ext/src/chapel/core
 module/ext/src/chapel/libby
 module/build
+module/MANIFEST
+module/dist
 *.swp
 *.pyc
 *.so

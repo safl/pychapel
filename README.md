@@ -1,18 +1,15 @@
 # README #
 
-Repository backing: chapel-for-python-programmers.readthedocs.org
+Documentation: pychapel.readthedocs.org
 
 ### What is this repository for? ###
 
-* Repository for "Chapel for Python Programmers"
+* Repository for "pyChapel"
 * Work in Progress...
 
 ### How do I get set up? ###
 
-* Install sphinxdoc (http://sphinx-doc.org/) and the Python packages pybtex and sphinxcontrib-bibtex
-
-* Create an account on https://readthedocs.org/
-* Send me an email
+Take a look at the installation-guide on pychapel.readthedocs.org
 
 ### Contribution guidelines ###
 

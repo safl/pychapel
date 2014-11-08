@@ -8,6 +8,10 @@ run: clean deploy c chapel
 deploy:
 	cd $(MODULE_DIR) && python setup.py install --prefix $(INSTALL_DIR)
 
+upload:
+	#cd $(MODULE_DIR) && python setup.py register
+	cd $(MODULE_DIR) && python setup.py bdist sdist upload
+
 chapel:
 	python $(INSTALL_DIR)/share/pych/examples/chapel.inline.multi.py
 
