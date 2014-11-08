@@ -10,6 +10,9 @@ class post_install(install_data):
     def run(self):
         """Update the config-file with to match the installed location."""
 
+        install_data.run(self)  # Do whatever install_data used to do
+
+                                # Then modify the installed pych.json
         for filename in self.outfiles:
             if 'pych.json' in filename:
                 with open(filename, 'r') as conf_fd:
@@ -41,5 +44,6 @@ setup(
         ('share/pych/testing', glob.glob('testing/*'))
     ],
     packages=['pych'],
+    scripts=["scripts/pych"],
     cmdclass=dict(install_data=post_install)
 )

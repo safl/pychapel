@@ -2,7 +2,12 @@
 Installation
 ============
 
-Until accepted Chapel needs to be compiled from this repository::
+Installation is fairly straight-forward, for the Python part, do this::
+
+  pip install numpy pyChapel
+
+The slightly larger dependency is on the Chapel compiler, compile it from source
+from this repository::
 
   cd ~
   git clone git@github.com:safl/chapel.git
