@@ -61,6 +61,7 @@ class Compiler(object):
         self._options["commands"] = [
             cmd % self._options for cmd in options["commands"]
         ]
+        self._options["save_autogen"] = bool(options["save_autogen"])
 
     def __repr__(self):
         return pprint.pformat(vars(self))
@@ -82,7 +83,7 @@ class Compiler(object):
         with tempfile.NamedTemporaryFile(
             suffix=LANG2EXT[language],
             prefix="temp-",
-            delete=False) as sfile_h:
+            delete=self._options["save_autogen"]) as sfile_h:
 
             sfile_h.write(source)               # Dump the source out
             sfile_h.flush()

@@ -47,7 +47,6 @@ class ObjectStore(object):
 
         self._initializers = {}             # Chapel RT initializers
         self._finalizers = {}               # Chapel RT finalizers
-        
         logging.debug("Object-store: %s", self)
 
     def __del__(self):
@@ -156,7 +155,7 @@ class ObjectStore(object):
         try:    # Opening library from disk and loading aka dlopen(), dlload()
             lib_h = self.open_fn(extern.lib)
             if lib_h:
-                # TODO: Initialize the Chapel runtime if it is a Chapel library
+                # Initialize the Chapel runtime if it is a Chapel library
                 if extern.slang.lower() == "chapel":
                     initializer = self.load(extern.lib, "chpl_library_init")
                     finalizer = self.load(extern.lib, "chpl_library_finalize")
@@ -167,7 +166,7 @@ class ObjectStore(object):
                     ]
                     initializer(
                         1,
-                        ctypes.c_char_p("inline_chapel")
+                        ctypes.c_char_p("chapel_library")
                     )
                     self._initializers[extern.lib] = initializer
                     self._finalizers[extern.lib] = finalizer

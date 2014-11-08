@@ -22,8 +22,21 @@ class Runtime(object):
     """Encapsulation of runtime activities, compilation, loading, etc."""
 
     def __init__(self, config_fn=None):
+        
         if not config_fn:                       # Load configuration
-            config_fn = "/tmp/pych_dev/share/pych/config/pych.json"
+            config_path = []
+            path = inspect.getmodule(self).__file__.split(os.sep)
+            for directory in path:
+                if directory == "lib":
+                    break
+                config_path.append(directory)
+            config_path += [
+                "share",
+                "pych",
+                "config",
+                "pych.json"
+            ]
+            config_fn = os.sep.join(config_path)
 
         config = json.load(open(config_fn))
 
@@ -134,8 +147,6 @@ class Runtime(object):
                 #       an appropriate error.
                 #
                 efunc = self.object_store.evoke(extern) # Evoke it again!
-
-            # TODO: Call rt init/finalize and module-initializer for Chapel code
 
         return efunc
 

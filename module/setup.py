@@ -1,6 +1,25 @@
 #!/usr/bin/env python
 from distutils.core import setup
+from distutils.command.install_data import install_data
+import pprint
 import glob
+
+class post_install(install_data):
+    """Do these things post-installation."""
+
+    def run(self):
+        """Update the config-file with to match the installed location."""
+
+        for filename in self.outfiles:
+            if 'pych.json' in filename:
+                with open(filename, 'r') as conf_fd:
+                    pych_json = conf_fd.read()
+                    pych_json = pych_json.replace(
+                        "/tmp/pych_dev",
+                        self.install_dir
+                    )
+                with open(filename, 'w') as conf_fd:
+                    conf_fd.write(pych_json)
 
 setup(
     name        = "pyChapel",
@@ -21,5 +40,6 @@ setup(
         ('var/pych/store/third_party', ['store/third_party/empty']),
         ('share/pych/testing', glob.glob('testing/*'))
     ],
-    packages=['pych']
+    packages=['pych'],
+    cmdclass=dict(install_data=post_install)
 )

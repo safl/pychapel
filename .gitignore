@@ -1,10 +1,11 @@
 docs/build
 module/ext/src/here
 module/ext/src/a.out
-chapel/ccode
-chapel/genna
-chapel/core
-chapel/libby
+module/ext/src/chapel/ccode
+module/ext/src/chapel/genna
+module/ext/src/chapel/core
+module/ext/src/chapel/libby
+module/build
 *.swp
 *.pyc
 *.so
