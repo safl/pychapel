@@ -22,8 +22,13 @@ class Runtime(object):
     """Encapsulation of runtime activities, compilation, loading, etc."""
 
     def __init__(self, config_fn=None):
+
+        self.hints = {}                 # Decorator hints are stored here
+        self.arrays = {}                # Array mappings
+        self.compilers = {}             # Backend compilers
+        self.specializers = {}          # Sourcecode generators/specializers
         
-        if not config_fn:                       # Load configuration
+        if not config_fn:               # Load configuration
             config_path = []
             path = inspect.getmodule(self).__file__.split(os.sep)
             for directory in path:
@@ -38,14 +43,16 @@ class Runtime(object):
             ]
             config_fn = os.sep.join(config_path)
 
-        config = json.load(open(config_fn))
+        try:
+            config = json.load(open(config_fn))
+        except Exception as e:
+            print("pyChapel: Failed loading configuration. Nothing will work.")
+            return
 
         logging.basicConfig(                    # Setup logging
             level=config["log_level"],
             format="%(levelname)s:%(module)s:%(funcName)s: %(message)s"
         )
-
-        self.hints = {}
 
         self.object_store = ObjectStore(        # Init object-store
             config["object_store"]
@@ -53,18 +60,14 @@ class Runtime(object):
         if config["open_ahead"]:
             self.object_store.open_ahead()
 
-        self.compilers = {}                     # Init compilers
-        for compiler in config["compilers"]:
+        for compiler in config["compilers"]:    # Init compilers
             logging.debug("Initializing %s compiler.", compiler)
             self.compilers[compiler] = Compiler(
                 config["compilers"][compiler]
             )
 
-        self.specializers = {}                  # Init specializers
-        for slang in config["specializers"]:
+        for slang in config["specializers"]:    # Init specializers
             self.specializers[slang] = get_specializer(slang)(config["specializers"][slang])
-
-        self.arrays = {}                        # Array mappings
 
     def hint(self, extern):
         """
