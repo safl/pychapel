@@ -19,10 +19,10 @@ c:
 	python $(INSTALL_DIR)/share/pych/examples/c.inline.py
 
 clean:
-	@rm -f $(INSTALL_DIR)/var/pych/store/c/*.so
-	@rm -f $(INSTALL_DIR)/var/pych/store/chapel/*.so
 	@rm -rf $(MODULE_DIR)/build
 	@rm -rf $(MODULE_DIR)/dist
+	@rm -f $(INSTALL_DIR)/var/pych/store/c/*.so
+	@rm -f $(INSTALL_DIR)/var/pych/store/chapel/*.so
 	@rm -f /tmp/tmp*.a
 	@rm -f /tmp/temp-*.chpl
 	@rm -f /tmp/temp-*.c
