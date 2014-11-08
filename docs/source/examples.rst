@@ -2,9 +2,8 @@
 Examples
 ========
 
-.. toctree::
-   :maxdepth: 2
+Check this out:
 
-   usage_c.rst
-   usage_chapel.rst
+.. literalinclude:: /examples/chapel.inline.hello.py
+   :language: python
 

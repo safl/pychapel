@@ -33,7 +33,7 @@ setup(
     author_email='safl@safl.dk',
     data_files  = [
         ('share/pych/config', ['configs/pych.json']),
-        ('share/pych/examples', glob.glob('examples/*')),
+        ('share/pych/examples', glob.glob('../docs/source/examples/*')),
         ('share/pych/include', glob.glob('include/*.h')),
         ('share/pych/lib', glob.glob('lib/*')),
         ('share/pych/templates/c', glob.glob('templates/c/*')),
