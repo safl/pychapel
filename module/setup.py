@@ -26,7 +26,7 @@ class post_install(install_data):
 
 setup(
     name        = "pyChapel",
-    version     = "0.1.3",
+    version     = "0.1.4",
     description = 'pyChapel, Python ~ Chapel integration.',
     url         = 'http://www.bh107.org',
     author      = 'Simon A. F. Lund',
