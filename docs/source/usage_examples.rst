@@ -47,17 +47,13 @@ The following subsection provides a couple of preliminary performance numbers.
 Numbers
 -------
 
-On two systems one being a laptop another a cluster node. On each system each
-implementation was executed three times and the average reported::
+The implementations were executed three times and the average reported::
 
   # Laptop
   NumPy: wall-clock ~28.3 seconds, ~2.2GB memory consumption.
   NumPy+pyChapel: wall-clock average ~8.8 seconds, ~1.5GB memory consumption.
 
-  # Cluster-node
-
-Resulting in a speedup of ~ times 3.2 and a significantly lowered memory
-consumption.
+Resulting in a speedup of ~ times 3.2 and a significantly lowered memory consumption.
 
 C-Implementation
 ................
