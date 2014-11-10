@@ -11,10 +11,7 @@ Contents:
 .. toctree::
    :maxdepth: 2
 
-   install.rst
-
-   examples.rst
-
+   introduction.rst
    pych/index.rst
 
 Indices and tables

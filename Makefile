@@ -1,5 +1,6 @@
 INSTALL_DIR=/tmp/pychdev
 MODULE_DIR=module
+DOC_DIR=docs
 
 all:
 
@@ -17,6 +18,10 @@ chapel:
 
 c:
 	python $(INSTALL_DIR)/share/pych/examples/c.inline.py
+
+doc:
+	cd $(DOC_DIR) && make html
+	xdg-open $(DOC_DIR)/build/html/index.html
 
 clean:
 	@rm -rf $(MODULE_DIR)/build
