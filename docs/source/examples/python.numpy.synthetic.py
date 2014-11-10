@@ -11,8 +11,6 @@ def simulation(tsteps, spin, decay, velocity):
 
     return np.add.reduce(delta)
 
-
-
 def main(tsteps, particles):
     """Load data, run simulation, visualize results."""
 
