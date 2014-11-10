@@ -13,7 +13,8 @@ Contents:
 
    introduction.rst
    usage.rst
-   other_usage.rst
+   usage_examples.rst
+   usage_other.rst
    configuration.rst
    pych/index.rst
 

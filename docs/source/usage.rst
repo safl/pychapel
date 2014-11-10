@@ -1,49 +1,29 @@
 Usage
 =====
 
-Check this out:
+pyChapel provides interoperability with Chapel in three forms:
+
+1. Chapel code inlined in Python
+2. Chapel code from source-files
+3. Chapel code/modules compiled into libraries
 
 .. literalinclude:: /examples/chapel.inline.helloworld.py
    :language: python
 
-Chapel - Inlined
-~~~~~~~~~~~~~~~~
+Inlined
+~~~~~~~
 
-Chapel - From source files
-~~~~~~~~~~~~~~~~~~~~~~~~~~
+Source-files
+~~~~~~~~~~~~
 
-Decorations
-~~~~~~~~~~~
+Libraries
+~~~~~~~~~
 
-Accelerate your NumPy code
-~~~~~~~~~~~~~~~~~~~~~~~~~~
+Compiling libraries with the Chapel compiler
+--------------------------------------------
 
-A common need for speed when working with Python are scientific codes. NumPy and
-the SciPy stack provides a rich environment for scientific computing, different
-approaches exist to accelerate such code, with pyChapel a new means is provided.
+Describe how this is done and how to access it.
 
-The structure of a scientific code can often be factored into three stages::
-
-* Loading data
-* Processing data
-* Visualiation of data
-
-An example of such an application is provided below:
-
-.. literalinclude:: /examples/python.numpy.synthetic.py
-   :language: python
-
-Where the time-consuming, computational expensive and memory hungry portion of
-the application is the data-processing performed in the `simulate` function.
-
-When tasked with increasing the throughput of such apprecations the user can
-either choose to port to application to another language or the more popular
-solution in Python/NumPy is to implement a Python-extension or call into a
-lower-level language to accelerate the code. 
-
-Using pyChapel, this can be achieve with little effort such as rewritten example
-below illustrates:
-
-.. literalinclude:: /examples/chapel.numpy.synthetic.py
-   :language: python
+Decorator Arguments
+~~~~~~~~~~~~~~~~~~~
 

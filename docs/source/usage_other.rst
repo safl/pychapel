@@ -5,10 +5,6 @@ Bla bal bla C, can also be used to interoperate with and dynamically compile
 other languages:
 
 
-Compiling libraries with the Chapel compiler
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-How is this done?
 
 Other Languages
 ~~~~~~~~~~~~~~~
