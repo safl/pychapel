@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+PREFIX=$HOME/pych_installed/share/pych/examples/
 print "Python/NumPy"
 /usr/bin/time ./python.numpy.synthetic.py --tsteps 50 --particles 50000000
 /usr/bin/time ./python.numpy.synthetic.py --tsteps 50 --particles 50000000

@@ -22,18 +22,20 @@ An example of such an application is provided below:
 
 .. literalinclude:: /examples/python.numpy.synthetic.py
    :language: python
+   :linenos:
 
 Where the time-consuming, computational expensive and memory hungry portion of
 the application is the data-processing performed in the `simulate` function.
 
-When tasked with increasing the throughput of such appliacations the user can
-either choose to port to application to another language, write a Python-extension implemented in a lower-level language such as C or call into library-functions implemented in lower-level languages.
+When tasked with increasing the throughput of such applications the user can
+either choose to port the entire application to another language, write a Python-extension implemented in a lower-level language such as C or call into library-functions implemented in lower-level languages for a subset of the application.
 
-Using pyChapel, this can be achieve with little effort such as rewritten example
-below illustrates:
+Using pyChapel, a subset of the application can with little effort be rewritten
+such as the example below illustrates:
 
 .. literalinclude:: /examples/chapel.numpy.synthetic.py
    :language: python
+   :linenos:
 
 These two implementations can be executed by the commands::
 
@@ -64,4 +66,5 @@ C-Implementation
 
 .. literalinclude:: /examples/c.numpy.synthetic.py
    :language: python
+   :linenos:
 
