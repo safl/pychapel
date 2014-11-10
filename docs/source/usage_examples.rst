@@ -1,7 +1,7 @@
 Usage Examples
 ==============
 
-This section provides examples of closer to real-world code and how to apply
+This section provides examples closer to real-world code and how to apply
 pyChapel in such context. The examples seek to illustrate the effort required by
 the user and what results can be expected.
 
