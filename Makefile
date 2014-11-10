@@ -1,4 +1,4 @@
-INSTALL_DIR=/tmp/pychdev
+INSTALL_DIR=/home/safl/pych_installed
 MODULE_DIR=module
 DOC_DIR=docs
 
