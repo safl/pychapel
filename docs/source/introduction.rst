@@ -61,8 +61,8 @@ After going through these steps the installation can be verified by running the
 
   pych --test-setup
 
-Examples
-~~~~~~~~
+Hello World
+~~~~~~~~~~~
 
 Check this out:
 

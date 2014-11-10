@@ -12,6 +12,8 @@ Contents:
    :maxdepth: 2
 
    introduction.rst
+   examples.rst
+   other.rst
    pych/index.rst
 
 Indices and tables
