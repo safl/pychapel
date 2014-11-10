@@ -1,2 +1,92 @@
 #!/usr/bin/env python
-print("Hi I am pych!")
+import argparse
+import pprint
+import json
+import os
+
+def open_conf(config_file=None):
+    """
+    Open pych configuration file, decode the json and return it.
+
+    :config_file str: Path to configuration file (pych.json)
+    :returns: Configuration as dict.
+    :rtype: dict
+    """
+
+    config = {}
+    if not config_file:
+        path = globals()["__file__"].split(os.sep)
+
+        config_path = []
+        for directory in path:
+            if directory == "bin":
+                break
+            config_path.append(directory)
+        config_path += [
+            "share",
+            "pych",
+            "config",
+            "pych.json"
+        ]
+        config_fn = os.sep.join(config_path)
+
+    try:
+        config = json.load(open(config_fn))
+    except Exception as e:
+        print("pyChapel: Failed loading configuration. Nothing will work.")
+
+    return config
+
+def verify_conf(conf):
+    """Sanity checks the configuration."""
+
+    print("Checking installation...")
+    print(" * Templates")
+    for slang in conf["specializers"]:
+        if not os.path.exists(conf["specializers"][slang]):
+            print("Missing templates")
+
+    print(" * Object Storage")
+    try:
+        for slang in conf["object_store"]["output_paths"]:
+            o_path = conf["object_store"]["output_paths"][slang]
+            path = os.sep.join([
+                conf["object_store"]["root_path"],
+                o_path,
+                'write_test'
+            ])
+            with open(path, 'w') as fd:
+                fd.write("test")
+    except Exception as e:
+        print("Error trying to write to object-store: %s", e)
+
+    # Check that Chapel libraries are there
+    print(" * Libraries")
+
+    # Check that c-headers are there
+    print(" * Headers")
+
+    # Check that the commands are invokable
+    print(" * Commands")
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(
+        description='Tool aiding the Python/Chapel (pyChapel)  module'
+    )
+    parser.add_argument(
+        '--check',
+        action="store_const",
+        const=True,
+        default=False,
+        help="Check the installation."
+    )
+
+    args = parser.parse_args()
+
+    if args.check:
+        conf = open_conf()
+        if not conf:
+            print "Damm"
+
+        verify_conf(conf)
+        print "If you did not stumble over any errors above you're all set!"

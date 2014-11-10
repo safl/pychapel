@@ -6,6 +6,9 @@ all:
 
 run: clean deploy c chapel
 
+pych: clean deploy
+	pych --check
+
 deploy:
 	cd $(MODULE_DIR) && python setup.py install --prefix $(INSTALL_DIR)
 
