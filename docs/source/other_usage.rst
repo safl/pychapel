@@ -7,3 +7,7 @@ other languages:
 .. literalinclude:: /examples/chapel.inline.helloworld.py
    :language: python
 
+Compiling libraries with the Chapel compiler
+============================================
+
+
