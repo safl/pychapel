@@ -22,10 +22,8 @@ An example of such an application is provided below:
 Where the time-consuming, computational expensive and memory hungry portion of
 the application is the data-processing performed in the `simulate` function.
 
-When tasked with increasing the throughput of such apprecations the user can
-either choose to port to application to another language or the more popular
-solution in Python/NumPy is to implement a Python-extension or call into a
-lower-level language to accelerate the code. 
+When tasked with increasing the throughput of such appliacations the user can
+either choose to port to application to another language, write a Python-extension implemented in a lower-level language such as C or call into library-functions implemented in lower-level languages.
 
 Using pyChapel, this can be achieve with little effort such as rewritten example
 below illustrates:
