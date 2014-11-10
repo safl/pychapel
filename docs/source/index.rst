@@ -14,6 +14,7 @@ Contents:
    introduction.rst
    usage.rst
    other_usage.rst
+   configuration.rst
    pych/index.rst
 
 Indices and tables
