@@ -7,11 +7,11 @@ pyChapel provides interoperability with Chapel in three forms:
 2. Chapel code from source-files
 3. Chapel code/modules compiled into libraries
 
-.. literalinclude:: /examples/chapel.inline.helloworld.py
-   :language: python
-
 Inlined
 ~~~~~~~
+
+.. literalinclude:: /examples/chapel.inline.helloworld.py
+   :language: python
 
 Source-files
 ~~~~~~~~~~~~
