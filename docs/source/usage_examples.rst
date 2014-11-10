@@ -10,9 +10,9 @@ approaches exist to accelerate such code, with pyChapel a new means is provided.
 
 The structure of a scientific code can often be factored into three stages::
 
-* Loading data
-* Processing data
-* Visualiation of data
+1. Load a data-set
+2. Process the data
+3. Visualize results
 
 An example of such an application is provided below:
 
@@ -33,3 +33,6 @@ below illustrates:
 .. literalinclude:: /examples/chapel.numpy.synthetic.py
    :language: python
 
+These two implementations can be executed by the commands::
+
+  python:
