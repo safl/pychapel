@@ -47,9 +47,10 @@ The following subsection provides a couple of preliminary performance numbers.
 Numbers
 -------
 
-The implementations were executed three times and the average reported::
+The implementations were executed three times and the average reported, the
+machine executing was a laptop with 6GB of memory with an Intel i5-2410M
+CPU@2.3Ghz CPU with two physical cores::
 
-  # Laptop
   NumPy: wall-clock ~28.3 seconds, ~2.2GB memory consumption.
   NumPy+pyChapel: wall-clock average ~8.8 seconds, ~1.5GB memory consumption.
 
