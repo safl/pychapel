@@ -1,5 +1,5 @@
-Examples
-========
+Usage
+=====
 
 Check this out:
 
