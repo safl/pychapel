@@ -21,7 +21,7 @@ The structure of a scientific code can often be factored into three stages::
 
 An example of such an application is provided below:
 
-.. literalinclude:: /examples/python/numpy.synthetic.py
+.. literalinclude:: /examples/python.numpy.synthetic.py
    :language: python
 
 Where the time-consuming, computational expensive and memory hungry portion of
