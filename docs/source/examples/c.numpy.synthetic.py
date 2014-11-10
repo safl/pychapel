@@ -27,6 +27,7 @@ def simulation(tsteps=int, spin=np.ndarray, decay=np.ndarray, velocity=np.ndarra
         result += delta_ptr[i];
     }
     free(delta_ptr);
+
     return result;
     """
     return float

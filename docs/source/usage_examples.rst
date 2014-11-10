@@ -51,9 +51,15 @@ implementation was executed three times and the average reported::
   NumPy+pyChapel: wall-clock average ~8.8 seconds, ~1.5GB memory consumption.
 
   # Cluster-node
-  
 
 Resulting in a speedup of ~ times 3.2 and a significantly lowered memory
 consumption.
 
-.. todo:: Add an implementation using extern.FromC written in C using OpenMP. To compare and illustrate how close this performance gain is to an error-prone c-implementation.
+C-Implementation
+................
+
+.. todo:: Add OpenMP to the c-implementation to compare and illustrate how close this performance gain is to an error-prone c-implementation.
+
+.. literalinclude:: /examples/c.numpy.synthetic.py
+   :language: python
+
