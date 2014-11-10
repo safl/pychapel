@@ -35,4 +35,20 @@ below illustrates:
 
 These two implementations can be executed by the commands::
 
-  python:
+  ./chapel.numpy.synthetic.py --tsteps 50 --particles 50000000
+  ./python.numpy.synthetic.py --tsteps 50 --particles 50000000
+
+The following subsection provides a couple of preliminary performance numbers.
+
+Numbers
+-------
+
+On two systems one being a laptop another a cluster node. On each system each
+implementation was executed three times and the average reported::
+
+  NumPy: wall-clock ~28.3 seconds, ~2.2GB memory consumption.
+  NumPy+pyChapel: wall-clock average ~8.8 seconds, ~1.5GB memory consumption.
+
+Resulting in a speedup of ~ times 3.2 and a significantly lowered memory
+consumption.
+
