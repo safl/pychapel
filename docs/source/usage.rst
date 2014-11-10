@@ -6,6 +6,15 @@ Check this out:
 .. literalinclude:: /examples/chapel.inline.helloworld.py
    :language: python
 
+Chapel - Inlined
+~~~~~~~~~~~~~~~~
+
+Chapel - From source files
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Decorations
+~~~~~~~~~~~
+
 Accelerate your NumPy code
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
