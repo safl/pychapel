@@ -4,6 +4,8 @@ from distutils.command.install_data import install_data
 import pprint
 import glob
 
+from pych.version import APP_NAME, APP_VERSION
+
 class post_install(install_data):
     """Do these things post-installation."""
 
@@ -25,8 +27,8 @@ class post_install(install_data):
                     conf_fd.write(pych_json)
 
 setup(
-    name        = "pyChapel",
-    version     = "0.1.5",
+    name        = APP_NAME,
+    version     = APP_VERSION,
     description = 'pyChapel, Python ~ Chapel integration.',
     url         = 'http://www.bh107.org',
     author      = 'Simon A. F. Lund',

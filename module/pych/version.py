@@ -1,5 +1,5 @@
 """
     A container for pyChapel name and version.
 """
-APP_NAME = 'pych'
-APP_VERSION = '0.1'
+APP_NAME = 'pyChapel'
+APP_VERSION = '0.1.5'

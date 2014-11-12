@@ -5,6 +5,7 @@ import json
 import os
 
 import pych
+import pych.version
 
 def verify_conf(conf):
     """Sanity checks the configuration."""
@@ -55,15 +56,24 @@ if __name__ == "__main__":
         default=False,
         help="Check the pyChapel installation / configuration"
     )
+    parser.add_argument(
+        '--version',
+        action="store_const",
+        const=True,
+        default=False,
+        help="Print version"
+    )
 
     args = parser.parse_args()
     if args.check:
-        if not pych.config:
+        if not pych.CONFIG:
             print("pyChapel: Cannot find configuration file (pych.json).")
         else:
-            verify_conf(pych.config)
-            print "If you did not stumble over any errors above you're all set!"
+            verify_conf(pych.CONFIG)
+            print("No errors above? You are all good to go!")
     elif args.compile:
-        print "Compile this"
+        print("Compile this")
+    elif args.version:
+        print("%s %s" % (pych.version.APP_NAME, pych.version.APP_VERSION))
     else:
         parser.print_help()
