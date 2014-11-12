@@ -21,10 +21,9 @@
             "chapel":       "/tmp/pych_dev/share/pych/templates/chapel",
             "python":       "/tmp/pych_dev/share/pych/templates/python"
         },
-        "sources": {
-            "c":            "/tmp/pych_dev/share/pych/sources/c",
-            "chapel":       "/tmp/pych_dev/share/pych/sources/chapel",
-            "python":       "/tmp/pych_dev/share/pych/sources/python"
+        "sfiles": {
+            "c":            "/tmp/pych_dev/share/pych/sfiles/c",
+            "chapel":       "/tmp/pych_dev/share/pych/sfiles/chapel"
         }
     },
 

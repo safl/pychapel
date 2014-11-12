@@ -1,22 +1,29 @@
 #!/usr/bin/env python
 import argparse
+import logging
 import pprint
 import json
 import os
 
-import pych
-import pych.version
+from pych.version import APP_NAME, APP_VERSION
+from pych.compiler import moduralize
+from pych import CONFIG
 
 def verify_conf(conf):
     """Sanity checks the configuration."""
 
-    print("Checking installation...")
-    print(" * Templates")
-    for slang in conf["specializers"]:
-        if not os.path.exists(conf["specializers"][slang]):
-            print("Missing templates")
+    logging.info("Checking installation...")
+    logging.info(" * Templates")
+    for slang in conf["specializers"]["templates"]:
+        template_dir = conf["specializers"]["templates"][slang]
+        if not os.path.exists(template_dir):
+            logging.error(
+                "Missing template dir(%s) for slang(%s)",
+                template_dir,
+                slang
+            )
 
-    print(" * Object Storage")
+    logging.info(" * Object Storage")
     try:
         for slang in conf["object_store"]["output_paths"]:
             o_path = conf["object_store"]["output_paths"][slang]
@@ -28,16 +35,17 @@ def verify_conf(conf):
             with open(path, 'w') as fd:
                 fd.write("test")
     except Exception as e:
-        print("Error trying to write to object-store: %s", e)
+        logging.error("Error trying to write to object-store: %s", e)
 
     # Check that Chapel libraries are there
-    print(" * Libraries")
+    logging.info(" * Libraries")
 
     # Check that c-headers are there
-    print(" * Headers")
+    logging.info(" * Headers")
 
     # Check that the commands are invokable
-    print(" * Commands")
+    logging.info(" * Commands")
+
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(
@@ -66,14 +74,14 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
     if args.check:
-        if not pych.CONFIG:
-            print("pyChapel: Cannot find configuration file (pych.json).")
+        if not CONFIG:
+            logging.info("pyChapel: Cannot find configuration file (pych.json).")
         else:
-            verify_conf(pych.CONFIG)
-            print("No errors above? You are all good to go!")
+            verify_conf(CONFIG)
+            logging.info("No errors above? You are all good to go!")
     elif args.compile:
-        print("Compile this")
+        logging.info("Compile this")
     elif args.version:
-        print("%s %s" % (pych.version.APP_NAME, pych.version.APP_VERSION))
+        logging.info("%s %s" % (APP_NAME, APP_VERSION))
     else:
         parser.print_help()

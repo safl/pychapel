@@ -104,3 +104,13 @@ class Compiler(object):
                 all_err += err if err else ""
 
         return all_out, all_err
+
+def moduralize(chapel_sf):
+    """
+    Compile the Chapel sf module into a Python module.
+    This currently means create a Python module with all
+    exported Chapel functions available in the Python module.
+
+    :param chapel_sf str: Chapel source file.
+    """
+

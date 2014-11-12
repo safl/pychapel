@@ -40,6 +40,7 @@ setup(
         ('share/pych/lib', glob.glob('lib/*')),
         ('share/pych/templates/c', glob.glob('templates/c/*')),
         ('share/pych/templates/chapel', glob.glob('templates/chapel/*')),
+        ('share/pych/templates/python', glob.glob('templates/python/*')),
         ('var/pych/store/c', ['store/c/empty']),
         ('var/pych/store/chapel', ['store/chapel/empty']),
         ('var/pych/store/third_party', ['store/third_party/empty']),
