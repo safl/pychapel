@@ -8,6 +8,11 @@ from pych.version import APP_NAME, APP_VERSION
 from pych.compiler import moduralize
 from pych import CONFIG
 
+#
+# Helper functions for printing output form the pych command
+# we do not want to use the logging module since that would
+# mess with the configured output of the pych module.
+#
 def info(msg):
     """
     Print out a information message...
@@ -15,20 +20,34 @@ def info(msg):
     """
     print(msg)
 
+def warn(msg):
+    """
+    Print out a warning message...
+    :param msg str: The warning message to print.
+    """
+    print("WARN: %s" % msg)
+
 def error(msg):
     """
     Print out an error message...
     :param msg str: The error message to print.
     """
-    print(msg)
+    print("ERR: %s", msg)
 
-def verify_conf(conf):
+#
+# pych commands
+#
+def check(arg):
     """Sanity checks the configuration."""
 
     info("Checking installation...")
+
+    if not CONFIG:
+        error("Cannot find configuration file (pych.json).")
+
     info(" * Templates")
-    for slang in conf["specializers"]["templates"]:
-        template_dir = conf["specializers"]["templates"][slang]
+    for slang in CONFIG["specializers"]["templates"]:
+        template_dir = CONFIG["specializers"]["templates"][slang]
         if not os.path.exists(template_dir):
             error(
                 "Missing template dir(%s) for slang(%s)",
@@ -38,10 +57,10 @@ def verify_conf(conf):
 
     info(" * Object Storage")
     try:
-        for slang in conf["object_store"]["output_paths"]:
-            o_path = conf["object_store"]["output_paths"][slang]
+        for slang in CONFIG["object_store"]["output_paths"]:
+            o_path = CONFIG["object_store"]["output_paths"][slang]
             path = os.sep.join([
-                conf["object_store"]["root_path"],
+                CONFIG["object_store"]["root_path"],
                 o_path,
                 'write_test'
             ])
@@ -59,9 +78,20 @@ def verify_conf(conf):
     # Check that the commands are invokable
     info(" * Commands")
 
+def version(arg):
+    """Print the pyChapel version."""
+
+    info("%s %s" % (APP_NAME, APP_VERSION))
+
+def compile(sfile):
+    """Compile a Chapel module into a Python module."""
+
+    info("Compile this %s" % sfile)
+    moduralize(sfile)
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(
+
+    parser = argparse.ArgumentParser(   # Setup cli-argument parser
         description='Tool aiding the Python/Chapel (pyChapel)  module'
     )
     parser.add_argument(
@@ -84,18 +114,23 @@ if __name__ == "__main__":
         default=False,
         help="Print version"
     )
-
     args = parser.parse_args()
 
-    if args.check:
-        if not CONFIG:
-            info("pyChapel: Cannot find configuration file (pych.json).")
-        else:
-            verify_conf(CONFIG)
-            info("No errors above? You are all good to go!")
-    elif args.compile:
-        info("Compile this")
-    elif args.version:
-        info("%s %s" % (APP_NAME, APP_VERSION))
-    else:
+    commands = {                        # Dispatch of 'pych' commands
+        'compile': compile,
+        'version': version,
+        'check': check
+    }
+    
+    exec_command = None                 # Grab a single command
+    for command in commands:
+        if args.__dict__[command] and not exec_command:
+            exec_command = (command, commands[command], args.__dict__[command])
+        elif args.__dict__[command] and exec_command:
+            warn("One command at a time, ignoring --%s." % (command))
+
+    if exec_command:                    # Invoke it
+        cmd_name, cmd, cmd_arg = exec_command
+        cmd(cmd_arg)
+    else:                               # Print help when no commands provided
         parser.print_help()

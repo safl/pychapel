@@ -1,5 +1,5 @@
 """
-    Encapsulation for calling the backend-compiler.
+Encapsulation for invoking system compiler.
 """
 # pylint: disable=too-few-public-methods
 # The Compiler object encapsulates compiler setup and it is only supposed
@@ -105,9 +105,9 @@ class Compiler(object):
 
         return all_out, all_err
 
-def moduralize(chapel_sf):
+def moduralize(sfile):
     """
-    Compile the Chapel sf module into a Python module.
+    Compile the Chapel source file / module  into a Python module.
     This currently means create a Python module with all
     exported Chapel functions available in the Python module.
 
