@@ -14,15 +14,19 @@
     function is called. Or ahead-of-time, when the mapped function is
     decorated. Or somewhere in between those to points in time.
 """
-import logging
+# pylint: disable=no-member
+# The ndarray member is added dynamically and therefore not visible to pylint.
+# pylint: disable=too-few-public-methods
+# The classes here are decorators it is therefore completely valid that they
+# have few public methods.
+
 import hashlib
 import inspect
 import pprint
-import ctypes
 import os
 
 from pych.exceptions import MaterializationError
-from pych.types import PychArray, TYPEMAP, KEYWORDS, np
+from pych.types import TYPEMAP, KEYWORDS, np
 import pych.runtime
 
 #
@@ -31,6 +35,8 @@ import pych.runtime
 class Extern(object):
     """Encapsulates a mapping and call to an external function."""
 
+    # pylint: disable=too-many-instance-attributes
+    # There are a lot but they are all reasonable.
     def __init__(self, ename=None, lib=None, sfile=None, slang=None):
 
         # This is done only once; when the function is decorated
@@ -97,7 +103,7 @@ class Extern(object):
         """Compare argument-types with extern declation."""
 
         call_types = [type(arg) for arg in args]
-        
+
         if call_types != self.atypes:
             ct_text = pprint.pformat(call_types)
             at_text = pprint.pformat(self.atypes)
@@ -127,12 +133,6 @@ class Extern(object):
         #
         # Extract attributes for "inline" function
         #
-        # TODO: Consider library-naming, we want to persist across
-        #       executions, and really want to do the impossible:
-        #       expand the inline-library. So what can be done instead?
-        #
-        #       Collisions should be avoided yet so should compilation also.
-        #
 
         #
         # Construct the library-name based on inline or sfile.
@@ -142,7 +142,7 @@ class Extern(object):
             self.dec_fn = self.sfile
         else:
             self.dec_fn = self.pfunc.func_globals["__file__"]
-        
+
         if self.dec_fn: # Construct hash of filename to use as identifier
             dec_hash = hashlib.md5()
             dec_hash.update(self.dec_fn)

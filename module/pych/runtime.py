@@ -6,11 +6,7 @@
     of Externs/libraries.
 """
 import logging
-import inspect
 import ctypes
-import pprint
-import json
-import os
 
 from pych.types import PychArray
 from pych.object_store import ObjectStore
@@ -68,9 +64,10 @@ class Runtime(object):
         - Compile it from a sourcefile
         - Compile it using a specialization template
 
-        Or "Just" load it if defined as a library-wrapper and possibly other stunts.
-        
-        The first time code is compiled/materialized is 
+        Or "Just" load it if defined as a library-wrapper
+         and possibly other stunts.
+
+        The first time code is compiled/materialized is
         For dynamically compiled code from either inline or source,
         materialization needs to determine if the source has changed.
 
@@ -119,14 +116,15 @@ class Runtime(object):
 
             if source:                          # Compile the source
                 out, err = self.compilers[slang].compile(
-                    source,
-                    slang,
-                    "%s/%s" % (self.object_store._output_paths[slang], extern.lib)
+                    source, slang, "%s/%s" % (
+                        self.object_store._output_paths[slang],
+                        extern.lib
+                    )
                 )
-                #
-                # TODO: Check the output of out/err and report
-                #       an appropriate error.
-                #
+                if out:
+                    logging.info("Compiler said something: %s", out)
+                if err:
+                    logging.error("Compiler complained: %s", err)
                 efunc = self.object_store.evoke(extern) # Evoke it again!
 
         return efunc
@@ -134,7 +132,7 @@ class Runtime(object):
     def map_nparray(self, nparray):
         """
         Map a NumPy array to a PychArray for ctypes interoperability.
-       
+
         :param numpy.ndarray nparray: The NumPy array to map
         :returns: A PychArray usable by ctypes
         :rtype: pych.PychArray
@@ -154,17 +152,21 @@ class Runtime(object):
 
         strides = [stride for stride in nparray.strides]
         strides += [0]*(16-len(strides))
-        logging.debug("Mapping array[%d] data=%d", nparray_id, nparray.ctypes.data)
+        logging.debug(
+            "Mapping array[%d] data=%d",
+            nparray_id,
+            nparray.ctypes.data
+        )
         self.arrays[nparray_id] = PychArray(
-            two = 2,
-            nd = nparray.ndim,
-            typekind = nparray.__array_interface__['typestr'][1],
-            itemsize = nparray.itemsize,
-            flags = 0,
-            shape = (ctypes.c_int*16)(*shape),
-            strides = (ctypes.c_int*16)(*strides),
-            ptr_d = nparray.ctypes.data,
-            ident = nparray_id
+            two=2,
+            nd=nparray.ndim,
+            typekind=nparray.__array_interface__['typestr'][1],
+            itemsize=nparray.itemsize,
+            flags=0,
+            shape=(ctypes.c_int*16)(*shape),
+            strides=(ctypes.c_int*16)(*strides),
+            ptr_d=nparray.ctypes.data,
+            ident=nparray_id
         )
 
         return self.arrays[nparray_id]

@@ -1,22 +1,22 @@
 """
     Encapsulation for calling the backend-compiler.
 """
+# pylint: disable=too-few-public-methods
+# The Compiler object encapsulates compiler setup and it is only supposed
+# to take care of one well-define action: calling the compiler, it is
+# therefore perfectly fine that it only has a single method.
+
 from subprocess import Popen, PIPE
 import tempfile
-import logging
 import pprint
-import copy
 import os
+
+from pych.utils import prepend_path
 
 LANG2EXT = {
     "c":        ".c",
     "chapel":   ".chpl"
 }
-
-def prefix_path(prefix, path):
-    if not os.path.isabs(path):
-        return os.path.abspath("%s%s%s" % (prefix, os.sep, path))
-    return os.path.abspath(path)
 
 class Compiler(object):
     """
@@ -31,8 +31,8 @@ class Compiler(object):
         self._options["root_path"] = os.path.abspath(options["root_path"])
 
         # Paths
-        for path in ["output_path", "lib_path", "inc_path"]:        
-            self._options[path] = prefix_path(
+        for path in ["output_path", "lib_path", "inc_path"]:
+            self._options[path] = prepend_path(
                 self._options["root_path"],
                 options[path]
             )
@@ -41,7 +41,7 @@ class Compiler(object):
         self._options["includes"] = ""
         for include_path in options["includes"]:
             self._options["includes"] += '-I %s%s' % (
-                prefix_path(self._options["root_path"], include_path),
+                prepend_path(self._options["root_path"], include_path),
                 os.sep
             )
 
@@ -72,8 +72,9 @@ class Compiler(object):
         The result will be stored in object_abspath.
 
         :param str source: Sourcecode to compile.
-        :param str language: Language of the given sourceode e.g. "c" or "chapel".
-        :returns: Accumulation of all output and errors from compiler/linker commands as tuple(out, err).
+        :param str language: Language of the sourceode e.g. "c" or "chapel".
+        :returns: Accumulation of all output and errors from compiler/linker
+         commands as tuple(out, err).
         :rtype: tuple
         """
 
@@ -89,8 +90,8 @@ class Compiler(object):
             sfile_h.flush()
 
             archive_tmp_name = "asdf"
-            with tempfile.NamedTemporaryFile() as fd:
-                archive_tmp_name = fd.name
+            with tempfile.NamedTemporaryFile() as tmp_fd:
+                archive_tmp_name = tmp_fd.name
 
             for cmd in self._options["commands"]: # Execute commands
                 cmd = cmd.replace("__SFILE__", sfile_h.name)

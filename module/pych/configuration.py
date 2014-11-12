@@ -1,3 +1,12 @@
+"""
+Loads and stores pyChapel configuration.
+"""
+# pylint: disable=maybe-no-member
+# The configuration object does have the "__file__" member via the module.
+# pylint: disable=too-few-public-methods
+# The configuration wraps around the configuration state, access is provided
+# through __getitem__ it is perfectly valid that it has few public methods.
+
 import inspect
 import json
 import os

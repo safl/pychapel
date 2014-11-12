@@ -3,6 +3,9 @@
     specializing code-templates for Externs and possibly other
     things down the road.
 """
+# pylint: disable=no-member
+# The ndarray member is added dynamically and therefore not visible to pylint.
+
 import logging
 import os
 
@@ -25,7 +28,7 @@ def get_specializer(slang):
     elif slang.lower() == "python":
         return PythonSpecializer
     else:
-        logging.error("Cannot find specializer for slang(%s)." % slang)
+        logging.error("Cannot find specializer for slang(%s).", slang)
         return None
 
 class BaseSpecializer(object):
@@ -63,7 +66,8 @@ class BaseSpecializer(object):
         :param pych.Extern externs: List of Externs to specialize.
         :returns: Sourcecode in the Externs language.
         :rtype: str
-        :raises NotImplementedError: When using the BaseSpecializer directly. Use the "targeted" specializer for C or Chapel.
+        :raises NotImplementedError: When using the BaseSpecializer directly.
+        Use the "targeted" specializer for C or Chapel.
         """
         raise NotImplementedError("Do not use the BaseSpecializer directly.")
 
@@ -124,10 +128,9 @@ class ChapelSpecializer(BaseSpecializer):
             source = self.load("prefix.chpl")
 
         for extern in externs:
-            
             # The function that won't get exported
             tmpl_internal = self.load("func.internal.chpl")
-            
+
             # NumPy conversion
             conv_pych = self.load("convert.pych.1d.chpl")
 

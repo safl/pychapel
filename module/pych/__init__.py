@@ -1,26 +1,26 @@
+"""
+pyChapel - The Python/Chapel interoperability module.
+"""
 import logging
 import pych.configuration
 import pych.runtime
 
 RT = None
-config = None
+CONFIG = None
 logging.basicConfig(                                # Setup default logging
     level=logging.ERROR,
     format="%(levelname)s:%(module)s:%(funcName)s: %(message)s"
 )
 
 try:
-    config = pych.configuration.Configuration()     # Load configuration
-    try:
-        logging.basicConfig(                            # Setup logging
-            level=config["log_level"],
-            format="%(levelname)s:%(module)s:%(funcName)s: %(message)s"
-        )
+    CONFIG = pych.configuration.Configuration()     # Load configuration
+    logging.basicConfig(                            # Setup logging
+        level=CONFIG["log_level"],
+        format="%(levelname)s:%(module)s:%(funcName)s: %(message)s"
+    )
 
-        RT = pych.runtime.Runtime(config)               # Setup runtime 
-    except Exception as e:
-        logging.exception("Failed instantiating pyChapel runtime.")
+    RT = pych.runtime.Runtime(CONFIG)               # Setup runtime
 
-except Exception as e:
-    logging.exception("Failed loading pyChapel configuration, Error[%s]")
+except IOError as exc:
+    logging.exception("Failed loading pyChapel configuration.")
 
