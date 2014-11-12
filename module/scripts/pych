@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 import argparse
-import logging
 import pprint
 import json
 import os
@@ -9,21 +8,35 @@ from pych.version import APP_NAME, APP_VERSION
 from pych.compiler import moduralize
 from pych import CONFIG
 
+def info(msg):
+    """
+    Print out a information message...
+    :param msg str: The message to print.
+    """
+    print(msg)
+
+def error(msg):
+    """
+    Print out an error message...
+    :param msg str: The error message to print.
+    """
+    print(msg)
+
 def verify_conf(conf):
     """Sanity checks the configuration."""
 
-    logging.info("Checking installation...")
-    logging.info(" * Templates")
+    info("Checking installation...")
+    info(" * Templates")
     for slang in conf["specializers"]["templates"]:
         template_dir = conf["specializers"]["templates"][slang]
         if not os.path.exists(template_dir):
-            logging.error(
+            error(
                 "Missing template dir(%s) for slang(%s)",
                 template_dir,
                 slang
             )
 
-    logging.info(" * Object Storage")
+    info(" * Object Storage")
     try:
         for slang in conf["object_store"]["output_paths"]:
             o_path = conf["object_store"]["output_paths"][slang]
@@ -35,16 +48,16 @@ def verify_conf(conf):
             with open(path, 'w') as fd:
                 fd.write("test")
     except Exception as e:
-        logging.error("Error trying to write to object-store: %s", e)
+        error("Error trying to write to object-store: %s", e)
 
     # Check that Chapel libraries are there
-    logging.info(" * Libraries")
+    info(" * Libraries")
 
     # Check that c-headers are there
-    logging.info(" * Headers")
+    info(" * Headers")
 
     # Check that the commands are invokable
-    logging.info(" * Commands")
+    info(" * Commands")
 
 
 if __name__ == "__main__":
@@ -55,7 +68,7 @@ if __name__ == "__main__":
         '--compile',
         metavar="source_file",
         type=str,
-        help='Compile the given Chapel module source-code into a Python module.'
+        help='Compile the given Chapel module into a Python module.'
     )
     parser.add_argument(
         '--check',
@@ -73,15 +86,16 @@ if __name__ == "__main__":
     )
 
     args = parser.parse_args()
+
     if args.check:
         if not CONFIG:
-            logging.info("pyChapel: Cannot find configuration file (pych.json).")
+            info("pyChapel: Cannot find configuration file (pych.json).")
         else:
             verify_conf(CONFIG)
-            logging.info("No errors above? You are all good to go!")
+            info("No errors above? You are all good to go!")
     elif args.compile:
-        logging.info("Compile this")
+        info("Compile this")
     elif args.version:
-        logging.info("%s %s" % (APP_NAME, APP_VERSION))
+        info("%s %s" % (APP_NAME, APP_VERSION))
     else:
         parser.print_help()
