@@ -21,38 +21,15 @@ from pych.exceptions import MaterializationError
 class Runtime(object):
     """Encapsulation of runtime activities, compilation, loading, etc."""
 
-    def __init__(self, config_fn=None):
+    def __init__(self, config):
+        """
+        :param config pych.Config: pyChapel configuration
+        """
 
         self.hints = {}                 # Decorator hints are stored here
         self.arrays = {}                # Array mappings
         self.compilers = {}             # Backend compilers
         self.specializers = {}          # Sourcecode generators/specializers
-        
-        if not config_fn:               # Load configuration
-            config_path = []
-            path = inspect.getmodule(self).__file__.split(os.sep)
-            for directory in path:
-                if directory == "lib":
-                    break
-                config_path.append(directory)
-            config_path += [
-                "share",
-                "pych",
-                "config",
-                "pych.json"
-            ]
-            config_fn = os.sep.join(config_path)
-
-        try:
-            config = json.load(open(config_fn))
-        except Exception as e:
-            print("pyChapel: Failed loading configuration. Nothing will work.")
-            return
-
-        logging.basicConfig(                    # Setup logging
-            level=config["log_level"],
-            format="%(levelname)s:%(module)s:%(funcName)s: %(message)s"
-        )
 
         self.object_store = ObjectStore(        # Init object-store
             config["object_store"]
@@ -61,13 +38,14 @@ class Runtime(object):
             self.object_store.open_ahead()
 
         for compiler in config["compilers"]:    # Init compilers
-            logging.debug("Initializing %s compiler.", compiler)
             self.compilers[compiler] = Compiler(
                 config["compilers"][compiler]
             )
 
-        for slang in config["specializers"]:    # Init specializers
-            self.specializers[slang] = get_specializer(slang)(config["specializers"][slang])
+        for slang in config["specializers"]["templates"]:   # Init specializers
+            self.specializers[slang] = get_specializer(slang)(
+                config["specializers"]["templates"][slang]
+            )
 
     def hint(self, extern):
         """

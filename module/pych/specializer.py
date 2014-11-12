@@ -22,7 +22,10 @@ def get_specializer(slang):
         return CSpecializer
     elif slang.lower() == "chapel":
         return ChapelSpecializer
+    elif slang.lower() == "python":
+        return PythonSpecializer
     else:
+        logging.error("Cannot find specializer for slang(%s)." % slang)
         return None
 
 class BaseSpecializer(object):
@@ -64,6 +67,15 @@ class BaseSpecializer(object):
         """
         raise NotImplementedError("Do not use the BaseSpecializer directly.")
 
+class PythonSpecializer(BaseSpecializer):
+    """Specializer for Python modules."""
+
+    def __init__(self, sourcecode_path):
+        super(PythonSpecializer, self).__init__(sourcecode_path)
+
+    def specialize(self, externs, prefix=True):
+        return ""
+
 class CSpecializer(BaseSpecializer):
     """Specializer for C code."""
 
@@ -76,9 +88,9 @@ class CSpecializer(BaseSpecializer):
         # Grab the "template"
         source = ""
         if prefix:
-            source = self.load(os.sep.join(["c", "prefix.c"]))
+            source = self.load("prefix.c")
 
-        tmpl = self.load(os.sep.join(["c", "func.c"]))
+        tmpl = self.load("func.c")
         for extern in externs:
 
             # Create the function signature
@@ -109,21 +121,21 @@ class ChapelSpecializer(BaseSpecializer):
         # Grab the "template"
         source = ""
         if prefix:
-            source = self.load(os.sep.join(["chapel", "prefix.chpl"]))
+            source = self.load("prefix.chpl")
 
         for extern in externs:
             
             # The function that won't get exported
-            tmpl_internal = self.load(os.sep.join(["chapel", "func.internal.chpl"]))
+            tmpl_internal = self.load("func.internal.chpl")
             
             # NumPy conversion
-            conv_pych = self.load(os.sep.join(["chapel", "convert.pych.1d.chpl"]))
+            conv_pych = self.load("convert.pych.1d.chpl")
 
             # The function that will get exported
             if extern.rtype:
-                tmpl = self.load(os.sep.join(["chapel", "func.export.return.chpl"]))
+                tmpl = self.load("func.export.return.chpl")
             else:
-                tmpl = self.load(os.sep.join(["chapel", "func.export.noreturn.chpl"]))
+                tmpl = self.load("func.export.noreturn.chpl")
 
             #
             # Exported signature

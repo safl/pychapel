@@ -4,38 +4,7 @@ import pprint
 import json
 import os
 
-def open_conf(config_file=None):
-    """
-    Open pych configuration file, decode the json and return it.
-
-    :config_file str: Path to configuration file (pych.json)
-    :returns: Configuration as dict.
-    :rtype: dict
-    """
-
-    config = {}
-    if not config_file:
-        path = globals()["__file__"].split(os.sep)
-
-        config_path = []
-        for directory in path:
-            if directory == "bin":
-                break
-            config_path.append(directory)
-        config_path += [
-            "share",
-            "pych",
-            "config",
-            "pych.json"
-        ]
-        config_fn = os.sep.join(config_path)
-
-    try:
-        config = json.load(open(config_fn))
-    except Exception as e:
-        print("pyChapel: Failed loading configuration. Nothing will work.")
-
-    return config
+import pych
 
 def verify_conf(conf):
     """Sanity checks the configuration."""
@@ -74,19 +43,27 @@ if __name__ == "__main__":
         description='Tool aiding the Python/Chapel (pyChapel)  module'
     )
     parser.add_argument(
+        '--compile',
+        metavar="source_file",
+        type=str,
+        help='Compile the given Chapel module source-code into a Python module.'
+    )
+    parser.add_argument(
         '--check',
         action="store_const",
         const=True,
         default=False,
-        help="Check the installation."
+        help="Check the pyChapel installation / configuration"
     )
 
     args = parser.parse_args()
-
     if args.check:
-        conf = open_conf()
-        if not conf:
-            print "Damm"
-
-        verify_conf(conf)
-        print "If you did not stumble over any errors above you're all set!"
+        if not pych.config:
+            print("pyChapel: Cannot find configuration file (pych.json).")
+        else:
+            verify_conf(pych.config)
+            print "If you did not stumble over any errors above you're all set!"
+    elif args.compile:
+        print "Compile this"
+    else:
+        parser.print_help()

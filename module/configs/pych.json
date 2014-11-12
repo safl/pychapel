@@ -16,8 +16,16 @@
     },
 
     "specializers": {
-        "c":            "/tmp/pych_dev/share/pych/templates",
-        "chapel":       "/tmp/pych_dev/share/pych/templates"
+        "templates": {
+            "c":            "/tmp/pych_dev/share/pych/templates/c",
+            "chapel":       "/tmp/pych_dev/share/pych/templates/chapel",
+            "python":       "/tmp/pych_dev/share/pych/templates/python"
+        },
+        "sources": {
+            "c":            "/tmp/pych_dev/share/pych/sources/c",
+            "chapel":       "/tmp/pych_dev/share/pych/sources/chapel",
+            "python":       "/tmp/pych_dev/share/pych/sources/python"
+        }
     },
 
     "compilers": {

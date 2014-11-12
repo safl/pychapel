@@ -54,6 +54,11 @@ class Extern(object):
         self.dec_ts = 0     # Modification timestamp
         self.dec_hs = None  # Hash of the filename
 
+        if not pych.RT:
+            msg = "pyChapel runtime is not available, "\
+                  "extern-decorators won't work."
+            raise Exception(msg)
+
     def __repr__(self):
         return pprint.pformat(vars(self))
 
@@ -195,7 +200,6 @@ class Extern(object):
             for arg in args:
                 if type(arg) is np.ndarray:
                     mapped_array = pych.RT.map_nparray(arg)
-                    logging.debug("What? %d", mapped_array.ptr_d)
                     c_args.append(mapped_array)
                 else:
                     c_args.append(arg)
