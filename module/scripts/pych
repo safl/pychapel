@@ -87,7 +87,11 @@ def compile(sfile):
     """Compile a Chapel module into a Python module."""
 
     info("Compile this %s" % sfile)
-    moduralize(sfile)
+    (source_file, output_file, wrap_fp) = moduralize(sfile)
+    info("Compiled sfile(%s) into output_file(%s)"
+         " with wrapped-source(%s)" % (
+        source_file, output_file, wrap_fp
+    ))
 
 if __name__ == "__main__":
 

@@ -197,7 +197,7 @@ def moduralize(source_file, output_file=None):
 
     # Generate Python code for the wrapped functions
     functions = []
-    for decl in declarations:
+    for i, decl in enumerate(declarations):
         sfile = wrap_sf
         ename = decl["ename"]
         pname = decl["pname"]
@@ -206,15 +206,16 @@ def moduralize(source_file, output_file=None):
         ])
         rtype = CHPL2PY[decl["rtype"]]
 
-        functions.append(func_tmpl % {
+        func =  {
             "sfile": sfile,
             "ename": ename,
             "pname": pname,
             "args": args,
             "rtype": rtype,
             "extras": ""
-        })
-
+        }
+        functions.append(func_tmpl % func)
+  
     module_src = module_tmpl % {
         "functions": "\n".join(functions),
         "module_name": "noname",
@@ -224,6 +225,15 @@ def moduralize(source_file, output_file=None):
 
     if not output_file:
         output_file = "a_out.py"
-
+    
     with open(output_file, 'w') as output_fd:
         output_fd.write(module_src)
+
+    # Try up the generated module, this will trigger hints to runtime
+    mod = __import__(output_file.replace(".py", ""), fromlist=[''])
+
+    # Then materialize all hinted libraries
+    for lib in pych.RT.hints:
+        pych.RT.materialize(pych.RT.hints[lib][0])
+
+    return (source_file, output_file, wrap_fp)
