@@ -5,10 +5,10 @@ pyChapel provides interoperability with Chapel in three forms:
 
 1. Chapel code inlined in Python
 2. Chapel code from source-files
-3. Chapel code/modules compiled into libraries
+3. Compile Chapel modules into Python modules
 
 Inlined
-~~~~~~~
+~~~~~~~~~~
 
 .. literalinclude:: /examples/chapel.inline.helloworld.py
    :language: python
@@ -16,57 +16,15 @@ Inlined
 Source-files
 ~~~~~~~~~~~~
 
-Decorator Arguments
-~~~~~~~~~~~~~~~~~~~
+...
 
-Libraries
-~~~~~~~~~
+Conventions and Arguments
+~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Compiling Chapel modules into libraries
----------------------------------------
+...
 
-Compiling Chapel code into shared libraries is a multistep process:
+Compiling Chapel modules into Python modules
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-1. Modify your Chapel code, make it "exportable".
-2. Compile your Chapel code into an archive.
-3. Link the archive with `libchpl` and creature a loadable shared object.
-
-Let us go through an example, describing a couple of caveats and what needs to
-be modified. 
-
-Step 1: Code Modification
-_________________________
-
-Take the following module:
-
-.. literalinclude:: /examples/chapel.hellolib.chpl
-   :language: c
-
-In order to compile this into a library the following changes must be made:
-
-1. Remove the `main` procedure.
-2. Add `export` to the procedures you want to access.
-3. If an exported procedure relies on type-inference (which cannot be resolved at compile-time), then do one of the following.
-
-   3a. Change the procedure by adding a type-signature.
-
-   3b. Export a typed wrapper-procedure instead of the actual procedure.
-
-The resulting modification to the module could look like this:
-
-.. literalinclude:: /examples/chapel.hellolib.exported.chpl
-   :language: c
-
-.. note :: Adding the return-type is a caveat introduced by `pychapel` not by the Chapel compiler.  The `pych` command and `pyChapel` is currently not able to infer the return-type. You therefore need to add the return-type of procedures in your Chapel module if you want to use `pych` to compile your Chapel module into a Python module.
-
-Step 2: Compilation
-___________________
-
-
-Step 3: Linking
-_______________
-
-
-
-
+...
 
