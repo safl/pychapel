@@ -116,16 +116,16 @@ def parse_export_declarations(source):
 
     :param source str: Source code to parse
     :returns: Dont know yet
-    :rtype: Tuple of lists (args, anames, atypes), `anames` is an ordered list of
-    argument names, `atypes` and ordered list of argument types and `args` is
-    equivalent to the zip(`anames`, `atypes`).
+    :rtype: Tuple of lists (args, anames, atypes), `anames` is an ordered list
+    of argument names, `atypes` and ordered list of argument types and `args`
+    is equivalent to the zip(`anames`, `atypes`).
     """
 
     declarations = []
 
-    for i, match in enumerate(re.finditer("export.*?{", source, re.DOTALL)):
+    for match in re.finditer("export.*?{", source, re.DOTALL):
         decl = ("".join(match.group(0)[6:].splitlines())).replace(" ", "")
-        
+
         ename, decl = decl.split("proc", 1) # Get ename and strip from decl
         ename = ename.strip()               # Remove whitespace
 
@@ -133,7 +133,7 @@ def parse_export_declarations(source):
         pname = pname.strip()               # Remove whitespace
 
         ename = ename if ename else pname   # Default ename to pname
-        
+
         type_split = decl.split(":")        # Return type
         rtype = type_split[-1][:-1]
         has_rtype = rtype != ")"
@@ -159,7 +159,7 @@ def parse_export_declarations(source):
             "atypes": atypes,
             "anames": anames
         })
-    
+
     return declarations
 
 def moduralize(source_file, output_file=None):
@@ -170,7 +170,7 @@ def moduralize(source_file, output_file=None):
 
     :param chapel_sf str: Chapel source file.
     """
-   
+
     py_spizer = pych.RT.specializers["python"]   # Grab specializers
     chpl_spizer = pych.RT.specializers["chapel"]
 
@@ -184,10 +184,10 @@ def moduralize(source_file, output_file=None):
     )
 
     # Create a source-file that will be added to "sfiles"
-    hash = hashlib.md5()
-    hash.update(source)
+    src_hash = hashlib.md5()
+    src_hash.update(source)
 
-    wrap_sf = "%s.chpl" % hash.hexdigest()
+    wrap_sf = "%s.chpl" % src_hash.hexdigest()
     wrap_fp = os.sep.join([chpl_spizer.sfiles[0], wrap_sf])
 
     # TODO: Generate wrapper code for argument conversion
@@ -197,7 +197,7 @@ def moduralize(source_file, output_file=None):
 
     # Generate Python code for the wrapped functions
     functions = []
-    for i, decl in enumerate(declarations):
+    for decl in declarations:
         sfile = wrap_sf
         ename = decl["ename"]
         pname = decl["pname"]
@@ -206,7 +206,7 @@ def moduralize(source_file, output_file=None):
         ])
         rtype = CHPL2PY[decl["rtype"]]
 
-        func =  {
+        func = {
             "sfile": sfile,
             "ename": ename,
             "pname": pname,
@@ -215,7 +215,7 @@ def moduralize(source_file, output_file=None):
             "extras": ""
         }
         functions.append(func_tmpl % func)
-  
+
     module_src = module_tmpl % {
         "functions": "\n".join(functions),
         "module_name": "noname",
@@ -225,11 +225,14 @@ def moduralize(source_file, output_file=None):
 
     if not output_file:
         output_file = "a_out.py"
-    
+
     with open(output_file, 'w') as output_fd:
         output_fd.write(module_src)
 
     # Try up the generated module, this will trigger hints to runtime
+    # pylint: disable=unused-variable
+    # this is fine, we just want the side-effects of importing
+    # the module to trigger, we dont want to actually use it
     mod = __import__(output_file.replace(".py", ""), fromlist=[''])
 
     # Then materialize all hinted libraries

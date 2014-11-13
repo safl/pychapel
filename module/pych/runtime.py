@@ -11,7 +11,7 @@ import ctypes
 from pych.types import PychArray
 from pych.object_store import ObjectStore
 from pych.specializer import get_specializer
-from pych.compiler import Compiler, moduralize
+from pych.compiler import Compiler
 from pych.exceptions import MaterializationError
 
 class Runtime(object):
@@ -116,7 +116,6 @@ class Runtime(object):
                 source = self.specializers[slang].load(
                     extern.sfile
                 )
-                #moduralize(source)
 
             if source:                          # Compile the source
                 out, err = self.compilers[slang].compile(
