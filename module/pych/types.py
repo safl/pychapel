@@ -62,6 +62,18 @@ TYPE2SOURCE = {
     }
 }
 
+CHPL2PY = {
+    None:       "None",
+    "bool":     "bool",
+    "int":      "int",
+    "int(16)":  "int",
+    "int(32)":  "int",
+    "int(64)":  "int",
+    "real":     "float",
+    "real(32)": "float",
+    "real(64)": "float"
+}
+
 KEYWORDS = {
     "c": [],
     "chapel": [

@@ -18,7 +18,8 @@ upload:
 
 chapel:
 	#python $(INSTALL_DIR)/share/pych/examples/chapel.inline.multi.py
-	python $(INSTALL_DIR)/share/pych/examples/chapel.sfile.hellolib.py
+	#python $(INSTALL_DIR)/share/pych/examples/chapel.sfile.hellolib.py
+	pych --compile $(INSTALL_DIR)/share/pych/sfiles/chapel/chapel.hellolib.exported.chpl
 
 c:
 	python $(INSTALL_DIR)/share/pych/examples/c.inline.py

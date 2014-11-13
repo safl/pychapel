@@ -116,7 +116,7 @@ class Runtime(object):
                 source = self.specializers[slang].load(
                     extern.sfile
                 )
-                moduralize(extern, source)
+                #moduralize(source)
 
             if source:                          # Compile the source
                 out, err = self.compilers[slang].compile(

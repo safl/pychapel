@@ -8,11 +8,15 @@ Encapsulation for invoking system compiler.
 
 from subprocess import Popen, PIPE
 import tempfile
+import hashlib
 import pprint
+import time
 import os
 import re
 
 from pych.utils import prepend_path
+import pych.specializer
+from pych.types import CHPL2PY
 
 LANG2EXT = {
     "c":        ".c",
@@ -124,10 +128,11 @@ def parse_export_declarations(source):
         
         ename, decl = decl.split("proc", 1) # Get ename and strip from decl
         ename = ename.strip()               # Remove whitespace
-        ename = ename if ename else None    # Use None instead of empty String
 
         pname, decl = decl.split("(", 1)    # Get pname and strip from decl
         pname = pname.strip()               # Remove whitespace
+
+        ename = ename if ename else pname   # Default ename to pname
         
         type_split = decl.split(":")        # Return type
         rtype = type_split[-1][:-1]
@@ -157,7 +162,7 @@ def parse_export_declarations(source):
     
     return declarations
 
-def moduralize(extern, source):
+def moduralize(source_file, output_file=None):
     """
     Compile the Chapel source file / module  into a Python module.
     This currently means create a Python module with all
@@ -165,11 +170,60 @@ def moduralize(extern, source):
 
     :param chapel_sf str: Chapel source file.
     """
-    
-    declarations = parse_export_declarations(source)
+   
+    py_spizer = pych.RT.specializers["python"]   # Grab specializers
+    chpl_spizer = pych.RT.specializers["chapel"]
 
-    # Generate wrapper code for export declarations
+    module_tmpl = py_spizer.load("module.py")   # Grab templates
+    func_tmpl = py_spizer.load("function.py")
+
+    source = chpl_spizer.load(source_file)      # Load source-file source
+
+    declarations = parse_export_declarations(   # Grab exported procedures
+        source
+    )
+
+    # Create a source-file that will be added to "sfiles"
+    hash = hashlib.md5()
+    hash.update(source)
+
+    wrap_sf = "%s.chpl" % hash.hexdigest()
+    wrap_fp = os.sep.join([chpl_spizer.sfiles[0], wrap_sf])
+
+    # TODO: Generate wrapper code for argument conversion
+    #       For now we just write the "regular" code down.
+    with open(wrap_fp, 'w') as wrap_fd:
+        wrap_fd.write(source)
 
     # Generate Python code for the wrapped functions
+    functions = []
+    for decl in declarations:
+        sfile = wrap_sf
+        ename = decl["ename"]
+        pname = decl["pname"]
+        args = ", ".join([
+            "%s=%s" % (aname, CHPL2PY[atype]) for aname, atype in decl["args"]
+        ])
+        rtype = CHPL2PY[decl["rtype"]]
 
-    pass
+        functions.append(func_tmpl % {
+            "sfile": sfile,
+            "ename": ename,
+            "pname": pname,
+            "args": args,
+            "rtype": rtype,
+            "extras": ""
+        })
+
+    module_src = module_tmpl % {
+        "functions": "\n".join(functions),
+        "module_name": "noname",
+        "sfile": source_file,
+        "gen_tstamp": int(time.time())
+    }
+
+    if not output_file:
+        output_file = "a_out.py"
+
+    with open(output_file, 'w') as output_fd:
+        output_fd.write(module_src)
