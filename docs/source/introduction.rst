@@ -59,7 +59,7 @@ done with the command::
 After going through these steps the installation can be verified by running the
 "pych" command::
 
-  pych --test-setup
+  pych --check
 
 Hello World
 ~~~~~~~~~~~
