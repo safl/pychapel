@@ -41,7 +41,8 @@ class Runtime(object):
         for slang in config["specializers"]["templates"]:   # Init specializers
             self.specializers[slang] = get_specializer(slang)(
                 config["specializers"]["templates"][slang],
-                config["specializers"]["sfiles"][slang]
+                config["specializers"]["sfiles"][slang],
+                config["specializers"]["bfiles"][slang]
             )
 
     def hint(self, extern):

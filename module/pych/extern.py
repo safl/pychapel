@@ -37,7 +37,7 @@ class Extern(object):
 
     # pylint: disable=too-many-instance-attributes
     # There are a lot but they are all reasonable.
-    def __init__(self, ename=None, lib=None, sfile=None, slang=None):
+    def __init__(self, ename=None, lib=None, sfile=None, bfile=None, slang=None):
 
         # This is done only once; when the function is decorated
         self.pfunc = None   # Python function handle
@@ -50,6 +50,8 @@ class Extern(object):
         self.efunc = None   # ctypes function handle
         self.ename = ename  # External function name
         self.lib = lib      # Library filename
+
+        self.bfile = bfile  # File containing only function body.
 
         self.sfile = sfile  # File with sourcecode
         self.slang = slang  # Language of the sourcefile or inline
@@ -135,11 +137,13 @@ class Extern(object):
         #
 
         #
-        # Construct the library-name based on inline or sfile.
+        # Construct the library-name based on inline, bfile or sfile.
         #
         # Use dec_fp and dec_ts to determine if a sfile or inline has changed.
         if self.sfile:  # Determine file to use to detect changes
             self.dec_fp = pych.RT.specializers[self.slang].abs_path(self.sfile)
+        elif self.bfile:
+            self.dec_fp = pych.RT.specializers[self.slang].abs_path(self.bfile)
         else:
             self.dec_fp = self.pfunc.func_globals["__file__"]
 
@@ -152,12 +156,25 @@ class Extern(object):
             self.dec_ts = int(os.stat(self.dec_fp).st_mtime)
             self.dec_hs = dec_hash.hexdigest()
 
-        if self.sfile or self.doc:  # Construct the filename for the library
-            # TODO: Consider parsing the source-file and expanding validation
-            #       of the type-declaration using the parsed information.
+        if self.sfile or self.doc or self.bfile:  # Construct  library filename
+            # TODO: For sfile: Consider parsing the source-file and
+            #       expanding validation of the type-declaration
+            #       using the parsed information.
             if not self.ename:
                 self.ename = self.pname
-            liborigin = "sfile" if self.sfile else "inline"
+            if self.sfile:
+                liborigin = "sfile"
+            elif self.bfile:
+                liborigin = "bfile"
+                # Load the bfile-function body
+                source = pych.RT.specializers[self.slang].load(self.bfile)
+                self.doc = source
+                self.bfile = None
+                # From this point "bfile" externs should be handled just as
+                # if they where regular "inline"
+            else:
+                liborigin = "inline"
+
             self.lib = "%s-%s-%s-%s.so" % (
                 liborigin,
                 self.slang,
@@ -218,12 +235,13 @@ class FromC(Extern):
     external C function.
     """
 
-    def __init__(self, ename=None, lib=None, sfile=None):
+    def __init__(self, ename=None, lib=None, sfile=None, bfile=None):
         super(FromC, self).__init__(
             ename=ename,
             lib=lib,
 
             sfile=sfile,
+            bfile=bfile,
             slang="c"
         )
 
@@ -233,12 +251,13 @@ class Chapel(Extern):
     external Chapel function.
     """
 
-    def __init__(self, ename=None, lib=None, sfile=None):
+    def __init__(self, ename=None, lib=None, sfile=None, bfile=None):
         super(Chapel, self).__init__(
             ename=ename,
             lib=lib,
 
             sfile=sfile,
+            bfile=bfile,
             slang="chapel"
         )
 

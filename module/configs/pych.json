@@ -25,6 +25,11 @@
             "c":            ["/tmp/pych_dev/share/pych/sfiles/c"],
             "chapel":       ["/tmp/pych_dev/share/pych/sfiles/chapel"],
             "python":       ["/tmp/pych_dev/share/pych/sfiles/python"]
+        },
+        "bfiles": {
+            "c":            ["/tmp/pych_dev/share/pych/bfiles/c"],
+            "chapel":       ["/tmp/pych_dev/share/pych/bfiles/chapel"],
+            "python":       ["/tmp/pych_dev/share/pych/bfiles/python"]
         }
     },
 

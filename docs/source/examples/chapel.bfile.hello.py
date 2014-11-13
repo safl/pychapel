@@ -1,6 +1,6 @@
 from pych.extern import Chapel
 
-@Chapel(sfile="chapel.hellolib.chpl")
+@Chapel(bfile="bfile.hello.chpl")
 def hello_world():
     return None
 

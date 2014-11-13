@@ -1,5 +1,7 @@
+.. _sec-getting-started:
+
 Getting Started
----------------
+===============
 
 This section covers installation of pyChapel and required software packages,
 introduces the "pych" utility and provides a "hello world" example of using

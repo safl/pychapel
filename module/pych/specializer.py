@@ -37,9 +37,10 @@ class BaseSpecializer(object):
     The actual language-specific specialization is performed by subclasses.
     """
 
-    def __init__(self, template_paths, sfile_paths):
+    def __init__(self, template_paths, sfile_paths, bfile_paths):
         self.templates = template_paths
         self.sfiles = sfile_paths
+        self.bfiles = bfile_paths
         self.sources = {}
         self.mtime = {}
 
@@ -57,7 +58,7 @@ class BaseSpecializer(object):
         if os.path.isabs(filename): # Absolute, just use it.
             path = filename
         else:                       # Search for it
-            for root in self.templates + self.sfiles:
+            for root in self.templates + self.sfiles + self.bfiles:
                 candidate = "%s/%s" % (root, filename)
                 if os.path.exists(candidate):
                     path = candidate
@@ -100,8 +101,12 @@ class BaseSpecializer(object):
 class PythonSpecializer(BaseSpecializer):
     """Specializer for Python modules."""
 
-    def __init__(self, template_paths, sfile_paths):
-        super(PythonSpecializer, self).__init__(template_paths, sfile_paths)
+    def __init__(self, template_paths, sfile_paths, bfile_paths):
+        super(PythonSpecializer, self).__init__(
+            template_paths,
+            sfile_paths,
+            bfile_paths
+        )
 
     def specialize(self, externs, prefix=True):
         return ""
@@ -109,8 +114,12 @@ class PythonSpecializer(BaseSpecializer):
 class CSpecializer(BaseSpecializer):
     """Specializer for C code."""
 
-    def __init__(self, template_paths, sfile_paths):
-        super(CSpecializer, self).__init__(template_paths, sfile_paths)
+    def __init__(self, template_paths, sfile_paths, bfile_paths):
+        super(CSpecializer, self).__init__(
+            template_paths,
+            sfile_paths,
+            bfile_paths
+        )
 
     def specialize(self, externs, prefix=True):
         """Specialize the inline-c code-template to the given externs."""
@@ -142,8 +151,12 @@ class CSpecializer(BaseSpecializer):
 class ChapelSpecializer(BaseSpecializer):
     """Specializer for Chapel code."""
 
-    def __init__(self, template_paths, sfile_paths):
-        super(ChapelSpecializer, self).__init__(template_paths, sfile_paths)
+    def __init__(self, template_paths, sfile_paths, bfile_paths):
+        super(ChapelSpecializer, self).__init__(
+            template_paths,
+            sfile_paths,
+            bfile_paths
+        )
 
     def specialize(self, externs, prefix=True):
         """Specialize the inline-chapel code-template to the given externs."""
