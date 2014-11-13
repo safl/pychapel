@@ -37,9 +37,33 @@ class BaseSpecializer(object):
     The actual language-specific specialization is performed by subclasses.
     """
 
-    def __init__(self, sourcecode_path):
-        self.sourcecode_path = sourcecode_path
+    def __init__(self, template_paths, sfile_paths):
+        self.templates = template_paths
+        self.sfiles = sfile_paths
         self.sources = {}
+        self.mtime = {}
+
+    def abs_path(self, filename):
+        """
+        Constructs the absolute path to 'filename', (if it isn't already).
+        This will return a absolute path to 'filename' within one of the
+        template or sfile directories.
+
+        :param filename str: Filename to construct abspath for.
+        :return: Absolute path to 'filename', None when it can't be found.
+        :rtype: str
+        """
+        path = None
+        if os.path.isabs(filename): # Absolute, just use it.
+            path = filename
+        else:                       # Search for it
+            for root in self.templates + self.sfiles:
+                candidate = "%s/%s" % (root, filename)
+                if os.path.exists(candidate):
+                    path = candidate
+                    break
+
+        return path
 
     def load(self, filename):
         """
@@ -47,14 +71,16 @@ class BaseSpecializer(object):
         content.
 
         :param str filename: Filename without path.
-        :returns: Filecontents.
+        :returns: Filecontents, None if contents cannot be found.
         :rtype: str
         """
         if filename not in self.sources:
-            path = filename
-            if not os.path.isabs(path):
-                path = "%s/%s" % (self.sourcecode_path, filename)
+            path = self.abs_path(filename)
+            if not path:
+                raise IOError("Cannot find source for filename(%s)" % filename)
+
             self.sources[filename] = open(path).read()
+            self.mtime[filename] = int(os.stat(path).st_mtime)
 
         return self.sources[filename]
 
@@ -74,8 +100,8 @@ class BaseSpecializer(object):
 class PythonSpecializer(BaseSpecializer):
     """Specializer for Python modules."""
 
-    def __init__(self, sourcecode_path):
-        super(PythonSpecializer, self).__init__(sourcecode_path)
+    def __init__(self, template_paths, sfile_paths):
+        super(PythonSpecializer, self).__init__(template_paths, sfile_paths)
 
     def specialize(self, externs, prefix=True):
         return ""
@@ -83,8 +109,8 @@ class PythonSpecializer(BaseSpecializer):
 class CSpecializer(BaseSpecializer):
     """Specializer for C code."""
 
-    def __init__(self, sourcecode_path):
-        super(CSpecializer, self).__init__(sourcecode_path)
+    def __init__(self, template_paths, sfile_paths):
+        super(CSpecializer, self).__init__(template_paths, sfile_paths)
 
     def specialize(self, externs, prefix=True):
         """Specialize the inline-c code-template to the given externs."""
@@ -116,8 +142,8 @@ class CSpecializer(BaseSpecializer):
 class ChapelSpecializer(BaseSpecializer):
     """Specializer for Chapel code."""
 
-    def __init__(self, sourcecode_path):
-        super(ChapelSpecializer, self).__init__(sourcecode_path)
+    def __init__(self, template_paths, sfile_paths):
+        super(ChapelSpecializer, self).__init__(template_paths, sfile_paths)
 
     def specialize(self, externs, prefix=True):
         """Specialize the inline-chapel code-template to the given externs."""
@@ -129,16 +155,16 @@ class ChapelSpecializer(BaseSpecializer):
 
         for extern in externs:
             # The function that won't get exported
-            tmpl_internal = self.load("func.internal.chpl")
+            tmpl_internal = self.load("inline.func.internal.chpl")
 
             # NumPy conversion
             conv_pych = self.load("convert.pych.1d.chpl")
 
             # The function that will get exported
             if extern.rtype:
-                tmpl = self.load("func.export.return.chpl")
+                tmpl = self.load("inline.func.export.return.chpl")
             else:
-                tmpl = self.load("func.export.noreturn.chpl")
+                tmpl = self.load("inline.func.export.noreturn.chpl")
 
             #
             # Exported signature

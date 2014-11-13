@@ -56,7 +56,7 @@ class Extern(object):
         self.source = None  # Sourcecode in textual representation
 
         # For externs mapped to inline or file-based sourcecode.
-        self.dec_fn = None  # Filename including the full path to the file
+        self.dec_fp = None  # Filename including the full path to the file
         self.dec_ts = 0     # Modification timestamp
         self.dec_hs = None  # Hash of the filename
 
@@ -137,17 +137,19 @@ class Extern(object):
         #
         # Construct the library-name based on inline or sfile.
         #
-        # Use dec_fn and dec_ts to determine is a sfile or inline has changed.
+        # Use dec_fp and dec_ts to determine if a sfile or inline has changed.
         if self.sfile:  # Determine file to use to detect changes
-            self.dec_fn = self.sfile
+            self.dec_fp = pych.RT.specializers[self.slang].abs_path(self.sfile)
         else:
-            self.dec_fn = self.pfunc.func_globals["__file__"]
+            self.dec_fp = self.pfunc.func_globals["__file__"]
 
-        if self.dec_fn: # Construct hash of filename to use as identifier
+        if self.dec_fp: # Construct hash of filepath to use as identifier
+            # TODO: cache hashes and stats such stat/hash is per library and 
+            #       not per function in that library.
             dec_hash = hashlib.md5()
-            dec_hash.update(self.dec_fn)
+            dec_hash.update(self.dec_fp)
 
-            self.dec_ts = int(os.stat(self.dec_fn).st_mtime)
+            self.dec_ts = int(os.stat(self.dec_fp).st_mtime)
             self.dec_hs = dec_hash.hexdigest()
 
         if self.sfile or self.doc:  # Construct the filename for the library

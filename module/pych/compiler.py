@@ -10,6 +10,7 @@ from subprocess import Popen, PIPE
 import tempfile
 import pprint
 import os
+import re
 
 from pych.utils import prepend_path
 
@@ -105,7 +106,58 @@ class Compiler(object):
 
         return all_out, all_err
 
-def moduralize(sfile):
+def parse_export_declarations(source):
+    """
+    Parse export declarations of Chapel code.
+
+    :param source str: Source code to parse
+    :returns: Dont know yet
+    :rtype: Tuple of lists (args, anames, atypes), `anames` is an ordered list of
+    argument names, `atypes` and ordered list of argument types and `args` is
+    equivalent to the zip(`anames`, `atypes`).
+    """
+
+    declarations = []
+
+    for i, match in enumerate(re.finditer("export.*?{", source, re.DOTALL)):
+        decl = ("".join(match.group(0)[6:].splitlines())).replace(" ", "")
+        
+        ename, decl = decl.split("proc", 1) # Get ename and strip from decl
+        ename = ename.strip()               # Remove whitespace
+        ename = ename if ename else None    # Use None instead of empty String
+
+        pname, decl = decl.split("(", 1)    # Get pname and strip from decl
+        pname = pname.strip()               # Remove whitespace
+        
+        type_split = decl.split(":")        # Return type
+        rtype = type_split[-1][:-1]
+        has_rtype = rtype != ")"
+        decl = decl[:-(len(rtype)+3)]       # Strip return type from decl
+        if not has_rtype:
+            rtype = None
+
+        args = []
+        anames = []
+        atypes = []
+
+        split_args = (arg.split(":", 1) for arg in decl.split(",") if arg)
+        for aname, atype in split_args:
+            anames.append(aname)
+            atypes.append(atype)
+            args.append((aname, atype))
+
+        declarations.append({
+            "ename": ename,
+            "pname": pname,
+            "rtype": rtype,
+            "args": args,
+            "atypes": atypes,
+            "anames": anames
+        })
+    
+    return declarations
+
+def moduralize(extern, source):
     """
     Compile the Chapel source file / module  into a Python module.
     This currently means create a Python module with all
@@ -113,4 +165,11 @@ def moduralize(sfile):
 
     :param chapel_sf str: Chapel source file.
     """
+    
+    declarations = parse_export_declarations(source)
 
+    # Generate wrapper code for export declarations
+
+    # Generate Python code for the wrapped functions
+
+    pass

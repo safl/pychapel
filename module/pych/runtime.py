@@ -11,7 +11,7 @@ import ctypes
 from pych.types import PychArray
 from pych.object_store import ObjectStore
 from pych.specializer import get_specializer
-from pych.compiler import Compiler
+from pych.compiler import Compiler, moduralize
 from pych.exceptions import MaterializationError
 
 class Runtime(object):
@@ -40,7 +40,8 @@ class Runtime(object):
 
         for slang in config["specializers"]["templates"]:   # Init specializers
             self.specializers[slang] = get_specializer(slang)(
-                config["specializers"]["templates"][slang]
+                config["specializers"]["templates"][slang],
+                config["specializers"]["sfiles"][slang]
             )
 
     def hint(self, extern):
@@ -110,9 +111,12 @@ class Runtime(object):
                 )
 
             if extern.sfile:
+                # TODO: Wrap exported externs to ensure correct argument
+                # conversion
                 source = self.specializers[slang].load(
                     extern.sfile
                 )
+                moduralize(extern, source)
 
             if source:                          # Compile the source
                 out, err = self.compilers[slang].compile(

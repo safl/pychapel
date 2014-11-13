@@ -16,6 +16,9 @@ Inlined
 Source-files
 ~~~~~~~~~~~~
 
+Decorator Arguments
+~~~~~~~~~~~~~~~~~~~
+
 Libraries
 ~~~~~~~~~
 
@@ -65,6 +68,5 @@ _______________
 
 
 
-Decorator Arguments
-~~~~~~~~~~~~~~~~~~~
+
 

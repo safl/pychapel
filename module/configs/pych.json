@@ -17,13 +17,14 @@
 
     "specializers": {
         "templates": {
-            "c":            "/tmp/pych_dev/share/pych/templates/c",
-            "chapel":       "/tmp/pych_dev/share/pych/templates/chapel",
-            "python":       "/tmp/pych_dev/share/pych/templates/python"
+            "c":            ["/tmp/pych_dev/share/pych/templates/c"],
+            "chapel":       ["/tmp/pych_dev/share/pych/templates/chapel"],
+            "python":       ["/tmp/pych_dev/share/pych/templates/python"]
         },
         "sfiles": {
-            "c":            "/tmp/pych_dev/share/pych/sfiles/c",
-            "chapel":       "/tmp/pych_dev/share/pych/sfiles/chapel"
+            "c":            ["/tmp/pych_dev/share/pych/sfiles/c"],
+            "chapel":       ["/tmp/pych_dev/share/pych/sfiles/chapel"],
+            "python":       ["/tmp/pych_dev/share/pych/sfiles/python"]
         }
     },
 

@@ -4,7 +4,7 @@ DOC_DIR=docs
 
 all:
 
-run: clean deploy c chapel
+run: clean deploy chapel
 
 pych: clean deploy
 	pych --check
@@ -17,7 +17,8 @@ upload:
 	cd $(MODULE_DIR) && python setup.py bdist sdist upload
 
 chapel:
-	python $(INSTALL_DIR)/share/pych/examples/chapel.inline.multi.py
+	#python $(INSTALL_DIR)/share/pych/examples/chapel.inline.multi.py
+	python $(INSTALL_DIR)/share/pych/examples/chapel.sfile.hellolib.py
 
 c:
 	python $(INSTALL_DIR)/share/pych/examples/c.inline.py
