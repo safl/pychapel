@@ -47,13 +47,13 @@ def check(arg):
 
     info(" * Templates")
     for slang in CONFIG["specializers"]["templates"]:
-        template_dir = CONFIG["specializers"]["templates"][slang]
-        if not os.path.exists(template_dir):
-            error(
-                "Missing template dir(%s) for slang(%s)",
-                template_dir,
-                slang
-            )
+        for template_dir in CONFIG["specializers"]["templates"][slang]:
+            if not os.path.exists(template_dir):
+                error(
+                    "Missing template dir(%s) for slang(%s)",
+                    template_dir,
+                    slang
+                )
 
     info(" * Object Storage")
     try:

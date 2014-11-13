@@ -3,7 +3,7 @@ from pych.extern import Chapel
 @Chapel()
 def hello_world():
     """
-    writeln("Hello");
+    writeln("Hello, world");
     """
     return None
 

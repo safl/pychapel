@@ -64,7 +64,19 @@ After going through these steps the installation can be verified by running the
 Hello World
 ~~~~~~~~~~~
 
-Check this out:
+You should now be ready to try it out, create a file named `hw.py` with the
+following content:
 
 .. literalinclude:: /examples/chapel.inline.helloworld.py
    :language: python
+
+Then try running it::
+
+  python hw.py
+
+This should then print out the classic::
+
+  Hello, world
+
+Continue to :ref:`sec-usage` for examples of something slightly more interesting
+than `Hello, world`.
