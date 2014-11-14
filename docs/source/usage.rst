@@ -154,8 +154,25 @@ It is a unconventional use of Python function but it serves as much less verbose
 Compiling Chapel modules into Python modules
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Easy as pie::
+Compiling the Chapel module ``hellolib.exported.chpl``:
 
-  pych --compile chapel_module.chpl
-  
+.. literalinclude:: /examples/sfiles/chapel/hellolib.exported.chpl
+   :language: c
+
+Into a Python module, is done by invoking:
+
+  pych --compile hellolib.exported.chpl
+
+Resulting in a Python module named ``a_out.py`` in the current working
+directory. The module should be renamed such as::
+
+  mv a_out.py hellolib.py
+
+And can then be used by::
+
+  from hellolib import hello_caller, add_ints
+
+  if __name__ == "__main__":
+    hello_caller()
+    print add_ints(2, 3)
 
