@@ -140,12 +140,22 @@ applicable.
 default arguments
 -----------------
 
-...
+The ``@Chapel`` decorated Python functions aren't really used as functions, they
+are instead used a means to declare a foreign function within Python. You do not like the look of them do you? I know... but you just need to seem them in the right light.
+
+Which is: See them as as foreign function-declarations instead of Python function definitions.
+
+That worked right? Yeah, I know it did.
+
+It is a unconventional use of Python function but it serves as much less verbose way to declare foreign functions in comparison to other ffi-libraries in Python.
 
 .. _subsec-compiling-modules:
 
 Compiling Chapel modules into Python modules
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-...
+Easy as pie::
+
+  pych --compile chapel_module.chpl
+  
 
