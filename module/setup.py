@@ -39,7 +39,9 @@ setup(
         ('share/pych/include', glob.glob('include/*.h')),
         ('share/pych/lib', glob.glob('lib/*')),
 
-        ('share/pych/examples', glob.glob('../docs/source/examples/*')),
+        ('share/pych/examples', glob.glob('../docs/source/examples/*.py')),
+        ('share/pych/examples', glob.glob('../docs/source/examples/*.c')),
+        ('share/pych/examples', glob.glob('../docs/source/examples/*.chpl')),
 
         ('share/pych/sfiles/c',      glob.glob('../docs/source/examples/sfiles/c/*')),
         ('share/pych/sfiles/chapel', glob.glob('../docs/source/examples/sfiles/chapel/*')),

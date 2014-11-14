@@ -9,6 +9,9 @@ pyChapel provides interoperability with Chapel in three forms:
 2. Chapel code from source-files
 3. Compile Chapel modules into Python modules
 
+The following sections describe the different interoperability modes with
+examples such that you can get a feeling of which mode might best serve your needs.
+
 .. _subsec-inlined:
 
 Inlined
@@ -40,6 +43,9 @@ Source-files
 
 Instead of using the ``docstring`` of the decorated function a Chapel source-file can be used to used instead. Using either the ``bfile`` or the ``sfile`` argument to the decorator. 
 
+using bfile
+-----------
+
 Using the ``bfile`` argument behaves exactly as the ``inline`` except the
 function-body is taken from the given file.
 
@@ -48,29 +54,93 @@ function-body is taken from the given file.
 
 The ``bfile`` target could contain something like below.
 
-.. literalinclude:: /examples/chapel.bfile.hello.chpl
+.. literalinclude:: /examples/bfiles/chapel/bfile.hello.chpl
    :language: c
 
+It is not of consequence, but it is still worth noting that the Chapel source targeted with ``bfile`` most commonly will not be a valid Chapel program.  The example above is insidently valid, so to illustrate an example is provided
+below where the ``bfile`` target is not a valid Chapel program.
 
-.. literalinclude:: /examples/chapel.sfile.hello.py
+Is this example the ``fibonacci`` function is decorated:
+
+.. literalinclude:: /examples/chapel.bfile.fib.py
    :language: python
 
-This is done as in the example below by adding the ``sfile`` argument to the decorator.
+and function-body is taken from the provided ``bfile``:
 
-In contrast to the ``docstring`` then the ``sfile`` expects not only a function
-body but the entire 
+.. literalinclude:: /examples/bfiles/chapel/bfile.fib.chpl
+   :language: c
+
+It not not of consequence, since pyChapel does not expect a valid Chapel program from ``bfile``, only a function body.
+
+The ``bfile`` argument is simply meant as a means to provide function-bodies in
+a form which might be slightly more convenient in some cases. If you want to use existing wellformed Chapel modules and functions then ``sfile`` or :ref:`subsec-compiling-modules` is the mode of interoperability your are looking for.
+
+using sfile
+-----------
+
+``sfile`` maps Python functions to procedures in existing Chapel modules. This
+allows you to work conveniently within your Chapel environment, with all the
+joys that brings in terms of syntax highlighting, debugging and testing the module code, and
+then expose the procedures you want access to in Python. 
+
+Consequently the ``sfile`` argument expects the target to be a well-formed
+Chapel module with a well-defined and exported procedure declaration.
+In contrast to the ``docstring`` and ``bfile`` which only expects to be provided with a function body.
+
+.. literalinclude:: /examples/chapel.sfile.hw.py
+   :language: python
+
+Where ``sfile.hello.chpl`` contains:
+
+.. literalinclude:: /examples/sfiles/chapel/sfile.hello.chpl
+   :language: c
+
+The decorated Python function will map to a procedure within the Chapel module
+using the function-naming conventions described in subsection
+:ref:`subsec-conventions`.
 
 .. _subsec-conventions:
 
 Conventions and Arguments
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
+pyChapel relies on naming conventions, and an unconventional use of
+default arguments of Python functions. The following Chapel module will serve as an
+example throughout this section.
+
+.. literalinclude:: /examples/sfiles/chapel/hellolib.exported.chpl
+   :language: c
+
+function names
+--------------
+
+An ``@Chapel`` decorated Python function will map to a Chapel procedure of the same name.
+
+.. note: In the case of ``inlined`` function bodies and ``bfile`` then this Chapel procedure is dynamically generated and compiled behind the scenes and thus never exposed to the pyChapel user.
+
+Mapping a Python function to the Chapel procedure ``hello_caller`` from the
+Chapel module ``HelloLib`` is done by writing and decorating the following
+function:
+
+.. literalinclude:: /examples/chapel.sfile.hellolib.py
+   :language: python
+
+Lets say that you insist of calling your ``@Chapel`` decorated Python function ``hello_world`` and you
+refuse to rename, nor export the Chapel procedure under a different name, then you can map the Python function
+using ``ename``:
+
+.. literalinclude:: /examples/chapel.sfile.hellolib.ename.py
+   :language: python
+
+Real-world cases usually involve motivation other than stubborn unwillingness to
+refactor code. Regardless of the motivation the ``ename`` decorator argument
+serves the purpose of mapping functions when the naming convention is not
+applicable.
+
+default arguments
+-----------------
+
 ...
-
-.. _subsec-scope:
-
-
-
 
 .. _subsec-compiling-modules:
 
