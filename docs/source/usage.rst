@@ -161,14 +161,20 @@ Compiling the Chapel module ``hellolib.exported.chpl``:
 
 Into a Python module, is done by invoking:
 
-  pych --compile hellolib.exported.chpl
+.. code-block:: bash
+
+   pych --compile hellolib.exported.chpl
 
 Resulting in a Python module named ``a_out.py`` in the current working
-directory. The module should be renamed such as::
+directory. Rename the ``.py`` file:
 
-  mv a_out.py hellolib.py
+.. code-block:: bash
 
-And can then be used by::
+   mv a_out.py hellolib.py
+
+Such that it can be imported and used as:
+
+.. code-block:: python
 
   from hellolib import hello_caller, add_ints
 
