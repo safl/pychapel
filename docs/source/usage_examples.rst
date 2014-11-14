@@ -1,3 +1,5 @@
+.. _sec-usage-examples:
+
 Usage Examples
 ==============
 
