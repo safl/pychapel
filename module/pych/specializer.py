@@ -57,9 +57,10 @@ class BaseSpecializer(object):
         path = None
         if os.path.isabs(filename): # Absolute, just use it.
             path = filename
-        else:                       # Search for it
+        else:                       # Search for it in sfiles dirs
+            basename = os.path.basename(filename)
             for root in self.templates + self.sfiles + self.bfiles:
-                candidate = "%s/%s" % (root, filename)
+                candidate = os.sep.join([root, basename])
                 if os.path.exists(candidate):
                     path = candidate
                     break
