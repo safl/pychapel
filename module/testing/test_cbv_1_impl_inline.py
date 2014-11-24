@@ -1,9 +1,9 @@
 """
-	* library is implicitly named
-	* ename is derived from Python function name
-	* Call by value using numerical built-in types
-	* Inline Chapel code
-	* Single function is mapped
+    * library is implicitly named
+    * ename is derived from Python function name
+    * Call by value using numerical built-in types
+    * Inline Chapel code
+    * One function is mapped
 """
 from pych.extern import Chapel
 

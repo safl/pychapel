@@ -1,7 +1,7 @@
 from pych.extern import Chapel
 
-@Chapel()
-def hello_world(sfile="sfile.hello.chpl"):
+@Chapel(sfile="sfile.hello.chpl")
+def hello_world():
     return None
 
 if __name__ == "__main__":
