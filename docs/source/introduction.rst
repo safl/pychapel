@@ -23,7 +23,7 @@ is required.
 
 Installing pyChapel::
 
-  pip install numpy pyChapel
+  pip install numpy pyChapel argparse
 
 Build and install Chapel from source from this repository::
 
