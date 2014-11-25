@@ -18,24 +18,8 @@ class ObjectStore(object):
 
     def __init__(self, config):
 
-        self._root_path = config["root_path"]
-        if not self._root_path:             # Root-path defaults to cwd
-            self._root_path = os.getcwd()
-                                            # Search paths
-        self._search_paths = {source:[] for source in config["search_paths"]}
-        for source in config["search_paths"]:
-            for search_path in config["search_paths"][source]:
-                self._search_paths[source].append(prepend_path(
-                    self._root_path, search_path
-                ))
-                                            # Output paths
-        self._output_paths = {source:[] for source in config["output_paths"]}
-        for source in config["output_paths"]:
-            output_path = config["output_paths"][source]
-            self._output_paths[source] = prepend_path(
-                self._root_path,
-                output_path
-            )
+        self._search_paths = config["search_paths"]
+        self._output_paths = config["output_paths"]
 
         self._functions = {}
         self._libraries = {}                # library.so => cdll-library-handle

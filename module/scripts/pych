@@ -2,42 +2,19 @@
 import subprocess
 import argparse
 import pprint
+import glob
 import json
 import os
 
 from pych.version import APP_NAME, APP_VERSION
 from pych.compiler import moduralize
 from pych import CONFIG
-
-#
-# Helper functions for printing output form the pych command
-# we do not want to use the logging module since that would
-# mess with the configured output of the pych module.
-#
-def info(msg):
-    """
-    Print out a information message...
-    :param msg str: The message to print.
-    """
-    print(msg)
-
-def warn(msg):
-    """
-    Print out a warning message...
-    :param msg str: The warning message to print.
-    """
-    print("WARN: %s" % msg)
-
-def error(msg):
-    """
-    Print out an error message...
-    :param msg str: The error message to print.
-    """
-    print("ERR: %s" % msg)
+from pych.utils import info, warn, error
 
 #
 # pych commands
 #
+
 def check(arg):
     """Sanity checks the configuration."""
 
@@ -81,9 +58,9 @@ def check(arg):
 
     errors = []
     warnings = []
-    required = ["g++", "chpl", "gcc", "py.test", "sdf"]
+    required = ["g++", "chpl", "gcc", "py.test"]
     recommended = ["py.test"]
-    for executable in required:
+    for executable in required+recommended:
         try:
             process = subprocess.Popen(
                 [executable, "--version"],
@@ -96,8 +73,6 @@ def check(arg):
                 errors.append((exc, "stacktrace here"))
             elif executable in recommended:
                 warnings.append((exc, "stacktrace here"))
-
-
 
 def version(arg):
     """Print the pych version."""
@@ -118,80 +93,90 @@ def compile(sfile):
         source_file, output_file, wrap_fp
     ))
 
-def list_bfiles(arg):
+def bfiles(arg):
+    if not CONFIG:
+        error("Configuration is broken.")
+        return
+
+    CONFIG.pprint_specializers(['bfiles'])
+
+def sfiles(arg):
+    if not CONFIG:
+        error("Configuration is broken.")
+        return
+
+    CONFIG.pprint_specializers(['sfiles'])
+
+def templates(arg):
+    if not CONFIG:
+        error("Configuration is broken.")
+        return
+
+    CONFIG.pprint_specializers(['templates'])
+
+def object_store(arg):
 
     if not CONFIG:
         error("Configuration is broken, can't compile.")
         return
 
+    pprint.pprint(CONFIG._config)
     # TODO: List all the bfiles
-
-def list_sfiles(arg):
-
-    if not CONFIG:
-        error("Configuration is broken, can't compile.")
-        return
-
-    # TODO: List all the sfiles
-
-def list_store(arg):
-
-    if not CONFIG:
-        error("Configuration is broken, can't compile.")
-        return
-
-    # TODO: List all the bfiles
-
-def list_templates(arg):
-
-    if not CONFIG:
-        error("Configuration is broken, can't compile.")
-        return
-
-    # TODO: List all templates
 
 if __name__ == "__main__":
-
+    
     parser = argparse.ArgumentParser(   # Setup cli-argument parser
         description='Tool aiding the pych module'
     )
-    parser.add_argument(
-        '--compile',
-        metavar="source_file",
-        type=str,
+
+    exclusive = parser.add_mutually_exclusive_group()
+    exclusive.add_argument(
+        '-c', '--compile',
+        metavar="source_file", type=str,
         help='Compile the given Chapel module into a Python module.'
     )
-    parser.add_argument(
-        '--check',
-        action="store_const",
-        const=True,
-        default=False,
-        help="Check the pych installation / configuration"
+    exclusive.add_argument(
+        '-k', '--check',
+        action="store_const", const=True, default=False,
+        help="Check the 'pych' installation, configuration, and environment."
     )
-    parser.add_argument(
-        '--version',
-        action="store_const",
-        const=True,
-        default=False,
+    exclusive.add_argument(
+        '-s', '--sfiles',
+        action="store_const", const=True, default=False,
+        help="Show information about source-files (sfiles)."
+    )
+    exclusive.add_argument(
+        '-b', '--bfiles',
+        action="store_const", const=True, default=False,
+        help='Show information about function-body files (bfiles).'
+    )
+    exclusive.add_argument(
+        '-t', '--templates',
+        action="store_const", const=True, default=False,
+        help='Show information about templates.'
+    )
+    exclusive.add_argument(
+        '-a', '--object-store',
+        action="store_const", const=True, default=False,
+        help='Show information about the object-store (.so files).'
+    )
+    exclusive.add_argument(
+        '-v', '--version',
+        action="store_const", const=True, default=False,
         help="Print version"
     )
+
     args = parser.parse_args()
 
-    commands = {                        # Dispatch of 'pych' commands
-        'compile': compile,
-        'version': version,
-        'check': check
-    }
-    
-    exec_command = None                 # Grab a single command
-    for command in commands:
-        if args.__dict__[command] and not exec_command:
-            exec_command = (command, commands[command], args.__dict__[command])
-        elif args.__dict__[command] and exec_command:
-            warn("One command at a time, ignoring --%s." % (command))
+    cmd = cmd_args = cmd_exec = None    # Grab a command, the "--long-name" of
+    for arg in args.__dict__:           # the arg maps to the function-name
+        cmd_args = args.__dict__[arg]
+        if cmd_args:
+            cmd = arg
+            cmd_exec = locals()[arg]
 
-    if exec_command:                    # Invoke it
-        cmd_name, cmd, cmd_arg = exec_command
-        cmd(cmd_arg)
+    if cmd_exec:                        # Invoke it
+        cmd_exec(cmd_args)
     else:                               # Print help when no commands provided
-        parser.print_help()
+        parser.print_usage()
+        error("No command provided, see help(-h, --help) for commands.")

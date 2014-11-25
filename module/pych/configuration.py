@@ -8,8 +8,11 @@ Loads and stores pyChapel configuration.
 # through __getitem__ it is perfectly valid that it has few public methods.
 
 import inspect
+import glob
 import json
 import os
+
+from pych.utils import info, warn, error, prepend_path
 
 class Configuration(object):
     """
@@ -37,7 +40,54 @@ class Configuration(object):
             ]
             config_fn = os.sep.join(config_path)
 
-        self._config = json.load(open(config_fn))
+        config_raw = json.load(open(config_fn))
+        config = config_raw
+
+        # TODO: Configuration here should do whatever path-magic is needed...
+
+        #
+        # Object store paths
+        #
+        root_path = config_raw["object_store"]["root_path"]
+        if not root_path:             # Root-path defaults to cwd
+            root_path = os.getcwd()
+                                            # Search paths
+        search_paths = {source:[] for source in config_raw["object_store"]["search_paths"]}
+        for source in config_raw["object_store"]["search_paths"]:
+            for search_path in config_raw["object_store"]["search_paths"][source]:
+                search_paths[source].append(prepend_path(
+                    root_path, search_path
+                ))
+                                            # Output paths
+        output_paths = {source:[] for source in config_raw["object_store"]["output_paths"]}
+        for source in config_raw["object_store"]["output_paths"]:
+            output_path = config_raw["object_store"]["output_paths"][source]
+            output_paths[source] = prepend_path(
+                root_path,
+                output_path
+            )
+        config["object_store"]["search_paths"] = search_paths
+        config["object_store"]["output_paths"] = output_paths
+
+
+        self._config = config
 
     def __getitem__(self, index):
         return self._config[index]
+
+    def pprint_specializers(self, stypes=['bfiles', 'sfiles', 'templates']):
+        """Pretty-print specializer-configuration as described in pych.json."""
+        
+        for stype in stypes:    
+            info("** Listing %s" % stype) 
+            bdirs = self._config["specializers"][stype]
+            for slang in bdirs:
+                for bdir in bdirs[slang]:
+                    info("* %s %s(s) in '%s':" % (slang.title(), stype, bdir))
+                    for fname in glob.glob("%s%s*" % (bdir, os.sep)):
+                        if 'empty' in fname:
+                            continue
+                        info(os.path.basename(fname))
+            info("** End of %s listing." % stype) 
+
+
