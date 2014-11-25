@@ -46,6 +46,11 @@ class Configuration(object):
         # TODO: Configuration here should do whatever path-magic is needed...
 
         #
+        # The paths in configuration file should just be made absolute... this
+        # is too much complexity for simple thing.
+        #
+
+        #
         # Object store paths
         #
         root_path = config_raw["object_store"]["root_path"]
@@ -69,7 +74,11 @@ class Configuration(object):
         config["object_store"]["search_paths"] = search_paths
         config["object_store"]["output_paths"] = output_paths
 
+        #
+        # TODO: Specializer paths
 
+        #
+        # TODO: 
         self._config = config
 
     def __getitem__(self, index):
