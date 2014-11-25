@@ -1,4 +1,4 @@
-pyChapel
-numpy
-sphinxcontrib-bibtex
 pybtex
+sphinxcontrib-bibtex
+numpy
+pyChapel
