@@ -141,6 +141,11 @@ if __name__ == "__main__":
         help="Check the 'pych' installation, configuration, and environment."
     )
     exclusive.add_argument(
+        '-z', '--testing',
+        action="store_const", const=True, default=False,
+        help="Run 'pych' testing."
+    )
+    exclusive.add_argument(
         '-s', '--sfiles',
         action="store_const", const=True, default=False,
         help="Show information about source-files (sfiles)."

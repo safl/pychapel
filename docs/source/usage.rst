@@ -154,6 +154,28 @@ It is a unconventional use of Python function but it serves as much less verbose
 Compiling Chapel modules into Python modules
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+The command-line utility ``pych`` is what you need.
+
+.. code-block:: bash
+
+  usage: pych [-h] [-c source_file | -k | -z | -s | -b | -t | -a | -v]
+
+  Tool aiding the pych module
+
+  optional arguments:
+    -h, --help            show this help message and exit
+    -c source_file, --compile source_file
+                          Compile the given Chapel module into a Python module.
+    -k, --check           Check the 'pych' installation, configuration, and
+                          environment.
+    -z, --testing         Run 'pych' testing.
+    -s, --sfiles          Show information about source-files (sfiles).
+    -b, --bfiles          Show information about function-body files (bfiles).
+    -t, --templates       Show information about templates.
+    -a, --object-store    Show information about the object-store (.so files).
+    -v, --version         Print version
+
+
 Compiling the Chapel module ``hellolib.exported.chpl``:
 
 .. literalinclude:: /examples/sfiles/chapel/hellolib.exported.chpl
