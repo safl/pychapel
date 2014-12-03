@@ -23,7 +23,7 @@ is required.
 
 Installing pyChapel::
 
-  pip install numpy pyChapel argparse
+  pip install numpy argparse pyChapel
 
 Build and install Chapel from source from this repository::
 
@@ -36,11 +36,11 @@ Add this or equivalent to your environment::
   # Setup Chapel
   #
   CWD=`pwd`
-  #export CHPL_REGEXP=re2
   export CHPL_REGEXP=none
   export CHPL_MEM=cstdlib
   export CHPL_GMP=none
   export CHPL_TASKS=fifo
+  export CHPL_LIBMODE=shared
   cd ~/chapel/ && source ~/chapel/util/setchplenv.bash
   cd $CWD
 

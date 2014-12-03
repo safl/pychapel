@@ -1,5 +1,5 @@
 """
-pyChapel - The Python/Chapel interoperability module.
+pych - The Python/Chapel interoperability module.
 """
 import logging
 import pych.configuration
@@ -21,7 +21,9 @@ try:
 
     RT = pych.runtime.Runtime(CONFIG)               # Setup runtime
 except ValueError as exc:
-    logging.exception("Looks like there is an error in your configuration file.")
+    logging.error("Looks like there is an error in your configuration file.")
 except IOError as exc:
-    logging.exception("Failed loading pyChapel configuration.")
-
+    logging.error("If you are installing just now, "
+                  "then ignore this error message: "
+                  "Could not find config-file(pych.json), "
+                  "check your installation or try re-installing.")
