@@ -1,10 +1,19 @@
 #!/usr/bin/env python
-from distutils.core import setup
+from setuptools import setup
 from distutils.command.install_data import install_data
 import pprint
 import glob
 
-from pych.version import APP_NAME, APP_VERSION
+# This is hacky, but it means install_requires can be defined below.
+with open('pych/version.py', 'r') as fp:
+    version_py_content = fp.read()
+APP_NAME = None
+APP_VERSION = None
+for line in version_py_content.splitlines():
+    if line.startswith('APP_NAME'):
+        APP_NAME = line.split("'", 2)[1].strip()
+    elif line.startswith('APP_VERSION'):
+        APP_VERSION = line.split("'", 2)[1].strip()
 
 class post_install(install_data):
     """Do these things post-installation."""
@@ -33,6 +42,9 @@ setup(
     url         = 'http://www.bh107.org',
     author      = 'Simon A. F. Lund',
     author_email='safl@safl.dk',
+    install_requires=[
+        'numpy'
+    ],
     data_files  = [
         ('share/pych/config', ['configs/pych.json']),
         
