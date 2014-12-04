@@ -11,11 +11,10 @@ Installation
 ~~~~~~~~~~~~
 
 The steps for installing pyChapel and the software packages it depends upon is
-fairly straightforward. The following prodescribes the commands and packages and
-how installation would be done on a Ubuntu-linux system.
+fairly straightforward. The following provides a setup guide on a Ubuntu-linux system.
 
-Depending on your system the commands might be slightly different but the
-following should provide the gist of what is required.
+Depending on your system the commands might be slightly different but the 
+should provide the gist of what is required.
 
 pyChapel depends on the pyChapel Python module itself which is available via
 PyPi. Additionally the Chapel compiler and a library compiled with the compiler
@@ -25,10 +24,10 @@ Installing pyChapel::
 
   pip install numpy argparse pyChapel
 
-Build and install Chapel from source from this repository::
+Build and install Chapel from source::
 
   cd ~
-  git clone git@github.com:safl/chapel.git
+  git clone git@github.com:chapel-lang/chapel.git
 
 Add this or equivalent to your environment::
 
