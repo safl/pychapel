@@ -12,26 +12,38 @@ from pych import CONFIG
 from pych.utils import info, warn, error
 
 #
+# Helper decorators
+#
+
+def needs_config(func):
+    """Checks if configuration is available, exist with error when its not."""
+
+    def inner(*args, **kwargs):
+        if not CONFIG:
+            error("Cannot find configuration file (pych.json).")
+            exit(1)
+
+        return func(*args, **kwargs)
+
+    return inner
+#
 # pych commands
 #
 
+@needs_config
 def check(arg):
     """Sanity checks the configuration."""
 
     info("Checking installation...")
-
-    if not CONFIG:
-        error("Cannot find configuration file (pych.json).")
-
     info(" * Templates")
     for slang in CONFIG["specializers"]["templates"]:
         for template_dir in CONFIG["specializers"]["templates"][slang]:
             if not os.path.exists(template_dir):
                 error(
-                    "Missing template dir(%s) for slang(%s)",
+                    "Missing template dir(%s) for slang(%s)" % (
                     template_dir,
                     slang
-                )
+                ))
 
     info(" * Object Storage")
     try:
@@ -45,7 +57,7 @@ def check(arg):
             with open(path, 'w') as fd:
                 fd.write("test")
     except Exception as e:
-        error("Error trying to write to object-store: %s", e)
+        error("Error trying to write to object-store: %s" % e)
 
     # Check that Chapel libraries are there
     info(" * Libraries")
@@ -79,12 +91,9 @@ def version(arg):
 
     info("%s %s" % (APP_NAME, APP_VERSION))
 
+@needs_config
 def compile(sfile):
     """Compile a Chapel module into a Python module."""
-
-    if not CONFIG:
-        error("Configuration is broken, can't compile.")
-        return
 
     info("Compile this %s" % sfile)
     (source_file, output_file, wrap_fp) = moduralize(sfile)
@@ -93,32 +102,23 @@ def compile(sfile):
         source_file, output_file, wrap_fp
     ))
 
+@needs_config
 def bfiles(arg):
-    if not CONFIG:
-        error("Configuration is broken.")
-        return
 
     CONFIG.pprint_specializers(['bfiles'])
 
+@needs_config
 def sfiles(arg):
-    if not CONFIG:
-        error("Configuration is broken.")
-        return
 
     CONFIG.pprint_specializers(['sfiles'])
 
+@needs_config
 def templates(arg):
-    if not CONFIG:
-        error("Configuration is broken.")
-        return
 
     CONFIG.pprint_specializers(['templates'])
 
+@needs_config
 def object_store(arg):
-
-    if not CONFIG:
-        error("Configuration is broken, can't compile.")
-        return
 
     pprint.pprint(CONFIG._config)
     # TODO: List all the bfiles
