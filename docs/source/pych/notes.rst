@@ -18,7 +18,7 @@ Step 1: Code Modification
 
 Take the following module:
 
-.. literalinclude:: /examples/chapel.hellolib.chpl
+.. literalinclude:: /examples/sfiles/chapel/hellolib.chpl
    :language: chapel
 
 In order to compile this into a library the following changes must be made:
@@ -33,7 +33,7 @@ In order to compile this into a library the following changes must be made:
 
 The resulting modification to the module could look like this:
 
-.. literalinclude:: /examples/chapel.hellolib.exported.chpl
+.. literalinclude:: /examples/sfiles/chapel/hellolib.exported.chpl
    :language: chapel
 
 .. note :: Adding the return-type is a caveat introduced by `pychapel` not by the Chapel compiler.  The `pych` command and `pyChapel` is currently not able to infer the return-type. You therefore need to add the return-type of procedures in your Chapel module if you want to use `pych` to compile your Chapel module into a Python module.

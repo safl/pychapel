@@ -14,7 +14,7 @@ A common need for speed when working with Python are scientific codes. NumPy and
 the SciPy stack provides a rich environment for scientific computing, different
 approaches exist to accelerate such code, with pyChapel a new means is provided.
 
-The structure of a scientific code can often be factored into three stages::
+The structure of a scientific code can often be factored into three stages:
 
 1. Load a data-set
 2. Process the data

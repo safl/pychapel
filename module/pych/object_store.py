@@ -118,6 +118,7 @@ class ObjectStore(object):
         :param pych.Extern extern: External to conjure up a materialization.
         :returns: Handle to library function as a ctypes function pointer.
         :rtype: ctypes._FuncPtr
+
         """
 
         if extern.ename in self._functions:     # Grabbing loaded symbols

@@ -116,7 +116,8 @@ def parse_export_declarations(source):
 
     :param source str: Source code to parse
     :returns: Dont know yet
-    :rtype: Tuple of lists (args, anames, atypes), `anames` is an ordered list
+    :rtype:
+    :returns: Tuple of lists (args, anames, atypes), `anames` is an ordered list
     of argument names, `atypes` and ordered list of argument types and `args`
     is equivalent to the zip(`anames`, `atypes`).
     """
