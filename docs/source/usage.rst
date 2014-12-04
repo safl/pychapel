@@ -55,7 +55,7 @@ function-body is taken from the given file.
 The ``bfile`` target could contain something like below.
 
 .. literalinclude:: /examples/bfiles/chapel/bfile.hello.chpl
-   :language: c
+   :language: chapel
 
 It is not of consequence, but it is still worth noting that the Chapel source targeted with ``bfile`` most commonly will not be a valid Chapel program.  The example above is insidently valid, so to illustrate an example is provided
 below where the ``bfile`` target is not a valid Chapel program.
@@ -68,7 +68,7 @@ Is this example the ``fibonacci`` function is decorated:
 and function-body is taken from the provided ``bfile``:
 
 .. literalinclude:: /examples/bfiles/chapel/bfile.fib.chpl
-   :language: c
+   :language: chapel
 
 It not not of consequence, since pyChapel does not expect a valid Chapel program from ``bfile``, only a function body.
 
@@ -93,7 +93,7 @@ In contrast to the ``docstring`` and ``bfile`` which only expects to be provided
 Where ``sfile.hello.chpl`` contains:
 
 .. literalinclude:: /examples/sfiles/chapel/sfile.hello.chpl
-   :language: c
+   :language: chapel
 
 The decorated Python function will map to a procedure within the Chapel module
 using the function-naming conventions described in subsection
@@ -109,7 +109,7 @@ default arguments of Python functions. The following Chapel module will serve as
 example throughout this section.
 
 .. literalinclude:: /examples/sfiles/chapel/hellolib.exported.chpl
-   :language: c
+   :language: chapel
 
 function names
 --------------
@@ -179,7 +179,7 @@ The command-line utility ``pych`` is what you need.
 Compiling the Chapel module ``hellolib.exported.chpl``:
 
 .. literalinclude:: /examples/sfiles/chapel/hellolib.exported.chpl
-   :language: c
+   :language: chapel
 
 Into a Python module, is done by invoking:
 
