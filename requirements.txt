@@ -1,4 +1,7 @@
 pybtex
+Pygments>=2.0
+Sphinx
+sphinx_rtd_theme
 sphinxcontrib-bibtex
 numpy
 pyChapel
