@@ -2,6 +2,12 @@
     "log_level":    "ERROR",
     "open_ahead":   true,
 
+    "testing": {
+        "paths": [
+            "/tmp/pych_dev/share/pych/testing"
+        ]
+    },
+
     "object_store": {
         "root_path":    "/tmp/pych_dev/var/pych/store",
         "search_paths": {

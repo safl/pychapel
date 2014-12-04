@@ -19,6 +19,8 @@ class Configuration(object):
     Load pyChapel configuration from file and internalize configuration state.
     """
 
+    PPRINT_IGNORE = ['empty', 'write_test']
+
     def __init__(self, config_fn=None):
         """
 
@@ -94,9 +96,19 @@ class Configuration(object):
                 for bdir in bdirs[slang]:
                     info("* %s %s(s) in '%s':" % (slang.title(), stype, bdir))
                     for fname in glob.glob("%s%s*" % (bdir, os.sep)):
-                        if 'empty' in fname:
+                        if os.path.basename(fname) in self.PPRINT_IGNORE:
                             continue
                         info(os.path.basename(fname))
             info("** End of %s listing." % stype) 
 
+    def pprint_objects(self, slangs=['c', 'chapel', 'tp']):
+        """Pretty-print objects storage."""
 
+        for slang in slangs:
+            paths = self._config["object_store"]["search_paths"][slang]
+            for path in paths:
+                info("* %s objects in '%s':" % (slang.title(), path))
+                for object_path in glob.glob("%s%s*" % (path, os.sep)):
+                    if os.path.basename(object_path) in self.PPRINT_IGNORE:
+                        continue
+                    info(os.path.basename(object_path))

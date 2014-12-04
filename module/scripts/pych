@@ -50,7 +50,6 @@ def check(arg):
         for slang in CONFIG["object_store"]["output_paths"]:
             o_path = CONFIG["object_store"]["output_paths"][slang]
             path = os.sep.join([
-                CONFIG["object_store"]["root_path"],
                 o_path,
                 'write_test'
             ])
@@ -104,24 +103,41 @@ def compile(sfile):
 
 @needs_config
 def bfiles(arg):
+    """pprint bfiles."""
 
+    info("** bfiles **")
     CONFIG.pprint_specializers(['bfiles'])
 
 @needs_config
 def sfiles(arg):
+    """pprint sfiles."""
 
+    info("** sfiles **")
     CONFIG.pprint_specializers(['sfiles'])
 
 @needs_config
 def templates(arg):
-
+    """pprint templates."""
+    
+    info("** Templates **")
     CONFIG.pprint_specializers(['templates'])
 
 @needs_config
 def object_store(arg):
+    """pprint objects."""
 
-    pprint.pprint(CONFIG._config)
-    # TODO: List all the bfiles
+    info("** Objects **")
+    CONFIG.pprint_objects()
+
+@needs_config
+def testing(arg):
+
+    for path in CONFIG._config["testing"]["paths"]:
+        info("Running tests in %s" % path)
+        process = subprocess.Popen(
+            ["py.test", path]
+        )
+        out, err = process.communicate()
 
 if __name__ == "__main__":
     
