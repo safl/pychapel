@@ -57,14 +57,14 @@ class Configuration(object):
         if not root_path:             # Root-path defaults to cwd
             root_path = os.getcwd()
                                             # Search paths
-        search_paths = {source:[] for source in config_raw["object_store"]["search_paths"]}
+        search_paths = dict((source, []) for source in config_raw["object_store"]["search_paths"])
         for source in config_raw["object_store"]["search_paths"]:
             for search_path in config_raw["object_store"]["search_paths"][source]:
                 search_paths[source].append(prepend_path(
                     root_path, search_path
                 ))
                                             # Output paths
-        output_paths = {source:[] for source in config_raw["object_store"]["output_paths"]}
+        output_paths = dict((source, []) for source in config_raw["object_store"]["output_paths"])
         for source in config_raw["object_store"]["output_paths"]:
             output_path = config_raw["object_store"]["output_paths"][source]
             output_paths[source] = prepend_path(
