@@ -8,5 +8,5 @@ script:
   - ./util/test_python.bash
   # Test that the docs actually build.
   - cd docs/ && make html
-  # Run the py.test test-suite
+  # Run the py.test test-suite bla
   - pych --testing
