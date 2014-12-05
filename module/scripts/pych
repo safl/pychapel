@@ -100,6 +100,7 @@ def compile(sfile):
          " with wrapped-source(%s)" % (
         source_file, output_file, wrap_fp
     ))
+    return 0
 
 @needs_config
 def bfiles(arg):
@@ -108,12 +109,15 @@ def bfiles(arg):
     info("** bfiles **")
     CONFIG.pprint_specializers(['bfiles'])
 
+    return 0
+
 @needs_config
 def sfiles(arg):
     """pprint sfiles."""
 
     info("** sfiles **")
     CONFIG.pprint_specializers(['sfiles'])
+    return 0
 
 @needs_config
 def templates(arg):
@@ -121,6 +125,7 @@ def templates(arg):
     
     info("** Templates **")
     CONFIG.pprint_specializers(['templates'])
+    return 0
 
 @needs_config
 def object_store(arg):
@@ -128,16 +133,20 @@ def object_store(arg):
 
     info("** Objects **")
     CONFIG.pprint_objects()
+    return 0
 
 @needs_config
 def testing(arg):
-
+    retvals = [0]
     for path in CONFIG._config["testing"]["paths"]:
         info("Running tests in %s" % path)
         process = subprocess.Popen(
             ["py.test", path]
         )
         out, err = process.communicate()
+        retvals.append(process.returncode)
+
+    return sum(retvals)
 
 if __name__ == "__main__":
     
@@ -196,8 +205,12 @@ if __name__ == "__main__":
             cmd = arg
             cmd_exec = locals()[arg]
 
+    retval = 0
     if cmd_exec:                        # Invoke it
-        cmd_exec(cmd_args)
+        retval = cmd_exec(cmd_args)
     else:                               # Print help when no commands provided
+        retval = 1
         parser.print_usage()
         error("No command provided, see help(-h, --help) for commands.")
+    
+    exit(retval)
