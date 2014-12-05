@@ -24,6 +24,18 @@ class LibraryError(Error):
 
         super(LibraryError, self).__init__(msg, cause)
 
+class CompilationError(Error):
+    """For compilations errors."""
+
+    def __init__(self, cmd, reason=None, cause=None):
+        msg = "Compilation failed with command(%s)" % (
+            cmd
+        )
+        if reason:
+            msg += reason
+
+        super(CompilationError, self).__init__(msg, cause)
+
 class MaterializationError(Error):
     """
     Intended use for pyChapel specific errors, related to specialization, and

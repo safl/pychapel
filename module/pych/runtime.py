@@ -12,7 +12,7 @@ from pych.types import PychArray
 from pych.object_store import ObjectStore
 from pych.specializer import get_specializer
 from pych.compiler import Compiler
-from pych.exceptions import MaterializationError
+from pych.exceptions import MaterializationError, CompilationError
 
 class Runtime(object):
     """Encapsulation of runtime activities, compilation, loading, etc."""
@@ -119,16 +119,26 @@ class Runtime(object):
                 )
 
             if source:                          # Compile the source
-                out, err = self.compilers[slang].compile(
-                    source, slang, "%s/%s" % (
-                        self.object_store._output_paths[slang],
-                        extern.lib
+                out = err = ""
+                try:
+                    out, err = self.compilers[slang].compile(
+                        source, slang, "%s/%s" % (
+                            self.object_store._output_paths[slang],
+                            extern.lib
+                        )
                     )
-                )
+                except CompilationError as exc:
+                    raise MaterializationError(
+                        extern,
+                        " due to compilation error",
+                        exc
+                    )
+                    
                 if out:
                     logging.info("Compiler said something: %s", out)
                 if err:
                     logging.error("Compiler complained: %s", err)
+
                 efunc = self.object_store.evoke(extern) # Evoke it again!
 
         return efunc

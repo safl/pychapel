@@ -14,6 +14,7 @@ import time
 import os
 import re
 
+from pych.exceptions import CompilationError
 from pych.utils import prepend_path
 import pych.specializer
 from pych.types import CHPL2PY
@@ -103,8 +104,16 @@ class Compiler(object):
                 cmd = cmd.replace("__TMP_PATH__", archive_tmp_name)
                 cmd = cmd.replace("__OBJECT_ABSPATH__", object_abspath)
 
-                process = Popen(cmd.split(), stdout=PIPE, stdin=PIPE)
-                out, err = process.communicate(source)
+                try:
+                    process = Popen(cmd.split(), stdout=PIPE, stdin=PIPE)
+                    out, err = process.communicate(source)
+                except OSError as exc:
+                    raise CompilationError(
+                        cmd,
+                        None,
+                        exc
+                    )
+
                 all_out += out if out else ""
                 all_err += err if err else ""
 
