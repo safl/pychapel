@@ -2,6 +2,8 @@
 
 Documentation: pychapel.readthedocs.org
 
+[![Build Status](https://travis-ci.org/safl/pychapel.svg?branch=master)](https://travis-ci.org/safl/pychapel)
+
 ### What is this repository for? ###
 
 * Repository for "pyChapel"
