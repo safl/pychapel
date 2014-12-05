@@ -21,7 +21,7 @@ log_info "Moving to: ${CHPL_HOME}"
 cd $CHPL_HOME
 
 log_info "Building Chapel"
-source util/quickstart/setchplenv.bash && \
+source util/setchplenv.bash && \
     make -j
 
 # Install python dependencies for running the tests (not building the docs).
