@@ -1,8 +1,8 @@
 # README #
 
-Documentation: pychapel.readthedocs.org
+Documentation: https://pychapel.readthedocs.org
 
-[![Build Status](https://travis-ci.org/safl/pychapel.svg?branch=master)](https://travis-ci.org/safl/pychapel)
+[![Build Status](https://travis-ci.org/chapel-lang/pychapel.svg?branch=master)](https://travis-ci.org/chapel-lang/pychapel)
 
 ### What is this repository for? ###
 
@@ -11,7 +11,7 @@ Documentation: pychapel.readthedocs.org
 
 ### How do I get set up? ###
 
-Take a look at the installation-guide on pychapel.readthedocs.org
+Take a look at the installation-guide on https://pychapel.readthedocs.org
 
 ### Contribution guidelines ###
 
@@ -22,9 +22,3 @@ Take a look at the installation-guide on pychapel.readthedocs.org
 ### Who do I talk to? ###
 
 * Repo owner or admin
-
-### Chapel Syntax Highlighting ###
-
-* When Pygments 2.0 is released, the Chapel source code snippets can use the
-  [ChapelLexer](https://bitbucket.org/birkenfeld/pygments-main/src/bec55c895c0475097940dde470060a68e6ce6958/pygments/lexers/compiled.py?at=tip#cl-3898)
-  to highlight.
