@@ -24,6 +24,14 @@ source util/quickstart/setchplenv.bash && \
 log_info "Installing python test dependencies."
 pip install -r $TST_DIR/requirements.txt
 
+(
+    log_info "Moving to: ${MODULE_DIR}"
+    cd $MODULE_DIR
+
+    log_info "Installing pychapel from setup.py"
+    python setup.py install
+)
+
 log_info "Running pych --check"
 pych --check
 
