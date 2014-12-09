@@ -36,7 +36,7 @@ log_info "Running pych --check"
 pych --check
 
 # Copying pyChapel libchpl dependencies
-cp $CHPL_HOME/lib/linux64*/* ~/virtualenv/python2.7.8/share/pych/lib/
+cp $CHPL_HOME/lib/linux64*/* $VIRTUAL_ENV/share/pych/lib/
 
 log_info "Moving to: ${TST_DIR}"
 cd $TST_DIR
