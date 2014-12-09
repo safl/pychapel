@@ -96,16 +96,15 @@ class ObjectStore(object):
 
 
     def evoke(self, extern):
-        """
-        Evoke the efunc related the given Extern,
+        """Evoke the efunc related the given Extern,
         channeling all the power of the mighty ObjectStore.
 
         This entails going through the "hierachy":
 
         1. Check and see if function pointer is readily available.
         2. Try loading from existing library handle.
-        3. Search for library associated with 'extern', open library, and
-        load function.
+        3. Search for library associated with 'extern', open library, and load
+           function.
 
         Hitting 3) should only occur the first time an Extern is evoked.
 
@@ -116,9 +115,9 @@ class ObjectStore(object):
         lookup.
 
         :param pych.Extern extern: External to conjure up a materialization.
-        :returns: Handle to library function as a ctypes function pointer.
-        :rtype: ctypes._FuncPtr
 
+        :rtype: ctypes._FuncPtr
+        :returns: Handle to library function as a ctypes function pointer.
         """
 
         if extern.ename in self._functions:     # Grabbing loaded symbols
