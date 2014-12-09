@@ -2,6 +2,8 @@ INSTALL_DIR=$(HOME)/pychdev
 MODULE_DIR=module
 DOC_DIR=docs
 
+OPEN_CMD = $(shell which xdg-open 2>/dev/null || which open 2>/dev/null )
+
 all:
 
 run: clean deploy chapel
@@ -28,7 +30,9 @@ c:
 
 doc:
 	cd $(DOC_DIR) && make html
-	xdg-open $(DOC_DIR)/build/html/index.html
+ifneq ($(OPEN_CMD),)
+	$(OPEN_CMD) $(DOC_DIR)/build/html/index.html
+endif
 
 clean:
 	@rm -rf $(MODULE_DIR)/build
