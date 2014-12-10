@@ -4,8 +4,8 @@
 
 CWD=$(cd $(dirname ${BASH_SOURCE[0]}) ; pwd)
 REPO_ROOT=$(cd $CWD/.. ; pwd)
-EXM_DIR=$REPO_ROOT/docs/source/examples
-TST_DIR=$REPO_ROOT/module/testing
+MODULE_DIR=$REPO_ROOT/module
+TST_DIR=$MODULE_DIR/testing
 
 function log_date()
 {

@@ -87,15 +87,16 @@ class BaseSpecializer(object):
         return self.sources[filename]
 
     def specialize(self, externs, prefix=True):
-        """
-        The function performing the actual specialization for the given
-        Extern(s).
+        """The function performing the actual specialization for the given Extern(s).
 
         :param pych.Extern externs: List of Externs to specialize.
-        :returns: Sourcecode in the Externs language.
+
         :rtype: str
+        :returns: Sourcecode in the Externs language.
+
         :raises NotImplementedError: When using the BaseSpecializer directly.
-        Use the "targeted" specializer for C or Chapel.
+            Use the "targeted" specializer for C or Chapel.
+
         """
         raise NotImplementedError("Do not use the BaseSpecializer directly.")
 
