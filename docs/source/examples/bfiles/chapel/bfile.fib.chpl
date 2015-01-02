@@ -3,7 +3,7 @@ var x = 0;
 var y = 1;
 var z = 1;
 
-for i in 0..n {
+for 1..n {
     x = y;
     y = z;
     z = x + y;
