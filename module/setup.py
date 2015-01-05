@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-from setuptools import setup
 from distutils.command.install_data import install_data
 import pprint
 import glob
@@ -42,9 +41,6 @@ setup(
     url         = 'http://www.bh107.org',
     author      = 'Simon A. F. Lund',
     author_email='safl@safl.dk',
-    install_requires=[
-        'numpy'
-    ],
     data_files  = [
         ('share/pych/config', ['configs/pych.json']),
         
