@@ -16,7 +16,8 @@ import sys
 import os
 
 # copied from module/setup.py
-# This is hacky, but it means install_requires can be defined below.
+# This is hacky, but it means the following variables can be defined for
+# later use.
 with open('../../module/pych/version.py', 'r') as fp:
     version_py_content = fp.read()
 APP_NAME = None
