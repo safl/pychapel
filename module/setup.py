@@ -3,7 +3,7 @@ from distutils.core import setup
 from distutils.command.install_data import install_data
 import pprint
 import glob
-import os
+import os.path
 
 # This is hacky, but it means install_requires can be defined below.
 with open(os.path.abspath('pych/version.py'), 'r') as fp:
