@@ -8,5 +8,5 @@ def ex_reduce(start=int, end=int):
     """
     return int
 
-if __name__ == "__main__":
-    print ex_reduce(1, 500000)
+def test_chapel_inline_reduce():
+    assert ex_reduce(1, 500000) == 500000
