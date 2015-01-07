@@ -18,7 +18,7 @@ import os
 # copied from module/setup.py
 # This is hacky, but it means the following variables can be defined for
 # later use.
-with open('../../module/pych/version.py', 'r') as fp:
+with open(os.path.abspath('../../module/pych/version.py'), 'r') as fp:
     version_py_content = fp.read()
 APP_NAME = None
 APP_VERSION = None
