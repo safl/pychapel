@@ -18,7 +18,7 @@ def ex_numpy(a=np.ndarray):
 
 if __name__ == "__main__":
     a = np.ones((10), dtype=np.float)
-    b = a[::2]
+    b = a[::2] # note: a slice of a numpy array shares memory with the original
     print a
     ex_numpy(b)
     print a, b
