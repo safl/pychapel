@@ -4,15 +4,16 @@ Usage Examples
 ==============
 
 This section provides examples closer to real-world code and how to apply
-pyChapel in such context. The examples seek to illustrate the effort required by
-the user and what results can be expected.
+pyChapel in such a context. The examples seek to illustrate the effort required
+by the user and what results can be expected.
 
 Accelerate your NumPy code
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 A common need for speed when working with Python are scientific codes. NumPy and
-the SciPy stack provides a rich environment for scientific computing, different
-approaches exist to accelerate such code, with pyChapel a new means is provided.
+the SciPy stack provide a rich environment for scientific computing, and
+different approaches exist to accelerate such code - with pyChapel, a new means
+is provided.
 
 The structure of a scientific code can often be factored into three stages:
 
@@ -26,11 +27,11 @@ An example of such an application is provided below:
    :language: python
    :linenos:
 
-Where the time-consuming, computational expensive and memory hungry portion of
-the application is the data-processing performed in the `simulate` function.
+where the time-consuming, computational expensive, and memory hungry portion of
+the application is the data-processing performed in the `simulation` function.
 
 When tasked with increasing the throughput of such applications the user can
-either choose to port the entire application to another language, write a Python-extension implemented in a lower-level language such as C or call into library-functions implemented in lower-level languages for a subset of the application.
+either choose to port the entire application to another language, write a Python-extension implemented in a lower-level language such as C, or call into library-functions implemented in lower-level languages for a subset of the application.
 
 Using pyChapel, a subset of the application can with little effort be rewritten
 such as the example below illustrates:

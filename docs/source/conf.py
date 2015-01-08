@@ -14,7 +14,19 @@
 
 import sys
 import os
-from pych.version import APP_NAME, APP_VERSION
+
+# copied from module/setup.py
+# This is hacky, but it means the following variables can be defined for
+# later use.
+with open(os.path.abspath('../../module/pych/version.py'), 'r') as fp:
+    version_py_content = fp.read()
+APP_NAME = None
+APP_VERSION = None
+for line in version_py_content.splitlines():
+    if line.startswith('APP_NAME'):
+        APP_NAME = line.split("'", 2)[1].strip()
+    elif line.startswith('APP_VERSION'):
+        APP_VERSION = line.split("'", 2)[1].strip()
 
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the

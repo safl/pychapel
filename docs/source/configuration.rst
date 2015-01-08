@@ -8,9 +8,10 @@ Which means it should be available in a location such as::
   /usr/local/share/pych/config/pych.json
   /usr/share/pych/config/pych.json
 
-Or in some other location if used the `--prefix` flag when installing pyChapel.
-The configuration-file defines locations of resources, behaviour of pyChapel and
-where output-files such as `.so` objects are stored and loaded from.
+Or in some other location if the `--prefix` flag is used when installing
+pyChapel.  The configuration-file defines locations of resources, behaviour of
+pyChapel and where output-files such as `.so` objects are stored and loaded
+from.
 
 The options should be self-explanatory, of most common interest might be these::
 
