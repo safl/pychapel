@@ -4,5 +4,5 @@ from pych.extern import FromC
 def add_doubles(x=float, y=float):
     return float
 
-if __name__ == "__main__":
-    print add_doubles(1.0, 3.0)
+def test_c_sfile():
+    assert add_doubles(1.0, 3.0) == 4.0
