@@ -38,11 +38,11 @@ pych --check
 # Copying pyChapel libchpl dependencies
 cp $CHPL_HOME/lib/linux64*/* $VIRTUAL_ENV/share/pych/lib/
 
-log_info "Moving to: ${TST_DIR}"
-cd $TST_DIR
+log_info "Moving to: ${REPO_ROOT}"
+cd $REPO_ROOT
 
-log_info "Running py.test..."
-py.test --verbose --junitxml=$REPO_ROOT/python-results.xml
+log_info "Running py.test over $TST_DIR and doc examples"
+py.test --verbose --junitxml=$REPO_ROOT/python-results.xml $TST_DIR docs/source/examples/
 
 log_info "Running pych --testing..."
 pych --testing
