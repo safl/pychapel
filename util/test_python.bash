@@ -44,5 +44,10 @@ cd $REPO_ROOT
 log_info "Running py.test over $TST_DIR and doc examples"
 py.test --verbose --junitxml=$REPO_ROOT/python-results.xml $TST_DIR docs/source/examples/
 
+passedPytest=$?
+
 log_info "Running pych --testing..."
 pych --testing
+
+passedPych=$?
+exit $passedPytest | $passedPych
