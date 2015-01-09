@@ -68,8 +68,9 @@ Hello World
 You should now be ready to try it out, create a file named `hw.py` with the
 following content:
 
-.. literalinclude:: /examples/chapel.inline.helloworld.py
+.. literalinclude:: /examples/test_chapel_inline.py
    :language: python
+   :lines: 1-12
 
 Then try running it::
 
