@@ -124,8 +124,9 @@ Mapping a Python function to the Chapel procedure ``hello_caller`` from the
 Chapel module ``HelloLib`` is done by writing and decorating the following
 function:
 
-.. literalinclude:: /examples/chapel.sfile.hellolib.py
+.. literalinclude:: /examples/test_sfile_hellolib.py
    :language: python
+   :lines: 1-9
 
 Let's say that you insist on calling your ``@Chapel`` decorated Python function
 ``hello_world`` and you refuse to rename, nor export the Chapel procedure under
