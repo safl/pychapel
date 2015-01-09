@@ -16,6 +16,12 @@ def hello_inline():
     """
     return None
 
-if __name__ == "__main__":
+def test_unusual_sfile_loc(capfd):
     hello_mymodule()
+    out, err = capfd.readouterr()
+    assert out == 'Hello from mymodule\n'
+
+def test_inline_output(capfd):
     hello_inline()
+    out, err = capfd.readouterr()
+    assert out == 'Hello from inline.\n'
