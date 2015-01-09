@@ -30,22 +30,22 @@ def test_begin_noret(capfd):
     ex_begin_noret()
     out, err = capfd.readouterr()
     # ensure starts with correct statements
-    assert out.startswith("Starting!\n");
+    assert out.startswith('Starting!\n');
     # ensure contains all of the remainder
-    assert "#1 line.\n" in out
-    assert "#2 line.\n" in out
-    assert "#3 line.\n" in out
-    assert "#4 line.\n" in out
-    assert "#5 line.\n" in out
+    assert '#1 line.\n' in out
+    assert '#2 line.\n' in out
+    assert '#3 line.\n' in out
+    assert '#4 line.\n' in out
+    assert '#5 line.\n' in out
 
 def test_begin_ret(capfd):
     ex_begin()
     out, err = capfd.readouterr()
     # ensure starts with correct statements
-    assert out.startswith("Starting!\n");
+    assert out.startswith('Starting!\n');
     # ensure contains all of the remainder
-    assert "#1 line.\n" in out
-    assert "#2 line.\n" in out
-    assert "#3 line.\n" in out
-    assert "#4 line.\n" in out
-    assert "#5 line.\n" in out
+    assert '#1 line.\n' in out
+    assert '#2 line.\n' in out
+    assert '#3 line.\n' in out
+    assert '#4 line.\n' in out
+    assert '#5 line.\n' in out

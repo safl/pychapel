@@ -14,4 +14,4 @@ def test_for(capfd):
     ex_for(1, 1000)
     out, err = capfd.readouterr()
     for i in xrange(1, 1000):
-        assert "This is " + str(i) + "\n" in out
+        assert 'This is ' + str(i) + '\n' in out
