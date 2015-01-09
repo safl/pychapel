@@ -50,4 +50,4 @@ log_info "Running pych --testing..."
 pych --testing
 
 passedPych=$?
-exit $passedPytest | $passedPych
+exit $(( $passedPytest || $passedPych ))
