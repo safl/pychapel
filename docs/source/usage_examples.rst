@@ -23,9 +23,10 @@ The structure of a scientific code can often be factored into three stages:
 
 An example of such an application is provided below:
 
-.. literalinclude:: /examples/python.numpy.synthetic.py
+.. literalinclude:: /examples/test_python_synthetic_numpy.py
    :language: python
    :linenos:
+   :lines: 1-47
 
 where the time-consuming, computational expensive, and memory hungry portion of
 the application is the data-processing performed in the `simulation` function.
@@ -36,14 +37,15 @@ either choose to port the entire application to another language, write a Python
 Using pyChapel, a subset of the application can with little effort be rewritten
 such as the example below illustrates:
 
-.. literalinclude:: /examples/chapel.numpy.synthetic.py
+.. literalinclude:: /examples/test_chapel_synthetic_numpy.py
    :language: python
    :linenos:
+   :lines: 1-50
 
 These two implementations can be executed by the commands::
 
-  ./chapel.numpy.synthetic.py --tsteps 50 --particles 50000000
-  ./python.numpy.synthetic.py --tsteps 50 --particles 50000000
+  ./test_chapel_synthetic_numpy.py --tsteps 50 --particles 50000000
+  ./test_python_synthetic_numpy.py --tsteps 50 --particles 50000000
 
 The following subsection provides a couple of preliminary performance numbers.
 
@@ -64,7 +66,8 @@ C-Implementation
 
 .. todo:: Add OpenMP to the c-implementation to compare and illustrate how close this performance gain is to an error-prone c-implementation.
 
-.. literalinclude:: /examples/c.numpy.synthetic.py
+.. literalinclude:: /examples/test_c_synthetic_numpy.py
    :language: python
    :linenos:
+   :lines: 1-68
 
