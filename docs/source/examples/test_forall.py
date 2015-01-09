@@ -10,5 +10,8 @@ def ex_forall(start=int, end=int):
     """
     return float
 
-if __name__ == "__main__":
+def test_forall(capfd):
     ex_forall(1, 10000)
+    out, err = capfd.readouterr()
+    for i in xrange(1, 10000):
+        assert "This is " + str(i) + "\n" in out
