@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 #
 # Run the python unittests for code in docs/source/examples/.
+set -e
 
 CWD=$(cd $(dirname $0) ; pwd)
 source $CWD/common.bash
