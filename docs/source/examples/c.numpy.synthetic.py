@@ -1,16 +1,34 @@
 #!/usr/bin/env python
 import argparse
 import numpy as np
-from pych.extern import Chapel
+from pych.extern import FromC
 
-@Chapel()
+@FromC()
 def simulation(tsteps=int, spin=np.ndarray, decay=np.ndarray, velocity=np.ndarray):
     """
-    var delta = velocity;
-    for timestep in 1..tsteps {
-        delta = (spin * decay + velocity) / delta;
+    double* spin_ptr = (double*)spin->ptr_d;
+    double* decay_ptr = (double*)decay->ptr_d;
+    double* velocity_ptr = (double*)velocity->ptr_d;
+    double result = 0.0;
+    
+    int particles = spin->shape[0];
+    double* delta_ptr = (double*)malloc(particles*sizeof(double));
+    
+    for(int i=0; i<particles; i++) {
+        delta_ptr[i] = velocity_ptr[i];
     }
-    return +reduce(delta);
+    for(int timestep=0; timestep<tsteps; timestep++) {
+        for(int i=0; i<particles; i++) {
+            delta_ptr[i] = (spin_ptr[i] * decay_ptr[i] + velocity_ptr[i]) /
+            delta_ptr[i];
+        }
+    }
+    for(int i=0; i<particles; i++) {
+        result += delta_ptr[i];
+    }
+    free(delta_ptr);
+
+    return result;
     """
     return float
 
@@ -47,28 +65,3 @@ if __name__ == "__main__":                  # Argument parsing
     args = parser.parse_args()
 
     main(args.tsteps, args.particles)
-
-def test_example(capfd):
-    main(50, 50000000)
-    out, err = capfd.readouterr()
-    assert out == 'Phenomenon after 50 tsteps = 50000000.\n'
-
-def test_example_49(capfd):
-    main(49, 50000000)
-    out, err = capfd.readouterr()
-    assert out == 'Phenomenon after 49 tsteps = 100000000.\n'
-
-def test_example_51(capfd):
-    main(51, 50000000)
-    out, err = capfd.readouterr()
-    assert out == 'Phenomenon after 51 tsteps = 100000000.\n'
-
-def test_example_48(capfd):
-    main(48, 50000000)
-    out, err = capfd.readouterr()
-    assert out == 'Phenomenon after 48 tsteps = 50000000.\n'
-
-def test_example_52(capfd):
-    main(52, 50000000)
-    out, err = capfd.readouterr()
-    assert out == 'Phenomenon after 52 tsteps = 50000000.\n'
