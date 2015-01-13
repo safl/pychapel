@@ -16,12 +16,15 @@ def hello_inline():
     """
     return None
 
-def test_unusual_sfile_loc(capfd):
+if __name__ == "__main__":
     hello_mymodule()
-    out, err = capfd.readouterr()
-    assert out == 'Hello from mymodule\n'
-
-def test_inline_output(capfd):
     hello_inline()
-    out, err = capfd.readouterr()
-    assert out == 'Hello from inline.\n'
+
+
+import testcase
+# contains the general testing method, which allows us to gather output
+
+def test_unusual_sfile_loc():
+    out = testcase.runpy(os.path.realpath(__file__))
+    assert 'Hello from mymodule\n' in out
+    assert out.endswith('Hello from inline.\n')
