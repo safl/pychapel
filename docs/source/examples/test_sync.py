@@ -20,9 +20,10 @@ if __name__ == '__main__':
 
 import testcase
 # contains the general testing method, which allows us to gather output
+import os.path
 
 def test_sync():
-    out = testcase.runpy('test_sync.py')
+    out = testcase.runpy(os.path.realpath(__file__))
     # The first time this test is run, it may contain output notifying that
     # a temporary file has been created.  The important part is that this
     # expected output follows it (enabling the test to work for all runs, as

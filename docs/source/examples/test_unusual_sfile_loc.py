@@ -25,6 +25,6 @@ import testcase
 # contains the general testing method, which allows us to gather output
 
 def test_unusual_sfile_loc():
-    out = testcase.runpy('test_unusual_sfile_loc.py')
+    out = testcase.runpy(os.path.realpath(__file__))
     assert 'Hello from mymodule\n' in out
     assert out.endswith('Hello from inline.\n')
