@@ -4,7 +4,18 @@ from pych.extern import Chapel
 def hello_caller():
     return None
 
-def test_sfile(capfd):
+if __name__ == "__main__":
     hello_caller()
-    out, err = capfd.readouterr()
-    assert out == 'Hi Caller, I am Chapel, pleased to meet you.\n'
+
+
+import testcase
+# contains the general testing method, which allows us to gather output
+import os.path
+
+def test_sfile():
+    out = testcase.runpy(os.path.realpath(__file__))
+    assert out.endswith('Hi Caller, I am Chapel, pleased to meet you.\n')
+    # The first time this test is run, it may contain output notifying that
+    # a temporary file has been created.  The important part is that this
+    # expected output follows it (enabling the test to work for all runs, as
+    # the temporary file message won't occur in the second run)

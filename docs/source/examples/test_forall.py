@@ -10,8 +10,15 @@ def ex_forall(start=int, end=int):
     """
     return float
 
-def test_forall(capfd):
+if __name__ == '__main__':
     ex_forall(1, 10000)
-    out, err = capfd.readouterr()
-    for i in xrange(1, 10000):
-        assert 'This is ' + str(i) + '\n' in out
+
+
+import testcase
+# contains the general testing method, which allows us to gather output
+import os.path
+
+def test_forall():
+    output = testcase.runpy(os.path.realpath(__file__))
+    for i in xrange(1, 10001):
+        assert 'This is ' + str(i) + '\n' in output
