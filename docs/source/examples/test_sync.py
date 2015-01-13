@@ -15,15 +15,26 @@ def ex_sync():
     """
     return None
 
-def test_sync(capfd):
+if __name__ == '__main__':
     ex_sync()
-    out, err = capfd.readouterr()
+
+import testcase
+# contains the general testing method, which allows us to gather output
+
+def test_sync():
+    out = testcase.runpy('test_sync.py')
+    # The first time this test is run, it may contain output notifying that
+    # a temporary file has been created.  The important part is that this
+    # expected output follows it (enabling the test to work for all runs, as
+    # the temporary file message won't occur in the second run)  But that means
+    # we can't use out.startswith
+
     # ensure starts and ends with correct statements
-    assert out.startswith('Starting!\n');
-    assert out.endswith('DONE!\n');
+    startLoc = out.find('Starting!\n')
+    assert startLoc >= 0
     # ensure contains all of the remainder
-    assert '#1 line.\n' in out
-    assert '#2 line.\n' in out
-    assert '#3 line.\n' in out
-    assert '#4 line.\n' in out
-    assert '#5 line.\n' in out
+    for i in xrange(1, 6):
+        lineLoc = out.find('#' + str(i) + ' line.\n')
+        assert lineLoc >= 0
+        assert lineLoc >= startLoc
+    assert out.endswith('DONE!\n')
