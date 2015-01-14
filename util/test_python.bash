@@ -43,7 +43,10 @@ log_info "Moving to: ${REPO_ROOT}"
 cd $REPO_ROOT
 
 log_info "Running py.test over $TST_DIR and doc examples"
-py.test --verbose --junitxml=$REPO_ROOT/python-results.xml $TST_DIR docs/source/examples/
+py.test --verbose --junitxml=$REPO_ROOT/python-results.xml --boxed $TST_DIR docs/source/examples/
+# we run with pytest-xdist's --boxed flag so that the tests run independently
+# of each other (this prevents materialization conflicts and the segfault I
+# noticed with larger materializations)
 
 log_info "Running pych --testing..."
 pych --testing
