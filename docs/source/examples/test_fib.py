@@ -6,3 +6,6 @@ def fibonacci(n=int):
 
 if __name__ == "__main__":
     print fibonacci(10)
+
+def test_fib():
+    assert fibonacci(10) == 55

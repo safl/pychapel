@@ -25,8 +25,9 @@ When using `inlined` mode you get access to Chapel by decorating functions with
 the ``pych.extern.Chapel`` decorator and by writing those functions using certain
 conventions.
 
-.. literalinclude:: /examples/chapel.inline.helloworld.py
+.. literalinclude:: /examples/test_chapel_inline.py
    :language: python
+   :lines: 1-12
 
 The Chapel code goes into the ``docstring`` of the decorated function.
 
@@ -49,8 +50,9 @@ using bfiles
 Using the ``bfile`` argument behaves exactly as the ``inline`` except the
 function-body is taken from the given file.
 
-.. literalinclude:: /examples/chapel.bfile.hello.py
+.. literalinclude:: /examples/test_bfile.py
    :language: python
+   :lines: 1-9
 
 The ``bfile`` target could contain something like below.
 
@@ -62,8 +64,9 @@ below where the ``bfile`` target is not a valid Chapel program.
 
 Is this example the ``fibonacci`` function is decorated:
 
-.. literalinclude:: /examples/chapel.bfile.fib.py
+.. literalinclude:: /examples/test_fib.py
    :language: python
+   :lines: 1-9
 
 and function-body is taken from the provided ``bfile``:
 
@@ -89,8 +92,9 @@ Chapel module with a well-defined and exported procedure declaration, in
 contrast to the ``docstring`` and ``bfile`` which only expects to be provided
 with a function body.  For example,
 
-.. literalinclude:: /examples/chapel.sfile.hw.py
+.. literalinclude:: /examples/test_chapel_sfile2.py
    :language: python
+   :lines: 1-9
 
 Where ``sfile.hello.chpl`` contains:
 
@@ -124,15 +128,17 @@ Mapping a Python function to the Chapel procedure ``hello_caller`` from the
 Chapel module ``HelloLib`` is done by writing and decorating the following
 function:
 
-.. literalinclude:: /examples/chapel.sfile.hellolib.py
+.. literalinclude:: /examples/test_sfile_hellolib.py
    :language: python
+   :lines: 1-9
 
 Let's say that you insist on calling your ``@Chapel`` decorated Python function
 ``hello_world`` and you refuse to rename, nor export the Chapel procedure under
 a different name, then you can map the Python function using ``ename``:
 
-.. literalinclude:: /examples/chapel.sfile.hellolib.ename.py
+.. literalinclude:: /examples/test_sfile_ename.py
    :language: python
+   :lines: 1-9
 
 Real-world cases usually involve motivation other than stubborn unwillingness to
 refactor code. Regardless of the motivation, the ``ename`` decorator argument

@@ -9,6 +9,7 @@ Other Languages
 
 Bla bla use pyChapel to dynamically compile c-code.
 
-.. literalinclude:: /examples/c.inline.py
+.. literalinclude:: /examples/test_c_inline.py
    :language: python
+   :lines: 1-20
 

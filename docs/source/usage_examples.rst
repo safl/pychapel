@@ -23,9 +23,10 @@ The structure of a scientific code can often be factored into three stages:
 
 An example of such an application is provided below:
 
-.. literalinclude:: /examples/python.numpy.synthetic.py
+.. literalinclude:: /examples/test_python_synthetic_numpy.py
    :language: python
    :linenos:
+   :lines: 1-47
 
 where the time-consuming, computational expensive, and memory hungry portion of
 the application is the data-processing performed in the `simulation` function.
@@ -43,7 +44,7 @@ such as the example below illustrates:
 These two implementations can be executed by the commands::
 
   ./chapel.numpy.synthetic.py --tsteps 50 --particles 50000000
-  ./python.numpy.synthetic.py --tsteps 50 --particles 50000000
+  ./test_python_synthetic_numpy.py --tsteps 50 --particles 50000000
 
 The following subsection provides a couple of preliminary performance numbers.
 
