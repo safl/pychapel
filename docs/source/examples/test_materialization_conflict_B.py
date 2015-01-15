@@ -13,7 +13,7 @@ import testcase
 # contains the general testing method, which allows us to gather output
 import os.path
 
-def test_materialization_A():
+def test_materialization_B():
     out = testcase.runpy(os.path.realpath(__file__))
     # The first time this test is run, it may contain output notifying that
     # a temporary file has been created.  The important part is that this
