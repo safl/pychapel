@@ -1,4 +1,3 @@
-import pytest
 from pych.extern import Chapel
 import os.path
 

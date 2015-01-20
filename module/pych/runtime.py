@@ -122,6 +122,7 @@ class Runtime(object):
                 out = err = ""
                 dependencies = ''
                 if extern.depend:
+                    # Assumes __DEPENDS__ only present in chpl command
                     dependencies = ' '.join(['-M '+elt for elt in extern.depend])
                 try:
                     out, err = self.compilers[slang].compile(
