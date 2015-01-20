@@ -4,7 +4,7 @@ proc foo(x, y) {
 
 proc bar() {
   var res: [1..5] int = 14;
-  res[3] = 2;
+  res[3] = 3;
   writeln(res);
   return res;
 }

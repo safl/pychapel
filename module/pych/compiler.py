@@ -72,13 +72,14 @@ class Compiler(object):
     def __repr__(self):
         return pprint.pformat(vars(self))
 
-    def compile(self, source, language, object_abspath):
+    def compile(self, source, language, object_abspath, dependencies):
         """
         Compiles the given 'source' into a shared library.
         The result will be stored in object_abspath.
 
         :param str source: Sourcecode to compile.
-        :param str language: Language of the sourceode e.g. "c" or "chapel".
+        :param str language: Language of the sourcecode e.g. "c" or "chapel".
+        :param list dependencies: other files necessary to run
         :returns: Accumulation of all output and errors from compiler/linker
          commands as tuple(out, err).
         :rtype: tuple
@@ -100,6 +101,12 @@ class Compiler(object):
                 archive_tmp_name = tmp_fd.name
 
             for cmd in self._options["commands"]: # Execute commands
+                if dependencies:
+                    # Making sure this works.
+                    # Assumes: __DEPENDS__ only present in chpl command
+                    cmd = cmd.replace("__DEPENDS__", ' '.join(['-M '+elt for elt in dependencies]))
+                else:
+                    cmd = cmd.replace("__DEPENDS__", '')
                 cmd = cmd.replace("__SFILE__", sfile_h.name)
                 cmd = cmd.replace("__TMP_PATH__", archive_tmp_name)
                 cmd = cmd.replace("__OBJECT_ABSPATH__", object_abspath)

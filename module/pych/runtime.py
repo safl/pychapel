@@ -125,7 +125,7 @@ class Runtime(object):
                         source, slang, "%s/%s" % (
                             self.object_store._output_paths[slang],
                             extern.lib
-                        )
+                        ), extern.depend
                     )
                 except CompilationError as exc:
                     raise MaterializationError(

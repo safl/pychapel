@@ -102,7 +102,7 @@
             ],
 
             "commands": [
-                "chpl %(cflags)s %(ctargets)s -o __TMP_PATH__",
+                "chpl %(cflags)s __DEPENDS__ %(ctargets)s -o __TMP_PATH__",
                 "g++ %(lflags)s -Wl,--whole-archive %(ltargets)s -Wl,--no-whole-archive -o __OBJECT_ABSPATH__"
             ]
         }

@@ -37,7 +37,7 @@ class Extern(object):
 
     # pylint: disable=too-many-instance-attributes
     # There are a lot but they are all reasonable.
-    def __init__(self, ename=None, lib=None, sfile=None, bfile=None, slang=None):
+    def __init__(self, depend=[], ename=None, lib=None, sfile=None, bfile=None, slang=None):
 
         # This is done only once; when the function is decorated
         self.pfunc = None   # Python function handle
@@ -50,6 +50,7 @@ class Extern(object):
         self.efunc = None   # ctypes function handle
         self.ename = ename  # External function name
         self.lib = lib      # Library filename
+        self.depend = depend# Dependencies for function
 
         self.bfile = bfile  # File containing only function body.
 
@@ -237,6 +238,7 @@ class FromC(Extern):
 
     def __init__(self, ename=None, lib=None, sfile=None, bfile=None):
         super(FromC, self).__init__(
+            depend=[],
             ename=ename,
             lib=lib,
 
@@ -251,8 +253,9 @@ class Chapel(Extern):
     external Chapel function.
     """
 
-    def __init__(self, ename=None, lib=None, sfile=None, bfile=None):
+    def __init__(self, depend=[], ename=None, lib=None, sfile=None, bfile=None):
         super(Chapel, self).__init__(
+            depend=depend,
             ename=ename,
             lib=lib,
 
