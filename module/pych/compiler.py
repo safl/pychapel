@@ -101,12 +101,7 @@ class Compiler(object):
                 archive_tmp_name = tmp_fd.name
 
             for cmd in self._options["commands"]: # Execute commands
-                if dependencies:
-                    # Making sure this works.
-                    # Assumes: __DEPENDS__ only present in chpl command
-                    cmd = cmd.replace("__DEPENDS__", ' '.join(['-M '+elt for elt in dependencies]))
-                else:
-                    cmd = cmd.replace("__DEPENDS__", '')
+                cmd = cmd.replace("__DEPENDS__", dependencies)
                 cmd = cmd.replace("__SFILE__", sfile_h.name)
                 cmd = cmd.replace("__TMP_PATH__", archive_tmp_name)
                 cmd = cmd.replace("__OBJECT_ABSPATH__", object_abspath)

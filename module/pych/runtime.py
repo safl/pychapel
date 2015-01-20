@@ -120,12 +120,15 @@ class Runtime(object):
 
             if source:                          # Compile the source
                 out = err = ""
+                dependencies = ''
+                if extern.depend:
+                    dependencies = ' '.join(['-M '+elt for elt in extern.depend])
                 try:
                     out, err = self.compilers[slang].compile(
                         source, slang, "%s/%s" % (
                             self.object_store._output_paths[slang],
                             extern.lib
-                        ), extern.depend
+                        ), dependencies
                     )
                 except CompilationError as exc:
                     raise MaterializationError(
