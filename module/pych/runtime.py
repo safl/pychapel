@@ -120,16 +120,16 @@ class Runtime(object):
 
             if source:                          # Compile the source
                 out = err = ""
-                dependencies = ''
-                if extern.depend:
+                chplflags = ''
+                if extern.module_dirs:
                     # Assumes __DEPENDS__ only present in chpl command
-                    dependencies = ' '.join(['-M '+elt for elt in extern.depend])
+                    chplflags = ' '.join(['-M '+elt for elt in extern.module_dirs])
                 try:
                     out, err = self.compilers[slang].compile(
                         source, slang, "%s/%s" % (
                             self.object_store._output_paths[slang],
                             extern.lib
-                        ), dependencies
+                        ), chplflags
                     )
                 except CompilationError as exc:
                     raise MaterializationError(

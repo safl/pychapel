@@ -5,7 +5,7 @@ currentloc = os.path.dirname(os.path.realpath(__file__))
 
 # Note: depends on test living in a specific location relative to
 # mymodule.chpl.  Not ideal, but also not a huge issue.
-@Chapel(sfile=currentloc + "/../../../module/ext/src/mymodule.chpl")
+@Chapel(sfile=os.path.join(currentloc + "/../../../module/ext/src/mymodule.chpl"))
 def hello_mymodule():
     return None
 
