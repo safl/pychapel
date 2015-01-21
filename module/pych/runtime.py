@@ -122,7 +122,7 @@ class Runtime(object):
                 out = err = ""
                 chplflags = ''
                 if extern.module_dirs:
-                    # Assumes __DEPENDS__ only present in chpl command
+                    # Assumes module_dirs field only used by Chapel extern
                     chplflags = ' '.join(['-M '+elt for elt in extern.module_dirs])
                 try:
                     out, err = self.compilers[slang].compile(
