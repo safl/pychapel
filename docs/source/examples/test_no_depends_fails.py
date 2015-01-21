@@ -1,11 +1,11 @@
 from pych.extern import Chapel
 
-@Chapel(sfile="users.multiple.chpl")
-def useMultiModules(x=int, y=int):
+@Chapel(sfile="users.onlyonce.chpl")
+def useTwoModules(x=int, y=int):
     return int
 
 if __name__ == "__main__":
-    print(useMultiModules(2, 4))
+    print(useTwoModules(2, 4))
 
 import testcase
 # contains the general testing method, which allows us to gather output
