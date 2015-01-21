@@ -72,13 +72,15 @@ class Compiler(object):
     def __repr__(self):
         return pprint.pformat(vars(self))
 
-    def compile(self, source, language, object_abspath):
+    def compile(self, source, language, object_abspath, chplflags):
         """
         Compiles the given 'source' into a shared library.
         The result will be stored in object_abspath.
 
         :param str source: Sourcecode to compile.
-        :param str language: Language of the sourceode e.g. "c" or "chapel".
+        :param str language: Language of the sourcecode e.g. "c" or "chapel".
+        :param str chplflags: string containing a concatentation of all flags
+         passed along for chapel code to work
         :returns: Accumulation of all output and errors from compiler/linker
          commands as tuple(out, err).
         :rtype: tuple
@@ -100,6 +102,7 @@ class Compiler(object):
                 archive_tmp_name = tmp_fd.name
 
             for cmd in self._options["commands"]: # Execute commands
+                cmd = cmd.replace("__CHPL_FLAGS__", chplflags)
                 cmd = cmd.replace("__SFILE__", sfile_h.name)
                 cmd = cmd.replace("__TMP_PATH__", archive_tmp_name)
                 cmd = cmd.replace("__OBJECT_ABSPATH__", object_abspath)

@@ -120,12 +120,16 @@ class Runtime(object):
 
             if source:                          # Compile the source
                 out = err = ""
+                chplflags = ''
+                if extern.module_dirs:
+                    # Assumes module_dirs field only used by Chapel extern
+                    chplflags = ' '.join(['-M '+elt for elt in extern.module_dirs])
                 try:
                     out, err = self.compilers[slang].compile(
                         source, slang, "%s/%s" % (
                             self.object_store._output_paths[slang],
                             extern.lib
-                        )
+                        ), chplflags
                     )
                 except CompilationError as exc:
                     raise MaterializationError(
