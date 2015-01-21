@@ -145,6 +145,35 @@ refactor code. Regardless of the motivation, the ``ename`` decorator argument
 serves the purpose of mapping functions when the naming convention is not
 applicable.
 
+module dependencies
+--------------------
+
+Say you've decided to write some complicated Chapel as part of your program.
+You know it's bad style to leave it all in a single file, but then how will the
+function you've called from python know where it lives?  What should you do?
+
+Have no fear!  There's a way to specify where that other code lives, and that
+way is the ``module_dirs`` decorator argument.  It takes a list of directories
+and grabs the necessary modules from them, so that the contents of these modules
+can be used during compilation.  All you need to do is specify::
+
+     @Chapel(module_dirs=[DIR_PATHS] ...)
+
+This works for all Chapel function declarations, whether the meat of the
+function lives inline, in a bfile, or in a sfile.
+
+.. note:: Remember, to use other modules in Chapel, one must provide a ``use`` statement::
+
+          use module_name;
+
+     where ``module_name`` is known implicitly from the name of the file or
+     explicitly from a module declaration within the file::
+
+          module module_name {
+             ...
+          }
+
+
 default arguments
 -----------------
 
