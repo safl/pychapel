@@ -149,28 +149,29 @@ module dependencies
 --------------------
 
 Say you've decided to write some complicated Chapel as part of your program.
-It would be inconvenient to make all that code live in a single file (and
-probably make the good programmer inside you cringe!)  Never fear!  There's a
-way to specify the location of other source code needed for that function to
-work, and that way is the ``module_dirs`` decorator argument.  It takes a list
-of directories where the necessary source code lives so that their contents can
-be used during compilation.  All you need to do is specify::
+You know it's bad style to leave it all in a single file, but then how will the
+function you've called from python know where it lives?  What should you do?
+
+Have no fear!  There's a way to specify where that other code lives, and that
+way is the ``module_dirs`` decorator argument.  It takes a list of directories
+and grabs the necessary modules from them, so that the contents of these modules
+can be used during compilation.  All you need to do is specify::
 
      @Chapel(module_dirs=[DIR_PATHS] ...)
 
 This works for all Chapel function declarations, whether the meat of the
 function lives inline, in a bfile, or in a sfile.
 
-Remember, to use other modules in Chapel, one must provide a ``use`` statement::
+.. note:: Remember, to use other modules in Chapel, one must provide a ``use`` statement::
 
-     use module_name;
+          use module_name;
 
-where ``module_name`` is specified implicitly from the name of the file or
-explicitly from a module declaration within the file::
+     where ``module_name`` is known implicitly from the name of the file or
+     explicitly from a module declaration within the file::
 
-     module module_name {
-       ...
-     }
+          module module_name {
+             ...
+          }
 
 
 default arguments
