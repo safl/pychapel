@@ -10,6 +10,67 @@ by the user and what results can be expected.
 Accelerate your NumPy code
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+Finance
+-------
+
+One application domain is the use of machine-learning to determine the value of
+a stock in the future based on previous market-behavior.
+The structure of such a code can often be factored into three stages:
+
+1. Load up asking and bidding prices of a stock over time
+2. Apply quant-analysis
+3. Visualize results
+
+An example of such an application is provided below:
+
+.. literalinclude:: /examples/test_finance_python_numpy.py
+   :language: python
+   :linenos:
+   :lines: 1-92
+
+Where the computationally intensive part is the function
+``quant``. Do note that the specific implementatio of the ``quant`` function
+does not compute anytime meaningful.
+Using ``pych`` this function can be mapped to Chapel by changing:
+
+.. literalinclude:: /examples/test_finance_python_numpy.py
+   :language: python
+   :lines: 58-67
+
+to:
+
+.. literalinclude:: /examples/test_finance_chapel_numpy.py
+   :language: python
+   :lines: 60-72
+
+and adding the include statement:
+
+.. literalinclude:: /examples/test_finance_chapel_numpy.py
+   :language: python
+   :lines: 12-12
+
+These two implementations can be executed by the commands::
+
+  ./test_finance_python_numpy.py --filename=aux/GBPUSD1m.txt
+  ./test_finance_chapel_numpy.py --filename=aux/GBPUSD1m.txt
+
+Numbers
+.......
+
+The implementations were executed three times each and the average reported. The
+machine executing was a laptop with 6GB of memory with an Intel i5-2410M
+CPU @ 2.3Ghz CPU with two physical cores.
+
+This specific example running on a laptop resulted in the following::
+
+  NumPy: wall-clock ~26.7 seconds.
+  NumPy+pyChapel: wall-clock average ~4.2 seconds.
+
+Resulting in a speedup of times ~6.3.
+
+Scientific Computing
+--------------------
+
 A common need for speed when working with Python are scientific codes. NumPy and
 the SciPy stack provide a rich environment for scientific computing, and
 different approaches exist to accelerate such code - with pyChapel, a new means
