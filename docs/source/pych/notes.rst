@@ -1,6 +1,13 @@
 Miscelanous Notes
 =================
 
+Developer Notes
+~~~~~~~~~~~~~~~
+
+A couple of extra packages comes in handy if you want to contribute to pyChapel.
+
+  pip install Sphinx sphinx-rtd-theme
+
 Compiling Chapel modules into libraries
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
